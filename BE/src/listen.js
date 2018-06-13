@@ -1,6 +1,10 @@
 const app = require('./app.js');
-const { PORT } = (process.env.NODE_ENV === 'production') ? process.env : require('../config');
+const { sequelize } = require('../models');
+const { PORT } = require('../config');
 
-app.listen(PORT, () => {
-  console.log(`listening on port: ${PORT}`)
-})
+sequelize.sync()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`listening on port: ${PORT}`)
+    })
+  })

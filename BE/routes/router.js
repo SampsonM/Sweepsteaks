@@ -1,8 +1,8 @@
 const apiRouter = require('express').Router();
 
-apiRouter.get('/', (req, res) => {
+apiRouter.post('/', (req, res) => {
   res.send({
-    message: 'hello routerssss'
+    message: `hello, ${req.body.email} registered`
   })
 })
 
