@@ -7,13 +7,7 @@ const Team = new Schema({
     required: true
   },
   sport: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Sport',
-    required: true
-  },
-  competition: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Competition',
+    type: String,
     required: true
   }
 });

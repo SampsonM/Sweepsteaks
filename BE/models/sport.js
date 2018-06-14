@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const { Competition } = require('./competition');
+const { Teams, Competition } = require('./index');
 
 const Sport = new Schema({
   name: {
@@ -10,6 +10,9 @@ const Sport = new Schema({
   competitions: {
     type: [Competition],
     required: true
+  },
+  teams: {
+    type: [Teams]
   }
 });
 

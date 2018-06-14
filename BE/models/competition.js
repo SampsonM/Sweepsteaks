@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const { Team } = require('./team');
 
 const Competition = new Schema({
   name: {
@@ -9,12 +10,10 @@ const Competition = new Schema({
   },
   sport: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Sport',
-    required: true
+    ref: 'Sport'
   },
   teams: {
     type: [Team],
-    minlength: 2
   }
 });
 

@@ -1,3 +1,2 @@
-module.exports = {
-  PORT: process.env.PORT || 3000,
-}
+const path = process.env.NODE_ENV || 'development';
+module.exports = require(`./${path}.js`);
