@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Football",
+    "competitions": [
+      "World Cup"
+    ]
+  },
+  {
+    "name": "Horse Racing",
+    "competitions": [
+      "Grand National"
+    ]
+  }
+]

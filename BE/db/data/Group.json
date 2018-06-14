@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Daves Mates",
+    "createdBy": "Dave123",
+    "users": [
+      "Dave123",
+      "Alf987",
+      "Sampo18"
+    ],
+    "wager": "5"
+  },
+  {
+    "name": "toms Mates",
+    "createdBy": "tommo123",
+    "users": [
+      "tommo123",
+      "bennie12",
+      "shag69"
+    ],
+    "wager": "10"
+  }
+]
