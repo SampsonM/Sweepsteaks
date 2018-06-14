@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "mocha ./spec",
     "start": "node src/listen.js",
-    "dev": "nodemon src/listen.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "NODE_ENV=development nodemon src/listen.js",
+    "seed:dev": "NODE_ENV=dev node ./db/seed.dev.js"
   },
   "author": "",
   "license": "ISC",
