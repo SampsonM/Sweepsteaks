@@ -23,8 +23,8 @@ const Form = (props) => {
     <form>
       <button>Login</button>
       <button>Create Account</button>
-      {this.state.login && <LoginForm />}
-      {this.state.createAccount && <CreateForm />}
+      {/* {this.state.login && <LoginForm />}
+      {this.state.createAccount && <CreateForm />} */}
     </form>
   )
 }
