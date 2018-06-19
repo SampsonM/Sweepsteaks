@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../styles/welcome.css";
+import CSSTransition from 'react-transition-group/Transition';
 
 class Welcome extends Component {
   state = {
@@ -28,15 +29,16 @@ class Welcome extends Component {
   }
 
   handleFormBtnClick = e => {
-    e.preventDefault();
-    if (e.target.innerHTML === "Login") this.setState({ login: true });
-    if (e.target.innerHTML === "Create Account")
-      this.setState({ createAccount: true });
+    if (e.preventDefault) {e.preventDefault();
+      if (e.target.innerHTML === "Login") this.setState({ login: true });
+      if (e.target.innerHTML === "Create Account")
+        this.setState({ createAccount: true });
 
-    if (e.target.id === "x") this.setState({
-      login: false,
-      createAccount: false
-    });
+      if (e.target.id === "x") this.setState({
+        login: false,
+        createAccount: false
+      });
+    }
   };
 
   closeForm = e => {
@@ -71,20 +73,34 @@ const Form = ({ props, handleFormBtnClick }) => {
 const LoginForm = ({ props, handleFormBtnClick }) => {
   const open = props.login;
   return (
-    <form className={`login-Form ${open && "log-open"}`}>
-      <button onClick={handleFormBtnClick} id="x" >&times;</button>
-      <h2>login form</h2>
-    </form>
+    <CSSTransition
+      in={open}
+      timeout={300}
+      className="login-page"
+      unmountOnExit
+      onExited={handleFormBtnClick}
+    >
+      <div >
+        <button onClick={handleFormBtnClick} id="x" >&times;</button>
+
+        <form id="login-page-form">
+          <input type="text" />
+        </form>
+      </div>
+    </CSSTransition>
   );
 };
 
 const CreateForm = ({ props, handleFormBtnClick }) => {
   const open = props.createAccount;
   return (
-    <form className={`create-Form ${open && "create-open"}`}>
+    <div className={`create-page ${open && "create-open"}`}>
       <button onClick={handleFormBtnClick} id="x" >&times;</button>
-      <h2>create account</h2>
-    </form>
+      
+      <form id="create-page-form">
+        <input type="text" />
+      </form>
+    </div>
   );
 };
 
