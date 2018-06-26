@@ -26,13 +26,16 @@ main {
 }
 
 .main-form-button {
-  width: 100%;
-  margin: 5px;
+  transition: all 500ms ease-in;
   border: 2px solid rgba(205, 147, 155, 0.667);
   border-radius: 2px;
   font-size: 20px;
   font-weight: 300;
+  width: 100%;
+  margin: 5px;
   font-family: 'Yantramanav', sans-serif;
+  z-index: inherit;
+  position: relative;
 }
 
 #login {
@@ -43,65 +46,49 @@ main {
   background-color: #54a3d1;
 }
 
-/* .login-page {
-  transition: all 0.8s ease-out;
-  position: relative;
+.login-hide {
+  transition: all 900ms ease-out;
+  position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
-  width: 0;
-  height: 0;
-  background-color: #0f04;
+  width: 0px;
+  background-color: #0f05;
   opacity: 0;
-} */
-.login-page-enter {
-  transition: all 0.8s ease-out;
+  z-index: 2;
+}
+.login-open {
+  transition: all 900ms ease-out;
   position: absolute;
   top: 0;
   left: 0;
-  width: 1px;
-  height: 1px;
-  background-color: #0f04;
-  opacity: 0.1;
-}
-.login-page-enter-active {
-  transition: all 0.8s ease-out;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 600px;
-  height: 100%;
-  background-color: #0f04;
+  bottom: 0;
+  width: 100%;
+  background-color: #0f05;
   opacity: 1;
+  z-index: 2;
 }
-.log-open {
-  opacity: 1;
-  min-width: 600px;
-  height: 100%;
-}
-
-/* #login-page-form {
-
-} */
-
 
 /*Create account page*/
-.create-page {
-  transition: all 0.8s ease-out;
-  position: relative;
+.create-open {
+  transition: 0.35s ease-out;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #f005;
+  opacity: 1;
+}
+.create-hide {
+  transition: 0.3s ease-out;
+  position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   width: 0;
-  height: 0%;
-  background-color: #f00;
+  background-color: #f005;
   opacity: 0;
-
-}
-.create-open {
-  opacity: 1;
-  min-width: 600px;
-  height: 100%;
 }
 
 #x {

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../styles/welcome.css";
-import CSSTransition from 'react-transition-group/Transition';
 
 class Welcome extends Component {
   state = {
@@ -29,15 +28,17 @@ class Welcome extends Component {
   }
 
   handleFormBtnClick = e => {
-    if (e.preventDefault) {e.preventDefault();
+    if (e.preventDefault) {
+      e.preventDefault();
       if (e.target.innerHTML === "Login") this.setState({ login: true });
       if (e.target.innerHTML === "Create Account")
         this.setState({ createAccount: true });
 
-      if (e.target.id === "x") this.setState({
-        login: false,
-        createAccount: false
-      });
+      if (e.target.id === "x")
+        this.setState({
+          login: false,
+          createAccount: false
+        });
     }
   };
 
@@ -47,24 +48,25 @@ class Welcome extends Component {
 }
 
 const Form = ({ props, handleFormBtnClick }) => {
-  function isFormOpen() {
-    if (props.login || props.createAccount) return false;
-    else return true;
-  }
+  const open = props.login || props.createAccount;
 
   return (
     <div id="main-form">
-      <LoginForm props={props} handleFormBtnClick={handleFormBtnClick}/>
-      {isFormOpen() && (
-        <button className="main-form-button" id="login" onClick={handleFormBtnClick}>
-          Login
-        </button>
-      )}
-      {isFormOpen() && (
-        <button className="main-form-button" id="createAcc" onClick={handleFormBtnClick}>
-          Create Account
-        </button>
-      )}
+      <LoginForm props={props} handleFormBtnClick={handleFormBtnClick} />
+      <button
+        className="main-form-button"
+        id="login"
+        onClick={handleFormBtnClick}
+      >
+        Login
+      </button>
+      <button
+        className="main-form-button"
+        id="createAcc"
+        onClick={handleFormBtnClick}
+      >
+        Create Account
+      </button>
       <CreateForm props={props} handleFormBtnClick={handleFormBtnClick} />
     </div>
   );
@@ -73,30 +75,25 @@ const Form = ({ props, handleFormBtnClick }) => {
 const LoginForm = ({ props, handleFormBtnClick }) => {
   const open = props.login;
   return (
-    <CSSTransition
-      in={open}
-      timeout={300}
-      className="login-page"
-      unmountOnExit
-      onExited={handleFormBtnClick}
-    >
-      <div >
-        <button onClick={handleFormBtnClick} id="x" >&times;</button>
-
-        <form id="login-page-form">
-          <input type="text" />
-        </form>
-      </div>
-    </CSSTransition>
+    <div className={open ? "login-open" : "login-hide"}>
+      <button onClick={handleFormBtnClick} id="x">
+        &times;
+      </button>
+      <form>
+        <input type="text" />
+      </form>
+    </div>
   );
 };
 
 const CreateForm = ({ props, handleFormBtnClick }) => {
   const open = props.createAccount;
   return (
-    <div className={`create-page ${open && "create-open"}`}>
-      <button onClick={handleFormBtnClick} id="x" >&times;</button>
-      
+    <div className={open ? "create-open" : "create-hide"}>
+      <button onClick={handleFormBtnClick} id="x">
+        &times;
+      </button>
+
       <form id="create-page-form">
         <input type="text" />
       </form>
