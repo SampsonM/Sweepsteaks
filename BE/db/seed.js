@@ -5,13 +5,11 @@ const {
   Users,
   Groups,
   Teams,
-  Competitions,
-  Sports
+  Competitions
 } = require('../models');
 const {
-  CompetitionData,
+  competitionData,
   groupData,
-  sportData,
   teamData,
   userData
 } = require(`./${path}-data`);
@@ -20,16 +18,16 @@ function seedDB () {
   return mongoose.connection.dropDatabase()
     .then(() => {
       console.log('Dropped database!');
-      return Sports.insertMany(sportData)
+      return Team.insertMany(teamData)
     })
-    .then(sportDocs => {
-      console.log(sportDocs)
+    .then(teamDocs => {
+      console.log(teamDocs)
       return Promise.all([
         Competitions.insertMany(CompetitionData),
-        sportDocs
+        teamDocs
       ])
     })
-    .then (([compDocs, sportDocs]) => {
+    .then (([compDocs, teamDocs]) => {
       console.log('*********************')
       console.log(compDocs)
     })

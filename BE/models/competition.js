@@ -9,11 +9,11 @@ const Competition = new Schema({
     required: true
   },
   sport: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Sport'
+    type: String,
+    required: true
   },
   teams: {
-    type: [Team],
+    type: [Team]
   }
 });
 
