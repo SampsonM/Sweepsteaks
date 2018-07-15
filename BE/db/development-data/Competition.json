@@ -1,24 +1,10 @@
 [
   {
   "name": "World Cup",
-  "sport": "Football",
-  "teams": [
-    "Andorra",
-    "Brazil",
-    "Chile",
-    "England",
-    "France"
-  ]
+  "sport": "Football"
   },
   {
     "name": "Grand National",
-    "sport": "Horse Racing",
-    "teams": [
-      "Azets",
-      "Drummer Boy",
-      "Mr Spirit",
-      "Star Terms",
-      "Wise Counsel"
-    ]
+    "sport": "Horse Racing"
   }
 ]

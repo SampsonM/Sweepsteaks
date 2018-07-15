@@ -9,6 +9,10 @@ const Team = new Schema({
   sport: {
     type: String,
     required: true
+  },
+  competition: {
+    type: String,
+    required: true
   }
 });
 
