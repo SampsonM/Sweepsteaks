@@ -27,7 +27,17 @@ const User = new Schema({
   },
   avatarUrl: {
     type: String
-  }
+  },
+  sweepsWon: [{
+    competition: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Competition'
+    },
+    group: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Groups'
+    }
+  }]
 })
 
 module.exports = mongoose.model('User', User)
