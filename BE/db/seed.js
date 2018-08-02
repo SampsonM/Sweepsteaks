@@ -54,7 +54,6 @@ function seedDB() {
   return mongoose.connection
     .dropDatabase()
     .then(() => {
-      console.log("Dropped database!");
       return Teams.insertMany(teamData);
     })
     .then(teamDocs => {
@@ -65,11 +64,10 @@ function seedDB() {
       ]);
     })
     .then(([compDocs, userDocs, teamDocs]) => {
-      console.log(compDocs)
       let userIds = generateIds(userData, userDocs);
       return Promise.all([compDocs, userData, teamDocs, seedGroups(userIds)]);
     })
-   .catch(console.log)
+   .catch(err => console.log(`${{err}} oh no! 🧟`))
 }
 
 module.exports = seedDB;

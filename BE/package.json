@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./spec",
+    "test": "mocha --recursive ./spec",
     "start": "node src/listen.js",
     "dev": "NODE_ENV=development nodemon src/listen.js",
     "seed:dev": "NODE_ENV=development node ./db/seed.dev.js"
@@ -16,5 +16,11 @@
     "express": "^4.16.3",
     "mongoose": "^5.1.5",
     "nodemon": "^1.17.5"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "faker": "^4.1.0",
+    "mocha": "^5.2.0",
+    "supertest": "^3.1.0"
   }
 }

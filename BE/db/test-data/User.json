@@ -1,0 +1,44 @@
+[
+  {
+    "firstName": "Dave",
+    "lastName": "davidson",
+    "username": "Dave123",
+    "email": "dave@123.com",
+    "password": "Dave123"
+  },
+  {
+    "firstName": "Alf",
+    "lastName": "davidson",
+    "username": "Alf987",
+    "email": "Alf987@123.com",
+    "password": "Alf987"
+  },
+  {
+    "firstName": "mark",
+    "lastName": "sampson",
+    "username": "Sampo18",
+    "email": "Sampo18@123.com",
+    "password": "Sampo18"
+  },
+  {
+    "firstName": "tom",
+    "lastName": "davidson",
+    "username": "tommo123",
+    "email": "tommo@123.com",
+    "password": "tommo123"
+  },
+  {
+    "firstName": "bennie",
+    "lastName": "davidson",
+    "username": "bennie12",
+    "email": "bennie@123.com",
+    "password": "bennie12"
+  },
+  {
+    "firstName": "shag",
+    "lastName": "davidson",
+    "username": "shag69",
+    "email": "shag@123.com",
+    "password": "shag69"
+  }
+]
