@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Competition = new Schema({
+const CompetitionSchema = new Schema({
   name: {
     type: String,
     unique: true,
@@ -13,9 +13,9 @@ const Competition = new Schema({
   },
   teams: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Team',
+    ref: 'teams',
     required: true
   }]
 });
 
-module.exports = mongoose.model('Competition', Competition);
+module.exports = mongoose.model('competitions', CompetitionSchema);

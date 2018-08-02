@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const User = new Schema({
+const UserSchema = new Schema({
   firstName: {
     type: String,
     required: true
@@ -31,13 +31,13 @@ const User = new Schema({
   sweepsWon: [{
     competition: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Competition'
+      ref: 'competitions'
     },
     group: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Groups'
+      ref: 'groups'
     }
   }]
 })
 
-module.exports = mongoose.model('User', User)
+module.exports = mongoose.model('users', UserSchema)

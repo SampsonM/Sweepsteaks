@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const {User} = require('./index');
 
-const Group = new Schema({
+const GroupSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -10,13 +10,13 @@ const Group = new Schema({
   },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'users',
     required: true
   },
   users: {
     type: [{
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: 'users',
       required: true
     }]
   },
@@ -27,4 +27,4 @@ const Group = new Schema({
   }
 })
 
-module.exports = mongoose.model('Group', Group)
+module.exports = mongoose.model('groups', GroupSchema)
