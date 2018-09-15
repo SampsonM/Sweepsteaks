@@ -10,7 +10,7 @@ const {
 } = require(`./${path}-data`);
 
 function seedGroups(userIds) {
-  let newGroups = groupData.map((group, ind, arr) => {
+  let newGroups = groupData.map(group => {
     let { name, creator, wager } = group;
 
     const createdBy = userIds[creator];
@@ -29,7 +29,7 @@ function seedGroups(userIds) {
 }
 
 function seedCompetitions(teamDocs) {
-  let newCompData = competitionData.map((comp, ind, arr) => {
+  let newCompData = competitionData.map(comp => {
     let { name, sport } = comp;
 
     let teams = teamDocs.reduce((acc, team) => {
