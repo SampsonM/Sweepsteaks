@@ -29,13 +29,7 @@ function addNewCompetition(req, res, next) {
 
   return Competitions.find()
     .then(() => {
-      return competitionData.teams.map(team => {
-        return new Teams({
-           "name": team,
-           "competition": competitionData.name,
-           "sport": competitionData.sport
-         })
-      })
+      return createTeamsArray(competitionData);
     })
     .then(newTeams => {
       return new Competitions({
@@ -59,18 +53,18 @@ function updateCompetition(req, res, next) {
 
   return Competitions.find()
     .then(() => {
-      console.log(competitionData)
       return createTeamsArray(competitionData)
     })
     .then(teams => {
       competitionData.teams = teams;
     })
     .then(() => {
-      return Competitions.findOneAndUpdate({_id: compId}, competitionData).populate('teams', 'name')
+      return Competitions.findOneAndUpdate({_id: compId}, competitionData).populate('teams', 'name');
     })
     .then(competition => {
-      console.log(competition)
+      res.status(200).send(competition)
     })
+    .catch(next)
 
 }
 
@@ -82,10 +76,10 @@ function updateCompetition(req, res, next) {
 function createTeamsArray(competitionData) {
   return competitionData.teams.map(team => {
     return new Teams({
-       "name": team,
-       "competition": competitionData.name,
-       "sport": competitionData.sport
-     })
+      "name": team,
+      "competition": competitionData.name,
+      "sport": competitionData.sport
+    })
   })
 }
 

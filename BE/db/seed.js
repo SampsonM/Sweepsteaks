@@ -1,6 +1,8 @@
 let path = process.env.NODE_ENV;
 const mongoose = require("mongoose");
 mongoose.Promise = Promise;
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndexes', true);
 const { Users, Groups, Teams, Competitions } = require("../models");
 const {
   competitionData,

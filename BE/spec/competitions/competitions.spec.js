@@ -75,14 +75,14 @@ describe('/competitions', () => {
       .send(competitionUpdate)
       .expect(200)
       .then(updatedCompetition => {
-        expect(updatedCompetition._id).to.equal(compDocs[0]._id);
-        expect(updatedCompetition.teams).to.not.eql(compDocs[0]._id);
+        expect(updatedCompetition.body._id).to.equal(compDocs[0]._id.toString());
+        expect(updatedCompetition.body.teams).to.not.eql(compDocs[0].teams);
 
         return request
-          .get(`/api/competitions/${updatedCompetition._id}`)
+          .get(`/api/competitions/${updatedCompetition.body._id}`)
           .expect(200)
-          .then(comp => {
-            expect(comp.id).to.equal(compDocs[0]._id)
+          .then(competition => {
+            expect(competition.body._id).to.equal(compDocs[0]._id.toString())
           })
 
       })

@@ -7,7 +7,6 @@ const {
 } = require('../controllers/competitions.js');
 
 competitionRouter.post('/:competition_id', updateCompetition)
-
 competitionRouter.post('/', addNewCompetition)
 
 competitionRouter.get('/', getCompetitions);
