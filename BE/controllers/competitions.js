@@ -45,7 +45,7 @@ function addNewCompetition(req, res, next) {
       res.status(201).send(returnedCompetition)
     })
     .catch(next)
-}
+};
 
 function updateCompetition(req, res, next) {
   const compId = req.params.competition_id;
@@ -66,9 +66,18 @@ function updateCompetition(req, res, next) {
     })
     .catch(next)
 
-}
+};
 
+function deleteCompetition(req, res, next) {
+  const competitionId = req.params.competition_id;
 
+  return Competitions.findByIdAndRemove(competitionId)
+    .then(comp => {
+      res.status(202).send(comp)
+    })
+    .catch(next)
+
+};
 
 
 // utils 
@@ -87,5 +96,6 @@ module.exports = {
   getCompetitions,
   getCompetitionById,
   addNewCompetition,
-  updateCompetition
+  updateCompetition,
+  deleteCompetition
 };

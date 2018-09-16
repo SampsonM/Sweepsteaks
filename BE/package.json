@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive ./spec",
+    "test": "NODE_ENV=test mocha --recursive ./spec",
     "start": "node src/listen.js",
     "dev": "NODE_ENV=development nodemon src/listen.js",
     "seed:dev": "NODE_ENV=development node ./db/seed.dev.js"

@@ -5,7 +5,7 @@ const apiRouter = require('../routes/api.js');
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
 
-const { DB_URL } = (process.env.NODE_ENV === 'production') ? process.env : require('../config')
+const { DB_URL } = (process.env.NODE_ENV === 'production') ? process.env : require('../config');
 
 app.use(bodyparser.json());
 app.use(cors());

@@ -1,10 +1,9 @@
-process.env.NODE_ENV = 'test';
-const app = require('../../src/app');
+const app = require('../src/app');
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
 const request = require('supertest')(app);
 const { expect } = require('chai');
-const seedDB = require('../../db/seed');
+const seedDB = require('../db/seed');
 const faker = require('faker');
 
 describe('/competitions', () => {
@@ -29,8 +28,8 @@ describe('/competitions', () => {
     return request
       .get('/api/competitions')
       .expect(200)
-      .then(res => {
-        expect(res.body.length).to.equal(2);
+      .then(competitions => {
+        expect(competitions.body.length).to.equal(2);
       })
   });
 
@@ -61,7 +60,7 @@ describe('/competitions', () => {
           .get(`/api/competitions/${competition.body._id}`)
           .expect(200)
       })
-  })
+  });
 
   it('POST /:competition_id UPDATES competition data', () => {
     const competitionUpdate = {
@@ -86,5 +85,21 @@ describe('/competitions', () => {
           })
 
       })
-  })
+  });
+
+  it('DELETE /:competition_id DELETES competition data', () => {
+    return request
+      .del(`/api/competitions/${compDocs[0]._id}`)
+      .expect(202)
+      .then(() => {
+        
+        return request
+          .get('/api/competitions')
+          .expect(200)
+          .then(competitions => {
+            expect(competitions.body.length).to.equal(compDocs.length - 1);
+          })
+      })
+  });
+
 })
