@@ -3,6 +3,10 @@ const {Competitions} = require('../models');
 const {Teams} = require('../models');
 
 function getCompetitions(req, res, next) {
+  if (req.query.competition_name) {
+    return getCompetitionByName(req, res, next);
+  };
+
   return Competitions.find()
     .lean()
     .populate('teams', 'name')
@@ -22,6 +26,9 @@ function getCompetitionById(req, res, next) {
       res.status(200).send(Competition)
     })
     .catch(next)
+};
+
+function getCompetitionByName(req, res, next) {
 };
 
 function addNewCompetition(req, res, next) {

@@ -1,18 +1,12 @@
 const competitionRouter = require('express').Router();
-const {
-  getCompetitions,
-  getCompetitionById,
-  addNewCompetition,
-  updateCompetition,
-  deleteCompetition
-} = require('../controllers/competitions.js');
+import * as competitionController  from '../controllers/competitions.js';
 
-competitionRouter.delete('/:competition_id', deleteCompetition);
+competitionRouter.delete('/:competition_id', competitionController.deleteCompetition);
 
-competitionRouter.post('/:competition_id', updateCompetition);
-competitionRouter.post('/', addNewCompetition);
+competitionRouter.post('/:competition_id', competitionController.updateCompetition);
+competitionRouter.post('/', competitionController.addNewCompetition);
 
-competitionRouter.get('/', getCompetitions);
-competitionRouter.get('/:competition_id', getCompetitionById);
+competitionRouter.get('/', competitionController.getCompetitions);
+competitionRouter.get('/:competition_id', competitionController.getCompetitionById);
 
 module.exports = competitionRouter;
