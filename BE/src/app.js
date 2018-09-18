@@ -4,6 +4,8 @@ const cors = require('cors');
 const apiRouter = require('../routes/api.js');
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 
 const { DB_URL } = (process.env.NODE_ENV === 'production') ? process.env : require('../config');
 
@@ -17,7 +19,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-mongoose.connect(DB_URL, () => {
+mongoose.connect(DB_URL,  {useNewUrlParser: true}, () => {
   console.log('connected at app.js to mongo')
 });
 

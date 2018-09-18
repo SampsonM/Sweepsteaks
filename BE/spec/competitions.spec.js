@@ -4,7 +4,6 @@ mongoose.Promise = Promise;
 const request = require('supertest')(app);
 const { expect } = require('chai');
 const seedDB = require('../db/seed');
-const faker = require('faker');
 
 describe('/competitions', () => {
   let compDocs;
@@ -40,6 +39,16 @@ describe('/competitions', () => {
       .then(competition => {
         expect(competition.body.name).to.equal('World Cup');
         expect(competition.body.teams.length).to.equal(compDocs[0].teams.length);
+      })
+  });
+
+  it('GET ?competition_name return competition by name', () => {
+    return request
+      .get('/api/competitions?competition_name=WorldCup')
+      .expect(200)
+      .then(competition => {
+        console.log(competition.body)
+        expect(competition.body).to.eql(compDocs[0])
       })
   });
 

@@ -29,6 +29,9 @@ function getCompetitionById(req, res, next) {
 };
 
 function getCompetitionByName(req, res, next) {
+  const competitionName = req.query.competition_name;
+
+
 };
 
 function addNewCompetition(req, res, next) {
