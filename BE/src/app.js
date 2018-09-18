@@ -1,8 +1,9 @@
 const app = require('express')();
-const bodyparser = require('body-parser');
-const cors = require('cors');
-const apiRouter = require('../routes/api.js');
-const mongoose = require('mongoose');
+import bodyparser from 'body-parser';
+import cors from 'cors';
+import apiRouter from '../routes/api.js';
+import mongoose from 'mongoose';
+
 mongoose.Promise = Promise;
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);

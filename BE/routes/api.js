@@ -1,9 +1,9 @@
 const apiRouter = require('express').Router();
-let { competitionRouter, groupRouter, teamsRouter, usersRouter } = require('./index.js');
+import * as route from './index.js';
 
-apiRouter.use('/competitions', competitionRouter);
-apiRouter.use('/groups', groupRouter);
-apiRouter.use('/teams', teamsRouter);
-apiRouter.use('/users', usersRouter);
+apiRouter.use('/competitions', route.competitionRouter);
+apiRouter.use('/groups', route.groupRouter);
+apiRouter.use('/teams', route.teamsRouter);
+apiRouter.use('/users', route.usersRouter);
 
 module.exports = apiRouter;
