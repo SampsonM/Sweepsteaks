@@ -35,7 +35,7 @@ app.use((err, req, res, next) => {
 })
 
 app.use((err, req, res, next) => {
-  console.log(err.status)
+  console.log('Error', err.status)
   return res.status(500).send(err)
 })
 

@@ -3,10 +3,6 @@ const {Competitions} = require('../models');
 const {Teams} = require('../models');
 
 function getCompetitions(req, res, next) {
-  if (req.query.competition_name) {
-    return getCompetitionByName(req, res, next);
-  };
-
   return Competitions.find()
     .lean()
     .populate('teams', 'name')
@@ -31,6 +27,13 @@ function getCompetitionById(req, res, next) {
 function getCompetitionByName(req, res, next) {
   const competitionName = req.query.competition_name;
 
+  return Competitions.findOne({name: competitionName})
+    .lean()
+    .populate('teams', 'name')
+    .then(competition => {
+      res.status(200).send(competition)
+    })
+    .catch(next)
 
 };
 
@@ -82,6 +85,7 @@ function deleteCompetition(req, res, next) {
   const competitionId = req.params.competition_id;
 
   return Competitions.findByIdAndRemove(competitionId)
+    .lean()
     .then(comp => {
       res.status(202).send(comp)
     })
@@ -107,5 +111,6 @@ module.exports = {
   getCompetitionById,
   addNewCompetition,
   updateCompetition,
-  deleteCompetition
+  deleteCompetition,
+  getCompetitionByName
 };
