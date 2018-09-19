@@ -1,15 +1,19 @@
-const app = require('../src/app');
-const mongoose = require('mongoose');
+import app from '../src/app';
+import mongoose from 'mongoose';
 mongoose.Promise = Promise;
+import { expect } from 'chai';
+import seedDB from '../db/seed';
+import { DB_URL } from '../config';
 const request = require('supertest')(app);
-const { expect } = require('chai');
-const seedDB = require('../db/seed');
 
 describe('/competitions', () => {
   let compDocs;
 
   beforeEach(() => {
-    return seedDB()
+    return mongoose.connect(DB_URL, {useNewUrlParser: true})
+      .then(() => {
+        return seedDB();
+      })
       .then(data => {
         [compDocs] = data;
       })
@@ -17,11 +21,9 @@ describe('/competitions', () => {
   });
 
   after(() => {
-    return mongoose.connection.close()
+    return mongoose.disconnect()
       .then(() => console.log('disconnected... 🧟'))
   });
-
-  it('connects and disconnects', () => {});
 
   it('GET / RETURNS all competitions', () => {
     return request

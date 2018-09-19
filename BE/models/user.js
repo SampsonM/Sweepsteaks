@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
@@ -38,6 +38,6 @@ const UserSchema = new Schema({
       ref: 'groups'
     }
   }]
-})
+});
 
-module.exports = mongoose.model('users', UserSchema)
+module.exports = mongoose.model('users', UserSchema);

@@ -1,6 +1,5 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
-const {User} = require('./index');
 
 const GroupSchema = new Schema({
   name: {
@@ -25,6 +24,6 @@ const GroupSchema = new Schema({
     required: true,
     min: 1
   }
-})
+});
 
-module.exports = mongoose.model('groups', GroupSchema)
+module.exports = mongoose.model('groups', GroupSchema);

@@ -1,6 +1,5 @@
-const app = require('../src/app.js');
-const {Competitions} = require('../models');
-const {Teams} = require('../models');
+import {Competitions} from '../models';
+import {Teams} from '../models';
 
 function getCompetitions(req, res, next) {
   return Competitions.find()
