@@ -51,8 +51,7 @@ function generateIds(data, docs) {
 }
 
 function seedDB() {
-  return mongoose.connection
-    .dropDatabase()
+  return mongoose.connection.dropDatabase()
     .then(() => {
       return Teams.insertMany(teamData);
     })
@@ -65,7 +64,10 @@ function seedDB() {
     })
     .then(([compDocs, userDocs, teamDocs]) => {
       let userIds = generateIds(userData, userDocs);
-      return Promise.all([compDocs, userData, teamDocs, seedGroups(userIds)]);
+      return Promise.all([compDocs, userDocs, teamDocs, seedGroups(userIds)]);
+    })
+    .then(([compDocs, userDocs, teamDocs, groupDocs]) => {
+      return [compDocs, userDocs, teamDocs, groupDocs];
     })
    .catch(err => console.log(`${{err}} oh no! 🧟`))
 }
