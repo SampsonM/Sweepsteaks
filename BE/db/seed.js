@@ -67,7 +67,12 @@ function seedDB() {
       return Promise.all([compDocs, userDocs, teamDocs, seedGroups(userIds)]);
     })
     .then(([compDocs, userDocs, teamDocs, groupDocs]) => {
-      return [compDocs, userDocs, teamDocs, groupDocs];
+      return {
+        compDocs,
+        userDocs,
+        teamDocs,
+        groupDocs
+      };
     })
    .catch(err => console.log(`${{err}} oh no! 🧟`))
 }

@@ -15,7 +15,7 @@ describe('/groups', () => {
         return seedDB();
       })
       .then(data => {
-        [groupDocs] = data;
+        groupDocs = data.groupDocs;
       })
       .catch(console.log);
   });
@@ -33,4 +33,13 @@ describe('/groups', () => {
         expect(groups.body.length).to.equal(groupDocs.length);
       })
   });
+
+  it('GET /name?group_name RETURNS group by name', () => {
+    return request
+      .get(`/api/groups/name?group_name=${groupDocs[0].name}`)
+      .expect(200)
+      .then(group => {
+        expect(group.body.name).to.equal(groupDocs[0].name);
+      })
+  })
 });

@@ -15,7 +15,7 @@ describe('/competitions', () => {
         return seedDB();
       })
       .then(data => {
-        [compDocs] = data;
+        compDocs = data.compDocs;
       })
       .catch(console.log)
   });
