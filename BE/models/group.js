@@ -16,7 +16,8 @@ const GroupSchema = new Schema({
     type: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'users',
-      required: true
+      required: false,
+      default: ''
     }]
   },
   wager: {

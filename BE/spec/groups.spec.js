@@ -8,6 +8,7 @@ const request = require('supertest')(app);
 
 describe('/groups', () => {
   let groupDocs;
+  let user;
 
   beforeEach(() => {
     return mongoose.connect(DB_URL, {useNewUrlParser: true})
@@ -16,6 +17,7 @@ describe('/groups', () => {
       })
       .then(data => {
         groupDocs = data.groupDocs;
+        user = data.userDocs[0];
       })
       .catch(console.log);
   });
@@ -40,6 +42,27 @@ describe('/groups', () => {
       .expect(200)
       .then(group => {
         expect(group.body.name).to.equal(groupDocs[0].name);
+      })
+  });
+
+  it('POST / ADDS a group', () => {
+    const newGroup = {
+      name: 'ME JULIES NEW GROUP',
+      createdBy: user._id,
+      wager: 5
+    };
+
+    return request
+      .post('/api/groups')
+      .send(newGroup)
+      .expect(201)
+      .then(group => {
+        return Promise.all([group, request.get('/api/groups')]);
+      })
+      .then(([group, groups]) => {
+        console.log(groups.body.includes(group.body))
+        console.log(group.body)
+        expect(groups.body.includes(group.body)).to.be(true);
       })
   })
 });

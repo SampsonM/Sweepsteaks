@@ -20,9 +20,31 @@ function getGroupByName(req, res, next) {
     .then(group => {
       res.status(200).send(group)
     })
+    .catch(next)
 }
+
+function addGroup(req, res, next) {
+  const groupData = req.body;
+
+  return Groups.find()
+    .then(() => {
+      return new Groups({
+        "name": groupData.name,
+        "createdBy": groupData.createdBy,
+        "wager": groupData.wager
+      })
+    })
+    .then(newGroup => {
+      return newGroup.save()
+    })
+    .then(returnedGroup => {
+      res.status(201).send(returnedGroup)
+    })
+    .catch(next)
+};
 
 module.exports = {
   getGroups,
-  getGroupByName
+  getGroupByName,
+  addGroup
 };
