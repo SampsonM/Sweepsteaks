@@ -77,7 +77,7 @@ describe('/competitions', () => {
       "name": "World Cup 2018",
       "teams": ["England", "France", "Germany", "Argentina"],
       "sport": "football"
-    }
+    };
 
     return request
       .post(`/api/competitions/${compDocs[0]._id}`)

@@ -57,12 +57,25 @@ describe('/groups', () => {
       .send(newGroup)
       .expect(201)
       .then(group => {
-        return Promise.all([group, request.get('/api/groups')]);
+        expect(group.body).to.have.all.keys('__v', '_id','createdBy', 'users', 'wager', 'name');
+        
+        return request
+          .get(`/api/groups/name?group_name=${group.body.name}`)
+          .expect(200)
       })
-      .then(([group, groups]) => {
-        console.log(groups.body.includes(group.body))
-        console.log(group.body)
-        expect(groups.body.includes(group.body)).to.be(true);
+  })
+
+  it('POST /name?group_name EDITS group by name', () => {
+    const updatedGroupData = {
+
+    };
+
+    return request
+      .get(`/api/groups?group_name=${groupDocs[0].name}`)
+      .send(groupDocs)
+      .expect(202)
+      .then(group => {
+
       })
   })
 });
