@@ -43,8 +43,23 @@ function addGroup(req, res, next) {
     .catch(next)
 };
 
+// ADD SECURITY TO SOMEHOW ONLY ALLOW GROUP OWNER TO EDIT
+function editGroupData(req, res, next) {
+  const groupData = req.body;
+  const groupName = req.params.group_name;
+
+  return Groups.findOneAndUpdate({name: groupName}, {$set: groupData}, {new:true})
+    .populate('users', 'username')
+    .populate('createdBy', 'username')
+    .then(group => {
+      res.status(200).send(group)
+    })
+    .catch(next)
+}
+
 module.exports = {
   getGroups,
   getGroupByName,
-  addGroup
+  addGroup,
+  editGroupData
 };

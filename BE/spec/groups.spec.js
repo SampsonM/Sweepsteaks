@@ -65,17 +65,17 @@ describe('/groups', () => {
       })
   })
 
-  it('POST /name?group_name EDITS group by name', () => {
+  it('POST /name/group_name EDITS group by name', () => {
     const updatedGroupData = {
-
+      name: "daves pals"
     };
 
     return request
-      .get(`/api/groups?group_name=${groupDocs[0].name}`)
-      .send(groupDocs)
-      .expect(202)
+      .post(`/api/groups/name/${groupDocs[0].name}`)
+      .send(updatedGroupData)
+      .expect(200)
       .then(group => {
-
+        expect(group.body.name).to.equal(updatedGroupData.name)
       })
   })
 });
