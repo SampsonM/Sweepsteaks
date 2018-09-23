@@ -1,3 +1,4 @@
+'use strict';
 import app from '../src/app';
 import mongoose from 'mongoose';
 mongoose.Promise = Promise;

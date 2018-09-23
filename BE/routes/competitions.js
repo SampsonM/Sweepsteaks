@@ -1,3 +1,4 @@
+'use strict';
 const competitionRouter = require('express').Router();
 import * as compCtlr  from '../controllers/competitions.js';
 

@@ -1,7 +1,8 @@
-const mongoose = require('mongoose');
+'use strict';
+import mongoose from 'mongoose';
 mongoose.Promise = Promise;
-const { DB_URL } = require('../config');
-const seedDB = require('./seed.js');
+import { DB_URL } from '../config';
+import seedDB from './seed.js';
 
 mongoose.connect(DB_URL, {useNewUrlParser: true})
   .then(() => console.log(`Connected to database ${DB_URL}`))

@@ -1,3 +1,4 @@
+'use strict';
 const groupsRouter = require('express').Router();
 import * as groupCtrl from '../controllers/groups';
 

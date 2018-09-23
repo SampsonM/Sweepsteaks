@@ -1,8 +1,10 @@
+'use strict';
 const app = require('express')();
 import bodyparser from 'body-parser';
 import cors from 'cors';
 import apiRouter from '../routes/api.js';
 import mongoose from 'mongoose';
+import helmet from 'helmet';
 
 mongoose.Promise = Promise;
 mongoose.set('useFindAndModify', false);
@@ -12,6 +14,7 @@ const { DB_URL } = (process.env.NODE_ENV === 'production') ? process.env : requi
 
 app.use(bodyparser.json());
 app.use(cors());
+app.use(helmet());
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -28,16 +31,16 @@ app.use('/api', apiRouter);
 
 app.use('/*', (req, res, next) => {
   next({ status: 404 });
-})
+});
 
 app.use((err, req, res, next) => {
   if (err.status === 404) return res.status(404).send({'errooorrrrr': err});
   next(err)
-})
+});
 
 app.use((err, req, res, next) => {
   console.log('Error', err.status)
   return res.status(500).send(err)
-})
+});
 
 module.exports = app;

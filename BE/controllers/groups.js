@@ -1,3 +1,4 @@
+'use strict';
 import {Groups} from '../models/index';
 
 function getGroups(req, res, next) {

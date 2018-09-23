@@ -1,3 +1,4 @@
+'use strict';
 const apiRouter = require('express').Router();
 import * as route from './index.js';
 

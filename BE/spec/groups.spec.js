@@ -1,3 +1,4 @@
+'use strict';
 import app from '../src/app';
 import mongoose from 'mongoose';
 mongoose.Promise = Promise;
@@ -75,7 +76,7 @@ describe('/groups', () => {
       .send(updatedGroupData)
       .expect(200)
       .then(group => {
-        expect(group.body.name).to.equal(updatedGroupData.name)
+        expect(group.body.name).to.equal(updatedGroupData.name);
       })
   })
 });
