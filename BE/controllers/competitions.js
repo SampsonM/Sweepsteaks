@@ -38,17 +38,17 @@ function getCompetitionByName(req, res, next) {
 };
 
 function addNewCompetition(req, res, next) {
-  const competitionData = req.body;
+  const {newCompetition} = req.body;
 
   return Competitions.find()
     .then(() => {
-      return createTeamsArray(competitionData);
+      return createTeamsArray(newCompetition);
     })
     .then(newTeams => {
       return new Competitions({
-        "name": competitionData.name,
+        "name": newCompetition.name,
         "teams": newTeams,
-        "sport": competitionData.sport
+        "sport": newCompetition.sport
       })
     })
     .then(newCompetition => {
@@ -62,17 +62,17 @@ function addNewCompetition(req, res, next) {
 
 function updateCompetition(req, res, next) {
   const compId = req.params.competition_id;
-  let competitionData = req.body;
+  let {competitionUpdate} = req.body;
 
   return Competitions.find()
     .then(() => {
-      return createTeamsArray(competitionData)
+      return createTeamsArray(competitionUpdate)
     })
     .then(teams => {
-      competitionData.teams = teams;
+      competitionUpdate.teams = teams;
     })
     .then(() => {
-      return Competitions.findOneAndUpdate({_id: compId}, competitionData).populate('teams', 'name');
+      return Competitions.findOneAndUpdate({_id: compId}, competitionUpdate).populate('teams', 'name');
     })
     .then(competition => {
       res.status(200).send(competition)
@@ -81,6 +81,7 @@ function updateCompetition(req, res, next) {
 
 };
 
+// maybe need to add headers/ authoentication to prevent anybody deleting data
 function deleteCompetition(req, res, next) {
   const competitionId = req.params.competition_id;
 

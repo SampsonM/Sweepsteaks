@@ -47,15 +47,17 @@ describe('/groups', () => {
   });
 
   it('POST / ADDS a group', () => {
-    const newGroup = {
-      name: 'ME JULIES NEW GROUP',
-      createdBy: user._id,
-      wager: 5
+    const data = {
+      newGroup: {
+        name: 'ME JULIES NEW GROUP',
+        createdBy: user._id,
+        wager: 5
+      }
     };
 
     return request
       .post('/api/groups')
-      .send(newGroup)
+      .send(data)
       .expect(201)
       .then(group => {
         expect(group.body).to.have.all.keys('__v', '_id','createdBy', 'users', 'wager', 'name');
@@ -67,16 +69,18 @@ describe('/groups', () => {
   })
 
   it('POST /name/group_name EDITS group by name', () => {
-    const updatedGroupData = {
-      name: "daves pals"
+    const data = {
+      updatedGroupData: {
+        name: "daves pals"
+      }
     };
 
     return request
       .post(`/api/groups/name/${groupDocs[0].name}`)
-      .send(updatedGroupData)
+      .send(data)
       .expect(200)
       .then(group => {
-        expect(group.body.name).to.equal(updatedGroupData.name);
+        expect(group.body.name).to.equal(data.updatedGroupData.name);
       })
   })
 });

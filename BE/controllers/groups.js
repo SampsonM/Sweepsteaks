@@ -25,14 +25,14 @@ function getGroupByName(req, res, next) {
 }
 
 function addGroup(req, res, next) {
-  const groupData = req.body;
+  const {newGroup} = req.body;
 
   return Groups.find()
     .then(() => {
       return new Groups({
-        "name": groupData.name,
-        "createdBy": groupData.createdBy,
-        "wager": groupData.wager
+        "name": newGroup.name,
+        "createdBy": newGroup.createdBy,
+        "wager": newGroup.wager
       })
     })
     .then(newGroup => {
@@ -46,10 +46,10 @@ function addGroup(req, res, next) {
 
 // ADD SECURITY TO SOMEHOW ONLY ALLOW GROUP OWNER TO EDIT
 function editGroupData(req, res, next) {
-  const groupData = req.body;
+  const {updatedGroupData} = req.body;
   const groupName = req.params.group_name;
 
-  return Groups.findOneAndUpdate({name: groupName}, {$set: groupData}, {new:true})
+  return Groups.findOneAndUpdate({name: groupName}, {$set: updatedGroupData}, {new:true})
     .populate('users', 'username')
     .populate('createdBy', 'username')
     .then(group => {

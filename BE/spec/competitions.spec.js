@@ -55,15 +55,17 @@ describe('/competitions', () => {
   });
 
   it('POST / ADDS a competition to DB', () => {
-    const newCompetition = {
-      "name": "100m Olympics final",
-      "teams": ["Usain BOLT", "Justin GATLIN", "Andre DE GRASSE", "Yohan BLAKE", "Akani SIMBINE", "Ben Youssef MEITE", "Jimmy VICAUT", "Trayvon BROMELL"],
-      "sport": "100m Sprint"
+    const data = {
+      newCompetition: {
+        name: "100m Olympics final",
+        teams: ["Usain BOLT", "Justin GATLIN", "Andre DE GRASSE", "Yohan BLAKE", "Akani SIMBINE", "Ben Youssef MEITE", "Jimmy VICAUT", "Trayvon BROMELL"],
+        sport: "100m Sprint"
+      }
     };
 
     return request
       .post(`/api/competitions`)
-      .send(newCompetition)
+      .send(data)
       .expect(201)
       .then(competition => {
         expect(competition.body).to.have.all.keys('__v', '_id', 'teams', 'name', 'sport');
@@ -74,15 +76,17 @@ describe('/competitions', () => {
   });
 
   it('POST /:competition_id UPDATES competition data', () => {
-    const competitionUpdate = {
-      "name": "World Cup 2018",
-      "teams": ["England", "France", "Germany", "Argentina"],
-      "sport": "football"
+    const data = {
+      competitionUpdate: {
+        name: "World Cup 2018",
+        teams: ["England", "France", "Germany", "Argentina"],
+        sport: "football"
+      }
     };
 
     return request
       .post(`/api/competitions/${compDocs[0]._id}`)
-      .send(competitionUpdate)
+      .send(data)
       .expect(200)
       .then(updatedCompetition => {
         expect(updatedCompetition.body._id).to.equal(compDocs[0]._id.toString());
@@ -93,9 +97,8 @@ describe('/competitions', () => {
           .expect(200)
           .then(competition => {
             expect(competition.body._id).to.equal(compDocs[0]._id.toString())
-          })
-
-      })
+          });
+      });
   });
 
   it('DELETE /:competition_id DELETES competition data', () => {
