@@ -5,6 +5,7 @@ import cors from 'cors';
 import apiRouter from '../routes/api.js';
 import mongoose from 'mongoose';
 import helmet from 'helmet';
+import config from '../config';
 
 mongoose.Promise = Promise;
 mongoose.set('useFindAndModify', false);
@@ -13,15 +14,12 @@ mongoose.set('useCreateIndex', true);
 const { DB_URL } = (process.env.NODE_ENV === 'production') ? process.env : require('../config');
 
 app.use(bodyparser.json());
-app.use(cors());
+app.use(cors({
+  origin: 'localhost:3001',
+  exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
+  credentials: true,
+}));
 app.use(helmet());
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 
 mongoose.connect(DB_URL,  {useNewUrlParser: true}, () => {
   console.log('connected at app.js to mongo')
