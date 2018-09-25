@@ -15,7 +15,7 @@ const { DB_URL } = (process.env.NODE_ENV === 'production') ? process.env : requi
 
 app.use(bodyparser.json());
 app.use(cors({
-  origin: 'localhost:3001',
+  origin: 'www.sweepstakes.co.uk',
   exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
   credentials: true,
 }));
