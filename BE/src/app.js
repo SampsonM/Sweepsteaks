@@ -22,7 +22,7 @@ app.use(cors({
 app.use(helmet());
 
 mongoose.connect(DB_URL,  {useNewUrlParser: true}, () => {
-  console.log('connected at app.js to mongo')
+  console.log('connected at app.js to mongo');
 });
 
 app.use('/api', apiRouter);
