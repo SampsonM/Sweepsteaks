@@ -9,13 +9,13 @@ const GroupSchema = new Schema({
     unique: true,
   },
   createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'users',
     required: true
   },
   users: {
     type: [{
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'users',
       required: false,
       default: ''
