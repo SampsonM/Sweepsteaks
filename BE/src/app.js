@@ -5,7 +5,6 @@ import cors from 'cors';
 import apiRouter from '../routes/api.js';
 import mongoose from 'mongoose';
 import helmet from 'helmet';
-import config from '../config';
 
 mongoose.Promise = Promise;
 mongoose.set('useFindAndModify', false);
@@ -37,7 +36,7 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  console.log('Error', err.status)
+  console.log('Error', err.message)
   return res.status(500).send(err)
 });
 
