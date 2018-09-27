@@ -37,6 +37,15 @@ describe('/groups', () => {
       })
   });
 
+  it('GET /:group_id returns group by id', () => {
+    return request
+      .get(`/api/groups/${groupDocs[0]._id}`)
+      .expect(200)
+      .then(group => {
+        expect(group.body._id).to.equal(groupDocs[0]._id.toString())
+      })
+  });
+
   it('GET /name?group_name RETURNS group by name', () => {
     return request
       .get(`/api/groups/name?group_name=${groupDocs[0].name}`)

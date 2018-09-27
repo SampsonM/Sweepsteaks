@@ -12,6 +12,18 @@ function getGroups(req, res, next) {
     .catch(next);
 };
 
+function getGroupById(req, res, next) {
+  const groupId = req.params.group_id;
+
+  return Groups.findById(groupId)
+    .lean()
+    .populate('createdBy', 'name')
+    .then(group => {
+      res.status(200).send(group)
+    })
+    .catch(next)
+}
+
 function getGroupByName(req, res, next) {
   const groupName = req.query.group_name;
 
@@ -60,6 +72,7 @@ function editGroupData(req, res, next) {
 
 module.exports = {
   getGroups,
+  getGroupById,
   getGroupByName,
   addGroup,
   editGroupData
