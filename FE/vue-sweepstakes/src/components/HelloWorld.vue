@@ -13,8 +13,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h3 {
+
+@import "../styles/_vars.scss";
+
+h1 {
   margin: 40px 0 0;
+  color: $red;
 }
 ul {
   list-style-type: none;
