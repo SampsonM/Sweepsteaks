@@ -7,7 +7,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Route exact path="/" component={C.Welcome} />
+        <Route exact path="/home" component={C.Welcome} />
         <Route exact path="/login" component={C.Login} />
         <Route exact path="/create" component={C.Create} />
         <Route exact path="/group" component={C.Group} />
