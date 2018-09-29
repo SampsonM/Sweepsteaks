@@ -1,0 +1,23 @@
+{
+  "name": "sweepstakes-vue",
+  "version": "1.0.0",
+  "description": "vue front end for sweepstakes",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SampsonM/Sweepstakes.git"
+  },
+  "keywords": [
+    "vue",
+    "sweepstakes"
+  ],
+  "author": "Mark Sampson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SampsonM/Sweepstakes/issues"
+  },
+  "homepage": "https://github.com/SampsonM/Sweepstakes#readme"
+}
