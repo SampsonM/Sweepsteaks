@@ -47,52 +47,6 @@ export default {
     }
 }
 
-@-webkit-keyframes fade {
-    0% {
-      opacity: 1;
-      left: -8%;
-    }
-    90% {
-      opacity: 0.6;
-      left: -8%;
-
-    }
-    100% {
-      opacity: 0;
-      left: 8px;
-    }
-}
-
-@-moz-keyframes fade {
-    0% {
-      opacity: 1;
-      left: -8%;
-    }
-    90% {
-      opacity: 0.6;
-      left: -8%;
-    }
-    100% {
-      opacity: 0;
-      left: 8px;
-    }
-}
-
-@keyframes fade {
-    0% {
-      opacity: 1;
-      left: -8%;
-    }
-    90% {
-      opacity: 0.6;
-      left: -8%;
-    }
-    100% {
-      opacity: 0;
-      left: 8px;
-    }
-}
-
 .animated-image {
   display: flex;
   margin: 80px 0 0 30%;
@@ -107,6 +61,10 @@ export default {
 
   @include breakpoint(desktop) {
     margin-top: 18%;
+  }
+
+  @include breakpoint(mobileL) {
+    margin-top: 52px;
   }
 
 }
@@ -126,11 +84,7 @@ export default {
 .steak {
   position: relative;
   top: 110px;
-  opacity: 0;
-
-  -webkit-animation: fade 1.4s ease-in-out 1;
-	-moz-animation: fade 1.4s ease-in-out 1;
-  animation: fade 1.4s ease-in-out 1;
+  left: -20%;
 
   @include breakpoint(tablet) {
     top: 270px;
@@ -145,14 +99,18 @@ export default {
 
   @include breakpoint(mobileL) {
     position: absolute;
-    bottom: 0;
-    margin-left: 60%;
+    top: 0;
+    margin: 20% 0 0 50%;
   }
 
   @include breakpoint(tablet) {
     position: absolute;
     bottom: 20%;
     margin-left: 30%;
+    font-size: 4em;
+  }
+
+  @include breakpoint(desktop) {
     font-size: 5em;
   }
 }
