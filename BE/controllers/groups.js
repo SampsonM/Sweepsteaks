@@ -2,6 +2,10 @@
 import {Groups} from '../models/index';
 
 function getGroups(req, res, next) {
+  if (req.query.name) {
+    return getGroupByName(req, res, next);
+  };
+
   return Groups.find()
     .lean()
     .populate('createdBy', 'username')
@@ -9,7 +13,9 @@ function getGroups(req, res, next) {
     .then(groups => {
       res.status(200).send(groups)
     })
-    .catch(next);
+    .catch(err => {
+      next({message: err.message, err, root: 'getGroups'})
+    })
 };
 
 function getGroupById(req, res, next) {
@@ -21,11 +27,13 @@ function getGroupById(req, res, next) {
     .then(group => {
       res.status(200).send(group)
     })
-    .catch(next)
+    .catch(err => {
+      next({message: err.message, err, root: 'getGroupByID'})
+    })
 }
 
 function getGroupByName(req, res, next) {
-  const groupName = req.query.group_name;
+  const groupName = req.query.name;
 
   return Groups.findOne({ name: groupName })
     .lean()
@@ -33,7 +41,9 @@ function getGroupByName(req, res, next) {
     .then(group => {
       res.status(200).send(group)
     })
-    .catch(next)
+    .catch(err => {
+      next({message: err.message, err, root: 'GetGroupByName'})
+    })
 }
 
 function addGroup(req, res, next) {
@@ -53,7 +63,9 @@ function addGroup(req, res, next) {
     .then(returnedGroup => {
       res.status(201).send(returnedGroup)
     })
-    .catch(next)
+    .catch(err => {
+      next({message: err.message, err, root: 'AddGroup'})
+    })
 };
 
 // ADD SECURITY TO SOMEHOW ONLY ALLOW GROUP OWNER TO EDIT
@@ -67,7 +79,9 @@ function editGroupData(req, res, next) {
     .then(group => {
       res.status(200).send(group)
     })
-    .catch(next)
+    .catch(err => {
+      next({message: err.message, err, root: 'editGroupData'})
+    })
 }
 
 module.exports = {

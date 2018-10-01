@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="landingPage">
     <div class="animated-image">
       <img class="brush" alt="Sweepsteaks" src="../assets/broom.svg" />
       <img class="steak" src="../assets/meat.svg" />
@@ -12,7 +12,7 @@
 <script>
 
 export default {
-  name: 'home',
+  name: 'landingPage',
   components: {}
 }
 </script>
@@ -89,6 +89,10 @@ export default {
   @include breakpoint(tablet) {
     top: 270px;
   };
+
+  @include breakpoint(desktop) {
+    left: -10%;
+  }
 }
 
 .title {

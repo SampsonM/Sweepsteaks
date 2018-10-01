@@ -3,13 +3,19 @@ import {Competitions} from '../models';
 import {Teams} from '../models';
 
 function getCompetitions(req, res, next) {
+  if (req.query.name) {
+    return getCompetitionByName(req, res, next);
+  };
+
   return Competitions.find()
     .lean()
     .populate('teams', 'name')
     .then(Competitions => {
       res.status(200).send(Competitions)
     })
-    .catch(next)
+    .catch(err => {
+      next({message: err.message, err, root: 'getCompetitions'})
+    })
 };
 
 function getCompetitionById(req, res, next) {
@@ -21,11 +27,13 @@ function getCompetitionById(req, res, next) {
     .then(Competition => {
       res.status(200).send(Competition)
     })
-    .catch(next)
+    .catch(err => {
+      next({message: err.message, err, root: 'getCompetitionById'})
+    })
 };
 
 function getCompetitionByName(req, res, next) {
-  const competitionName = req.query.competition_name;
+  let competitionName = req.query.name;
 
   return Competitions.findOne({name: competitionName})
     .lean()
@@ -33,8 +41,9 @@ function getCompetitionByName(req, res, next) {
     .then(competition => {
       res.status(200).send(competition)
     })
-    .catch(next)
-
+    .catch(err => {
+      next({message: err.message, err, root: 'getCompetitionByName'})
+    })
 };
 
 function addNewCompetition(req, res, next) {
@@ -57,7 +66,9 @@ function addNewCompetition(req, res, next) {
     .then(returnedCompetition => {
       res.status(201).send(returnedCompetition)
     })
-    .catch(next)
+    .catch(err => {
+      next({message: err.message, err, root: 'AddCompetition'})
+    })
 };
 
 function updateCompetition(req, res, next) {
@@ -77,7 +88,9 @@ function updateCompetition(req, res, next) {
     .then(competition => {
       res.status(200).send(competition)
     })
-    .catch(next)
+    .catch(err => {
+      next({message: err.message, err, root: 'updateCompetition'})
+    })
 
 };
 
@@ -90,7 +103,9 @@ function deleteCompetition(req, res, next) {
     .then(comp => {
       res.status(202).send(comp)
     })
-    .catch(next)
+    .catch(err => {
+      next({message: err.message, err, root: 'DeleteCompetition'})
+    })
 
 };
 
@@ -112,6 +127,5 @@ module.exports = {
   getCompetitionById,
   addNewCompetition,
   updateCompetition,
-  deleteCompetition,
-  getCompetitionByName
+  deleteCompetition
 };

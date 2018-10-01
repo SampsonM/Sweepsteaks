@@ -46,9 +46,9 @@ describe('/groups', () => {
       })
   });
 
-  it('GET /name?group_name RETURNS group by name', () => {
+  it('GET ?group_name RETURNS group by name', () => {
     return request
-      .get(`/api/groups/name?group_name=${groupDocs[0].name}`)
+      .get(`/api/groups?name=${groupDocs[0].name}`)
       .expect(200)
       .then(group => {
         expect(group.body.name).to.equal(groupDocs[0].name);
@@ -72,7 +72,7 @@ describe('/groups', () => {
         expect(group.body).to.have.all.keys('__v', '_id','createdBy', 'users', 'wager', 'name');
         
         return request
-          .get(`/api/groups/name?group_name=${group.body.name}`)
+          .get(`/api/groups?name=${group.body.name}`)
           .expect(200)
       })
   })
@@ -85,7 +85,7 @@ describe('/groups', () => {
     };
 
     return request
-      .post(`/api/groups/name/${groupDocs[0].name}`)
+      .post(`/api/groups/${groupDocs[0].name}`)
       .send(data)
       .expect(200)
       .then(group => {

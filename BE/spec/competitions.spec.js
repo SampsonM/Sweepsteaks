@@ -45,9 +45,9 @@ describe('/competitions', () => {
       })
   });
 
-  it('GET /name?competition_name return competition by name', () => {
+  it('GET ?name return competition by name', () => {
     return request
-      .get('/api/competitions/name?competition_name=World+Cup')
+      .get('/api/competitions?name=World+Cup')
       .expect(200)
       .then(competition => {
         expect(competition.body.name).to.eql(compDocs[0].name)
@@ -115,5 +115,4 @@ describe('/competitions', () => {
           })
       })
   });
-
-})
+});
