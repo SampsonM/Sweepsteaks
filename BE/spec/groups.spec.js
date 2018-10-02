@@ -81,7 +81,9 @@ describe('/groups', () => {
     const data = {
       updatedGroupData: {
         name: "daves pals"
-      }
+      },
+      id: user._id,
+      sync: new Date()
     };
 
     return request
