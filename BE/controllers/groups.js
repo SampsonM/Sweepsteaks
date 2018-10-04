@@ -1,6 +1,5 @@
 'use strict';
 import {Groups} from '../models/index';
-import moment from 'moment';
 
 function getGroups(req, res, next) {
   if (req.query.name) {
@@ -75,33 +74,18 @@ function editGroupData(req, res, next) {
 
   const {updatedGroupData} = req.body;
   const groupName = req.params.group_name;
-  const reqValid = requestIsCurrent(req.body.sync);
 
-  if (reqValid) {
-    return Groups.findOneAndUpdate({name: groupName}, {$set: updatedGroupData}, {new:true})
-      .populate('users', 'username')
-      .populate('createdBy', 'username')
-      .then(group => {
-        res.status(200).send(group)
-      })
-      .catch(err => {
-        next({message: err.message, err, root: 'editGroupData'})
-      })
-  };
+  return Groups.findOneAndUpdate({name: groupName}, {$set: updatedGroupData}, {new:true})
+  .populate('users', 'username')
+  .populate('createdBy', 'username')
+  .then(group => {
+    return res.status(200).send(group)
+  })
+  .catch(err => {
+    next({message: err.message, err, root: 'editGroupData'})
+  })
 
 };
-
-
-// Util functions
-
-function requestIsCurrent(userTime) {
-  const oneMinute = {minutes: 1};
-  const inputTime = moment(userTime).format();
-  const laterTime = moment(userTime).add(oneMinute).format();
-  const earlierTime = moment(userTime).subtract(oneMinute).format();
-
-  return (moment(inputTime).isBefore(laterTime) && moment(inputTime).isAfter(earlierTime))
-}
 
 module.exports = {
   getGroups,

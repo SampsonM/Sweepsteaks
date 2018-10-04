@@ -5,6 +5,7 @@ import cors from 'cors';
 import apiRouter from '../routes/api.js';
 import mongoose from 'mongoose';
 import helmet from 'helmet';
+import moment from 'moment';
 
 mongoose.Promise = Promise;
 mongoose.set('useFindAndModify', false);
@@ -22,6 +23,23 @@ app.use(helmet());
 
 mongoose.connect(DB_URL,  {useNewUrlParser: true}, () => {
   console.log('connected at app.js to mongo');
+});
+
+app.use('/*', (req, res, next) => {
+  const userTime = req.body.sync;
+
+  if (userTime) {
+    const oneMinute = {minutes: 1};
+    const inputTime = moment(userTime).format();
+    const laterTime = moment(userTime).add(oneMinute).format();
+    const earlierTime = moment(userTime).subtract(oneMinute).format();
+    
+    if (moment(inputTime).isBefore(laterTime) && moment(inputTime).isAfter(earlierTime)) {
+      return next()
+    };
+  };
+  
+  return res.status(403).send({message: 'Forbidden request', root: 'forbiddenRequest'})
 });
 
 app.use('/api', apiRouter);
