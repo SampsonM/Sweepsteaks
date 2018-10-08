@@ -1,19 +1,18 @@
-"use strict";
-import app from "../src/app";
-import mongoose from "mongoose";
+'use strict';
+import app from '../src/app';
+import mongoose from 'mongoose';
 mongoose.Promise = Promise;
-import { expect } from "chai";
-import seedDB from "../db/seed";
-import { DB_URL } from "../config";
-const request = require("supertest")(app);
+import { expect } from 'chai';
+import seedDB from '../db/seed';
+import { DB_URL } from '../config';
+const request = require('supertest')(app);
 
-describe("/groups", () => {
+describe('/groups', () => {
   let groupDocs;
   let user;
 
   beforeEach(() => {
-    return mongoose
-      .connect(
+    return mongoose.connect(
         DB_URL,
         { useNewUrlParser: true }
       )
@@ -30,19 +29,19 @@ describe("/groups", () => {
   after(() => {
     return mongoose.connection
       .close()
-      .then(() => console.log("disconnected... 🧟"));
+      .then(() => console.log('disconnected... 🧟'));
   });
 
-  it("GET / RETURNS all groups", () => {
+  it('GET / RETURNS all groups', () => {
     return request
-      .get("/api/groups")
+      .get('/api/groups')
       .expect(200)
       .then(groups => {
         expect(groups.body.length).to.equal(groupDocs.length);
       });
   });
 
-  it("GET /:group_id returns group by id", () => {
+  it('GET /:group_id returns group by id', () => {
     return request
       .get(`/api/groups/${groupDocs[0]._id}`)
       .expect(200)
@@ -51,7 +50,7 @@ describe("/groups", () => {
       });
   });
 
-  it("GET ?group_name RETURNS group by name", () => {
+  it('GET ?group_name RETURNS group by name', () => {
     return request
       .get(`/api/groups?name=${groupDocs[0].name}`)
       .expect(200)
@@ -60,10 +59,10 @@ describe("/groups", () => {
       });
   });
 
-  it("POST / ADDS a group", () => {
+  it('POST / ADDS a group', () => {
     const data = {
       newGroup: {
-        name: "ME JULIES NEW GROUP",
+        name: 'ME JULIES NEW GROUP',
         createdBy: user._id,
         wager: 5
       },
@@ -71,27 +70,27 @@ describe("/groups", () => {
     };
 
     return request
-      .post("/api/groups")
+      .post('/api/groups')
       .send(data)
       .expect(201)
       .then(group => {
         expect(group.body).to.have.all.keys(
-          "__v",
-          "_id",
-          "createdBy",
-          "users",
-          "wager",
-          "name"
+          '__v',
+          '_id',
+          'createdBy',
+          'users',
+          'wager',
+          'name'
         );
 
         return request.get(`/api/groups?name=${group.body.name}`).expect(200);
       });
   });
 
-  it("POST /name/group_name EDITS group by name", () => {
+  it('POST /name/group_name EDITS group by name', () => {
     const data = {
       updatedGroupData: {
-        name: "daves pals"
+        name: 'daves pals'
       },
       id: user._id,
       sync: new Date()
