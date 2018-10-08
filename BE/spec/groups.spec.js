@@ -87,7 +87,7 @@ describe('/groups', () => {
       });
   });
 
-  it('POST /name/group_name EDITS group by name', () => {
+  it('POST /name/:group_name EDITS group by name', () => {
     const data = {
       updatedGroupData: {
         name: 'daves pals'

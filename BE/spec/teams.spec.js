@@ -9,7 +9,6 @@ const request = require('supertest')(app);
 
 describe('/teams', () => {
   let teamDocs;
-  let team;
 
   beforeEach(() => {
     return mongoose.connect(
@@ -21,7 +20,6 @@ describe('/teams', () => {
     })
     .then(data => {
       teamDocs = data.teamDocs;
-      team = teamDocs[0];
     })
     .catch(console.log)
   });
@@ -39,6 +37,45 @@ describe('/teams', () => {
       .then(teams => {
         expect(teams.body.length).to.equal(teamDocs.length);
       });
-  })
+  });
+
+  it('GET ?team_name returns team by name', () => {
+    return request
+      .get(`/api/teams?team_name=${teamDocs[0].name}`)
+      .expect(200)
+      .then(team => {
+        expect(team.body.name).to.equal(teamDocs[0].name);
+      });
+  });
+
+  it('GET /:teamId returns team by id', () => {
+    return request
+      .get(`/api/teams/${teamDocs[0]._id}`)
+      .expect(200)
+      .then(team => {
+        expect(team.body.name).to.equal(teamDocs[0].name)
+      })
+  });
+
+  it('POST ?group_name updates team by name', () => {
+    const updatedTeamInfo = { 
+      updatedTeamData: {
+        name: 'Finland',
+        sport: teamDocs[0].sport,
+        competition: teamDocs[0].competition
+      },
+      id: teamDocs[0]._id,
+      sync: new Date()
+    };
+
+    return request
+      .post(`/api/teams/${teamDocs[0].name}`)
+      .send(updatedTeamInfo)
+      .expect(200)
+      .then(team => {
+        expect(team.body.name).to.not.equal(teamDocs[0].name);
+        expect(team.body.sport).to.equal(teamDocs[0].sport);
+      })
+  });
 
 });
