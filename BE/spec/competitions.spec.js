@@ -104,8 +104,13 @@ describe('/competitions', () => {
   });
 
   it('DELETE /:competition_id DELETES competition data', () => {
+    const data = {
+      sync: new Date()
+    };
+    
     return request
       .del(`/api/competitions/${compDocs[0]._id}`)
+      .send(data)
       .expect(202)
       .then(() => {
         

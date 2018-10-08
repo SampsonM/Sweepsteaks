@@ -34,9 +34,9 @@ mongoose.connect(
 
 app.use("/*", (req, res, next) => {
   const userTime = req.body.sync;
-  const isPostRequest = req.method === "POST";
+  const isGETRequest = req.method === "GET";
 
-  if (!isPostRequest) return next();
+  if (isGETRequest) return next();
 
   if (userTime) {
     const oneMinute = { minutes: 1 };
