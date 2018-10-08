@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 let path = process.env.NODE_ENV;
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 mongoose.Promise = Promise;
 const { Users, Groups, Teams, Competitions } = require("../models");
 const {
@@ -36,10 +36,10 @@ function seedCompetitions(teamDocs) {
     let teams = teamDocs.reduce((acc, team) => {
       if (team.competition === comp.name) acc.push(team._id);
       return acc;
-    }, [])
-    
+    }, []);
+
     return { name, sport, teams };
-  })
+  });
 
   return Competitions.insertMany(newCompData);
 }
@@ -52,7 +52,8 @@ function generateIds(data, docs) {
 }
 
 function seedDB() {
-  return mongoose.connection.dropDatabase()
+  return mongoose.connection
+    .dropDatabase()
     .then(() => {
       return Teams.insertMany(teamData);
     })
@@ -75,7 +76,7 @@ function seedDB() {
         groupDocs
       };
     })
-   .catch(err => console.log(`${{err}} oh no! 🧟`))
+    .catch(err => console.log(`${{ err }} oh no! 🧟`));
 }
 
 module.exports = seedDB;

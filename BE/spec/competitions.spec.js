@@ -60,7 +60,8 @@ describe('/competitions', () => {
         name: "100m Olympics final",
         teams: ["Usain BOLT", "Justin GATLIN", "Andre DE GRASSE", "Yohan BLAKE", "Akani SIMBINE", "Ben Youssef MEITE", "Jimmy VICAUT", "Trayvon BROMELL"],
         sport: "100m Sprint"
-      }
+      },
+      sync: new Date()
     };
 
     return request
@@ -81,7 +82,8 @@ describe('/competitions', () => {
         name: "World Cup 2018",
         teams: ["England", "France", "Germany", "Argentina"],
         sport: "football"
-      }
+      },
+      sync: new Date()
     };
 
     return request
