@@ -77,5 +77,23 @@ describe('/teams', () => {
         expect(team.body.sport).to.equal(teamDocs[0].sport);
       })
   });
+  
+  it('DELETE /:team_ID deletes team by id', () => {
+    const teamInfo = {
+      sync: new Date(),
+      id: teamDocs[0]._id
+    };
+
+    return request
+      .delete(`/api/teams/${teamDocs[0]._id}`)
+      .send(teamInfo)
+      .expect(200)
+      .then(team => {
+        return Promise.all([team, request.get('/api/teams')]);
+      })
+      .then(([team, teams]) => {
+        expect(teams.body).to.not.eql(team)
+      })
+  })
 
 });
