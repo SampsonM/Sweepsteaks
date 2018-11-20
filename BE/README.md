@@ -14,7 +14,9 @@
 
 ## FE
 
-- nothing this time still uncertain on vue or react
+- Challenge....
+- Build a version of the front end in angular, react and vue!
+
 #
 
 
