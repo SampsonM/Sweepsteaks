@@ -92,8 +92,8 @@ describe('/teams', () => {
         return Promise.all([team, request.get('/api/teams')]);
       })
       .then(([team, teams]) => {
-        expect(teams.body).to.not.eql(team)
+        expect(teams.body).to.not.include(team.body)
       })
-  })
+  });
 
 });

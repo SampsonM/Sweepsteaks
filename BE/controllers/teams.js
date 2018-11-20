@@ -56,8 +56,21 @@ function updateTeam(req, res, next) {
     })
 }
 
+function deleteTeam(req, res, next) {
+  const teamId = req.body.id;
+
+  return Teams.findByIdAndDelete(teamId)
+    .then(team => {
+      res.status(200).send(team)
+    })
+    .catch(err => {
+      next({ err: err.message, err, root: 'deleteTeam' })
+    })
+}
+
 module.exports = {
   getTeams,
   getTeamById,
-  updateTeam
+  updateTeam,
+  deleteTeam
 };
