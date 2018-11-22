@@ -20,7 +20,3 @@
 #
 
 
-### npm packs installed
-
-- BE: npm faker, supertest, chai, mocha
-
