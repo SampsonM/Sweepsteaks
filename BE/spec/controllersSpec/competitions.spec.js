@@ -1,10 +1,10 @@
 'use strict';
-import app from '../src/app';
+import app from '../../src/app';
 import mongoose from 'mongoose';
 mongoose.Promise = Promise;
 import { expect } from 'chai';
-import seedDB from '../db/seed';
-import { DB_URL } from '../config';
+import seedDB from '../../db/seed';
+import { DB_URL } from '../../config';
 const request = require('supertest')(app);
 
 describe('/competitions', () => {
