@@ -21,14 +21,6 @@ export default {
     return req.method === "GET"
   },
 
-  isDeleteRequest: (req) => {
-    return req.method === "DELETE"
-  },
-
-  isPutRequest: (req) => {
-    return req.method === "PUT"
-  },
-
   isEmail: (email) => {
 
   },
