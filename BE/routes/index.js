@@ -3,6 +3,5 @@ module.exports = {
   groupRouter: require('./groups.js'),
   usersRouter: require('./users.js'),
   competitionRouter: require('./competitions.js'),
-  signUpRouter: require('./signUp.js'),
   loginRouter: require('./login.js')
 };

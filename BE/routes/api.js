@@ -7,6 +7,5 @@ apiRouter.use('/groups', route.groupRouter);
 apiRouter.use('/teams', route.teamsRouter);
 apiRouter.use('/users', route.usersRouter);
 apiRouter.use('/login', route.loginRouter);
-apiRouter.use('/signup', route.signUpRouter);
 
 module.exports = apiRouter;
