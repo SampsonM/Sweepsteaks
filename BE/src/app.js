@@ -12,7 +12,9 @@ mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
 
 const { DB_URL } =
-  process.env.NODE_ENV === "production" ? process.env : require("../config");
+  process.env.NODE_ENV === "production" 
+    ? process.env 
+    : require("../config");
 
 app.use(bodyparser.json());
 app.use(
