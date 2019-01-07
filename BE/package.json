@@ -1,7 +1,7 @@
 {
   "name": "be",
   "version": "1.0.0",
-  "description": "",
+  "description": "Sweepstakes BE",
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test mocha --recursive --exit --require babel-polyfill --require babel-register ./spec",
