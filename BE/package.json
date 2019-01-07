@@ -6,7 +6,7 @@
   "scripts": {
     "test": "NODE_ENV=test mocha --recursive --exit --require babel-polyfill --require babel-register ./spec",
     "start": "nodemon src/listen.js --exec babel-node --presets es2015,stage-2",
-    "dev": "NODE_ENV=development nodemon src/listen.js",
+    "dev": "NODE_ENV=development nodemon src/listen.js --exec babel-node --presets es2015,stage-2",
     "seed:dev": "NODE_ENV=development node ./db/seed.dev.js"
   },
   "author": "",

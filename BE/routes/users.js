@@ -1,11 +1,7 @@
-'use strict';
-const usersRouter = require('express').Router();
+'use strict'
+const usersRouter = require('express').Router()
+import * as usersCtrl from '../controllers/users'
 
-// create user
-
-// update user
-
-// delete user
-
+usersRouter.get('/:user_name', usersCtrl.getUserByName)
 
 module.exports = usersRouter;

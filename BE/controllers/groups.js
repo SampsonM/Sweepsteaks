@@ -1,5 +1,5 @@
 'use strict';
-import {Groups} from '../models/index';
+import { Groups } from '../models/index';
 
 function getGroups(req, res, next) {
   if (req.query.name) {

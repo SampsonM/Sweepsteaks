@@ -1,5 +1,5 @@
 'use strict';
-import {Teams} from '../models/index';
+import { Teams } from '../models/index';
 
 function getTeams(req, res, next) {
   if (req.query.team_name) {
@@ -29,17 +29,19 @@ function getTeamByName(req, res, next) {
     })
 }
 
-function getTeamById(req, res, next) {
-  const teamId = req.params.team_ID;
+function getTeamByName(req, res, next) {
+  const teamName = req.params.team_name;
 
-  return Teams.findOne({ _id: teamId })
-    .lean()
-    .then(team => {
-      res.status(200).send(team)
-    })
-    .catch(err => {
-      next({err: err.message, err, root: 'getTeamByID'})
-    })
+  return Teams.findOne({ name: teamName })
+  .lean()
+  .then(team => {
+    team === null
+      ? res.status(404).send({team})
+      : res.status(200).send(team)
+  })
+  .catch(err => {
+    next({err: err.message, err, root: 'getTeamByName'})
+  })
 }
 
 function updateTeam(req, res, next) {
@@ -70,7 +72,7 @@ function deleteTeam(req, res, next) {
 
 module.exports = {
   getTeams,
-  getTeamById,
+  getTeamByName,
   updateTeam,
   deleteTeam
 };

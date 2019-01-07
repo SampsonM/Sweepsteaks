@@ -2,7 +2,7 @@
 import { expect } from 'chai'
 import utils from '../../utils'
 
-describe.only('utils file functions test', () => {
+describe('utils file functions test', () => {
   it('validates time stamp is current', () => {
 
     const date = new Date().toISOString()
