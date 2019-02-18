@@ -2,14 +2,15 @@
   "name": "be",
   "version": "1.0.0",
   "description": "Sweepstakes BE",
-  "main": "index.js",
+  "main": "src/listen.js",
   "scripts": {
     "test": "NODE_ENV=test mocha --recursive --exit --require babel-polyfill --require babel-register ./spec",
-    "start": "nodemon src/listen.js --exec babel-node --presets es2015,stage-2",
-    "dev": "NODE_ENV=development nodemon src/listen.js --exec babel-node --presets es2015,stage-2",
-    "seed:dev": "NODE_ENV=development node ./db/seed.dev.js"
+    "start": "babel-node src/listen.js --exec babel-node --presets es2015,stage-2",
+    "start:dev": "NODE_ENV=development nodemon src/listen.js --exec babel-node --presets es2015,stage-2",
+    "seed:dev": "NODE_ENV=development node ./db/seed.dev.js",
+    "seed:prod": "NODE_ENV=production babel-node ./db/seed.prod.js --exec babel-node --presets es2015,stage-2"
   },
-  "author": "",
+  "author": "Mark Sampson",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.4",

@@ -1,6 +1,6 @@
 "use strict";
 let path = process.env.NODE_ENV;
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 mongoose.Promise = Promise;
 const { Users, Groups, Teams, Competitions } = require("../models");
 const {
