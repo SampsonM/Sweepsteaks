@@ -6,6 +6,7 @@ import apiRouter from "../routes/api.js";
 import mongoose from "mongoose";
 import helmet from "helmet";
 import utils from "../utils";
+import enforce from 'express-sslify';
 
 mongoose.Promise = Promise;
 mongoose.set("useFindAndModify", false);
@@ -17,6 +18,7 @@ const { DB_URL } =
     : require("../config");
 
 app.use(bodyparser.json());
+app.use(enforce.HTTPS({ trustProtoHeader: true }));
 app.use(
   cors({
     origin: "www.sweepstakes.co.uk",

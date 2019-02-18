@@ -1,8 +1,7 @@
 import app from './app.js';
-import https from 'https';
-import { PORT } from '../config';
-import { tlsConfig } from '../config';
+import http from 'http';
+const { PORT } = process.env || require('../config');
 
-https.createServer(tlsConfig, app).listen(PORT, () => {
+http.createServer(app).listen(PORT, () => {
   console.log(`listening on PORT: ${PORT} https://localhost:${PORT}/api/`)
 });
