@@ -84,7 +84,6 @@ function editGroupData(req, res, next) {
   .catch(err => {
     next({message: err.message, err, root: 'editGroupData'})
   })
-
 };
 
 module.exports = {

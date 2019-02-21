@@ -16,11 +16,23 @@ function getUserByName(req, res, next) {
 }
 
 // create user
+function createUser(req, res, next) {
+
+}
 
 // update user
+function updateUser(req, res, next) {
+
+}
 
 // delete user
+function deleteUser(req, res, next) {
+
+}
 
 module.exports = {
-  getUserByName
+  getUserByName,
+  createUser,
+  updateUser,
+  deleteUser
 }
