@@ -1,25 +1,8 @@
 import app from './app.js';
-import https from 'https';
 import http from 'http';
-import fs from 'fs';
-import { PORT } from '../config';
-import path from 'path';
 
-if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "production") {
-  const options = {
-    key: process.env.KEY || fs.readFileSync(path.resolve(__dirname, '../config/certs/rootCA.key'), 'utf8'),
-    cert: process.env.CERT || fs.readFileSync(path.resolve(__dirname, '../config/certs/rootCA.pem'), 'utf8'),
-    passphrase: process.env.PASSPHRASE || fs.readFileSync(path.resolve(__dirname, '../config/certs/passphrase.pem'), 'utf8')
-  }
-  
-  https.createServer(options, app).listen(PORT, () => {
-    console.log(`HTTPS listening on PORT: ${PORT} https://localhost:${PORT}/api`)
-  });
-}
+const PORT = process.env.PORT || require('../config').PORT;
 
-// Runs on test to avoid HTTPS config using supertest
-if (process.env.NODE_ENV === "test") {
-  http.createServer(app).listen(8081, () => {
-    console.log(`HTTP listening on PORT: 8081 http://localhost:8081/api`)
-  });
-}
+http.createServer(app).listen(PORT, () => {
+  console.log(`HTTP listening on PORT: ${PORT} http://localhost:${PORT}/api`)
+});

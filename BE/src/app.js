@@ -6,10 +6,9 @@ import apiRouter from "../routes/api.js";
 import mongoose from "mongoose";
 import helmet from "helmet";
 import utils from "../utils";
-import enforce from 'express-sslify';
 
 const app = express();
-const { DB_URL } = process.env || require("../config");
+const DB_URL = process.env.DB_URL || require("../config").DB_URL;
 
 mongoose.Promise = Promise;
 mongoose.set("useFindAndModify", false);
@@ -24,10 +23,6 @@ app.use(
     credentials: true
   })
 );
-  
-if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "development") {
-  app.use(enforce.HTTPS({ trustProtoHeader: true }))
-}
 
 mongoose.connect(
   DB_URL,

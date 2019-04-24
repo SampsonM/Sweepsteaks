@@ -7,7 +7,7 @@ import seedDB from '../../db/seed';
 import { DB_URL } from '../../config';
 const request = require('supertest')(app)
 
-describe.only('/users', () => {
+describe('/users', () => {
   let userDocs;
 
   beforeEach(() => {
