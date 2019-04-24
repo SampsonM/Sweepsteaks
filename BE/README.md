@@ -73,5 +73,6 @@ To run the tests follow these steps:
 - ADD Validation to requests!! ### https://medium.freecodecamp.org/how-to-make-input-validation-simple-and-clean-in-your-express-js-app-ea9b5ff5a8a7 ###
 - Add validation on reserved api calls for superuser only 
 - add authentication to delete requests
+- ADD A CLIENT SIDE HASH MOCK ON THE SEED USER TO MAKE SEEDING REALISTIC AND COPY THE FLOW OF THE USER CREATION
 
 #

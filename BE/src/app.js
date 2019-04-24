@@ -5,7 +5,6 @@ import cors from "cors";
 import apiRouter from "../routes/api/api.js";
 import mongoose from "mongoose";
 import helmet from "helmet";
-import utils from "../utils";
 import passport from 'passport'
 import '../config/passport';
 const DB_URL = process.env.DB_URL || require("../config/environment").DB_URL;
