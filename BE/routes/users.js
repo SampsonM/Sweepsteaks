@@ -5,7 +5,7 @@ import * as usersCtrl from '../controllers/users'
 usersRouter.get('/:user_name', usersCtrl.getUserByName)
 
 usersRouter.post('/', usersCtrl.createUser)
-usersRouter.post('/:user_id', usersCtrl.updateUSer)
+usersRouter.post('/:user_id', usersCtrl.updateUser)
 
 usersRouter.delete('/:user_id', usersCtrl.deleteUser)
 
