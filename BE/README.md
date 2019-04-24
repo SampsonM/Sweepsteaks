@@ -1,5 +1,34 @@
 # Notes from last time....
 
+## Set up of Sweepstakes BE *to run* Locally
+
+To set up the env follow these steps:
+- git clone this repo
+- Run 'NPM i' to install packages
+- Open the terminal and install mongod and mongo db clis tools
+- Run 'mongod'
+- Open a new window and run 'mongo'
+- Run 'NPM run seed:dev' to seed dev environment
+- Ensure DB seeded by checking mongo shell with 'show dbs' you can further check the collections with 
+	'use Sweepstakes'
+	'show collections'
+	'db.*collection name*.find().pretty()'
+- Run 'NPM run start:dev' to start api
+- In the browser enter 'https://localhost:3000/api' to see the base api page
+
+
+## Running tests
+
+To run the tests follow these steps:
+- Open the terminal and run 'mongo'
+- Open new terminal window and run 'mongod'
+- In the repo BE folder run 'NPM run seed:dev' to seed the test db
+- Check the db has been sown in the terminal window with mongo running, run 'show dbs' to check 'Sweepstakes_test' exists, you can further check the internals if you wish with relevant mongo commands
+- Run 'NPM run test' in the BE folder of the Repo to run Util tests
+
+#
+## TO-DO
+#
 
 ## BE
 
