@@ -1,5 +1,7 @@
 # Notes from last time....
 
+*This Folder includes the code for the BE app for Sweepstakes, to push changes you must be in the root app and to deply the changes you must cd into the BE folder and push to heroku.*
+
 ## Set up of Sweepstakes BE *to run* Locally
 
 To set up the env follow these steps:
@@ -25,6 +27,10 @@ To run the tests follow these steps:
 - In the repo BE folder run 'NPM run seed:dev' to seed the test db
 - Check the db has been sown in the terminal window with mongo running, run 'show dbs' to check 'Sweepstakes_test' exists, you can further check the internals if you wish with relevant mongo commands
 - Run 'NPM run test' in the BE folder of the Repo to run Util tests
+
+## Pushing changes to Heroku
+- After Git adding all the files you wish to change currently I push to github then to heroku using 'git push heroku master'
+- This builds the app and restarts using the heroku config
 
 #
 ## TO-DO
