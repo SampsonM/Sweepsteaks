@@ -6,20 +6,20 @@
   "scripts": {
     "test": "NODE_ENV=test mocha --recursive --exit --require babel-polyfill --require babel-register ./spec",
     "start": "babel-node src/listen.js --exec --presets es2015,stage-2",
-    "start:dev": "NODE_ENV=development nodemon src/listen.js --exec babel-node --presets es2015,stage-2",
-    "seed:dev": "NODE_ENV=development node ./db/seed.dev.js",
-    "seed:prod": "NODE_ENV=production babel-node ./db/seed.prod.js --exec babel-node --presets es2015,stage-2"
+    "start:dev": "NODE_ENV=development nodemon --exec babel-node src/listen.js --presets es2015,stage-2",
+    "seed:dev": "NODE_ENV=development babel-node ./db/seed.dev.js --exec --presets es2015,stage-2",
+    "seed:prod": "NODE_ENV=production babel-node ./db/seed.prod.js --exec --presets es2015,stage-2"
   },
   "author": "Mark Sampson",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.4",
-    "express": "^4.16.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
     "express-sslify": "^1.2.0",
-    "helmet": "^3.13.0",
+    "helmet": "^3.16.0",
     "https": "^1.0.0",
-    "moment": "^2.22.2",
-    "mongoose": "^5.2.14",
+    "moment": "^2.24.0",
+    "mongoose": "^5.5.3",
     "sha.js": "^2.4.11"
   },
   "devDependencies": {
@@ -29,10 +29,10 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.26.0",
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "faker": "^4.1.0",
     "mocha": "^5.2.0",
-    "nodemon": "^1.17.5",
-    "supertest": "^3.1.0"
+    "nodemon": "^1.18.11",
+    "supertest": "^3.4.2"
   }
 }
