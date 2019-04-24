@@ -9,6 +9,7 @@ const {
   teamData,
   userData
 } = require(`./${path}-data`);
+import utils from '../utils';
 
 function seedGroups(userIds) {
   let newGroups = groupData.map(group => {
@@ -51,6 +52,20 @@ function generateIds(data, docs) {
   }, {});
 }
 
+function seedUsers(users) {
+  const newUsersData = users.map(user => {
+    const passwordData = utils.hashPassword(user.password)
+    
+    user.hash = passwordData.hash
+    user.salt = passwordData.salt
+    user.password = null
+
+    return user
+  })
+
+  return Users.insertMany(newUsersData)
+}
+
 function seedDB() {
   return mongoose.connection
     .dropDatabase()
@@ -58,9 +73,10 @@ function seedDB() {
       return Teams.insertMany(teamData);
     })
     .then(teamDocs => {
+
       return Promise.all([
         seedCompetitions(teamDocs),
-        Users.insertMany(userData),
+        seedUsers(userData),
         teamDocs
       ]);
     })

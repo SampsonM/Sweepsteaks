@@ -59,12 +59,12 @@ app.use((err, req, res, next) => {
   return res.status(500).send(err);
 });
 
-passport.serializeUser(function(user, cb) {
+passport.serializeUser((user, cb) => {
   cb(null, user.id);
 });
 
-passport.deserializeUser(function(id, cb) {
-  User.findById(id, function(err, user) {
+passport.deserializeUser((id, cb) => {
+  User.findById(id, (err, user) => {
     cb(err, user);
   });
 });

@@ -22,10 +22,12 @@ const UserSchema = new Schema({
     unique: true
   },
   hash: {
-    type: String
+    type: String,
+    required: true
   },
   salt: {
-    type: String
+    type: String,
+    required: true
   },
   avatarUrl: {
     type: String
