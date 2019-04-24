@@ -1,5 +1,5 @@
 "use strict";
-const app = require("express")();
+import express from "express";
 import bodyparser from "body-parser";
 import cors from "cors";
 import apiRouter from "../routes/api.js";
@@ -8,17 +8,15 @@ import helmet from "helmet";
 import utils from "../utils";
 import enforce from 'express-sslify';
 
+const app = express();
+const { DB_URL } = require("../config");
+
 mongoose.Promise = Promise;
 mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
 
-const { DB_URL } =
-  process.env.NODE_ENV === "production" 
-    ? process.env 
-    : require("../config");
-
 app.use(bodyparser.json());
-app.use(enforce.HTTPS({ trustProtoHeader: true }));
+app.use(helmet());
 app.use(
   cors({
     origin: "www.sweepstakes.co.uk",
@@ -26,7 +24,10 @@ app.use(
     credentials: true
   })
 );
-app.use(helmet());
+  
+if (process.env.NODE_ENV === "production" || process.env.NODE_ENV === "development") {
+  app.use(enforce.HTTPS({ trustProtoHeader: true }))
+}
 
 mongoose.connect(
   DB_URL,
