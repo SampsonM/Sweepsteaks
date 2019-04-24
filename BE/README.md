@@ -32,9 +32,37 @@ To run the tests follow these steps:
 - After Git adding all the files you wish to change currently I push to github then to heroku using 'git push heroku master'
 - This builds the app and restarts using the heroku config
 
+
+## URL's/Routes for api
+### Teams
+- GET Teams:---------------*'/api/teams/'*
+- GET Team by id:-----------*'/api/teams/:team_ID'*
+- POST Team:---------------*'/api/teams/:team_name'*
+- DELETE Team:-------------*'/api/teams/:team_ID'*
+
+### Groups
+- GET Groups:--------------*'/api/groups/'*
+- GET Group by id:----------*'/api/groups/:group_ID'*
+- POST Group:--------------*'/api/groups/'*
+- POST/Edit Group:----------*'/api/groups/:group_name'*
+
+### Competitions
+- GET Competitions:---------*'/api/competitions/'*
+- GET Competition by id:----*'/api/competitions/:competition_ID'*
+- POST Competition:--------*'/api/competitions/'*
+- POST/Edit Competition:----*'/api/competitions/:competition_ID'*
+- DELETE Competition:------*'/api/competitions/:competition_ID'*
+
+
+### Users
+- GET User by name:--------*'/api/users/:user_name'*
+- POST User:---------------*'/api/users/'*
+- POST/Edit User by id:-----*'/api/users/:user_ID'*
+- DELETE User by id:-------*'/api/users/:user_ID'*
+
 #
+
 ## TO-DO
-#
 
 ## BE
 
@@ -47,12 +75,3 @@ To run the tests follow these steps:
 - add authentication to delete requests
 
 #
-
-## FE
-
-- Challenge....
-- Build a version of the front end in angular, react and vue!
-
-#
-
-
