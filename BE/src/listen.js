@@ -7,10 +7,10 @@ import path from 'path';
 
 if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "production") {
   const options = {
-    key: fs.readFileSync(path.resolve(__dirname, '../config/certs/rootCA.key'), 'utf8'),
-    cert: fs.readFileSync(path.resolve(__dirname, '../config/certs/rootCA.pem'), 'utf8'),
-    passphrase: 'B@gbrush1'
-  };
+    key: process.env.KEY || fs.readFileSync(path.resolve(__dirname, '../config/certs/rootCA.key'), 'utf8'),
+    cert: process.env.CERT || fs.readFileSync(path.resolve(__dirname, '../config/certs/rootCA.pem'), 'utf8'),
+    passphrase: process.env.PASSPHRASE || fs.readFileSync(path.resolve(__dirname, '../config/certs/passphrase.pem'), 'utf8')
+  }
   
   https.createServer(options, app).listen(PORT, () => {
     console.log(`HTTPS listening on PORT: ${PORT} https://localhost:${PORT}/api`)

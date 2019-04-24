@@ -9,7 +9,7 @@ import utils from "../utils";
 import enforce from 'express-sslify';
 
 const app = express();
-const { DB_URL } = require("../config");
+const { DB_URL } = process.env || require("../config");
 
 mongoose.Promise = Promise;
 mongoose.set("useFindAndModify", false);
