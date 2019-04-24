@@ -1,6 +1,6 @@
 # Notes from last time....
 
-*This Folder includes the code for the BE app for Sweepstakes, to push changes you must be in the root app and to deply the changes you must cd into the BE folder and push to heroku.*
+*This Folder includes the code for the BE app for Sweepstakes, to push changes you must be in the root folder of sweepstakes and to deploy the changes you must cd into the BE folder and push to heroku.*
 
 ## Set up of Sweepstakes BE *to run* Locally
 
