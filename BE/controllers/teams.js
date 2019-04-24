@@ -29,19 +29,19 @@ function getTeamByName(req, res, next) {
     })
 }
 
-function getTeamByName(req, res, next) {
-  const teamName = req.params.team_name;
+function getTeamById(req, res, next) {
+  const teamId = req.params.team_ID;
 
-  return Teams.findOne({ name: teamName })
-  .lean()
-  .then(team => {
-    team === null
-      ? res.status(404).send({team})
-      : res.status(200).send(team)
-  })
-  .catch(err => {
-    next({err: err.message, err, root: 'getTeamByName'})
-  })
+  return Teams.findById(teamId)
+    .lean()
+    .then(team => {
+      team === null
+        ? res.status(404).send({team})
+        : res.status(200).send(team)
+    })
+    .catch(err => {
+      next({err: err.message, err, root: 'getTeamByName'})
+    })
 }
 
 function updateTeam(req, res, next) {
@@ -72,7 +72,7 @@ function deleteTeam(req, res, next) {
 
 module.exports = {
   getTeams,
-  getTeamByName,
+  getTeamById,
   updateTeam,
   deleteTeam
 };
