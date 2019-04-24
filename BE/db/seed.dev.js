@@ -4,6 +4,8 @@ mongoose.Promise = Promise;
 const { DB_URL } = require('../config');
 const seedDB = require('./seed.js');
 
+mongoose.set('useCreateIndex', true);
+
 mongoose.connect(DB_URL, {useNewUrlParser: true})
   .then(() => console.log(`Connected to database ${DB_URL}`))
   .then(() => seedDB())
