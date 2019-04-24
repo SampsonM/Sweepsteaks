@@ -4,7 +4,7 @@ import https from 'https';
 import path from 'path';
 import fs from 'fs';
 
-const PORT = process.env.PORT || require('../config').PORT;
+const PORT = process.env.PORT || require('../config/environment').PORT;
 
 if (process.env.NODE_ENV === 'production') {
   http.createServer(app).listen(PORT, () => {

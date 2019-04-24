@@ -1,7 +1,7 @@
 'use strict';
 const mongoose = require('mongoose');
 mongoose.Promise = Promise;
-const { DB_URL } = require('../config');
+const { DB_URL } = require('../config/environment');
 const seedDB = require('./seed.js');
 
 mongoose.set('useCreateIndex', true);

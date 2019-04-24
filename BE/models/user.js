@@ -21,10 +21,11 @@ const UserSchema = new Schema({
     required: true,
     unique: true
   },
-  password: {
-    type: String,
-    required: true,
-    minlength: 6
+  hash: {
+    type: String
+  },
+  salt: {
+    type: String
   },
   avatarUrl: {
     type: String

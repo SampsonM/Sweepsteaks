@@ -1,7 +1,6 @@
 module.exports = {
-  teamsRouter: require('./teams.js'),
-  groupRouter: require('./groups.js'),
-  usersRouter: require('./users.js'),
-  competitionRouter: require('./competitions.js'),
-  loginRouter: require('./login.js')
+  teamsRouter: require('./api/teams.js'),
+  groupRouter: require('./api/groups.js'),
+  usersRouter: require('./api/users.js'),
+  competitionRouter: require('./api/competitions.js')
 };

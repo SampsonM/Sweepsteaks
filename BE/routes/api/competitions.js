@@ -1,6 +1,6 @@
 'use strict';
 const competitionRouter = require('express').Router();
-import * as compCtlr  from '../controllers/competitions.js';
+import * as compCtlr  from '../../controllers/competitions.js';
 
 competitionRouter.post('/:competition_id', compCtlr.updateCompetition);
 competitionRouter.post('/', compCtlr.addNewCompetition);

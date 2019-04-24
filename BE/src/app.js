@@ -2,28 +2,40 @@
 import express from "express";
 import bodyparser from "body-parser";
 import cors from "cors";
-import apiRouter from "../routes/api.js";
+import apiRouter from "../routes/api/api.js";
 import mongoose from "mongoose";
 import helmet from "helmet";
 import utils from "../utils";
+import passport from 'passport'
+import '../config/passport';
+const DB_URL = process.env.DB_URL || require("../config/environment").DB_URL;
 
-const app = express();
-const DB_URL = process.env.DB_URL || require("../config").DB_URL;
-
+// Configure mongoose
 mongoose.Promise = Promise;
 mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
 
-app.use(bodyparser.json());
-app.use(helmet());
-app.use(
-  cors({
-    origin: "www.sweepstakes.co.uk",
-    exposedHeaders: ["Content-Length", "X-Foo", "X-Bar"],
-    credentials: true
-  })
-);
+// Init app
+const app = express();
 
+// Configure the app
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({ extended: true }));
+app.use(helmet());
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    defaultSrc: ["'self'"]
+  }
+}));
+app.use(cors({
+  origin: "www.sweepstakes.co.uk",
+  exposedHeaders: ["Content-Length", "X-Foo", "X-Bar"],
+  credentials: true
+}));
+app.use(passport.initialize())
+app.use(passport.session())
+
+// Connect mongoose
 mongoose.connect(
   DB_URL,
   { useNewUrlParser: true },
@@ -31,21 +43,6 @@ mongoose.connect(
     console.log("connected at app.js to mongo");
   }
 );
-
-app.use("/*", (req, res, next) => {
-  if (utils.isGetRequest(req)) {
-    return next();
-  }
-
-  if (utils.timestampValid(req)) {
-    return next();
-  }
-
-  return res.status(403).send({
-    message: "Forbidden request",
-    root: "forbiddenRequest"
-  });
-});
 
 app.use("/api", apiRouter);
 
@@ -59,8 +56,17 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  console.log("Error", err.message, err.root);
   return res.status(500).send(err);
+});
+
+passport.serializeUser(function(user, cb) {
+  cb(null, user.id);
+});
+
+passport.deserializeUser(function(id, cb) {
+  User.findById(id, function(err, user) {
+    cb(err, user);
+  });
 });
 
 export default app;

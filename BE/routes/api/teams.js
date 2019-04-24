@@ -1,6 +1,6 @@
 'use strict';
 const teamsRouter = require('express').Router();
-import * as teamCtrl from '../controllers/teams';
+import * as teamCtrl from '../../controllers/teams';
 
 teamsRouter.post('/:team_name', teamCtrl.updateTeam);
 
