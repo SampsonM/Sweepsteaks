@@ -1,11 +1,18 @@
 const LocalStrategy = require('passport-local').Strategy;
 import passport from 'passport';
 import Users from '../models/user';
+import utils from '../utils';
 
 passport.use(new LocalStrategy((username, password, done) => {
-  Users.findOne({ username: username})
+
+  function passwordInvalid(password, salt, hash) {
+    const loginPassHash = utils.createHash(password, salt);
+
+    return loginPassHash !== hash;
+  }
+
+  Users.findOne({ username: username })
     .then((user, err) => {
-      console.log('user', user)
       if (err) {
         return done(err);
       }
@@ -14,7 +21,7 @@ passport.use(new LocalStrategy((username, password, done) => {
         return done(null, false);
       }
 
-      if (user.password != password) {
+      if (passwordInvalid(password, user.salt, user.hash)) {
         return done(null, false);
       }
 
