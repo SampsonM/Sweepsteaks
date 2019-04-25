@@ -9,7 +9,7 @@ const {
   teamData,
   userData
 } = require(`./${path}-data`);
-import utils from '../utils';
+import { createHashSalt } from '../utils';
 
 function seedGroups(userIds) {
   let newGroups = groupData.map(group => {
@@ -54,7 +54,7 @@ function generateIds(data, docs) {
 
 function seedUsers(users) {
   const newUsersData = users.map(user => {
-    const passwordData = utils.hashPassword(user.password)
+    const passwordData = createHashSalt(user.password)
     
     user.hash = passwordData.hash
     user.salt = passwordData.salt
