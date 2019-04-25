@@ -18,60 +18,55 @@ function getUserByName(req, res, next) {
 
 // POST new user 
 function createUser(req, res, next) {
-  const { user } = req.body;
+  const { userData } = req.body;
 
-  if (!user.email) {
-    return res.status(422).json({
-      errors: {
-        email: "is required"
+  // Validate User Request
+  // first, last, user, email, hash, salt
+  
+  passport.authenticate('local', (err, user) => {
+    if (err) {
+      return res.send({ err })
+    }
+
+    if (!user) {
+      const newUser = new Users(userData);
+
+      if (userData.password) {
+        newUser.setHash(userData.passport)
       }
-    });
-  }
 
-  if (!user.password) {
-    return res.status(422).json({
-      errors: {
-        password: "is required"
-      }
-    });
-  }
+      return newUser.save()
+        .then(user => {
+          console.log(user)
+          res.send({ user: user.toAuthJSON() })
+        })
+        .catch(err => {
+          console.log('err', err)
+        })
+    }
 
-  const newUser = new Users(user);
+	})(req, res, next);
 
-  newUser.setPassword(user.password);
-
-  return newUser.save().then(() => res.json({ user: newUser.toAuthJSON() }));
 }
 
 // POST existing user login
 function logUserIn(req, res, next) {
 
   passport.authenticate('local', (err, user, info) => {
-    console.log('user', user)
-
-    if (user) {
-      return res.send({ err: user })
+    if (err) {
+      return res.send({ err })
     }
 
     if (!user) {
 	  	return res.send({ USER: 'none existent'});
-	  }
+    }
+    
+    return res.send({ user })
 	})(req, res, next);
 
 }
 
-function userLoggedIn(req, res, next) {
-  const { id } = req.payload;
-
-  return Users.findById(id)
-    .then((user) => {
-      if(!user) {
-        return res.sendStatus(400);
-      }
-
-      return res.json({ user: user.toAuthJSON() });
-    });
-}
+function userLoggedIn(req, res, next) {}
 
 // update user
 function updateUser(req, res, next) {}
