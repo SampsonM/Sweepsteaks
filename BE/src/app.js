@@ -58,14 +58,15 @@ app.use((err, req, res, next) => {
   return res.status(500).send(err);
 });
 
-passport.serializeUser((user, cb) => {
-  cb(null, user.id);
+passport.serializeUser((user, done) => {
+  done(null, user.id);
 });
 
-passport.deserializeUser((id, cb) => {
-  User.findById(id, (err, user) => {
-    cb(err, user);
-  });
+passport.deserializeUser((id, done) => {
+  User.findById(id)
+    .then((err, user) => {
+      done(err, user);
+    });
 });
 
 export default app;
