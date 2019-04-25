@@ -3,11 +3,11 @@ const usersRouter = require('express').Router();
 import auth from '../auth';
 import * as usersCtrl from '../../controllers/users';
 
-//GET User by name
-usersRouter.get('/:user_name', usersCtrl.getUserByName);
-
 //GET current route (required, only authenticated users have access)
 usersRouter.get('/current', auth.required, usersCtrl.userLoggedIn);
+
+//GET User by name
+usersRouter.get('/:user_name', usersCtrl.getUserByName);
 
 //POST new user route (optional, everyone has access)
 usersRouter.post('/', auth.optional, usersCtrl.createUser);

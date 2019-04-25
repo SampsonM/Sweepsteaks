@@ -32,7 +32,7 @@ function createUser(req, res, next) {
       const newUser = new Users(userData);
 
       if (userData.password) {
-        newUser.setHash(userData.passport)
+        newUser.setHash(userData.password)
       }
 
       return newUser.save()
@@ -46,7 +46,6 @@ function createUser(req, res, next) {
     }
 
 	})(req, res, next);
-
 }
 
 // POST existing user login
@@ -61,12 +60,25 @@ function logUserIn(req, res, next) {
 	  	return res.send({ USER: 'none existent'});
     }
     
-    return res.send({ user })
+    return res.send({ user: user.toAuthJSON() })
 	})(req, res, next);
-
 }
 
-function userLoggedIn(req, res, next) {}
+function userLoggedIn(req, res, next) {
+  const { id } = req.query;
+
+  return Users.findById(id)
+    .then((user) => {
+      if(!user) {
+        return res.sendStatus(400);
+      }
+
+      return res.send({ user: user.toAuthJSON() });
+    })
+    .catch(err => {
+      next({ err: err.message, err, root: "iuserLoggedIn Function" });
+    })
+}
 
 // update user
 function updateUser(req, res, next) {}

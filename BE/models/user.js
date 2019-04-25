@@ -54,11 +54,11 @@ UserSchema.methods.setHash = function(password) {
   this.hash = hash
 };
 
-UserSchema.methods.validatePassword = function(password) {
+UserSchema.methods.validatePassword = function(hash) {
   return this.hash === hash;
 };
 
-UsersSchema.methods.generateJWT = function() {
+UserSchema.methods.generateJWT = function() {
   const today = new Date();
   const expirationDate = new Date(today);
   expirationDate.setDate(today.getDate() + 60);
@@ -70,10 +70,13 @@ UsersSchema.methods.generateJWT = function() {
   }, 'secret');
 }
 
-UsersSchema.methods.toAuthJSON = function() {
+UserSchema.methods.toAuthJSON = function() {
   return {
     _id: this._id,
     email: this.email,
+    username: this.username,
+    firstName: this.firstName,
+    lastName: this.lastName,
     token: this.generateJWT()
   };
 };
