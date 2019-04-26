@@ -10,7 +10,7 @@ usersRouter.get('/current', auth.required, usersCtrl.userLoggedIn);
 usersRouter.get('/:user_name', usersCtrl.getUserByName);
 
 //POST new user route (optional, everyone has access)
-usersRouter.post('/', usersCtrl.validate('createUser'), auth.optional, usersCtrl.createUser);
+usersRouter.post('/', auth.optional, usersCtrl.createUser);
 
 //POST login route (optional, everyone has access)
 usersRouter.post('/login', auth.optional, usersCtrl.logUserIn);

@@ -1,7 +1,6 @@
 "use strict";
 import { Users } from "../models/index";
 import passport from "passport";
-import { body } from 'express-validator/check';
 
 // GET user
 function getUserByName(req, res, next) {
@@ -20,11 +19,11 @@ function getUserByName(req, res, next) {
 // POST new user 
 function createUser(req, res, next) {
   const { userData } = req.body;
-
-  // Validate User Request
-  // first, last, user, email, hash, salt
   
-  passport.authenticate('local', (err, user) => {
+  // validateUserData(userData)
+
+  passport.authenticate('local', (err, user) => {  
+
     if (err) {
       return res.send({ err })
     }
@@ -86,18 +85,12 @@ function updateUser(req, res, next) {}
 // delete user
 function deleteUser(req, res, next) {}
 
-function validate(method) {
-  switch (method) {
-    case 'createUser': {
-     return [ 
-        body('userData.firstName', 'Invalid email').exists(),
-        body('userData.lastName', 'Invalid email').exists(),
-        body('userData.username', 'userName doesn\'t exist').exists(),
-        body('userData.email', 'Invalid email').exists().isEmail(),
-        body('userData.password', 'Invalid password').exists()
-      ]
-    }
-  }
+function validateUserData(data) {
+  body('userData.firstName', 'must provide first name').exists(),
+  body('userData.lastName', 'must provide last name').exists(),
+  body('userData.username', 'userName doesn\'t exist').exists(),
+  body('userData.email', 'Invalid email').exists().isEmail(),
+  body('userData.password', 'Invalid password').exists()
 }
 
 module.exports = {
@@ -106,6 +99,5 @@ module.exports = {
   updateUser,
   deleteUser,
   logUserIn,
-  userLoggedIn,
-  validate
+  userLoggedIn
 };
