@@ -2,7 +2,13 @@
 import mongoose from 'mongoose';
 import { createHashSalt } from '../utils';
 import jwt from 'jsonwebtoken';
+import fs from 'fs';
+import path from 'path';
 const Schema = mongoose.Schema;
+
+const KEY = process.env.NODE_ENV === 'production'
+  ? process.env.KEY
+  : fs.readFileSync(path.resolve(__dirname, '../config/certs/rootCA.key'));
 
 const UserSchema = new Schema({
   firstName: {
@@ -51,7 +57,7 @@ UserSchema.methods.setHash = function(password) {
   const { salt, hash } = createHashSalt(password)
 
   this.salt = salt;
-  this.hash = hash
+  this.hash = hash;
 };
 
 UserSchema.methods.validatePassword = function(hash) {
@@ -67,7 +73,7 @@ UserSchema.methods.generateJWT = function() {
     email: this.email,
     id: this._id,
     exp: parseInt(expirationDate.getTime() / 1000, 10),
-  }, 'secret');
+  }, KEY);
 }
 
 UserSchema.methods.toAuthJSON = function() {

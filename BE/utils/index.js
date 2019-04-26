@@ -19,7 +19,6 @@ export const isPhoneNumber = (value) => {
 export const createHashSalt = (value) => {
   const salt = createSalt();
   const hash = createHash(value, salt);
-  console.log('creathashsalt', hash)
 
   return {
     hash,
@@ -29,8 +28,6 @@ export const createHashSalt = (value) => {
 
 export const createHash = (value, salt) => {
   const md = forge.md.sha256.create();
-  console.log('value', value)
-  console.log('salt', salt)
   const hash = md.update(value + salt).digest().toHex();
 
   return hash;

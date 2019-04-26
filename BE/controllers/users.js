@@ -37,11 +37,10 @@ function createUser(req, res, next) {
 
       return newUser.save()
         .then(user => {
-          console.log(user)
           res.send({ user: user.toAuthJSON() })
         })
         .catch(err => {
-          console.log('err', err)
+          res.status(409).send({ err })
         })
     }
 
@@ -50,7 +49,6 @@ function createUser(req, res, next) {
 
 // POST existing user login
 function logUserIn(req, res, next) {
-
   passport.authenticate('local', (err, user, info) => {
     if (err) {
       return res.send({ err })
