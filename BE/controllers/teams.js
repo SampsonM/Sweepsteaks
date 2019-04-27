@@ -29,26 +29,11 @@ function getTeamByName(req, res, next) {
     })
 }
 
-function getTeamById(req, res, next) {
-  const teamId = req.params.team_ID;
-
-  return Teams.findById(teamId)
-    .lean()
-    .then(team => {
-      team === null
-        ? res.status(404).send({team})
-        : res.status(200).send(team)
-    })
-    .catch(err => {
-      next({err: err.message, err, root: 'getTeamByName'})
-    })
-}
-
 function updateTeam(req, res, next) {
   const { updatedTeamData } = req.body;
-  const teamName = req.params.team_name;
+  const id = req.params.team_ID;
 
-  return Teams.findOneAndUpdate({name: teamName}, {$set: updatedTeamData}, {new: true})
+  return Teams.findByIdAndUpdate(id, {$set: updatedTeamData}, {new: true})
     .lean()
     .then(team => {
       res.status(200).send(team);
@@ -72,7 +57,7 @@ function deleteTeam(req, res, next) {
 
 module.exports = {
   getTeams,
-  getTeamById,
+  getTeamByName,
   updateTeam,
   deleteTeam
 };
