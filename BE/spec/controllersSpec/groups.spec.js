@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 mongoose.Promise = Promise;
 import { expect } from 'chai';
 import seedDB from '../../db/seed';
-import { DB_URL } from '../../config';
+import { DB_URL } from '../../config/environment';
 const request = require('supertest')(app);
 
 describe('/groups', () => {
@@ -65,8 +65,7 @@ describe('/groups', () => {
         name: 'ME JULIES NEW GROUP',
         createdBy: user._id,
         wager: 5
-      },
-      sync: new Date()
+      }
     };
 
     return request
@@ -92,8 +91,7 @@ describe('/groups', () => {
       updatedGroupData: {
         name: 'daves pals'
       },
-      id: user._id,
-      sync: new Date()
+      id: user._id
     };
 
     return request

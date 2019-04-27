@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 mongoose.Promise = Promise;
 import { expect } from 'chai';
 import seedDB from '../../db/seed';
-import { DB_URL } from '../../config';
+import { DB_URL } from '../../config/environment';
 const request = require('supertest')(app);
 
 describe('/competitions', () => {
@@ -60,8 +60,7 @@ describe('/competitions', () => {
         name: "100m Olympics final",
         teams: ["Usain BOLT", "Justin GATLIN", "Andre DE GRASSE", "Yohan BLAKE", "Akani SIMBINE", "Ben Youssef MEITE", "Jimmy VICAUT", "Trayvon BROMELL"],
         sport: "100m Sprint"
-      },
-      sync: new Date()
+      }
     };
 
     return request
@@ -82,8 +81,7 @@ describe('/competitions', () => {
         name: "World Cup 2018",
         teams: ["England", "France", "Germany", "Argentina"],
         sport: "football"
-      },
-      sync: new Date()
+      }
     };
 
     return request
@@ -104,13 +102,8 @@ describe('/competitions', () => {
   });
 
   it('DELETE /:competition_id DELETES competition data', () => {
-    const data = {
-      sync: new Date()
-    };
-    
     return request
       .del(`/api/competitions/${compDocs[0]._id}`)
-      .send(data)
       .expect(202)
       .then(() => {
         

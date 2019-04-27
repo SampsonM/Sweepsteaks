@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 mongoose.Promise = Promise;
 import { expect } from 'chai';
 import seedDB from '../../db/seed';
-import { DB_URL } from '../../config';
+import { DB_URL } from '../../config/environment';
 const request = require('supertest')(app);
 
 describe('/teams', () => {
@@ -48,28 +48,18 @@ describe('/teams', () => {
       });
   });
 
-  it('GET /:teamId returns team by id', () => {
-    return request
-      .get(`/api/teams/${teamDocs[0]._id}`)
-      .expect(200)
-      .then(team => {
-        expect(team.body.name).to.equal(teamDocs[0].name)
-      })
-  });
-
-  it('POST ?group_name updates team by name', () => {
+  it('PUT /:team_ID updates team by id', () => {
     const updatedTeamInfo = { 
       updatedTeamData: {
         name: 'Finland',
         sport: teamDocs[0].sport,
         competition: teamDocs[0].competition
       },
-      id: teamDocs[0]._id,
-      sync: new Date()
+      id: teamDocs[0]._id
     };
 
     return request
-      .post(`/api/teams/${teamDocs[0].name}`)
+      .put(`/api/teams/${teamDocs[0].id}`)
       .send(updatedTeamInfo)
       .expect(200)
       .then(team => {
@@ -80,7 +70,6 @@ describe('/teams', () => {
   
   it('DELETE /:team_ID deletes team by id', () => {
     const teamInfo = {
-      sync: new Date(),
       id: teamDocs[0]._id
     };
 

@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 mongoose.Promise = Promise;
 import { expect } from 'chai';
 import seedDB from '../../db/seed';
-import { DB_URL } from '../../config';
+import { DB_URL } from '../../config/environment';
 const request = require('supertest')(app)
 
 describe('/users', () => {
