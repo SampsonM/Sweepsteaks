@@ -54,10 +54,10 @@ const UserSchema = new Schema({
 
 
 UserSchema.methods.setHash = function(password) {
-  const { salt, hash } = createHashSalt(password)
+  const { hash, salt } = createHashSalt(password)
 
-  this.salt = salt;
   this.hash = hash;
+  this.salt = salt;
 };
 
 UserSchema.methods.validatePassword = function(hash) {
@@ -65,14 +65,13 @@ UserSchema.methods.validatePassword = function(hash) {
 };
 
 UserSchema.methods.generateJWT = function() {
-  const today = new Date();
-  const expirationDate = new Date(today);
-  expirationDate.setDate(today.getDate() + 60);
+  const expirationDate = new Date();
+  expirationDate.setDate(new Date().getDate() + 5);
 
   return jwt.sign({
     email: this.email,
     id: this._id,
-    exp: parseInt(expirationDate.getTime() / 1000, 10),
+    exp: parseInt(expirationDate.getTime(), 10),
   }, KEY);
 }
 
