@@ -26,7 +26,7 @@ describe('/users', () => {
       .then(() => console.log('disconnected... 🧟'))
   })
 
-  it('/:user_name returns user by name', () => {
+  it('GET /:user_name returns user by name', () => {
     return request
       .get(`/api/users/${userDocs[0].username}`)
       .expect(200)
