@@ -1,12 +1,12 @@
 'use strict';
-import { Groups } from '../models/index';
+import { Group } from '../models/index';
 
 function getGroups(req, res, next) {
   if (req.query.name) {
     return getGroupByName(req, res, next);
   };
 
-  return Groups.find()
+  return Group.find()
     .lean()
     .populate('createdBy', 'username')
     .populate('users', 'username')
@@ -21,7 +21,7 @@ function getGroups(req, res, next) {
 function getGroupById(req, res, next) {
   const groupId = req.params.group_id;
 
-  return Groups.findById(groupId)
+  return Group.findById(groupId)
     .lean()
     .populate('createdBy', 'name')
     .then(group => {
@@ -35,7 +35,7 @@ function getGroupById(req, res, next) {
 function getGroupByName(req, res, next) {
   const groupName = req.query.name;
 
-  return Groups.findOne({ name: groupName })
+  return Group.findOne({ name: groupName })
     .lean()
     .populate('createdBy', 'name')
     .then(group => {
@@ -49,7 +49,7 @@ function getGroupByName(req, res, next) {
 function addGroup(req, res, next) {
   const {newGroup} = req.body;
 
-  return Groups.find()
+  return Group.find()
     .then(() => {
       return new Groups({
         "name": newGroup.name,
@@ -75,7 +75,7 @@ function editGroupData(req, res, next) {
   const {updatedGroupData} = req.body;
   const groupName = req.params.group_name;
 
-  return Groups.findOneAndUpdate({name: groupName}, {$set: updatedGroupData}, {new:true})
+  return Group.findOneAndUpdate({name: groupName}, {$set: updatedGroupData}, {new:true})
   .populate('users', 'username')
   .populate('createdBy', 'username')
   .then(group => {

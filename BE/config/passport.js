@@ -1,6 +1,6 @@
 const LocalStrategy = require('passport-local').Strategy;
 import passport from 'passport';
-import Users from '../models/user';
+import User from '../models/user';
 import { createHash } from '../utils';
 
 passport.use(new LocalStrategy((username, password, done) => {
@@ -11,7 +11,7 @@ passport.use(new LocalStrategy((username, password, done) => {
     return loginPassHash !== hash;
   }
 
-  Users.findOne({ username: username })
+  User.findOne({ username })
     .then((user, err) => {
       if (err) {
         return done(err);

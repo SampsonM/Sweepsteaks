@@ -1,13 +1,13 @@
 'use strict';
-import {Competitions} from '../models';
-import {Teams} from '../models';
+import { Competition } from '../models';
+import { Team } from '../models';
 
 function getCompetitions(req, res, next) {
   if (req.query.name) {
     return getCompetitionByName(req, res, next);
   };
 
-  return Competitions.find()
+  return Competition.find()
     .lean()
     .populate('teams', 'name')
     .then(Competitions => {
@@ -21,7 +21,7 @@ function getCompetitions(req, res, next) {
 function getCompetitionById(req, res, next) {
   const competitionId = req.params.competition_id;
 
-  return Competitions.findById(competitionId)
+  return Competition.findById(competitionId)
     .lean()
     .populate('teams', 'name')
     .then(Competition => {
@@ -35,7 +35,7 @@ function getCompetitionById(req, res, next) {
 function getCompetitionByName(req, res, next) {
   let competitionName = req.query.name;
 
-  return Competitions.findOne({name: competitionName})
+  return Competition.findOne({name: competitionName})
     .lean()
     .populate('teams', 'name')
     .then(competition => {
@@ -49,12 +49,12 @@ function getCompetitionByName(req, res, next) {
 function addNewCompetition(req, res, next) {
   const {newCompetition} = req.body;
 
-  return Competitions.find()
+  return Competition.find()
     .then(() => {
       return createTeamsArray(newCompetition);
     })
     .then(newTeams => {
-      return new Competitions({
+      return new Competition({
         "name": newCompetition.name,
         "teams": newTeams,
         "sport": newCompetition.sport
@@ -75,7 +75,7 @@ function updateCompetition(req, res, next) {
   const compId = req.params.competition_id;
   let {competitionUpdate} = req.body;
 
-  return Competitions.find()
+  return Competition.find()
     .then(() => {
       return createTeamsArray(competitionUpdate)
     })
@@ -83,7 +83,7 @@ function updateCompetition(req, res, next) {
       competitionUpdate.teams = teams;
     })
     .then(() => {
-      return Competitions.findOneAndUpdate({_id: compId}, competitionUpdate).populate('teams', 'name');
+      return Competition.findOneAndUpdate({_id: compId}, competitionUpdate).populate('teams', 'name');
     })
     .then(competition => {
       res.status(200).send(competition)
@@ -94,11 +94,11 @@ function updateCompetition(req, res, next) {
 
 };
 
-// maybe need to add headers/ authoentication to prevent anybody deleting data
+// Maybe need to add headers/ authentication to prevent anybody deleting data
 function deleteCompetition(req, res, next) {
   const competitionId = req.params.competition_id;
 
-  return Competitions.findByIdAndRemove(competitionId)
+  return Competition.findByIdAndRemove(competitionId)
     .lean()
     .then(comp => {
       res.status(202).send(comp)
@@ -106,15 +106,13 @@ function deleteCompetition(req, res, next) {
     .catch(err => {
       next({message: err.message, err, root: 'DeleteCompetition'})
     })
-
 };
 
-
-// utils 
+// Utils 
 
 function createTeamsArray(competitionData) {
   return competitionData.teams.map(team => {
-    return new Teams({
+    return new Team({
       "name": team,
       "competition": competitionData.name,
       "sport": competitionData.sport
