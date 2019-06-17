@@ -18,6 +18,11 @@ To set up the env follow these steps:
 - Run 'NPM run start:dev' to start api
 - In the browser enter 'https://localhost:3000/api' to see the base api page
 
+## Running dev env
+
+```bash
+Run in development mode - npm run start:dev
+```
 
 ## Running tests
 
