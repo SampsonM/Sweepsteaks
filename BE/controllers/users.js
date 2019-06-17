@@ -1,12 +1,12 @@
 "use strict";
-import { Users } from "../models/index";
+import { User } from "../models/index";
 import passport from "passport";
 
 // GET user
 function getUserByName(req, res, next) {
   const username = req.params.user_name;
 
-  return Users.findOne({ username: username })
+  return User.findOne({ username: username })
     .lean()
     .then(user => {
       res.status(200).send(user);
@@ -19,17 +19,14 @@ function getUserByName(req, res, next) {
 // POST new user 
 function createUser(req, res, next) {
   const { userData } = req.body;
-  
-  // validateUserData(userData)
 
   passport.authenticate('local', (err, user) => {  
-
     if (err) {
       return res.send({ err })
     }
 
     if (!user) {
-      const newUser = new Users(userData);
+      const newUser = new User(userData);
 
       if (userData.password) {
         newUser.setHash(userData.password)
@@ -65,8 +62,8 @@ function logUserIn(req, res, next) {
 // GET checks if user is currently logged in
 function userLoggedIn(req, res, next) {
   const { id } = req.query;
-
-  return Users.findById(id)
+  
+  return User.findById(id)
     .then((user) => {
       if(!user) {
         return res.sendStatus(400);
@@ -75,7 +72,7 @@ function userLoggedIn(req, res, next) {
       return res.send({ user: user.toAuthJSON() });
     })
     .catch(err => {
-      next({ err: err.message, err, root: "iuserLoggedIn Function" });
+      next({ err: err.message, err, root: "userLoggedIn Function" });
     })
 }
 
@@ -86,6 +83,19 @@ function updateUser(req, res, next) {}
 function deleteUser(req, res, next) {}
 
 function validateUserData(data) {
+  const { firstName, lastName, username, email, password } = data;
+
+  // validate email first last pass username
+  // BE CAREFUL OF XSS AND INJECTION HERE!!!!
+
+  if (!firstName || firstName.length < 2) {
+    return 'First name must be atleast 2 characters'
+  }
+
+  if (!lastName || lastName.length < 2) {
+    return 'Last name must be at least 2 characters'
+  }
+
   body('userData.firstName', 'must provide first name').exists(),
   body('userData.lastName', 'must provide last name').exists(),
   body('userData.username', 'userName doesn\'t exist').exists(),
