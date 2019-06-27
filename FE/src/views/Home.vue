@@ -108,13 +108,13 @@ export default {
   }
 
   @include breakpoint(tablet) {
-    position: absolute;
-    bottom: 20%;
-    margin-left: 30%;
     font-size: 4em;
   }
 
   @include breakpoint(desktop) {
+    position: absolute;
+    bottom: 36%;
+    margin-left: 43%;
     font-size: 5em;
   }
 }
