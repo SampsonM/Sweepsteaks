@@ -28,8 +28,6 @@ export default {
   },
   methods: {
     login() {
-      console.log('helloe', this.username)
-      console.log('your password is', this.password)
     }
   }
 }

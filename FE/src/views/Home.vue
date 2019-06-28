@@ -27,7 +27,6 @@ export default {
   components: {},
   methods: {
     login() {
-      console.log('')
     }
   }
 }

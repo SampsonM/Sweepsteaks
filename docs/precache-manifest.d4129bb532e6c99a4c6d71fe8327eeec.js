@@ -12,27 +12,27 @@ self.__precacheManifest = [
     "url": "img/wood.9439f718.svg"
   },
   {
-    "revision": "6e974d65027029bbd4b4",
-    "url": "js/app.d285f5ce.js"
+    "revision": "b8c8d13ed0693f20b804",
+    "url": "js/app.28f05309.js"
   },
   {
     "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
     "url": "robots.txt"
   },
   {
-    "revision": "8c5509d9334f36b73981",
-    "url": "js/dashboard.dc0ddd7d.js"
+    "revision": "e218d1f48fc4e57b1ddb",
+    "url": "js/dashboard.bb6ed79e.js"
   },
   {
     "revision": "31da31031a835c2e6969",
     "url": "js/chunk-vendors.ac1416ca.js"
   },
   {
-    "revision": "7ac2f07527e3d0980f0f",
-    "url": "js/about.ef31f697.js"
+    "revision": "9c158b13fc723ba06a6c",
+    "url": "js/about.2ceecc72.js"
   },
   {
-    "revision": "a665c7c5adf4567805fef5c2c051c978",
+    "revision": "6ab05e169e6f7bfa67a7bdfc4812e00f",
     "url": "index.html"
   },
   {
@@ -44,11 +44,11 @@ self.__precacheManifest = [
     "url": "favicon.png"
   },
   {
-    "revision": "8c5509d9334f36b73981",
+    "revision": "e218d1f48fc4e57b1ddb",
     "url": "css/dashboard.df4d9964.css"
   },
   {
-    "revision": "6e974d65027029bbd4b4",
-    "url": "css/app.15cf7cc2.css"
+    "revision": "b8c8d13ed0693f20b804",
+    "url": "css/app.39b8db37.css"
   }
 ];

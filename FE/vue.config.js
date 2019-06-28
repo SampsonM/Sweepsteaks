@@ -6,7 +6,7 @@ module.exports = {
 	configureWebpack: {
 		plugins: [
 			new CnameWebpackPlugin({
-			  domain: 'www.sweepstakes.co.uk',
+			  domain: 'www.sweepsteaks.co.uk',
 			})
 		]
 	}
