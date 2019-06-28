@@ -30,12 +30,10 @@ const UserSchema = new Schema({
     unique: true
   },
   hash: {
-    type: String,
-    required: true
+    type: String
   },
   salt: {
-    type: String,
-    required: true
+    type: String
   },
   avatarUrl: {
     type: String

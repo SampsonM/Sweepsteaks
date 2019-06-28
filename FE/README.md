@@ -34,3 +34,9 @@ npm run test:e2e
 ```
 npm run test:unit
 ```
+
+## ** To-Do!! **
+
+- fix breakpoint mixin
+- add slide away on scroll and have about the site information under neath page fold
+- remove navigation headers
