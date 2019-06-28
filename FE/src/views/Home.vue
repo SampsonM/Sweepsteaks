@@ -21,30 +21,30 @@ export default {
 @import "../styles/_vars.scss";
 
 @-webkit-keyframes animateCloud {
-    0% {
-        margin-left: -1100px;
-    }
-    100% {
-        margin-left: 30%;
-    }
+  0% {
+    margin-left: -1100px;
+  }
+  100% {
+    margin-left: 30%;
+  }
 }
 
 @-moz-keyframes animateCloud {
-    0% {
-        margin-left: -1100px;
-    }
-    100% {
-        margin-left: 30%;
-    }
+  0% {
+    margin-left: -1100px;
+  }
+  100% {
+    margin-left: 30%;
+  }
 }
 
 @keyframes animateCloud {
-    0% {
-        margin-left: -1100px;
-    }
-    100% {
-        margin-left: 30%;
-    }
+  0% {
+    margin-left: -1100px;
+  }
+  100% {
+    margin-left: 30%;
+  }
 }
 
 .animated-image {
@@ -66,7 +66,6 @@ export default {
   @include breakpoint(mobileL) {
     margin-top: 52px;
   }
-
 }
 
 .brush {
@@ -118,6 +117,4 @@ export default {
     font-size: 5em;
   }
 }
-
 </style>
-
