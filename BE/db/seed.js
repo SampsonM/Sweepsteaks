@@ -2,7 +2,7 @@
 let path = process.env.NODE_ENV;
 const mongoose = require("mongoose");
 mongoose.Promise = Promise;
-const { Users, Groups, Teams, Competitions } = require("../models");
+const { User, Group, Team, Competition } = require("../models");
 const {
   competitionData,
   groupData,
@@ -27,7 +27,7 @@ function seedGroups(userIds) {
     return { name, creator, createdBy, users, wager };
   });
 
-  return Groups.insertMany(newGroups);
+  return Group.insertMany(newGroups);
 }
 
 function seedCompetitions(teamDocs) {
@@ -42,7 +42,7 @@ function seedCompetitions(teamDocs) {
     return { name, sport, teams };
   });
 
-  return Competitions.insertMany(newCompData);
+  return Competition.insertMany(newCompData);
 }
 
 function generateIds(data, docs) {
@@ -63,14 +63,14 @@ function seedUsers(users) {
     return user
   })
 
-  return Users.insertMany(newUsersData)
+  return User.insertMany(newUsersData)
 }
 
 function seedDB() {
   return mongoose.connection
     .dropDatabase()
     .then(() => {
-      return Teams.insertMany(teamData);
+      return Team.insertMany(teamData);
     })
     .then(teamDocs => {
 
@@ -92,7 +92,7 @@ function seedDB() {
         groupDocs
       };
     })
-    .catch(err => console.log(`${{ err }} oh no! 🧟`));
+    .catch(err => console.log(`${err} oh no! 🧟`));
 }
 
 module.exports = seedDB;

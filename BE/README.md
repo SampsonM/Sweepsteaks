@@ -60,8 +60,10 @@ To run the tests follow these steps:
 
 
 ### Users
-- GET User by name:--------*'/api/users/:user_name'*
-- POST User:---------------*'/api/users/'*
+- GET User login status:----*'/api/users/current?user_id'*
+- GET User by name:-------*'/api/users/:user_name'*
+- POST 'Create' User:------*'/api/users/'*
+- POST Log User in:--------*'/api/users/login'*
 - POST/Edit User by id:-----*'/api/users/:user_ID'*
 - DELETE User by id:-------*'/api/users/:user_ID'*
 

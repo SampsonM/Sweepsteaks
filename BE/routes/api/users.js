@@ -4,7 +4,7 @@ import auth from '../auth';
 import * as usersCtrl from '../../controllers/users';
 
 // GET current route (required, only authenticated users have access)
-usersRouter.get('/current', auth.required, usersCtrl.userLoggedIn);
+usersRouter.get('/current?user_id', auth.required, usersCtrl.checkUserLoginState);
 
 // GET User by name (publically accessible)
 usersRouter.get('/:user_name', usersCtrl.getUserByName);

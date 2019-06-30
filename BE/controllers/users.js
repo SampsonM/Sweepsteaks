@@ -60,10 +60,10 @@ function logUserIn(req, res, next) {
 }
 
 // GET checks if user is currently logged in
-function userLoggedIn(req, res, next) {
-  const { id } = req.query;
+function checkUserLoginState(req, res, next) {
+  const { user_id } = req.query;
   
-  return User.findById(id)
+  return User.findById({ id: user_id })
     .then((user) => {
       if(!user) {
         return res.sendStatus(400);
@@ -72,7 +72,7 @@ function userLoggedIn(req, res, next) {
       return res.send({ user: user.toAuthJSON() });
     })
     .catch(err => {
-      next({ err: err.message, err, root: "userLoggedIn Function" });
+      next({ err: err.message, err, root: "checkUserLoginState Function" });
     })
 }
 
@@ -109,5 +109,5 @@ module.exports = {
   updateUser,
   deleteUser,
   logUserIn,
-  userLoggedIn
+  checkUserLoginState
 };

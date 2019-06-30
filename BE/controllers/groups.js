@@ -51,7 +51,7 @@ function addGroup(req, res, next) {
 
   return Group.find()
     .then(() => {
-      return new Groups({
+      return new Group({
         "name": newGroup.name,
         "createdBy": newGroup.createdBy,
         "wager": newGroup.wager
@@ -63,7 +63,7 @@ function addGroup(req, res, next) {
     .then(returnedGroup => {
       res.status(201).send(returnedGroup)
     })
-    .catch(err => {z
+    .catch(err => {
       next({message: err.message, err, root: 'AddGroup'})
     })
 };
