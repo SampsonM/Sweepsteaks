@@ -22,7 +22,7 @@ function getUserByName(req, res, next) {
 
 // POST new user 
 function createUser(req, res, next) {
-  const { userData } = req.body;
+  const userData = req.body;
 
   passport.authenticate('local', (err, user) => {  
     if (err) {
@@ -32,7 +32,7 @@ function createUser(req, res, next) {
     if (!user) {
       const newUser = new User(userData);
 
-      if (userData.password) {
+      if (userData.password !== undefined) {
         newUser.setHash(userData.password)
       }
 

@@ -27,7 +27,7 @@ app.use(helmet.contentSecurityPolicy({
   }
 }));
 app.use(cors({
-  origin: "www.sweepsteaks.co.uk",
+  origin: ["www.sweepsteaks.co.uk", "http://localhost:8080"],
   exposedHeaders: ["Content-Length", "X-Foo", "X-Bar"],
   credentials: true
 }));
