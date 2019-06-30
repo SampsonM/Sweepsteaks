@@ -14,6 +14,7 @@ passport.use(new LocalStrategy((username, password, done) => {
   User.findOne({ username })
     .then((user, err) => {
       if (err) {
+        console.log(err)
         return done(err);
       }
 

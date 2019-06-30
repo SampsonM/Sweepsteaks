@@ -58,9 +58,8 @@ To run the tests follow these steps:
 - POST/Edit Competition:----*'/api/competitions/:competition_ID'*
 - DELETE Competition:------*'/api/competitions/:competition_ID'*
 
-
 ### Users
-- GET User login status:----*'/api/users/current?user_id'*
+- GET User login status:----*'/api/users/current'*
 - GET User by name:-------*'/api/users/:user_name'*
 - POST 'Create' User:------*'/api/users/'*
 - POST Log User in:--------*'/api/users/login'*
@@ -73,13 +72,12 @@ To run the tests follow these steps:
 
 ## BE
 
-- started testing!
+- started testing! MORE!!! and USER tests need doing!!!
 - finally got the first controller func working to send competitions
 - started first error handling, *learn more about error handling
 - fixed config to have test config and test db
 - ADD Validation to requests!! ### https://medium.freecodecamp.org/how-to-make-input-validation-simple-and-clean-in-your-express-js-app-ea9b5ff5a8a7 ###
 - Add validation on reserved api calls for superuser only 
 - add authentication to delete requests
-- CURRENTLY THE CURRENT ROUTE FOR USERS DOESNT WORK AS IT CANNOT AUTHENTICATE JWT
 
 #

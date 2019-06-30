@@ -6,6 +6,10 @@ import passport from "passport";
 function getUserByName(req, res, next) {
   const username = req.params.user_name;
 
+  if (username === 'current') {
+    return next()
+  }
+
   return User.findOne({ username: username })
     .lean()
     .then(user => {
@@ -60,20 +64,17 @@ function logUserIn(req, res, next) {
 }
 
 // GET checks if user is currently logged in
-function checkUserLoginState(req, res, next) {
-  const { user_id } = req.query;
-  
-  return User.findById({ id: user_id })
-    .then((user) => {
-      if(!user) {
-        return res.sendStatus(400);
-      }
-
-      return res.send({ user: user.toAuthJSON() });
-    })
-    .catch(err => {
-      next({ err: err.message, err, root: "checkUserLoginState Function" });
-    })
+function getUserLoginState(req, res, next) {
+  if (req.user.id) {
+    return User.findById(req.user.id)
+      .then((user) => {
+        return res.send({ user: user.toAuthJSON() });
+      })
+      .catch(err => {
+        res.sendStatus(400);
+        next({ err: err.message, err, root: "getUserLoginState Function" });
+      })
+  }
 }
 
 // update user
@@ -109,5 +110,5 @@ module.exports = {
   updateUser,
   deleteUser,
   logUserIn,
-  checkUserLoginState
+  getUserLoginState
 };

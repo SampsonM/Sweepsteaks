@@ -63,13 +63,15 @@ UserSchema.methods.validatePassword = function(hash) {
 };
 
 UserSchema.methods.generateJWT = function() {
+  const currentDate = new Date();
   const expirationDate = new Date();
-  expirationDate.setDate(new Date().getDate() + 5);
+  expirationDate.setDate(currentDate.getDate() + 5);
 
   return jwt.sign({
     email: this.email,
     id: this._id,
     exp: parseInt(expirationDate.getTime(), 10),
+    iat: Math.floor(new Date())
   }, KEY);
 }
 
