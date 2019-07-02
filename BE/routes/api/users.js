@@ -12,11 +12,11 @@ usersRouter.get('/current', auth.required, usersCtrl.getUserLoginState);
 // POST new user route (optional, publically accessible)
 usersRouter.post('/', auth.optional, usersCtrl.createUser);
 
-// POST to update user (required, only user should have access)
-usersRouter.post('/:user_id', auth.required, usersCtrl.updateUser);
-
 // POST login route (optional, publically accessible)
 usersRouter.post('/login', auth.optional, usersCtrl.logUserIn);
+
+// POST to update user (required, only user should have access)
+usersRouter.post('/:user_id', auth.required, usersCtrl.updateUser);
 
 // DELETE USER (required, only user should have access)
 usersRouter.delete('/:user_id', auth.required, usersCtrl.deleteUser);

@@ -4,7 +4,7 @@
   "description": "Sweepstakes BE",
   "main": "src/listen.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha --recursive --exit --require babel-polyfill --require babel-register ./spec",
+    "test": "NODE_ENV=test mocha --recursive --exit --require babel-polyfill --require babel-register './spec/**/*.js'",
     "start": "babel-node src/listen.js --exec --presets es2015,stage-2",
     "start:dev": "NODE_ENV=development nodemon --exec babel-node src/listen.js --presets es2015,stage-2",
     "seed:dev": "NODE_ENV=development babel-node ./db/seed.dev.js --exec --presets es2015,stage-2",

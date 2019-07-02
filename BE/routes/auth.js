@@ -6,7 +6,7 @@ const KEY = process.env.NODE_ENV === 'production'
   ? process.env.KEY
   : fs.readFileSync(path.resolve(__dirname, '../config/certs/rootCA.key'));
 
-const getTokenFromHeaders = (req) => req.headers.authorization;
+const getTokenFromHeaders = (req) => req.headers.authorisation;
 
 const auth = {
   required: exJwt({

@@ -53,17 +53,17 @@ function generateIds(data, docs) {
 }
 
 function seedUsers(users) {
-  const newUsersData = users.map(user => {
-    const passwordData = createHashSalt(user.password)
+  const newUserData = users.map(user => {
+    const newUser = Object.assign({}, user)
+    const passwordData = createHashSalt(newUser.password)
     
-    user.hash = passwordData.hash
-    user.salt = passwordData.salt
-    user.password = null
+    newUser.hash = passwordData.hash
+    newUser.salt = passwordData.salt
+    newUser.password = null
 
-    return user
+    return newUser
   })
-
-  return User.insertMany(newUsersData)
+  return User.insertMany(newUserData)
 }
 
 function seedDB() {
@@ -73,7 +73,6 @@ function seedDB() {
       return Team.insertMany(teamData);
     })
     .then(teamDocs => {
-
       return Promise.all([
         seedCompetitions(teamDocs),
         seedUsers(userData),

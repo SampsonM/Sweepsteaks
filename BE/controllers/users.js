@@ -24,7 +24,7 @@ function getUserByName(req, res, next) {
 function createUser(req, res, next) {
   const userData = req.body;
 
-  passport.authenticate('local', (err, user) => {  
+  passport.authenticate('local', (err, user) => {
     if (err) {
       return res.send({ err })
     }
@@ -38,11 +38,13 @@ function createUser(req, res, next) {
 
       return newUser.save()
         .then(user => {
-          res.send({ user: user.toAuthJSON() })
+          res.status(201).send({ user: user.toAuthJSON() })
         })
         .catch(err => {
           res.status(409).send({ err })
         })
+    } else {
+      res.status(409).send({ err })
     }
 
 	})(req, res, next);
@@ -56,7 +58,7 @@ function logUserIn(req, res, next) {
     }
 
     if (!user) {
-	  	return res.send({ USER: 'none existent'});
+	  	return res.send({ USER: 'User does not exist'});
     }
     
     return res.send({ user: user.toAuthJSON() })
@@ -74,6 +76,8 @@ function getUserLoginState(req, res, next) {
         res.sendStatus(400);
         next({ err: err.message, err, root: "getUserLoginState Function" });
       })
+  } else {
+    return res.staus(409).send({ err: 'User not signed in.'})
   }
 }
 
