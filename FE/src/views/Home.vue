@@ -38,7 +38,7 @@ export default {
 
 .landing-page {
   &__content {
-    margin-top: 22%;
+    margin-top: 28%;
     left:0;
     right:0;
     color: $red;

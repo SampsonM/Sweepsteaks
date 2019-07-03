@@ -25,7 +25,7 @@ function createUser(req, res, next) {
   const userData = req.body;
 
   passport.authenticate('local', (err, user) => {
-    if (err) {
+    if (err && err.split(' ')[0] !== 'Username') {
       return res.send({ err })
     }
 
@@ -54,7 +54,7 @@ function createUser(req, res, next) {
 function logUserIn(req, res, next) {
   passport.authenticate('local', (err, user) => {
     if (err) {
-      return res.send({ err })
+      return res.send({ error: err, statusCode: 404 })
     }
 
     if (!user) {
