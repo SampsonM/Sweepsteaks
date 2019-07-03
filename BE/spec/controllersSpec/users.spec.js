@@ -8,7 +8,7 @@ import { DB_URL } from '../../config/environment';
 import userData from '../../db/test-data/User.json'
 const request = require('supertest')(app)
 
-describe.only('/users', () => {
+describe('/users', () => {
   let userDocs
   const userZeroPass = userData[0].password
   const userZeroUsername = userData[0].username
@@ -29,7 +29,7 @@ describe.only('/users', () => {
       .then(() => console.log('disconnected... 🧟'))
   })
 
-  describe.only('when user is not logged in', () => {
+  describe('when user is not logged in', () => {
     it('GET /:user_name returns user by name', () => {
       return request
         .get(`/api/users/${userDocs[0].username}`)
@@ -85,7 +85,7 @@ describe.only('/users', () => {
         })
     })
 
-    it.only('POST / creates user', () => {
+    it('POST / creates user', () => {
       const data = {
         firstName: 'Gina',
         lastName: 'winas',
@@ -97,8 +97,9 @@ describe.only('/users', () => {
       return request 
         .post('/api/users/')
         .send(data)
+        .expect(201)
         .expect(res => {
-          console.log('result',res.body)
+          if (!res.body.user._id) throw new Error(`Expected createUser to return new user with id, but received: ${res.body.user}`)
         })
     })
   })
