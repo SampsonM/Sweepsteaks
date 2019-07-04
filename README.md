@@ -1,26 +1,14 @@
-# SWEEP-STEAKS
+# **SWEEP-STEAKS**
 
-## Ideas
-  * Build in personalisation on home page
-
-#
-## TO-DO
-  * Write Documentation README for API and FE
-  * Finish basic controllers, routes and tests
+The app to help you and your friends play sweepstakes long distance, no longer will you be stuck playing with just your co-workers!
 
 #
-## Routes
-  * get everything by id and name
+## Getting started
 
-#
-## BDD (Behaviour driven development)
-  * What if ??
+The project setup is a straightforward mono-repo which holds the front and back end code, this is for ease of use.
 
-#
-## Security TO-DO
-  * Secure post requests
-  * Check how helmet prevents script injection or if it does?!
-  * HTML Encode user input displayed and inserted
-  * Initialise SSL certs? (have created self signed cert for testing)
-  * learn to test SSL route
-  * Add security to only allow group owners to edit info
+### **Backend**
+The backend is built with Express, Node and Mongo, currently hosted on heroku and the DB on mlab, there is no build step as of yet but is built on by pushing the work to heroku origin. Authentication is monitored using JSON Webtokens.
+
+### **Frontend**
+The frontend is built using VueJS with state management handled by Vuex, it's a simple front end that will have a sign-up & login system and dashboard to find competitions to have sweepstakes on.
