@@ -50,7 +50,6 @@ const UserSchema = new Schema({
   }]
 });
 
-
 UserSchema.methods.setHash = function(password) {
   const { hash, salt } = createHashSalt(password)
 
@@ -73,7 +72,7 @@ UserSchema.methods.generateJWT = function() {
     exp: parseInt(expirationDate.getTime(), 10),
     iat: Math.floor(new Date())
   }, KEY);
-}
+};
 
 UserSchema.methods.toAuthJSON = function() {
   return {

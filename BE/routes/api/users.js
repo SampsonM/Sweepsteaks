@@ -16,7 +16,7 @@ usersRouter.post('/', auth.optional, usersCtrl.createUser);
 usersRouter.post('/login', auth.optional, usersCtrl.logUserIn);
 
 // POST to update user (required, only user should have access)
-usersRouter.post('/:user_id', auth.required, usersCtrl.updateUser);
+usersRouter.put('/:user_id', auth.required, usersCtrl.updateUser);
 
 // DELETE USER (required, only user should have access)
 usersRouter.delete('/:user_id', auth.required, usersCtrl.deleteUser);

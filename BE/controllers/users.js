@@ -24,37 +24,49 @@ function getUserByName(req, res, next) {
 function createUser(req, res, next) {
   const userData = req.body;
 
-  passport.authenticate('local', (err, user) => {
-    if (err && err.split(' ')[0] !== 'Username') {
-      return res.send({ err })
-    }
+  if (Object.keys(userData).length > 0 && userData.constructor === Object) {
 
-    if (!user) {
-      const newUser = new User(userData);
+    // validate userData here
+    userDataValid(userData)
 
-      if (userData.password !== undefined) {
-        newUser.setHash(userData.password)
+    passport.authenticate('local', (err, user) => {
+      if (err && err.split(' ')[0] !== 'Username') {
+        return res.send(err)
       }
+  
+      if (!user) {
+        const newUser = new User(userData);
+  
+        if (userData.password !== undefined) {
+          newUser.setHash(userData.password)
+        } else {
+          return res.status(400).send({ errors: {
+            password: { message: 'Password is required' }
+          }})
+        }
 
-      return newUser.save()
-        .then(user => {
-          res.status(201).send({ user: user.toAuthJSON() })
-        })
-        .catch(err => {
-          res.status(409).send({ err })
-        })
-    } else {
-      res.status(409).send({ err })
-    }
-
-	})(req, res, next);
+        return newUser.save()
+          .then(user => {
+            res.status(201).send({ user: user.toAuthJSON() })
+          })
+          .catch(err => {
+            res.status(400).send(err)
+          })
+      } else {
+        res.status(409).send(err)
+      }
+  
+    })(req, res, next);
+  } else {
+    return next({ err: 'No userData attached to body', root: 'createUser', status: 400 })
+  }
 }
 
 // POST existing user login
 function logUserIn(req, res, next) {
   passport.authenticate('local', (err, user) => {
     if (err) {
-      return res.send({ error: err, statusCode: 404 })
+      return res.send({ error: err, status: 404 })
     }
 
     if (!user) {
@@ -82,12 +94,17 @@ function getUserLoginState(req, res, next) {
 }
 
 // update user
-function updateUser(req, res, next) {}
+function updateUser(req, res, next) {
+  console.log(req)
+  if (req.params.user_id === 'login') {
+    return next(req, res, next)
+  }
+}
 
 // delete user
 function deleteUser(req, res, next) {}
 
-function validateUserData(data) {
+function userDataValid(data) {
   const { firstName, lastName, username, email, password } = data;
 
   // validate email first last pass username
