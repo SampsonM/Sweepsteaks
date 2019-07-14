@@ -2,9 +2,9 @@
 import app from '../../src/app';
 import mongoose from 'mongoose';
 mongoose.Promise = Promise;
+import mongooseConnect from '../../src/connectMongoose'
 import { expect } from 'chai';
 import seedDB from '../../db/seed';
-import { DB_URL } from '../../config/environment';
 const request = require('supertest')(app);
 
 describe('/groups', () => {
@@ -12,10 +12,7 @@ describe('/groups', () => {
   let user;
 
   beforeEach(() => {
-    return mongoose.connect(
-        DB_URL,
-        { useNewUrlParser: true }
-      )
+    return mongooseConnect()
       .then(() => {
         return seedDB();
       })
@@ -26,11 +23,9 @@ describe('/groups', () => {
       .catch(console.log);
   });
 
-  after(() => {
-    return mongoose.connection
-      .close()
-      .then(() => console.log('disconnected... 🧟'));
-  });
+  afterEach(() => {
+    return mongoose.disconnect()
+  })
 
   it('GET / RETURNS all groups', () => {
     return request

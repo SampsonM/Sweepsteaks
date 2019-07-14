@@ -4,7 +4,8 @@
     "lastName": "davidson",
     "username": "Dave123",
     "email": "dave@123.com",
-    "password": "Dave123"
+    "password": "Dave123",
+    "avatarUrl": "https://avatar.co.uhmyeahRealURL"
   },
   {
     "firstName": "Alf",

@@ -2,16 +2,16 @@
 import app from '../../src/app';
 import mongoose from 'mongoose';
 mongoose.Promise = Promise;
+import mongooseConnect from '../../src/connectMongoose'
 import { expect } from 'chai';
 import seedDB from '../../db/seed';
-import { DB_URL } from '../../config/environment';
 const request = require('supertest')(app);
 
 describe('/competitions', () => {
   let compDocs;
 
   beforeEach(() => {
-    return mongoose.connect(DB_URL, {useNewUrlParser: true})
+    return mongooseConnect()
       .then(() => {
         return seedDB();
       })
@@ -21,10 +21,9 @@ describe('/competitions', () => {
       .catch(console.log)
   });
 
-  after(() => {
+  afterEach(() => {
     return mongoose.disconnect()
-      .then(() => console.log('disconnected... 🧟'))
-  });
+  })
 
   it('GET / RETURNS all competitions', () => {
     return request

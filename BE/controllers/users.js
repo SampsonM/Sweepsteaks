@@ -1,6 +1,7 @@
 "use strict";
 import { User } from "../models/index";
 import passport from "passport";
+import { userNameQuery } from '../config/mongoQueries'
 
 // GET user
 function getUserByName(req, res, next) {
@@ -10,7 +11,7 @@ function getUserByName(req, res, next) {
     return next()
   }
 
-  return User.findOne({ username: username })
+  return User.findOne({ username: username }, userNameQuery)
     .lean()
     .then(user => {
       res.status(200).send(user);
@@ -23,54 +24,52 @@ function getUserByName(req, res, next) {
 // POST new user 
 function createUser(req, res, next) {
   const userData = req.body;
+  
+  if (req.user) {
+    return res.status(409).send('Please sign out to continue creating account.')
+  }
 
   if (Object.keys(userData).length > 0 && userData.constructor === Object) {
-
-    // validate userData here
-    userDataValid(userData)
+    
+    const err = userDataValid(userData)
+    if (err) return res.status(400).send(err)
 
     passport.authenticate('local', (err, user) => {
+
       if (err && err.split(' ')[0] !== 'Username') {
-        return res.send(err)
-      }
-  
-      if (!user) {
+        return res.status(404).send(err)
+      } else if (!user) {
+
         const newUser = new User(userData);
-  
-        if (userData.password !== undefined) {
-          newUser.setHash(userData.password)
-        } else {
-          return res.status(400).send({ errors: {
-            password: { message: 'Password is required' }
-          }})
-        }
+        newUser.setHash(userData.password)
 
         return newUser.save()
-          .then(user => {
-            res.status(201).send({ user: user.toAuthJSON() })
-          })
-          .catch(err => {
-            res.status(400).send(err)
-          })
-      } else {
-        res.status(409).send(err)
+          .then(user => res.status(201).send({ user: user.toAuthJSON() }))
+          .catch(err => res.status(400).send(err))
+
+      } else if (user) {
+        return res.status(409).send(err)
       }
-  
+
     })(req, res, next);
   } else {
-    return next({ err: 'No userData attached to body', root: 'createUser', status: 400 })
+    return res.status(404).send('No userData attached to body')
   }
 }
 
 // POST existing user login
 function logUserIn(req, res, next) {
+  if (req.user) {
+    return res.status(200).send('User already logged in!')
+  }
+
   passport.authenticate('local', (err, user) => {
     if (err) {
-      return res.send({ error: err, status: 404 })
+      return res.status(404).send(err)
     }
 
     if (!user) {
-	  	return res.send({ USER: 'User does not exist'});
+	  	return res.status(404).send('User does not exist');
     }
     
     return res.send({ user: user.toAuthJSON() })
@@ -95,7 +94,6 @@ function getUserLoginState(req, res, next) {
 
 // update user
 function updateUser(req, res, next) {
-  console.log(req)
   if (req.params.user_id === 'login') {
     return next(req, res, next)
   }
@@ -104,25 +102,34 @@ function updateUser(req, res, next) {
 // delete user
 function deleteUser(req, res, next) {}
 
-function userDataValid(data) {
-  const { firstName, lastName, username, email, password } = data;
+function userDataValid(userData) {
+  const { firstName, lastName, username, email, password } = userData;
 
-  // validate email first last pass username
-  // BE CAREFUL OF XSS AND INJECTION HERE!!!!
-
-  if (!firstName || firstName.length < 2) {
-    return 'First name must be atleast 2 characters'
+  if (!firstName || firstName.length < 2 || firstName.match(/\d/g)) {
+    return 'First name must be atleast 2 characters and be alphabetical characters only'
   }
 
-  if (!lastName || lastName.length < 2) {
-    return 'Last name must be at least 2 characters'
+  if (!lastName || lastName.length < 2 || lastName.match(/\d/g)) {
+    return 'Last name must be at least 2 characters and be alphabetical characters only'
   }
 
-  body('userData.firstName', 'must provide first name').exists(),
-  body('userData.lastName', 'must provide last name').exists(),
-  body('userData.username', 'userName doesn\'t exist').exists(),
-  body('userData.email', 'Invalid email').exists().isEmail(),
-  body('userData.password', 'Invalid password').exists()
+  if (!email || !email.match(/^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/g)) {
+    return 'Email must be a valid format'
+  }
+  
+  if (!username || username.length < 3 || username.length > 12) {
+    return 'Username must be between 3 and 12 characters'
+  }
+
+  // Password requires at least:
+  // 1 lower case character
+  // 1 upper case character
+  // 1 number
+  // 1 special character
+  // 6 - 20 characters
+  if (!password || !password.match(/((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{6,20})/g) || password.length < 6 || password.length > 20) {
+    return 'Password must contain atleast 1 lower & uppercase letter, number, special character and be between 6-20 characters'
+  }
 }
 
 module.exports = {

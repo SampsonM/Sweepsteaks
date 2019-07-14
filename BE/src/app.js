@@ -4,10 +4,10 @@ import bodyparser from "body-parser";
 import cors from "cors";
 import apiRouter from "../routes/api/api.js";
 import mongoose from "mongoose";
+import mongooseConnect from '../src/connectMongoose'
 import helmet from "helmet";
 import passport from 'passport'
 import '../config/passport';
-const DB_URL = process.env.DB_URL || require("../config/environment").DB_URL;
 
 // Configure mongoose
 mongoose.Promise = Promise;
@@ -34,14 +34,7 @@ app.use(cors({
 app.use(passport.initialize())
 app.use(passport.session())
 
-// Connect mongoose
-mongoose.connect(
-  DB_URL,
-  { useNewUrlParser: true },
-  () => {
-    console.log("connected at app.js to mongo");
-  }
-);
+process.env.NODE_ENV !== 'test' && mongooseConnect()
 
 app.use("/api", apiRouter);
 
