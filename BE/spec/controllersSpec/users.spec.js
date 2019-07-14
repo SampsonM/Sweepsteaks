@@ -381,5 +381,15 @@ describe.only('/users', () => {
         })
       })
     })
+
+    // TESTING FOR UPDATES AND DELETES TDD
+
+    describe('PUT /', () => {
+      
+    })
+    
+    describe('DELETE /', () => {
+
+    })
   })
 })

@@ -1,6 +1,6 @@
 # **SWEEP-STEAKS**
 
-The app to help you and your friends play sweepstakes long distance, no longer will you be stuck playing with just your co-workers!
+The app to help you and your friends play sweepstakes long distance, no longer will you be stuck playing with your co-workers!
 
 #
 ## Getting started
