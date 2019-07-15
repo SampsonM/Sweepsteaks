@@ -14,22 +14,23 @@ function getUserByName(req, res, next) {
   return User.findOne({ username: username }, userNameQuery)
     .lean()
     .then(user => {
+      user._id = undefined
       res.status(200).send(user);
     })
-    .catch(err => {
-      next({ err: err.message, err, root: "getUserByName" });
+    .catch(() => {
+      res.status(404).send('Invalid username');
     });
 }
 
 // POST new user 
 function createUser(req, res, next) {
-  const userData = req.body;
+  const userData = req.body
   
   if (req.user) {
     return res.status(409).send('Please sign out to continue creating account.')
   }
 
-  if (Object.keys(userData).length > 0 && userData.constructor === Object) {
+  if (userData && Object.keys(userData).length > 0 && userData.constructor === Object) {
     
     const err = userDataValid(userData)
     if (err) return res.status(400).send(err)
@@ -59,10 +60,6 @@ function createUser(req, res, next) {
 
 // POST existing user login
 function logUserIn(req, res, next) {
-  if (req.user) {
-    return res.status(200).send('User already logged in!')
-  }
-
   passport.authenticate('local', (err, user) => {
     if (err) {
       return res.status(404).send(err)
@@ -72,7 +69,7 @@ function logUserIn(req, res, next) {
 	  	return res.status(404).send('User does not exist');
     }
     
-    return res.send({ user: user.toAuthJSON() })
+    return res.status(200).send({ user: user.toAuthJSON() })
 	})(req, res, next);
 }
 
@@ -81,10 +78,10 @@ function getUserLoginState(req, res, next) {
   if (req.user.id) {
     return User.findById(req.user.id)
       .then((user) => {
-        return res.send({ user: user.toAuthJSON() });
+        return res.status(200).send({ user: user.toAuthJSON() });
       })
       .catch(err => {
-        res.sendStatus(400);
+        res.status(400);
         next({ err: err.message, err, root: "getUserLoginState Function" });
       })
   } else {
@@ -94,9 +91,23 @@ function getUserLoginState(req, res, next) {
 
 // update user
 function updateUser(req, res, next) {
-  if (req.params.user_id === 'login') {
+  const id = req.params.user_id
+  const userData = req.body
+
+  // validate it is user by _id and JWT
+  if (id === 'login') {
     return next(req, res, next)
   }
+
+  return (id && Object.keys(userData).length > 0)
+    ? User.findByIdAndUpdate(id, {$set: userData}, {new: true})
+        .then(user => {
+          return res.status(200).send(user)
+        })
+        .catch(err => {
+          return res.status(404).send(err)
+        })
+    : res.status(400).send('No userdata found')
 }
 
 // delete user

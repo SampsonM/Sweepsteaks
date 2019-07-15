@@ -8,7 +8,7 @@ import mongooseConnect from '../../src/connectMongoose'
 import userData from '../../db/test-data/User.json'
 const request = require('supertest')(app)
 
-describe.only('/users', () => {
+describe('/users', () => {
   let userDocs
   const userZeroPass = userData[0].password
   const userZeroUsername = userData[0].username
@@ -73,9 +73,10 @@ describe.only('/users', () => {
         }
       })
 
-      it('returns 400 when no userData is attached', () => {
+      it('returns 404 when no userData is attached', () => {
         return request
           .post('/api/users/')
+          .set({'Content-Type':'application/json'})
           .expect(404)
           .expect(response => {
             if (response.error.text !== 'No userData attached to body') throw new Error(`Incorrect status code returned, expected 404 received: ${response.status}`)
@@ -84,10 +85,11 @@ describe.only('/users', () => {
       
       it('returns 400 and error message when firstName is not provided', () => {
         userData.firstName = undefined
-  
+
         return request
           .post('/api/users/')
-          .send(userData)
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify(userData))
           .expect(response => {
             if (response.error.text !== 'First name must be atleast 2 characters and be alphabetical characters only') throw new Error(`Incorrect error msg returned, recieved: ${response.error.text}`)
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
@@ -99,7 +101,8 @@ describe.only('/users', () => {
   
         return request
           .post('/api/users/')
-          .send(userData)
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify(userData))
           .expect(response => {
             if (response.error.text !== 'First name must be atleast 2 characters and be alphabetical characters only') throw new Error(`Incorrect error msg returned, recieved: ${response.error.text}`)
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
@@ -111,7 +114,8 @@ describe.only('/users', () => {
   
         return request
           .post('/api/users/')
-          .send(userData)
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify(userData))
           .expect(response => {
             if (response.error.text !== 'First name must be atleast 2 characters and be alphabetical characters only') throw new Error(`Incorrect error msg returned, recieved: ${rresponse.error.text}`)
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
@@ -123,7 +127,8 @@ describe.only('/users', () => {
   
         return request
           .post('/api/users/')
-          .send(userData)
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify(userData))
           .expect(response => {
             if (response.error.text !== 'Last name must be at least 2 characters and be alphabetical characters only') throw new Error(`Incorrect error msg returned, recieved: ${response.error.text}`)
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
@@ -135,7 +140,8 @@ describe.only('/users', () => {
   
         return request
           .post('/api/users/')
-          .send(userData)
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify(userData))
           .expect(response => {
             if (response.error.text !== 'Username must be between 3 and 12 characters') throw new Error(`Incorrect error msg returned, recieved: ${response.body}`)
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
@@ -147,7 +153,8 @@ describe.only('/users', () => {
   
         return request
           .post('/api/users/')
-          .send(userData)
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify(userData))
           .expect(response => {
             if (response.error.text !== 'Email must be a valid format') throw new Error(`Incorrect error msg returned, recieved: ${response.error.text}`)
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
@@ -159,7 +166,8 @@ describe.only('/users', () => {
   
         return request
           .post('/api/users/')
-          .send(userData)
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify(userData))
           .expect(response => {
             if (response.error.text !== 'Password must contain atleast 1 lower & uppercase letter, number, special character and be between 6-20 characters') throw new Error(`Incorrect error msg returned, recieved: ${response.error.text}`)
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
@@ -177,7 +185,8 @@ describe.only('/users', () => {
   
         return request
           .post('/api/users/')
-          .send(data)
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify(data))
           .expect(201)
           .expect(res => {
             if (!res.body.user._id) throw new Error(`Expected createUser to return new user with id, but received: ${res.body.user}`)
@@ -188,7 +197,8 @@ describe.only('/users', () => {
         it('returns 404 with invalid username', () => {
           return request
             .post('/api/users/login')
-            .send({ username: 'noneExistentUsername', password: userZeroPass })
+            .set({'Content-Type':'application/json'})
+            .send(JSON.stringify({ username: 'noneExistentUsername', password: userZeroPass }))
             .expect(404)
             .expect(response => {
               if (response.error.text !== 'Username not found, please enter valid username') throw new Error(`Incorrect error returned, expected user does not exist`)
@@ -198,7 +208,8 @@ describe.only('/users', () => {
         it('returns 404 with invalid password', () => {
           return request
             .post('/api/users/login')
-            .send({ username: userZeroUsername, password: 'invaliduserZeroPass' })
+            .set({'Content-Type':'application/json'})
+            .send(JSON.stringify({ username: userZeroUsername, password: 'invaliduserZeroPass' }))
             .expect(404)
             .expect(response => {
               if (response.error.text !== 'Password invalid, please enter valid password or reset password') throw new Error(`Incorrect error returned, expected password invalid`)
@@ -208,7 +219,8 @@ describe.only('/users', () => {
         it('returns 200 with valid username and password', () => {
           return request
             .post('/api/users/login')
-            .send({ username: userZeroUsername, password: userZeroPass })
+            .set({'Content-Type':'application/json'})
+            .send(JSON.stringify({ username: userZeroUsername, password: userZeroPass }))
             .expect(response => {
               if (response.status !== 200) throw new Error(`Incorrect status code returned, expected 200 received: ${response.status}`)
             })
@@ -217,7 +229,8 @@ describe.only('/users', () => {
         it('returns username data with valid username and password', () => {
           return request
             .post('/api/users/login')
-            .send({ username: userZeroUsername, password: userZeroPass })
+            .set({'Content-Type':'application/json'})
+            .send(JSON.stringify({ username: userZeroUsername, password: userZeroPass }))
             .expect(response => {
               if (response.body.user.username !== userZeroUsername) throw new Error(`Incorrect data returned, expected ${userData.username} received: ${response.body.user.username}`)
             })
@@ -237,7 +250,7 @@ describe.only('/users', () => {
         return request
           .put(`/api/users/12344567`)
           .set({ 'authorisation': 'invalid userToken' })
-          .send(userData)
+          .send(JSON.stringify(userData))
           .expect(response => {
             if (response.body.status !== 401) throw new Error(`Incorrect statucode returned, expected 401, recieved: ${response.body.status}`)
             if (response.body.message !== 'jwt malformed') throw new Error(`Incorrect error message returned, expected jwt malformed, recieved: ${response.body.message}`)
@@ -257,7 +270,7 @@ describe.only('/users', () => {
         return request
           .delete(`/api/users/12344567`)
           .set({ 'authorisation': 'invalid userToken' })
-          .send(userData)
+          .send(JSON.stringify(userData))
           .expect(response => {
             if (response.body.status !== 401) throw new Error(`Incorrect statucode returned, expected 401, recieved: ${response.body.status}`)
             if (response.body.message !== 'jwt malformed') throw new Error(`Incorrect error message returned, expected jwt malformed, recieved: ${response.body.message}`)
@@ -268,13 +281,16 @@ describe.only('/users', () => {
 
   describe('when a user is logged in', () => {
     let userToken
+    let id
 
     beforeEach(() => {
       return request
         .post('/api/users/login')
-        .send({ username: userZeroUsername, password: userZeroPass })
+        .set({'Content-Type':'application/json'})
+        .send(JSON.stringify({ username: userZeroUsername, password: userZeroPass }))
         .then(response => {
           userToken = response.body.user.token
+          id = response.body.user._id
         })
     })
 
@@ -324,6 +340,10 @@ describe.only('/users', () => {
           it('DOES NOT return SALT with valid username', () => {
             expect(userData.salt).to.equal(undefined)
           })
+          
+          it('DOES NOT return id with valid username', () => {
+            expect(userData._id).to.equal(undefined)
+          })
         })
 
         describe('with INVALID username',  () => {
@@ -333,7 +353,7 @@ describe.only('/users', () => {
             return request
               .get(`/api/users/totallyMadeUpIllegalUsername`)
               .set({ 'authorisation': userToken })
-              .expect(200)
+              .expect(404)
               .expect(response => {
                 userData = response.body
               })
@@ -370,13 +390,13 @@ describe.only('/users', () => {
       })
 
       describe('/login', () => {
-        it('returns 200 and message saying user is already logged in', () => {
+        it('returns 200 and reauthenticates user', () => {
           return request
             .post('/api/users/login')
-            .set({ 'authorisation': userToken })
+            .send({ username: userZeroUsername, password: userZeroPass })
             .expect(200)
             .expect(response => {
-              if (response.text !== `User already logged in!`) throw new Error(`Expected error message telling user to sign out: recieved: ${response.text || response.error}`)
+              if (response.body.user.authenticated !== true) throw new Error('User not authenticated')
             })
         })
       })
@@ -384,8 +404,65 @@ describe.only('/users', () => {
 
     // TESTING FOR UPDATES AND DELETES TDD
 
-    describe('PUT /', () => {
+    describe.only('PUT /', () => {
+      it('return 400 without user_id', () => {
+        return request
+          .put(`/api/users/`)
+          .set({ 'authorisation': userToken })
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify({ firstName: 'markus' }))
+          .expect(400)
+          .expect(response => {
+            if (response.error.text !== 'No userdata found') throw new Error('Expected error text to say No userdata found')
+          })
+      })
+
+      it ('returns 400 when no userData is supplied', () => {
+        return request
+          .put(`/api/users/${id}`)
+          .set({ 'authorisation': userToken })
+          .expect(400)
+          .expect(response => {
+            if (response.error.text !== 'No userdata found') throw new Error('Expected error text to say No userdata found')
+          })
+      })
+
+      it('updates users firstName when passed id and data', () => {
+        return request
+          .put(`/api/users/${id}`)
+          .set({ 'authorisation': userToken })
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify({ firstName: 'markus' }))
+          .expect(200)
+          .expect(response => {
+            if (response.body.firstName === userZeroFirstName) throw new Error(`Expected name to update to markus but received: ${response.body.firstName}`)
+          })
+      })
       
+      it('updates users lastName when passed id and data', () => {
+        return request
+          .put(`/api/users/${id}`)
+          .set({ 'authorisation': userToken })
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify({ lastName: 'chariot' }))
+          .expect(200)
+          .expect(response => {
+            if (response.body.lastName === userZeroLastName) throw new Error(`Expected last name to update to chariot but received: ${response.body.lastName}`)
+          })
+      })
+      
+      it('updates users lastName and firstName when passed id and multiple data', () => {
+        return request
+          .put(`/api/users/${id}`)
+          .set({ 'authorisation': userToken })
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify({ lastName: 'chariot', firstName: 'markus' }))
+          .expect(200)
+          .expect(response => {
+            if (response.body.lastName === userZeroLastName) throw new Error(`Expected last name to update to chariot but received: ${response.body.lastName}`)
+            if (response.body.firststName === userZeroFirstName) throw new Error(`Expected first name to update to markus but received: ${response.body.firstName}`)
+          })
+      })
     })
     
     describe('DELETE /', () => {
