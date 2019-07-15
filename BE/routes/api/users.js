@@ -7,13 +7,16 @@ import * as usersCtrl from '../../controllers/users';
 usersRouter.get('/:user_name', usersCtrl.getUserByName);
 
 // GET current route (required, only authenticated users have access)
-usersRouter.get('/current', auth.required, usersCtrl.getUserLoginState);
+usersRouter.get('/status', auth.required, usersCtrl.getUserLoginState);
+
+// GET logOut route (required, only authenticated users have access)
+usersRouter.get('/status/logout', auth.required, usersCtrl.logUserOut);
 
 // POST new user route (optional, publically accessible)
 usersRouter.post('/', auth.optional, usersCtrl.createUser);
 
 // POST login route (optional, publically accessible)
-usersRouter.post('/login', auth.optional, usersCtrl.logUserIn);
+usersRouter.post('/status/login', auth.optional, usersCtrl.logUserIn);
 
 // POST to update user (required, only user should have access)
 usersRouter.put('/', auth.required, usersCtrl.updateUser);

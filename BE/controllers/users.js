@@ -7,7 +7,7 @@ import { userNameQuery } from '../config/mongoQueries'
 function getUserByName(req, res, next) {
   const username = req.params.user_name;
 
-  if (username === 'current') {
+  if (username === 'status') {
     return next()
   }
 
@@ -20,6 +20,30 @@ function getUserByName(req, res, next) {
     .catch(() => {
       res.status(404).send('Invalid username');
     });
+}
+
+// GET checks if user is currently logged in
+function getUserLoginState(req, res, next) {
+  if (req.user.id) {
+    return User.findById(req.user.id)
+      .then((user) => {
+        return res.status(200).send({ user: user.toAuthJSON() });
+      })
+  } else {
+    return res.staus(409).send('User not signed in.')
+  }
+}
+
+// GET Log user out
+function logUserOut(req, res, next) {
+  if (req.user.id) {
+    return User.findById(req.user.id)
+      .then((user) => {
+        return res.status(200).send({ user: user.unauthUser() });
+      })
+  } else {
+    return res.staus(409).send('User not signed in.')
+  }
 }
 
 // POST new user 
@@ -73,31 +97,10 @@ function logUserIn(req, res, next) {
 	})(req, res, next);
 }
 
-// GET checks if user is currently logged in
-function getUserLoginState(req, res, next) {
-  if (req.user.id) {
-    return User.findById(req.user.id)
-      .then((user) => {
-        return res.status(200).send({ user: user.toAuthJSON() });
-      })
-      .catch(err => {
-        res.status(400);
-        next({ err: err.message, err, root: "getUserLoginState Function" });
-      })
-  } else {
-    return res.staus(409).send({ err: 'User not signed in.'})
-  }
-}
-
 // update user
 function updateUser(req, res, next) {
   const id = req.params.user_id
   const userData = req.body
-
-  // validate it is user by _id and JWT
-  if (id === 'login') {
-    return next(req, res, next)
-  }
 
   return (id && Object.keys(userData).length > 0)
     ? User.findByIdAndUpdate(id, {$set: userData}, {new: true})
@@ -145,6 +148,7 @@ function userDataValid(userData) {
 
 module.exports = {
   getUserByName,
+  logUserOut,
   createUser,
   updateUser,
   deleteUser,

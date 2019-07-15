@@ -86,4 +86,11 @@ UserSchema.methods.toAuthJSON = function() {
   };
 };
 
+UserSchema.methods.unauthUser = function() {
+  return {
+    firstName: this.firstName,
+    authenticated: false
+  };
+}
+
 module.exports = mongoose.model('users', UserSchema);

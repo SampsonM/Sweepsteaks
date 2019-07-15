@@ -47,15 +47,27 @@ describe('/users', () => {
         })
       })
 
-      describe('/current', () => {
+      describe('/status', () => {
         it('returns 401 with invalid token', () => {
           return request
-            .get('/api/users/current')
+            .get('/api/users/status')
             .set('authorisation', 'UN-authorised-token')
             .expect(response => {
               const status = response.body.status
               if (status !== 401) throw new Error(`Incorrect status code returned, expected 401 received: ${status}`)
             })
+        })
+
+        describe('/logout', () => {
+          it('returns 401 with invalid token', () => {
+            return request
+              .get('/api/users/status/logout')
+              .set('authorisation', 'UN-authorised-token')
+              .expect(response => {
+                const status = response.body.status
+                if (status !== 401) throw new Error(`Incorrect status code returned, expected 401 received: ${status}`)
+              })
+          })
         })
       })
     })
@@ -193,10 +205,10 @@ describe('/users', () => {
           })
       })
       
-      describe('/login', () => {
+      describe('/status/login', () => {
         it('returns 404 with invalid username', () => {
           return request
-            .post('/api/users/login')
+            .post('/api/users/status/login')
             .set({'Content-Type':'application/json'})
             .send(JSON.stringify({ username: 'noneExistentUsername', password: userZeroPass }))
             .expect(404)
@@ -207,7 +219,7 @@ describe('/users', () => {
         
         it('returns 404 with invalid password', () => {
           return request
-            .post('/api/users/login')
+            .post('/api/users/status/login')
             .set({'Content-Type':'application/json'})
             .send(JSON.stringify({ username: userZeroUsername, password: 'invaliduserZeroPass' }))
             .expect(404)
@@ -218,7 +230,7 @@ describe('/users', () => {
 
         it('returns 200 with valid username and password', () => {
           return request
-            .post('/api/users/login')
+            .post('/api/users/status/login')
             .set({'Content-Type':'application/json'})
             .send(JSON.stringify({ username: userZeroUsername, password: userZeroPass }))
             .expect(response => {
@@ -228,7 +240,7 @@ describe('/users', () => {
         
         it('returns username data with valid username and password', () => {
           return request
-            .post('/api/users/login')
+            .post('/api/users/status/login')
             .set({'Content-Type':'application/json'})
             .send(JSON.stringify({ username: userZeroUsername, password: userZeroPass }))
             .expect(response => {
@@ -285,7 +297,7 @@ describe('/users', () => {
 
     beforeEach(() => {
       return request
-        .post('/api/users/login')
+        .post('/api/users/status/login')
         .set({'Content-Type':'application/json'})
         .send(JSON.stringify({ username: userZeroUsername, password: userZeroPass }))
         .then(response => {
@@ -365,15 +377,28 @@ describe('/users', () => {
         })
       })
 
-      describe('/current', () => {
+      describe('/status', () => {
         it('returns 200 with valid token', () => {
           return request
-            .get('/api/users/current')
+            .get('/api/users/status')
             .set({ 'authorisation': userToken })
             .expect(response => {
               const status = response.status
               if (status !== 200) throw new Error(`Incorrect status code returned, expected 200 received: ${status}`)
             })
+        })
+
+        describe('/logout', () => {
+          it('returns 200 with valid token and unaithenticates user', () => {
+            return request
+              .get('/api/users/status/logout')
+              .set({ 'authorisation': userToken })
+              .expect(response => {
+                const status = response.status
+                if (status !== 200) throw new Error(`Incorrect status code returned, expected 200 received: ${status}`)
+                if (response.body.user.authenticated !== false) throw new Error('User still authenticated')
+              })
+          })
         })
       })
     })
@@ -389,10 +414,10 @@ describe('/users', () => {
           })
       })
 
-      describe('/login', () => {
+      describe('/status/login', () => {
         it('returns 200 and reauthenticates user', () => {
           return request
-            .post('/api/users/login')
+            .post('/api/users/status/login')
             .send({ username: userZeroUsername, password: userZeroPass })
             .expect(200)
             .expect(response => {
@@ -402,9 +427,7 @@ describe('/users', () => {
       })
     })
 
-    // TESTING FOR UPDATES AND DELETES TDD
-
-    describe.only('PUT /', () => {
+    describe('PUT /', () => {
       it('return 400 without user_id', () => {
         return request
           .put(`/api/users/`)
@@ -465,6 +488,8 @@ describe('/users', () => {
       })
     })
     
+    // TEST for DELETE and auth that shit
+
     describe('DELETE /', () => {
 
     })
