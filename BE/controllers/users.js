@@ -105,6 +105,8 @@ function updateUser(req, res, next) {
   return (id && Object.keys(userData).length > 0)
     ? User.findByIdAndUpdate(id, {$set: userData}, {new: true})
         .then(user => {
+          user.hash = undefined
+          user.salt = undefined
           return res.status(200).send(user)
         })
         .catch(err => {
@@ -119,8 +121,11 @@ function deleteUser(req, res, next) {
 
   if (id) {
     return User.findByIdAndDelete(id, userDeleteQuery)
-      .then(response => {
-        return res.status(200).send(response)
+      .then(user => {
+        user.hash = undefined
+        user.salt = undefined
+        user.email = undefined
+        return res.status(200).send(user)
       })
       .catch(err => {
         res.status(400).send('User not found')

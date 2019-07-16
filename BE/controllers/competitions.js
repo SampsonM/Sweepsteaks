@@ -112,6 +112,7 @@ function deleteCompetition(req, res, next) {
 
 function createTeamsArray(competitionData) {
   return competitionData.teams.map(team => {
+    // should add competition to team!!
     return new Team({
       "name": team,
       "competition": competitionData.name,

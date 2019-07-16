@@ -42,9 +42,9 @@ describe('/teams', () => {
           })
       });
 
-      it('?team_name returns 401 with invalid JWT', () => {
+      it(':team_name returns 401 with invalid JWT', () => {
         return request
-          .get(`/api/teams?team_name=${teamDocs[0].name}`)
+          .get(`/api/teams/${teamDocs[0].name}`)
           .set({ 'authorisation': 'INVALIDuserToken' })
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
@@ -110,9 +110,9 @@ describe('/teams', () => {
           });
       });
     
-      it('?team_name returns team by name', () => {
+      it(':team_name returns team by name', () => {
         return request
-          .get(`/api/teams?team_name=${teamDocs[0].name}`)
+          .get(`/api/teams/${teamDocs[0].name}`)
           .set({ 'authorisation': userToken })
           .expect(200)
           .then(team => {

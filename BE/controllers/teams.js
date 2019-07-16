@@ -17,7 +17,7 @@ function getTeams(req, res, next) {
 };
 
 function getTeamByName(req, res, next) {
-  const teamName = req.query.team_name;
+  const teamName = req.params.team_name;
 
   return Team.findOne({ name: teamName })
     .lean()
@@ -44,7 +44,7 @@ function updateTeam(req, res, next) {
 }
 
 function deleteTeam(req, res, next) {
-  const teamId = req.params.team_id;
+  const teamId = req.params.team_ID;
 
   return Team.findByIdAndDelete(teamId)
     .then(team => {

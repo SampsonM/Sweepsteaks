@@ -7,7 +7,7 @@
     "test": "NODE_ENV=test mocha './spec/**/*.js' -r @babel/register",
     "start": "babel-node src/listen.js",
     "start:dev": "NODE_ENV=development nodemon --exec babel-node src/listen.js",
-    "seed:dev": "NODE_ENV=development --exec babel-node ./db/seed.dev.js",
+    "seed:dev": "NODE_ENV=development babel-node ./db/seed.dev.js",
     "seed:prod": "NODE_ENV=production --exec babel-node ./db/seed.prod.js"
   },
   "author": "Mark Sampson",
