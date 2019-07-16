@@ -60,11 +60,12 @@ After Git adding all the files you wish to change currently I push to github the
 - DELETE Competition:------*'/api/competitions/:competition_ID'*
 
 ### **Users**
-- GET User login status:----*'/api/users/current'*
+- GET User login status:----*'/api/users/status'*
+- GET User login status:----*'/api/users/status/logout'*
 - GET User by name:-------*'/api/users/:user_name'*
+- POST Log User in:--------*'/api/users/status/login'*
 - POST 'Create' User:------*'/api/users/'*
-- POST Log User in:--------*'/api/users/login'*
-- POST/Edit User by id:-----*'/api/users/:user_ID'*
+- PUT/Edit User by id:------*'/api/users/:user_ID'*
 - DELETE User by id:-------*'/api/users/:user_ID'*
 
 #
