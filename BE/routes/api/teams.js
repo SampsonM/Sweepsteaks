@@ -1,15 +1,21 @@
 'use strict';
 const teamsRouter = require('express').Router();
+import auth from '../auth';
 import * as teamCtrl from '../../controllers/teams';
 
-// create a post create team
-// teamsRouter.post('/create', teamCtrl.createTeam);
+// GET all teams (required, only authenticated users have access)
+teamsRouter.get('/', auth.required, teamCtrl.getTeams);
 
-teamsRouter.put('/:team_ID', teamCtrl.updateTeam);
+// GET team by name (required, only authenticated users have access)
+teamsRouter.get('/:team_name', auth.required, teamCtrl.getTeamByName);
 
-teamsRouter.get('/', teamCtrl.getTeams);
-teamsRouter.get('/:team_name', teamCtrl.getTeamByName);
+// POST Creates a team (required, only authenticated users have access)
+// teamsRouter.post('/create', auth.required, teamCtrl.createTeam);
 
-teamsRouter.delete('/:team_ID', teamCtrl.deleteTeam);
+// PUT Updates team by ID (required, only authenticated users have access)
+teamsRouter.put('/:team_ID', auth.required, teamCtrl.updateTeam);
+
+// DELETE Team by ID (required, only authenticated users have access)
+teamsRouter.delete('/:team_ID', auth.required, teamCtrl.deleteTeam);
 
 module.exports = teamsRouter;

@@ -491,7 +491,38 @@ describe('/users', () => {
     // TEST for DELETE and auth that shit
 
     describe('DELETE /', () => {
+      it('returns 404 with no user_id', () => {
+        return request
+          .delete(`/api/users/`)
+          .set({ 'authorisation': userToken })
+          .expect(404)
+      })
 
+      it('returns 400 with incorrect user_id', () => {
+        return request
+          .delete(`/api/users/098ujnm`)
+          .set({ 'authorisation': userToken })
+          .expect(400)
+          .expect(res => {
+            if (res.error.text !== 'User not found') throw new Error(`Incorrect error returned, expected user not found recieved: ${res.error}`)
+          })
+      })
+      
+      it('returns 200 with correct user_id', () => {
+        return request
+          .delete(`/api/users/${id}`)
+          .set({ 'authorisation': userToken })
+          .expect(200)
+      })
+      
+      it('returns deleted users firstName with correct user_id', () => {
+        return request
+          .delete(`/api/users/${id}`)
+          .set({ 'authorisation': userToken })
+          .expect(res => {
+            if (res.body.firstName !== userZeroFirstName) throw new Error('First name of deleted user not returned')
+          })
+      })
     })
   })
 })

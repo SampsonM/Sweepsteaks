@@ -76,14 +76,14 @@ function editGroupData(req, res, next) {
   const groupName = req.params.group_name;
 
   return Group.findOneAndUpdate({name: groupName}, {$set: updatedGroupData}, {new:true})
-  .populate('users', 'username')
-  .populate('createdBy', 'username')
-  .then(group => {
-    return res.status(200).send(group)
-  })
-  .catch(err => {
-    next({message: err.message, err, root: 'editGroupData'})
-  })
+    .populate('users', 'username')
+    .populate('createdBy', 'username')
+    .then(group => {
+      return res.status(200).send(group)
+    })
+    .catch(err => {
+      next({message: err.message, err, root: 'editGroupData'})
+    })
 };
 
 module.exports = {

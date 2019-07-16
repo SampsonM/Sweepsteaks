@@ -1,7 +1,7 @@
 "use strict";
 import { User } from "../models/index";
 import passport from "passport";
-import { userNameQuery } from '../config/mongoQueries'
+import { userNameQuery, userDeleteQuery } from '../config/mongoQueries'
 
 // GET user
 function getUserByName(req, res, next) {
@@ -114,7 +114,21 @@ function updateUser(req, res, next) {
 }
 
 // delete user
-function deleteUser(req, res, next) {}
+function deleteUser(req, res, next) {
+  const id = req.params.user_id
+
+  if (id) {
+    return User.findByIdAndDelete(id, userDeleteQuery)
+      .then(response => {
+        return res.status(200).send(response)
+      })
+      .catch(err => {
+        res.status(400).send('User not found')
+      })
+  } else {
+    return res.status(400).send('No user_id provided')
+  }
+}
 
 function userDataValid(userData) {
   const { firstName, lastName, username, email, password } = userData;

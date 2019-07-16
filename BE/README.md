@@ -31,7 +31,6 @@ npm run start:dev
 To run the tests follow these steps:
 - Open the terminal and run 'mongo'
 - Open new terminal window and run 'mongod'
-- In the repo BE folder run 'NPM run seed:dev' to seed the test db
 - Check the db has been sown in the terminal window with mongo running, run 'show dbs' to check 'Sweepstakes_test' exists, you can further check the internals if you wish with relevant mongo commands
 - Run 'NPM run test' in the BE folder of the Repo to run Util tests
 

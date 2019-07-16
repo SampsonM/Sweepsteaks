@@ -44,7 +44,7 @@ function updateTeam(req, res, next) {
 }
 
 function deleteTeam(req, res, next) {
-  const teamId = req.body.id;
+  const teamId = req.params.team_id;
 
   return Team.findByIdAndDelete(teamId)
     .then(team => {

@@ -5,10 +5,13 @@ mongoose.Promise = Promise;
 import mongooseConnect from '../../src/connectMongoose'
 import { expect } from 'chai';
 import seedDB from '../../db/seed';
+import userData from '../../db/test-data/User.json'
 const request = require('supertest')(app);
 
 describe('/competitions', () => {
-  let compDocs;
+  let compDocs
+  const userZeroPass = userData[0].password
+  const userZeroUsername = userData[0].username
 
   beforeEach(() => {
     return mongooseConnect()
@@ -24,94 +27,207 @@ describe('/competitions', () => {
   afterEach(() => {
     return mongoose.disconnect()
   })
-
-  it('GET / RETURNS all competitions', () => {
-    return request
-      .get('/api/competitions')
-      .expect(200)
-      .then(competitions => {
-        expect(competitions.body.length).to.equal(2);
-      })
-  });
-
-  it('GET /:competition_id RETURNS single competition', () => {
-    return request
-      .get(`/api/competitions/${compDocs[0]._id}`)
-      .expect(200)
-      .then(competition => {
-        expect(competition.body.name).to.equal('World Cup');
-        expect(competition.body.teams.length).to.equal(compDocs[0].teams.length);
-      })
-  });
-
-  it('GET ?name return competition by name', () => {
-    return request
-      .get('/api/competitions?name=World+Cup')
-      .expect(200)
-      .then(competition => {
-        expect(competition.body.name).to.eql(compDocs[0].name)
-      })
-  });
-
-  it('POST / ADDS a competition to DB', () => {
-    const data = {
-      newCompetition: {
-        name: "100m Olympics final",
-        teams: ["Usain BOLT", "Justin GATLIN", "Andre DE GRASSE", "Yohan BLAKE", "Akani SIMBINE", "Ben Youssef MEITE", "Jimmy VICAUT", "Trayvon BROMELL"],
-        sport: "100m Sprint"
-      }
-    };
-
-    return request
-      .post(`/api/competitions`)
-      .send(data)
-      .expect(201)
-      .then(competition => {
-        expect(competition.body).to.have.all.keys('__v', '_id', 'teams', 'name', 'sport');
-        return request
-          .get(`/api/competitions/${competition.body._id}`)
-          .expect(200)
-      })
-  });
-
-  it('POST /:competition_id UPDATES competition data', () => {
-    const data = {
-      competitionUpdate: {
-        name: "World Cup 2018",
-        teams: ["England", "France", "Germany", "Argentina"],
-        sport: "football"
-      }
-    };
-
-    return request
-      .post(`/api/competitions/${compDocs[0]._id}`)
-      .send(data)
-      .expect(200)
-      .then(updatedCompetition => {
-        expect(updatedCompetition.body._id).to.equal(compDocs[0]._id.toString());
-        expect(updatedCompetition.body.teams).to.not.eql(compDocs[0].teams);
-
-        return request
-          .get(`/api/competitions/${updatedCompetition.body._id}`)
-          .expect(200)
-          .then(competition => {
-            expect(competition.body._id).to.equal(compDocs[0]._id.toString())
-          });
-      });
-  });
-
-  it('DELETE /:competition_id DELETES competition data', () => {
-    return request
-      .del(`/api/competitions/${compDocs[0]._id}`)
-      .expect(202)
-      .then(() => {
-        
+  
+  describe('when user is NOT logged in', () => {
+    describe('GET /', () => {
+      it('/ Returns 401 with invalid JWT', () => {
         return request
           .get('/api/competitions')
+          .set({ 'authorisation': 'INVALIDuserToken' })
+          .expect(res => {
+            if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
+          })
+      });
+    
+      it(':competition_id Returns 401 with invalid JWT', () => {
+        return request
+          .get(`/api/competitions/${compDocs[0]._id}`)
+          .set({ 'authorisation': 'INVALIDuserToken' })
+          .expect(res => {
+            if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
+          })
+      });
+    
+      it('?name Returns 401 with invalid JWT', () => {
+        return request
+          .get('/api/competitions?name=World+Cup')
+          .set({ 'authorisation': 'INVALIDuserToken' })
+          .expect(res => {
+            if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
+          })
+      });
+    })
+
+    describe('POST /', () => {
+      it('/ ADDS a competition to DB', () => {
+        const data = {
+          newCompetition: {
+            name: "100m Olympics final",
+            teams: ["Usain BOLT", "Justin GATLIN", "Andre DE GRASSE", "Yohan BLAKE", "Akani SIMBINE", "Ben Youssef MEITE", "Jimmy VICAUT", "Trayvon BROMELL"],
+            sport: "100m Sprint"
+          }
+        };
+    
+        return request
+          .post(`/api/competitions`)
+          .set({ 'authorisation': 'INVALIDuserToken' })
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify(data))
+          .expect(res => {
+            if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
+          })
+      });
+    
+      it('/:competition_id UPDATES competition data', () => {
+        const data = {
+          competitionUpdate: {
+            name: "World Cup 2018",
+            teams: ["England", "France", "Germany", "Argentina"],
+            sport: "football"
+          }
+        };
+    
+        return request
+          .post(`/api/competitions/${compDocs[0]._id}`)
+          .set({ 'authorisation': 'INVALIDuserToken' })
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify(data))
+          .expect(res => {
+            if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
+          })
+      });
+    })
+
+    describe('DELETE /', () => {
+      it(':competition_id DELETES competition data', () => {
+        return request
+          .del(`/api/competitions/${compDocs[0]._id}`)
+          .set({ 'authorisation': 'INVALIDuserToken' })
+          .expect(res => {
+            if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
+          })
+      });
+    })
+  })
+
+  describe('when user logged in', () => {
+    let userToken
+
+    beforeEach(() => {
+      return request
+        .post('/api/users/status/login')
+        .set({'Content-Type':'application/json'})
+        .send(JSON.stringify({ username: userZeroUsername, password: userZeroPass }))
+        .then(response => {
+          userToken = response.body.user.token
+        })
+    })
+
+    describe('GET /', () => {
+      it('/ Returns all competitions', () => {
+        return request
+          .get('/api/competitions')
+          .set({ 'authorisation': userToken })
           .expect(200)
           .then(competitions => {
-            expect(competitions.body.length).to.equal(compDocs.length - 1);
+            expect(competitions.body.length).to.equal(2);
           })
-      })
-  });
+      });
+    
+      it(':competition_id Returns single competition', () => {
+        return request
+          .get(`/api/competitions/${compDocs[0]._id}`)
+          .set({ 'authorisation': userToken })
+          .expect(200)
+          .then(competition => {
+            expect(competition.body.name).to.equal('World Cup');
+            expect(competition.body.teams.length).to.equal(compDocs[0].teams.length);
+          })
+      });
+    
+      it('?name Returns competition by name', () => {
+        return request
+          .get('/api/competitions?name=World+Cup')
+          .set({ 'authorisation': userToken })
+          .expect(200)
+          .then(competition => {
+            expect(competition.body.name).to.eql(compDocs[0].name)
+          })
+      });
+    })
+
+    describe('POST /', () => {
+      it('/ ADDS a competition to DB', () => {
+        const data = {
+          newCompetition: {
+            name: "100m Olympics final",
+            teams: ["Usain BOLT", "Justin GATLIN", "Andre DE GRASSE", "Yohan BLAKE", "Akani SIMBINE", "Ben Youssef MEITE", "Jimmy VICAUT", "Trayvon BROMELL"],
+            sport: "100m Sprint"
+          }
+        };
+    
+        return request
+          .post(`/api/competitions`)
+          .set({ 'authorisation': userToken })
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify(data))
+          .expect(201)
+          .then(competition => {
+            expect(competition.body).to.have.all.keys('__v', '_id', 'teams', 'name', 'sport');
+            return request
+              .get(`/api/competitions/${competition.body._id}`)
+              .set({ 'authorisation': userToken })
+              .expect(200)
+          })
+      });
+    
+      it('/:competition_id UPDATES competition data', () => {
+        const data = {
+          competitionUpdate: {
+            name: "World Cup 2018",
+            teams: ["England", "France", "Germany", "Argentina"],
+            sport: "football"
+          }
+        };
+    
+        return request
+          .post(`/api/competitions/${compDocs[0]._id}`)
+          .set({ 'authorisation': userToken })
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify(data))
+          .expect(200)
+          .then(updatedCompetition => {
+            expect(updatedCompetition.body._id).to.equal(compDocs[0]._id.toString());
+            expect(updatedCompetition.body.teams).to.not.eql(compDocs[0].teams);
+    
+            return request
+              .get(`/api/competitions/${updatedCompetition.body._id}`)
+              .set({ 'authorisation': userToken })
+              .expect(200)
+              .then(competition => {
+                expect(competition.body._id).to.equal(compDocs[0]._id.toString())
+              });
+          });
+      });
+    })
+
+    describe('DELETE /', () => {
+      it(':competition_id DELETES competition data', () => {
+        return request
+          .del(`/api/competitions/${compDocs[0]._id}`)
+          .set({ 'authorisation': userToken })
+          .expect(202)
+          .then(() => {
+            
+            return request
+              .get('/api/competitions')
+              .set({ 'authorisation': userToken })
+              .expect(200)
+              .then(competitions => {
+                expect(competitions.body.length).to.equal(compDocs.length - 1);
+              })
+          })
+      });
+    })
+  })
 });

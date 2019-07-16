@@ -1,11 +1,18 @@
 'use strict';
 const groupsRouter = require('express').Router();
+import auth from '../auth';
 import * as groupCtrl from '../../controllers/groups';
 
-groupsRouter.post('/:group_name', groupCtrl.editGroupData);
-groupsRouter.post('/', groupCtrl.addGroup);
+// GET All groups (required, only authenticated users have access)
+groupsRouter.get('/', auth.required, groupCtrl.getGroups);
 
-groupsRouter.get('/', groupCtrl.getGroups);
-groupsRouter.get('/:group_id', groupCtrl.getGroupById);
+// GET A group by ID (required, only authenticated users have access)
+groupsRouter.get('/:group_id', auth.required, groupCtrl.getGroupById);
+
+// POST Edit a group by ID (required, only authenticated users have access)
+groupsRouter.post('/:group_name', auth.required, groupCtrl.editGroupData);
+
+// POST Add a new group (required, only authenticated users have access)
+groupsRouter.post('/', auth.required, groupCtrl.addGroup);
 
 module.exports = groupsRouter;
