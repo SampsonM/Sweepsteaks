@@ -61,7 +61,7 @@ After Git adding all the files you wish to change currently I push to github the
 
 ### **Users**
 - GET User login status:----*'/api/users/status'*
-- GET User login status:----*'/api/users/status/logout'*
+- GET User logout:----------*'/api/users/status/logout'*
 - GET User by name:-------*'/api/users/:user_name'*
 - POST Log User in:--------*'/api/users/status/login'*
 - POST 'Create' User:------*'/api/users/'*

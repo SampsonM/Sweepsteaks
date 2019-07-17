@@ -5,9 +5,10 @@ import cors from "cors";
 import apiRouter from "../routes/api/api.js";
 import mongoose from "mongoose";
 import mongooseConnect from '../src/connectMongoose'
-import helmet from "helmet";
+import helmet from "helmet"
 import passport from 'passport'
-import '../config/passport';
+import path from 'path'
+import '../config/passport'
 
 // Configure mongoose
 mongoose.Promise = Promise;
@@ -17,9 +18,12 @@ mongoose.set("useCreateIndex", true);
 // Init app
 const app = express();
 
+app.set('view engine', 'ejs')
+app.use(express.static(path.join(__dirname, '../views')))
+
 // Configure the app
-app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({ extended: true }));
+app.use(bodyparser.json())
+app.use(bodyparser.urlencoded({ extended: true }))
 app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
   directives: {

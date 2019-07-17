@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sweepsteaks api</title>
+</head>
+
+<body id="preview">
+  <h1><a target="blank" href="https://www.sweepsteaks.co.uk">SweepSteaks</a></h1>
+  
+  <h2>API Endpoints</h2>
+
+  <table>
+    <tr>
+      <td><h2><b>Teams /</b></h2></td>
+
+      <td><h3>GET<b>/api/Teams/</b></h3>
+        <p>Get all Teams</p></td>
+
+      <td><h3>GET<b>/api/Teams/<i>team_ID</i></b></h3>
+        <p>Return team by ID</p></td>
+
+      <td><h3>POST<b>/api/Teams/<i>team_ID</i></b></h3>
+        <p>edits team by ID</p></td>
+
+      <td><h3>DELETE<b>/api/Teams/<i>team_ID</i></b></h3>
+        <p>Delete team by ID</p></td>
+    </tr>
+
+    <tr>
+      <td><h2><b>Groups /</b></h2></td>
+
+      <td><h3>GET<b>/api/Groups/</b></h3>
+        <p>Get all Groups</p></td>
+
+      <td><h3>GET<b>/api/Groups/<i>group_ID</i></b></h3>
+        <p>Return group by ID</p></td>
+
+      <td><h3>POST<b>/api/Groups/</b></h3>
+        <p>Creates group</p></td>
+
+      <td><h3>DELETE<b>/api/Groups/<i>group_ID</i></b></h3>
+        <p>Delete group by ID</p></td>
+    </tr>
+
+    <tr>
+      <td><h2><b>Competitions /</b></h2></td>
+
+      <td><h3>GET<b>/api/competitions/</b></h3>
+        <p>Get all competitions</p></td>
+
+      <td><h3>GET<b>/api/competitions/<i>competition_ID</i></b></h3>
+        <p>Return competition by ID</p></td>
+
+      <td><h3>POST<b>/api/competitions/</b></h3>
+        <p>Creates competition</p></td>
+
+      <td> <h3>POST<b>/api/competitions/<i>competition_ID</i></b></h3>
+        <p>Edits competitions by ID</p></td>
+
+      <td><h3>DELETE<b>/api/competitions/<i>competition_ID</i></b></h3>
+        <p>Delete competition by ID</p></td>
+    </tr>
+
+    <tr>
+      <td><h2><b>USERS /</b></h2></td>
+      <td><h3>GET<b>/api/users/<i>user_name</i></b></h3>
+        <p>Get user by name - <i>publically available</i></p></td>
+      <td><h3>GET<b>/api/users/status</b></h3>
+        <p>Return current user id</p></td>
+      <td><h3>GET<b>/api/users/status/logout</b></h3>
+        <p>Logs user out</p></td>
+      <td> <h3>POST<b>/api/users/status/login</b></h3>
+        <p>Logs user in</p></td>
+      <td><h3>POST<b>/api/users/</b></h3>
+        <p>Creates user</p></td>
+      <td><h3>PUT<b>/api/users/<i>user_ID</i></b></h3>
+        <p>Updates user by ID</p></td>
+      <td><h3>DELETE<b>/api/users/<i>user_ID</i></b></h3>
+        <p>Delete user by ID</p></td>
+    </tr>
+  </table>
+  
+  
+  
+  
+  
+  
+
+ 
+
+  
+  
+  
+  
+  
+
+</body>
+</html>
