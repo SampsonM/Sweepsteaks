@@ -1,52 +1,52 @@
 [
   {
-    "name": "Andorra",
-    "sport": "Football",
-    "competition": "World Cup"
+    "name": "andorra",
+    "sport": "football",
+    "competitions": ["world cup"]
   },
   {
-    "name": "Brazil",
-    "sport": "Football",
-    "competition": "World Cup"
+    "name": "brazil",
+    "sport": "football",
+    "competitions": ["world cup"]
   },
   {
-    "name": "Chile",
-    "sport": "Football",
-    "competition": "World Cup"
+    "name": "chile",
+    "sport": "football",
+    "competitions": ["world cup"]
   },
   {
-    "name": "England",
-    "sport": "Football",
-    "competition": "World Cup"
+    "name": "england",
+    "sport": "football",
+    "competitions": ["world cup"]
   },
   {
-    "name": "France",
-    "sport": "Football",
-    "competition": "World Cup"
+    "name": "france",
+    "sport": "football",
+    "competitions": ["world cup"]
   },
   {
-    "name": "Azets",
-    "sport": "Horse Racing",
-    "competition": "Grand National"
+    "name": "azets",
+    "sport": "horse racing",
+    "competitions": ["grand national"]
   },
   {
-    "name": "Drummer Boy",
-    "sport": "Horse Racing",
-    "competition": "Grand National"
+    "name": "drummer boy",
+    "sport": "horse racing",
+    "competitions": ["grand national"]
   },
   {
-    "name": "Mr Spirit",
-    "sport": "Horse Racing",
-    "competition": "Grand National"
+    "name": "mr spirit",
+    "sport": "horse racing",
+    "competitions": ["grand national"]
   },
   {
-    "name": "Star Terms",
-    "sport": "Horse Racing",
-    "competition": "Grand National"
+    "name": "star terms",
+    "sport": "horse racing",
+    "competitions": ["grand national"]
   },
   {
-    "name": "Wise Counsel",
-    "sport": "Horse Racing",
-    "competition": "Grand National"
+    "name": "wise counsel",
+    "sport": "horse racing",
+    "competitions": ["grand national"]
   }
 ]

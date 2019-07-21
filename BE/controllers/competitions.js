@@ -75,14 +75,44 @@ function updateCompetition(req, res, next) {
   const compId = req.params.competition_id;
   let {competitionUpdate} = req.body;
 
-  return Competition.find()
-    .then(() => {
-      return createTeamsArray(competitionUpdate)
+  return Competition.findById(compId)
+    .populate('teams')
+    .then(currentCompetition => {
+      // IF teams supplied assume its a team delet then remove competition from all deleted teams
+      // ELSE update all teams competition names if no teams supplied
+      const updatedTeams = competitionUpdate.teams
+      const currentTeams = currentCompetition.teams
+
+      if (updatedTeams !== undefined && updatedTeams.length > 0) {
+
+        for (let i = 0; i < currentTeams.length; i++) {
+          const currentTeam = currentTeams[i]
+
+          // if currentTeam not included in updated teams remove competition from team
+          // Update past competitions with current removed one
+          if (updatedTeams.indexOf(currentTeam.name) < 0) {
+            const currentTeamComps = currentTeam.competitions;
+            const index = currentTeamComps.indexOf(currentCompetition.name);
+
+            if (index >= 0) {
+              currentTeamComps.splice( index, 1 );
+              currentTeam.pastCompetitions.push(currentCompetition.name)
+            }
+
+            const teamUpdate = {
+              competitions: currentTeam.competitions,
+              pastCompetitions: currentTeam.pastCompetitions
+            }
+
+            Team.findOneAndUpdate({ _id: currentTeam._id }, {$set: teamUpdate}, { new: true })
+              .then(team => console.log('team HERE', team))
+
+          }
+        }
+      }
+      return competitionUpdate
     })
-    .then(teams => {
-      competitionUpdate.teams = teams;
-    })
-    .then(() => {
+    .then(competitionUpdate => {
       return Competition.findOneAndUpdate({_id: compId}, competitionUpdate).populate('teams', 'name');
     })
     .then(competition => {
@@ -113,6 +143,7 @@ function deleteCompetition(req, res, next) {
 function createTeamsArray(competitionData) {
   return competitionData.teams.map(team => {
     // should add competition to team!!
+    // find competitions and add this new competition or update it
     return new Team({
       "name": team,
       "competition": competitionData.name,

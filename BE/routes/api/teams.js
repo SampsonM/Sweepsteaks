@@ -10,7 +10,7 @@ teamsRouter.get('/', auth.required, teamCtrl.getTeams);
 teamsRouter.get('/:team_name', auth.required, teamCtrl.getTeamByName);
 
 // POST Creates a team (required, only authenticated users have access)
-// teamsRouter.post('/create', auth.required, teamCtrl.createTeam);
+teamsRouter.post('/create', auth.required, teamCtrl.createTeam);
 
 // PUT Updates team by ID (required, only authenticated users have access)
 teamsRouter.put('/:team_ID', auth.required, teamCtrl.updateTeam);

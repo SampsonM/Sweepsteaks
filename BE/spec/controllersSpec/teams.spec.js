@@ -6,6 +6,7 @@ import mongooseConnect from '../../src/connectMongoose'
 import { expect } from 'chai';
 import seedDB from '../../db/seed';
 import userData from '../../db/test-data/User.json'
+import { isRegExp } from 'util';
 const request = require('supertest')(app);
 
 describe('/teams', () => {
@@ -58,7 +59,7 @@ describe('/teams', () => {
           updatedTeamData: {
             name: 'Finland',
             sport: teamDocs[0].sport,
-            competition: teamDocs[0].competition
+            competitions: teamDocs[0].competition
           },
           id: teamDocs[0]._id
         };
@@ -72,6 +73,25 @@ describe('/teams', () => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
       });
+    })
+
+    describe('POST /', () => {
+      it('/create returns 401 with invalid jwt', () => {
+        const teamData = {
+          'name': 'Manchester United',
+          'sport': 'Football',
+          'competitions': ['Premier League']
+        }
+
+        return request
+          .post('/api/teams/create')
+          .set({ 'authorisation': 'INVALIDuserToken' })
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify(teamData))
+          .expect(res => {
+            if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
+          })
+      })
     })
 
     describe('DELETE /', () => {
@@ -127,7 +147,7 @@ describe('/teams', () => {
           updatedTeamData: {
             name: 'Finland',
             sport: teamDocs[0].sport,
-            competition: teamDocs[0].competition
+            competitions: teamDocs[0].competitions
           },
           id: teamDocs[0]._id
         };
@@ -143,6 +163,78 @@ describe('/teams', () => {
             expect(team.body.sport).to.equal(teamDocs[0].sport);
           })
       });
+    })
+
+    describe('POST /', () => {
+      it('/create creates team valid data structure', () => {
+        const teamData = {
+          'name': 'Manchester United',
+          'sport': 'Football',
+          'competitions': ['Premier League']
+        }
+
+        return request
+          .post('/api/teams/create')
+          .set({ 'authorisation': userToken })
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify(teamData))
+          .expect(team => {
+            expect(team.body).to.have.keys('_id', 'name', 'sport', 'competitions', '__v')
+          })
+      })
+      
+      it('/create fails to create team with INVALID data structure', () => {
+        const teamData = {
+          'name': 'script',
+          'sport': 'Football',
+          'competitions': ['Premier League']
+        }
+
+        return request
+          .post('/api/teams/create')
+          .set({ 'authorisation': userToken })
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify(teamData))
+          .expect(400)
+          .expect(res => {
+            expect(res.text).to.equal('Team name must only have letters and and be 2 - 25 characters')
+          })
+      })
+      
+      it('/create fails to create team with INVALID data structure', () => {
+        const teamData = {
+          'name': 'Manchester United',
+          'sport': '1234hello',
+          'competitions': ['Premier League']
+        }
+
+        return request
+          .post('/api/teams/create')
+          .set({ 'authorisation': userToken })
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify(teamData))
+          .expect(400)
+          .expect(res => {
+            expect(res.text).to.equal('Team sport must only have letters and and be 2 - 15 characters')
+          })
+      })
+      
+      it('/create fails to create team with INVALID data structure', () => {
+        const teamData = {
+          'name': 'Manchester United',
+          'sport': 'Football'
+        }
+
+        return request
+          .post('/api/teams/create')
+          .set({ 'authorisation': userToken })
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify(teamData))
+          .expect(400)
+          .expect(res => {
+            expect(res.text).to.equal('Team competition must only have letters and and be 2 - 25 characters')
+          })
+      })
     })
 
     describe('DELETE /', () => {

@@ -1,10 +1,10 @@
 [
   {
-  "name": "World Cup",
-  "sport": "Football"
+    "name": "world cup",
+    "sport": "football"
   },
   {
-    "name": "Grand National",
-    "sport": "Horse Racing"
+    "name": "grand national",
+    "sport": "horse racing"
   }
 ]

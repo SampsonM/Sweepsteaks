@@ -10,6 +10,7 @@ const request = require('supertest')(app);
 
 describe('/competitions', () => {
   let compDocs
+  let teamDocs
   const userZeroPass = userData[0].password
   const userZeroUsername = userData[0].username
 
@@ -20,6 +21,7 @@ describe('/competitions', () => {
       })
       .then(data => {
         compDocs = data.compDocs;
+        teamDocs = data.teamDocs
       })
       .catch(console.log)
   });
@@ -82,7 +84,7 @@ describe('/competitions', () => {
         const data = {
           competitionUpdate: {
             name: "World Cup 2018",
-            teams: ["England", "France", "Germany", "Argentina"],
+            teams: ["england", "france", "germany", "argentina"],
             sport: "football"
           }
         };
@@ -140,14 +142,14 @@ describe('/competitions', () => {
           .set({ 'authorisation': userToken })
           .expect(200)
           .then(competition => {
-            expect(competition.body.name).to.equal('World Cup');
+            expect(competition.body.name).to.equal('world cup');
             expect(competition.body.teams.length).to.equal(compDocs[0].teams.length);
           })
       });
     
       it('?name Returns competition by name', () => {
         return request
-          .get('/api/competitions?name=World+Cup')
+          .get('/api/competitions?name=world+cup')
           .set({ 'authorisation': userToken })
           .expect(200)
           .then(competition => {
@@ -156,13 +158,17 @@ describe('/competitions', () => {
       });
     })
 
-    describe('POST /', () => {
+    describe.only('POST /', () => {
       it('/ ADDS a competition to DB', () => {
+        const teams = teamDocs  
+          .filter(team => team.sport === 'football')
+          .map(team => team.name)
+
         const data = {
           newCompetition: {
-            name: "100m Olympics final",
-            teams: ["Usain BOLT", "Justin GATLIN", "Andre DE GRASSE", "Yohan BLAKE", "Akani SIMBINE", "Ben Youssef MEITE", "Jimmy VICAUT", "Trayvon BROMELL"],
-            sport: "100m Sprint"
+            name: 'football cup',
+            teams,
+            sport: 'football'
           }
         };
     
@@ -174,6 +180,7 @@ describe('/competitions', () => {
           .expect(201)
           .then(competition => {
             expect(competition.body).to.have.all.keys('__v', '_id', 'teams', 'name', 'sport');
+            expect(competition.body.teams[0]).to.have.keys('_id', 'name', 'competition', 'sport')
             return request
               .get(`/api/competitions/${competition.body._id}`)
               .set({ 'authorisation': userToken })
@@ -181,11 +188,41 @@ describe('/competitions', () => {
           })
       });
     
-      it('/:competition_id UPDATES competition data', () => {
+      it.only('/:competition_id UPDATES competition updated team data', () => {
+        const data = {
+          competitionUpdate: {
+            name: "world cup 2018",
+            teams: ["england", "france", "germany", "argentina"],
+            sport: "football"
+          }
+        };
+    
+        return request
+          .post(`/api/competitions/${compDocs[0]._id}`)
+          .set({ 'authorisation': userToken })
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify(data))
+          // .expect(200)
+          .then(updatedCompetition => {
+            // console.log('UPDATE',updatedCompetition.body)
+            expect(updatedCompetition.body._id).to.equal(compDocs[0]._id.toString());
+
+            expect(teamIds).to.not.eql(compDocs[0].teams);
+    
+            return request
+              .get(`/api/competitions/${updatedCompetition.body._id}`)
+              .set({ 'authorisation': userToken })
+              .expect(200)
+              .then(competition => {
+                expect(competition.body._id).to.equal(compDocs[0]._id.toString())
+              });
+          });
+      });
+    
+      it('/:competition_id UPDATES competition without team data', () => {
         const data = {
           competitionUpdate: {
             name: "World Cup 2018",
-            teams: ["England", "France", "Germany", "Argentina"],
             sport: "football"
           }
         };
@@ -198,7 +235,7 @@ describe('/competitions', () => {
           .expect(200)
           .then(updatedCompetition => {
             expect(updatedCompetition.body._id).to.equal(compDocs[0]._id.toString());
-            expect(updatedCompetition.body.teams).to.not.eql(compDocs[0].teams);
+            expect(updatedCompetition.body.teams).to.eql(compDocs[0].teams);
     
             return request
               .get(`/api/competitions/${updatedCompetition.body._id}`)

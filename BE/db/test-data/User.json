@@ -1,6 +1,6 @@
 [
   {
-    "firstName": "Dave",
+    "firstName": "dave",
     "lastName": "davidson",
     "username": "Dave123",
     "email": "dave@123.com",
@@ -8,7 +8,7 @@
     "avatarUrl": "https://avatar.co.uhmyeahRealURL"
   },
   {
-    "firstName": "Alf",
+    "firstName": "alf",
     "lastName": "davidson",
     "username": "Alf987",
     "email": "Alf987@123.com",

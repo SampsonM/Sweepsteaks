@@ -35,7 +35,7 @@ function seedCompetitions(teamDocs) {
     let { name, sport } = comp;
 
     let teams = teamDocs.reduce((acc, team) => {
-      if (team.competition === comp.name) acc.push(team._id);
+      if (team.competitions.indexOf(comp.name) > -1) acc.push(team);
       return acc;
     }, []);
 
