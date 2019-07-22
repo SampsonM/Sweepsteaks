@@ -1,6 +1,6 @@
 'use strict';
-import { Competition } from '../models';
-import { Team } from '../models';
+import { Competition } from '../models'
+import { Team } from '../models'
 
 function getCompetitions(req, res, next) {
   if (req.query.name) {
@@ -78,42 +78,19 @@ function updateCompetition(req, res, next) {
   return Competition.findById(compId)
     .populate('teams')
     .then(currentCompetition => {
-      // IF teams supplied assume its a team delet then remove competition from all deleted teams
-      // ELSE update all teams competition names if no teams supplied
-      const updatedTeams = competitionUpdate.teams
-      const currentTeams = currentCompetition.teams
-
-      if (updatedTeams !== undefined && updatedTeams.length > 0) {
-
-        for (let i = 0; i < currentTeams.length; i++) {
-          const currentTeam = currentTeams[i]
-
-          // if currentTeam not included in updated teams remove competition from team
-          // Update past competitions with current removed one
-          if (updatedTeams.indexOf(currentTeam.name) < 0) {
-            const currentTeamComps = currentTeam.competitions;
-            const index = currentTeamComps.indexOf(currentCompetition.name);
-
-            if (index >= 0) {
-              currentTeamComps.splice( index, 1 );
-              currentTeam.pastCompetitions.push(currentCompetition.name)
-            }
-
-            const teamUpdate = {
-              competitions: currentTeam.competitions,
-              pastCompetitions: currentTeam.pastCompetitions
-            }
-
-            Team.findOneAndUpdate({ _id: currentTeam._id }, {$set: teamUpdate}, { new: true })
-              .then(team => console.log('team HERE', team))
-
-          }
-        }
-      }
-      return competitionUpdate
+      return Promise.all([
+        currentCompetition,
+        createMissingTeams(competitionUpdate, currentCompetition),
+        updateTeamsCompetitions(competitionUpdate, currentCompetition)
+      ])
     })
-    .then(competitionUpdate => {
-      return Competition.findOneAndUpdate({_id: compId}, competitionUpdate).populate('teams', 'name');
+    .then(([ currentcomp ]) => {
+      return Team.find({ competitions: competitionUpdate.name || currentcomp.name })
+    })
+    .then(teams => {
+      competitionUpdate.teams = teams
+      if (competitionUpdate.name) competitionUpdate.name = competitionUpdate.name.toLowerCase()
+      return Competition.findOneAndUpdate({_id: compId}, competitionUpdate, { new: true }).populate('teams', 'name');
     })
     .then(competition => {
       res.status(200).send(competition)
@@ -121,7 +98,6 @@ function updateCompetition(req, res, next) {
     .catch(err => {
       next({message: err.message, err, root: 'updateCompetition'})
     })
-
 };
 
 // Maybe need to add headers/ authentication to prevent anybody deleting data
@@ -138,18 +114,72 @@ function deleteCompetition(req, res, next) {
     })
 };
 
-// Utils 
+// Utils
 
 function createTeamsArray(competitionData) {
   return competitionData.teams.map(team => {
-    // should add competition to team!!
-    // find competitions and add this new competition or update it
     return new Team({
       "name": team,
       "competition": competitionData.name,
       "sport": competitionData.sport
     })
   })
+}
+
+async function updateTeamsCompetitions(compUpdate, currentComp) {
+  const teamsToUpdate = compUpdate.teams
+  const currentTeams = currentComp.teams
+  const competitionNameUpdated = Boolean(compUpdate.name && currentComp.name !== compUpdate.name)
+  const updatedTeams = []
+
+  for (let i = 0; i < currentTeams.length; i++) {
+    const team = currentTeams[i]
+    const teamComps = team.competitions
+    const teamRmvdFromCompetition = Boolean(teamsToUpdate && teamsToUpdate.indexOf(team.name) < 0)
+
+    const teamData = {}
+
+    if (teamRmvdFromCompetition) {
+      teamComps.splice( teamComps.indexOf(currentComp.name), 1 )
+
+      competitionNameUpdated
+        ? team.pastCompetitions.push(compUpdate.name.toLowerCase())
+        : team.pastCompetitions.push(currentComp.name.toLowerCase())
+
+      teamData.competitions = team.competitions
+      teamData.pastCompetitions = team.pastCompetitions
+    }
+    
+    if (competitionNameUpdated && teamComps.indexOf(currentComp.name) >= 0) {
+      teamComps.splice( teamComps.indexOf(currentComp.name), 1, compUpdate.name )
+      teamData.competitions = team.competitions
+    }
+    const updatedTeam = await Team.findOneAndUpdate({_id: team._id}, {$set: teamData}, {new: true})
+    updatedTeams.push(updatedTeam)
+  }
+  return updatedTeams
+}
+
+async function createMissingTeams(compUpdate, currentComp) {
+  const updatedTeams = compUpdate.teams
+  const newTeams = []
+  const currentTeamsNames = currentComp.teams.map(team => team.name)
+
+  if (updatedTeams && updatedTeams.length > 0) {
+    for (let i = 0; i < updatedTeams.length; i++) {
+      const team = updatedTeams[i]
+      
+      if (currentTeamsNames.indexOf(team) < 0) {
+        const newTeam = await new Team({
+          name: team,
+          sport: currentComp.sport,
+          competitions: [compUpdate.name || currentComp.name]
+        }).save()
+        newTeams.push(newTeam)
+      }
+    }
+  }
+  return newTeams
 }
 
 module.exports = {

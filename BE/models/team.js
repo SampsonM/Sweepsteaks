@@ -1,6 +1,5 @@
 'use strict';
 import mongoose from 'mongoose';
-import { stringify } from 'querystring';
 const Schema = mongoose.Schema;
 
 const TeamSchema = new Schema({

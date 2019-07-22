@@ -2,10 +2,6 @@
 import { Team } from '../models/index';
 
 function getTeams(req, res, next) {
-  if (req.query.team_name) {
-    return getTeamByName(req, res, next);
-  };
-
   return Team.find()
     .lean()
     .then(teams => {
@@ -25,7 +21,7 @@ function getTeamByName(req, res, next) {
       res.status(200).send(team)
     })
     .catch(err => {
-      next({ err: err.message, err, root: 'getTeamByName' })
+      next({ errMsg: err.message, err, root: 'getTeamByName' })
     })
 }
 

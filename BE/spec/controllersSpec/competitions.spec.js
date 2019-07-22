@@ -188,7 +188,34 @@ describe('/competitions', () => {
           })
       });
     
-      it.only('/:competition_id UPDATES competition updated team data', () => {
+      it.only('/:competition_id UPDATES teams competitions when competition teams updated', () => {
+        const data = {
+          competitionUpdate: {
+            teams: ["england", "france", "germany", "argentina"],
+            sport: "football"
+          }
+        };
+    
+        return request
+          .post(`/api/competitions/${compDocs[0]._id}`)
+          .set({ 'authorisation': userToken })
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify(data))
+          .expect(200)
+          .then(response => {
+            const competition = response.body
+            const newTeams = competition.teams.map(team => team.name)
+            expect(newTeams).to.eql(data.competitionUpdate.teams)
+
+            return request.get(`/api/teams/${competition.teams[0].name}`)
+              .set({ 'authorisation': userToken })
+              .then(res => {
+                console.log(res.body)
+              })
+          });
+      });
+    
+      it('/:competition_id UPDATES teams competition name when name is comp updated', () => {
         const data = {
           competitionUpdate: {
             name: "world cup 2018",
@@ -202,20 +229,12 @@ describe('/competitions', () => {
           .set({ 'authorisation': userToken })
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(data))
-          // .expect(200)
-          .then(updatedCompetition => {
-            // console.log('UPDATE',updatedCompetition.body)
-            expect(updatedCompetition.body._id).to.equal(compDocs[0]._id.toString());
-
-            expect(teamIds).to.not.eql(compDocs[0].teams);
-    
-            return request
-              .get(`/api/competitions/${updatedCompetition.body._id}`)
-              .set({ 'authorisation': userToken })
-              .expect(200)
-              .then(competition => {
-                expect(competition.body._id).to.equal(compDocs[0]._id.toString())
-              });
+          .expect(200)
+          .then(response => {
+            const competition = response.body
+            const newTeams = competition.teams.map(team => team.name)
+            expect(competition._id).to.equal(compDocs[0]._id.toString());
+            expect(newTeams).to.eql(data.competitionUpdate.teams)
           });
       });
     
@@ -233,17 +252,15 @@ describe('/competitions', () => {
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(data))
           .expect(200)
-          .then(updatedCompetition => {
-            expect(updatedCompetition.body._id).to.equal(compDocs[0]._id.toString());
-            expect(updatedCompetition.body.teams).to.eql(compDocs[0].teams);
-    
-            return request
-              .get(`/api/competitions/${updatedCompetition.body._id}`)
+          .then(response => {
+            const competition = response.body
+            expect(response.body._id).to.equal(compDocs[0]._id.toString());
+
+            request.get('/api/competitions?name=world%20cup%202018')
               .set({ 'authorisation': userToken })
-              .expect(200)
-              .then(competition => {
-                expect(competition.body._id).to.equal(compDocs[0]._id.toString())
-              });
+              .then(response => {
+                expect(response.body.teams).to.eql(competition.teams)
+              })
           });
       });
     })
