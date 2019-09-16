@@ -1,6 +1,8 @@
 'use strict'
 import { Competition } from '../models'
 import { Team } from '../models'
+import fs from 'fs'
+import path from 'path'
 
 function getCompetitions(req, res, next) {
   if (req.query.name) {
@@ -100,18 +102,25 @@ function updateCompetition(req, res, next) {
     })
 }
 
-// Maybe need to add headers/ authentication to prevent anybody deleting data
+// Need to add headers/ authentication to prevent anybody deleting data
 function deleteCompetition(req, res, next) {
   const competitionId = req.params.competition_id
+  const authOwnerHeader = req.get('ownerAuth')
+  const authOwnerToken = fs.readFileSync(path.resolve(__dirname, '../config/certs/ownerAuthKey.txt'), 'utf8')
 
-  return Competition.findByIdAndRemove(competitionId)
-    .lean()
-    .then(comp => {
-      res.status(202).send(comp)
-    })
-    .catch(err => {
-      next({message: err.message, err, root: 'DeleteCompetition'})
-    })
+  if (authOwnerHeader === authOwnerToken) {
+    return Competition.deleteOne({ _id: competitionId })
+      .lean()
+      .then(() => {
+        return Competition.find().populate()
+      })
+      .then(comp => {
+        res.status(202).send(comp)
+      })
+      .catch(err => {
+        next({message: err.message, err, root: 'DeleteCompetition'})
+      })
+  }
 }
 
 // Utils
