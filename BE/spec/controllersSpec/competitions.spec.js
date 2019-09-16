@@ -1,12 +1,12 @@
-'use strict';
-import app from '../../src/app';
-import mongoose from 'mongoose';
-mongoose.Promise = Promise;
+'use strict'
+import app from '../../src/app'
+import mongoose from 'mongoose'
+mongoose.Promise = Promise
 import mongooseConnect from '../../src/connectMongoose'
-import { expect } from 'chai';
-import seedDB from '../../db/seed';
+import { expect } from 'chai'
+import seedDB from '../../db/seed'
 import userData from '../../db/test-data/User.json'
-const request = require('supertest')(app);
+const request = require('supertest')(app)
 
 describe('/competitions', () => {
   let compDocs
@@ -17,14 +17,14 @@ describe('/competitions', () => {
   beforeEach(() => {
     return mongooseConnect()
       .then(() => {
-        return seedDB();
+        return seedDB()
       })
       .then(data => {
-        compDocs = data.compDocs;
+        compDocs = data.compDocs
         teamDocs = data.teamDocs
       })
       .catch(console.log)
-  });
+  })
 
   afterEach(() => {
     return mongoose.disconnect()
@@ -39,7 +39,7 @@ describe('/competitions', () => {
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
-      });
+      })
     
       it(':competition_id Returns 401 with invalid JWT', () => {
         return request
@@ -48,7 +48,7 @@ describe('/competitions', () => {
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
-      });
+      })
     
       it('?name Returns 401 with invalid JWT', () => {
         return request
@@ -57,7 +57,7 @@ describe('/competitions', () => {
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
-      });
+      })
     })
 
     describe('POST /', () => {
@@ -68,7 +68,7 @@ describe('/competitions', () => {
             teams: ["Usain BOLT", "Justin GATLIN", "Andre DE GRASSE", "Yohan BLAKE", "Akani SIMBINE", "Ben Youssef MEITE", "Jimmy VICAUT", "Trayvon BROMELL"],
             sport: "100m Sprint"
           }
-        };
+        }
     
         return request
           .post(`/api/competitions`)
@@ -78,7 +78,7 @@ describe('/competitions', () => {
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
-      });
+      })
     
       it('/:competition_id UPDATES competition data', () => {
         const data = {
@@ -87,7 +87,7 @@ describe('/competitions', () => {
             teams: ["england", "france", "germany", "argentina"],
             sport: "football"
           }
-        };
+        }
     
         return request
           .post(`/api/competitions/${compDocs[0]._id}`)
@@ -97,7 +97,7 @@ describe('/competitions', () => {
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
-      });
+      })
     })
 
     describe('DELETE /', () => {
@@ -108,7 +108,7 @@ describe('/competitions', () => {
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
-      });
+      })
     })
   })
 
@@ -132,9 +132,9 @@ describe('/competitions', () => {
           .set({ 'authorisation': userToken })
           .expect(200)
           .then(competitions => {
-            expect(competitions.body.length).to.equal(2);
+            expect(competitions.body.length).to.equal(2)
           })
-      });
+      })
     
       it(':competition_id Returns single competition', () => {
         return request
@@ -142,10 +142,10 @@ describe('/competitions', () => {
           .set({ 'authorisation': userToken })
           .expect(200)
           .then(competition => {
-            expect(competition.body.name).to.equal('world cup');
-            expect(competition.body.teams.length).to.equal(compDocs[0].teams.length);
+            expect(competition.body.name).to.equal('world cup')
+            expect(competition.body.teams.length).to.equal(compDocs[0].teams.length)
           })
-      });
+      })
     
       it('?name Returns competition by name', () => {
         return request
@@ -155,7 +155,7 @@ describe('/competitions', () => {
           .then(competition => {
             expect(competition.body.name).to.eql(compDocs[0].name)
           })
-      });
+      })
     })
 
     describe.only('POST /', () => {
@@ -170,7 +170,7 @@ describe('/competitions', () => {
             teams,
             sport: 'football'
           }
-        };
+        }
     
         return request
           .post(`/api/competitions`)
@@ -179,14 +179,14 @@ describe('/competitions', () => {
           .send(JSON.stringify(data))
           .expect(201)
           .then(competition => {
-            expect(competition.body).to.have.all.keys('__v', '_id', 'teams', 'name', 'sport');
+            expect(competition.body).to.have.all.keys('__v', '_id', 'teams', 'name', 'sport')
             expect(competition.body.teams[0]).to.have.keys('_id', 'name', 'competition', 'sport')
             return request
               .get(`/api/competitions/${competition.body._id}`)
               .set({ 'authorisation': userToken })
               .expect(200)
           })
-      });
+      })
     
       it.only('/:competition_id UPDATES teams competitions when competition teams updated', () => {
         const data = {
@@ -194,7 +194,7 @@ describe('/competitions', () => {
             teams: ["england", "france", "germany", "argentina"],
             sport: "football"
           }
-        };
+        }
     
         return request
           .post(`/api/competitions/${compDocs[0]._id}`)
@@ -212,8 +212,8 @@ describe('/competitions', () => {
               .then(res => {
                 console.log(res.body)
               })
-          });
-      });
+          })
+      })
     
       it('/:competition_id UPDATES teams competition name when name is comp updated', () => {
         const data = {
@@ -222,7 +222,7 @@ describe('/competitions', () => {
             teams: ["england", "france", "germany", "argentina"],
             sport: "football"
           }
-        };
+        }
     
         return request
           .post(`/api/competitions/${compDocs[0]._id}`)
@@ -233,10 +233,10 @@ describe('/competitions', () => {
           .then(response => {
             const competition = response.body
             const newTeams = competition.teams.map(team => team.name)
-            expect(competition._id).to.equal(compDocs[0]._id.toString());
+            expect(competition._id).to.equal(compDocs[0]._id.toString())
             expect(newTeams).to.eql(data.competitionUpdate.teams)
-          });
-      });
+          })
+      })
     
       it('/:competition_id UPDATES competition without team data', () => {
         const data = {
@@ -244,7 +244,7 @@ describe('/competitions', () => {
             name: "World Cup 2018",
             sport: "football"
           }
-        };
+        }
     
         return request
           .post(`/api/competitions/${compDocs[0]._id}`)
@@ -254,15 +254,15 @@ describe('/competitions', () => {
           .expect(200)
           .then(response => {
             const competition = response.body
-            expect(response.body._id).to.equal(compDocs[0]._id.toString());
+            expect(response.body._id).to.equal(compDocs[0]._id.toString())
 
             request.get('/api/competitions?name=world%20cup%202018')
               .set({ 'authorisation': userToken })
               .then(response => {
                 expect(response.body.teams).to.eql(competition.teams)
               })
-          });
-      });
+          })
+      })
     })
 
     describe('DELETE /', () => {
@@ -278,10 +278,10 @@ describe('/competitions', () => {
               .set({ 'authorisation': userToken })
               .expect(200)
               .then(competitions => {
-                expect(competitions.body.length).to.equal(compDocs.length - 1);
+                expect(competitions.body.length).to.equal(compDocs.length - 1)
               })
           })
-      });
+      })
     })
   })
-});
+})

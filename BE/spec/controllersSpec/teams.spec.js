@@ -1,13 +1,13 @@
-'use strict';
-import app from '../../src/app';
-import mongoose from 'mongoose';
-mongoose.Promise = Promise;
+'use strict'
+import app from '../../src/app'
+import mongoose from 'mongoose'
+mongoose.Promise = Promise
 import mongooseConnect from '../../src/connectMongoose'
-import { expect } from 'chai';
-import seedDB from '../../db/seed';
+import { expect } from 'chai'
+import seedDB from '../../db/seed'
 import userData from '../../db/test-data/User.json'
-import { isRegExp } from 'util';
-const request = require('supertest')(app);
+import { isRegExp } from 'util'
+const request = require('supertest')(app)
 
 describe('/teams', () => {
   let teamDocs
@@ -18,15 +18,15 @@ describe('/teams', () => {
   beforeEach(() => {
     return mongooseConnect()
     .then(() => {
-      return seedDB();
+      return seedDB()
     })
     .then(data => {
-      teamDocs = data.teamDocs;
+      teamDocs = data.teamDocs
 
       teamZeroId = teamDocs[0]._id
     })
     .catch(console.log)
-  });
+  })
 
   afterEach(() => {
     return mongoose.disconnect()
@@ -41,7 +41,7 @@ describe('/teams', () => {
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
-      });
+      })
 
       it(':team_name returns 401 with invalid JWT', () => {
         return request
@@ -50,7 +50,7 @@ describe('/teams', () => {
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
-      });
+      })
     })
 
     describe('PUT /', () => {
@@ -62,7 +62,7 @@ describe('/teams', () => {
             competitions: teamDocs[0].competition
           },
           id: teamDocs[0]._id
-        };
+        }
   
         return request
           .put(`/api/teams/${teamDocs[0].id}`)
@@ -72,7 +72,7 @@ describe('/teams', () => {
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
-      });
+      })
     })
 
     describe('POST /', () => {
@@ -102,7 +102,7 @@ describe('/teams', () => {
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
-      });
+      })
     })
   })
   
@@ -126,9 +126,9 @@ describe('/teams', () => {
           .set({ 'authorisation': userToken })
           .expect(200)
           .then(teams => {
-            expect(teams.body.length).to.equal(teamDocs.length);
-          });
-      });
+            expect(teams.body.length).to.equal(teamDocs.length)
+          })
+      })
     
       it(':team_name returns team by name', () => {
         return request
@@ -136,9 +136,9 @@ describe('/teams', () => {
           .set({ 'authorisation': userToken })
           .expect(200)
           .then(team => {
-            expect(team.body.name).to.equal(teamDocs[0].name);
-          });
-      });
+            expect(team.body.name).to.equal(teamDocs[0].name)
+          })
+      })
     })
 
     describe('PUT /', () => {
@@ -150,7 +150,7 @@ describe('/teams', () => {
             competitions: teamDocs[0].competitions
           },
           id: teamDocs[0]._id
-        };
+        }
   
         return request
           .put(`/api/teams/${teamDocs[0].id}`)
@@ -159,10 +159,10 @@ describe('/teams', () => {
           .send(JSON.stringify(updatedTeamInfo))
           .expect(200)
           .then(team => {
-            expect(team.body.name).to.not.equal(teamDocs[0].name);
-            expect(team.body.sport).to.equal(teamDocs[0].sport);
+            expect(team.body.name).to.not.equal(teamDocs[0].name)
+            expect(team.body.sport).to.equal(teamDocs[0].sport)
           })
-      });
+      })
     })
 
     describe('POST /', () => {
@@ -244,12 +244,12 @@ describe('/teams', () => {
           .set({ 'authorisation': userToken })
           .expect(200)
           .then(team => {
-            return Promise.all([team, request.get('/api/teams')]);
+            return Promise.all([team, request.get('/api/teams')])
           })
           .then(([team, teams]) => {
             expect(teams.body).to.not.include(team.body)
           })
-      });
+      })
     })
   })
-});
+})

@@ -1,15 +1,15 @@
-import app from './app.js';
-import http from 'http';
-import https from 'https';
-import path from 'path';
-import fs from 'fs';
+import app from './app.js'
+import http from 'http'
+import https from 'https'
+import path from 'path'
+import fs from 'fs'
 
-const PORT = process.env.PORT || require('../config/environment').PORT;
+const PORT = process.env.PORT || require('../config/environment').PORT
 
 if (process.env.NODE_ENV === 'production') {
   http.createServer(app).listen(PORT, () => {
     console.log(`HTTP listening on PORT: ${PORT} http://localhost:${PORT}/api`)
-  });
+  })
 }
 
 // Keep HTTPS to run localhost on chrome
@@ -19,8 +19,8 @@ if (process.env.NODE_ENV === 'development') {
   const options = {
     key: fs.readFileSync(path.resolve(__dirname, '../config/certs/rootCA.key'), 'utf8'),
     cert: fs.readFileSync(path.resolve(__dirname, '../config/certs/rootCA.pem'), 'utf8'),
-    passphrase: 'B@gbrush1'
-  };
+    passphrase: fs.readFileSync(path.resolve(__dirname, '../config/certs/passphrase.pem'), 'utf8'),
+  }
 
   https.createServer(options, app).listen(PORT, () => {
     console.log(`HTTPS listening on PORT: ${PORT} https://localhost:${PORT}/api`)

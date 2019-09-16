@@ -1,5 +1,5 @@
-const DB_URL = process.env.DB_URL || require("../config/environment").DB_URL;
-import mongoose from 'mongoose';
+const DB_URL = process.env.DB_URL || require("../config/environment").DB_URL
+import mongoose from 'mongoose'
 
 // Connect mongoose
 export default () => {
@@ -7,7 +7,7 @@ export default () => {
 		DB_URL,
 		{ useNewUrlParser: true },
 		() => {
-		  process.env.NODE_ENV !== 'test' && console.log("connected at app.js to mongo");
+		  process.env.NODE_ENV !== 'test' && console.log("connected at app.js to mongo")
 		}
-	);
+	)
 }

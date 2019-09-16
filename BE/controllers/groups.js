@@ -1,10 +1,10 @@
-'use strict';
-import { Group } from '../models/index';
+'use strict'
+import { Group } from '../models/index'
 
 function getGroups(req, res, next) {
   if (req.query.name) {
-    return getGroupByName(req, res, next);
-  };
+    return getGroupByName(req, res, next)
+  }
 
   return Group.find()
     .lean()
@@ -16,10 +16,10 @@ function getGroups(req, res, next) {
     .catch(err => {
       next({message: err.message, err, root: 'getGroups'})
     })
-};
+}
 
 function getGroupById(req, res, next) {
-  const groupId = req.params.group_id;
+  const groupId = req.params.group_id
 
   return Group.findById(groupId)
     .lean()
@@ -30,10 +30,10 @@ function getGroupById(req, res, next) {
     .catch(err => {
       next({message: err.message, err, root: 'getGroupByID'})
     })
-};
+}
 
 function getGroupByName(req, res, next) {
-  const groupName = req.query.name;
+  const groupName = req.query.name
 
   return Group.findOne({ name: groupName })
     .lean()
@@ -44,10 +44,10 @@ function getGroupByName(req, res, next) {
     .catch(err => {
       next({message: err.message, err, root: 'GetGroupByName'})
     })
-};
+}
 
 function addGroup(req, res, next) {
-  const {newGroup} = req.body;
+  const {newGroup} = req.body
 
   return Group.find()
     .then(() => {
@@ -66,14 +66,14 @@ function addGroup(req, res, next) {
     .catch(err => {
       next({message: err.message, err, root: 'AddGroup'})
     })
-};
+}
 
 function editGroupData(req, res, next) {
   
   // ADD SECURITY TO SOMEHOW ONLY ALLOW GROUP OWNER TO EDIT
 
-  const {updatedGroupData} = req.body;
-  const groupName = req.params.group_name;
+  const {updatedGroupData} = req.body
+  const groupName = req.params.group_name
 
   return Group.findOneAndUpdate({name: groupName}, {$set: updatedGroupData}, {new:true})
     .populate('users', 'username')
@@ -84,7 +84,7 @@ function editGroupData(req, res, next) {
     .catch(err => {
       next({message: err.message, err, root: 'editGroupData'})
     })
-};
+}
 
 module.exports = {
   getGroups,
@@ -92,4 +92,4 @@ module.exports = {
   getGroupByName,
   addGroup,
   editGroupData
-};
+}

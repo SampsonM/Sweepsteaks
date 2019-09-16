@@ -1,14 +1,14 @@
-'use strict';
-import mongoose from 'mongoose';
-import { createHashSalt } from '../utils';
-import jwt from 'jsonwebtoken';
-import fs from 'fs';
-import path from 'path';
-const Schema = mongoose.Schema;
+'use strict'
+import mongoose from 'mongoose'
+import { createHashSalt } from '../utils'
+import jwt from 'jsonwebtoken'
+import fs from 'fs'
+import path from 'path'
+const Schema = mongoose.Schema
 
 const KEY = process.env.NODE_ENV === 'production'
   ? process.env.KEY
-  : fs.readFileSync(path.resolve(__dirname, '../config/certs/rootCA.key'));
+  : fs.readFileSync(path.resolve(__dirname, '../config/certs/rootCA.key'))
 
 const UserSchema = new Schema({
   firstName: {
@@ -48,31 +48,31 @@ const UserSchema = new Schema({
       ref: 'groups'
     }
   }]
-});
+})
 
 UserSchema.methods.setHash = function(password) {
   const { hash, salt } = createHashSalt(password)
 
-  this.hash = hash;
-  this.salt = salt;
-};
+  this.hash = hash
+  this.salt = salt
+}
 
 UserSchema.methods.validatePassword = function(hash) {
-  return this.hash === hash;
-};
+  return this.hash === hash
+}
 
 UserSchema.methods.generateJWT = function() {
-  const currentDate = new Date();
-  const expirationDate = new Date();
-  expirationDate.setDate(currentDate.getDate() + 5);
+  const currentDate = new Date()
+  const expirationDate = new Date()
+  expirationDate.setDate(currentDate.getDate() + 5)
 
   return jwt.sign({
     email: this.email,
     id: this._id,
     exp: parseInt(expirationDate.getTime(), 10),
     iat: Math.floor(new Date())
-  }, KEY);
-};
+  }, KEY)
+}
 
 UserSchema.methods.toAuthJSON = function() {
   return {
@@ -83,14 +83,14 @@ UserSchema.methods.toAuthJSON = function() {
     lastName: this.lastName,
     token: this.generateJWT(),
     authenticated: true
-  };
-};
+  }
+}
 
 UserSchema.methods.unauthUser = function() {
   return {
     firstName: this.firstName,
     authenticated: false
-  };
+  }
 }
 
-module.exports = mongoose.model('users', UserSchema);
+module.exports = mongoose.model('users', UserSchema)

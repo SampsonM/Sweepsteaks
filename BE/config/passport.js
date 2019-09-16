@@ -2,7 +2,6 @@ const LocalStrategy = require('passport-local').Strategy;
 import passport from 'passport';
 import User from '../models/user';
 import { createHash } from '../utils';
-import { userLoginQuery } from './mongoQueries'
 
 passport.use(new LocalStrategy((username, password, done) => {
 

@@ -1,6 +1,6 @@
-'use strict';
-import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
+'use strict'
+import mongoose from 'mongoose'
+const Schema = mongoose.Schema
 
 const GroupSchema = new Schema({
   name: {
@@ -26,6 +26,6 @@ const GroupSchema = new Schema({
     required: true,
     min: 1
   }
-});
+})
 
-module.exports = mongoose.model('groups', GroupSchema);
+module.exports = mongoose.model('groups', GroupSchema)

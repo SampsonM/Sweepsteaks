@@ -1,9 +1,9 @@
-'use strict';
-import app from '../../src/app';
-import mongoose from 'mongoose';
-mongoose.Promise = Promise;
-import { expect } from 'chai';
-import seedDB from '../../db/seed';
+'use strict'
+import app from '../../src/app'
+import mongoose from 'mongoose'
+mongoose.Promise = Promise
+import { expect } from 'chai'
+import seedDB from '../../db/seed'
 import mongooseConnect from '../../src/connectMongoose'
 import userData from '../../db/test-data/User.json'
 const request = require('supertest')(app)
@@ -20,10 +20,10 @@ describe('/users', () => {
   beforeEach(() => {
     return mongooseConnect()
       .then(() => {
-        return seedDB();
+        return seedDB()
       })
       .then(data => {
-        userDocs = data.userDocs;
+        userDocs = data.userDocs
       })
       .catch(console.log)
   })

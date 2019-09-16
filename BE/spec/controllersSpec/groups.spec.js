@@ -1,12 +1,12 @@
-'use strict';
-import app from '../../src/app';
-import mongoose from 'mongoose';
-mongoose.Promise = Promise;
+'use strict'
+import app from '../../src/app'
+import mongoose from 'mongoose'
+mongoose.Promise = Promise
 import mongooseConnect from '../../src/connectMongoose'
-import { expect } from 'chai';
-import seedDB from '../../db/seed';
+import { expect } from 'chai'
+import seedDB from '../../db/seed'
 import userData from '../../db/test-data/User.json'
-const request = require('supertest')(app);
+const request = require('supertest')(app)
 
 describe('/groups', () => {
   let groupDocs
@@ -17,14 +17,14 @@ describe('/groups', () => {
   beforeEach(() => {
     return mongooseConnect()
       .then(() => {
-        return seedDB();
+        return seedDB()
       })
       .then(data => {
-        groupDocs = data.groupDocs;
-        user = data.userDocs[0];
+        groupDocs = data.groupDocs
+        user = data.userDocs[0]
       })
-      .catch(console.log);
-  });
+      .catch(console.log)
+  })
 
   afterEach(() => {
     return mongoose.disconnect()
@@ -39,7 +39,7 @@ describe('/groups', () => {
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
-      });
+      })
     
       it(':group_id returns group by id', () => {
         return request
@@ -48,7 +48,7 @@ describe('/groups', () => {
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
-      });
+      })
     
       it('?group_name Returns group by name', () => {
         return request
@@ -57,7 +57,7 @@ describe('/groups', () => {
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
-      });
+      })
     })
 
     describe('POST /', () => {
@@ -68,7 +68,7 @@ describe('/groups', () => {
             createdBy: user._id,
             wager: 5
           }
-        };
+        }
     
         return request
           .post('/api/groups')
@@ -78,7 +78,7 @@ describe('/groups', () => {
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
-      });
+      })
     
       it('name/:group_name EDITS group by name', () => {
         const data = {
@@ -86,7 +86,7 @@ describe('/groups', () => {
             name: 'daves pals'
           },
           id: user._id
-        };
+        }
     
         return request
           .post(`/api/groups/${groupDocs[0].name}`)
@@ -96,7 +96,7 @@ describe('/groups', () => {
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
-      });
+      })
     })
   })
 
@@ -120,9 +120,9 @@ describe('/groups', () => {
           .set({ 'authorisation': userToken })
           .expect(200)
           .then(groups => {
-            expect(groups.body.length).to.equal(groupDocs.length);
-          });
-      });
+            expect(groups.body.length).to.equal(groupDocs.length)
+          })
+      })
     
       it(':group_id returns group by id', () => {
         return request
@@ -130,9 +130,9 @@ describe('/groups', () => {
           .set({ 'authorisation': userToken })
           .expect(200)
           .then(group => {
-            expect(group.body._id).to.equal(groupDocs[0]._id.toString());
-          });
-      });
+            expect(group.body._id).to.equal(groupDocs[0]._id.toString())
+          })
+      })
     
       it('?group_name Returns group by name', () => {
         return request
@@ -140,9 +140,9 @@ describe('/groups', () => {
           .set({ 'authorisation': userToken })
           .expect(200)
           .then(group => {
-            expect(group.body.name).to.equal(groupDocs[0].name);
-          });
-      });
+            expect(group.body.name).to.equal(groupDocs[0].name)
+          })
+      })
     })
 
     describe('POST /', () => {
@@ -153,7 +153,7 @@ describe('/groups', () => {
             createdBy: user._id,
             wager: 5
           }
-        };
+        }
     
         return request
           .post('/api/groups')
@@ -169,14 +169,14 @@ describe('/groups', () => {
               'users',
               'wager',
               'name'
-            );
+            )
 
             return request
               .get(`/api/groups?name=${group.body.name}`)
               .set({ 'authorisation': userToken })
-              .expect(200);
-          });
-      });
+              .expect(200)
+          })
+      })
     
       it('name/:group_name EDITS group by name', () => {
         const data = {
@@ -184,7 +184,7 @@ describe('/groups', () => {
             name: 'daves pals'
           },
           id: user._id
-        };
+        }
     
         return request
           .post(`/api/groups/${groupDocs[0].name}`)
@@ -193,9 +193,9 @@ describe('/groups', () => {
           .send(JSON.stringify(data))
           .expect(200)
           .then(group => {
-            expect(group.body.name).to.equal(data.updatedGroupData.name);
-          });
-      });
+            expect(group.body.name).to.equal(data.updatedGroupData.name)
+          })
+      })
     })
   })
-});
+})

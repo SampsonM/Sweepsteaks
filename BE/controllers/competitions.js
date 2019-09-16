@@ -1,11 +1,11 @@
-'use strict';
+'use strict'
 import { Competition } from '../models'
 import { Team } from '../models'
 
 function getCompetitions(req, res, next) {
   if (req.query.name) {
-    return getCompetitionByName(req, res, next);
-  };
+    return getCompetitionByName(req, res, next)
+  }
 
   return Competition.find()
     .lean()
@@ -16,10 +16,10 @@ function getCompetitions(req, res, next) {
     .catch(err => {
       next({message: err.message, err, root: 'getCompetitions'})
     })
-};
+}
 
 function getCompetitionById(req, res, next) {
-  const competitionId = req.params.competition_id;
+  const competitionId = req.params.competition_id
 
   return Competition.findById(competitionId)
     .lean()
@@ -30,10 +30,10 @@ function getCompetitionById(req, res, next) {
     .catch(err => {
       next({message: err.message, err, root: 'getCompetitionById'})
     })
-};
+}
 
 function getCompetitionByName(req, res, next) {
-  let competitionName = req.query.name;
+  let competitionName = req.query.name
 
   return Competition.findOne({name: competitionName})
     .lean()
@@ -44,14 +44,14 @@ function getCompetitionByName(req, res, next) {
     .catch(err => {
       next({message: err.message, err, root: 'getCompetitionByName'})
     })
-};
+}
 
 function addNewCompetition(req, res, next) {
-  const {newCompetition} = req.body;
+  const {newCompetition} = req.body
 
   return Competition.find()
     .then(() => {
-      return createTeamsArray(newCompetition);
+      return createTeamsArray(newCompetition)
     })
     .then(newTeams => {
       return new Competition({
@@ -61,7 +61,7 @@ function addNewCompetition(req, res, next) {
       })
     })
     .then(newCompetition => {
-      return newCompetition.save();
+      return newCompetition.save()
     })
     .then(returnedCompetition => {
       res.status(201).send(returnedCompetition)
@@ -69,11 +69,11 @@ function addNewCompetition(req, res, next) {
     .catch(err => {
       next({message: err.message, err, root: 'AddCompetition'})
     })
-};
+}
 
 function updateCompetition(req, res, next) {
-  const compId = req.params.competition_id;
-  let {competitionUpdate} = req.body;
+  const compId = req.params.competition_id
+  let {competitionUpdate} = req.body
 
   return Competition.findById(compId)
     .populate('teams')
@@ -90,7 +90,7 @@ function updateCompetition(req, res, next) {
     .then(teams => {
       competitionUpdate.teams = teams
       if (competitionUpdate.name) competitionUpdate.name = competitionUpdate.name.toLowerCase()
-      return Competition.findOneAndUpdate({_id: compId}, competitionUpdate, { new: true }).populate('teams', 'name');
+      return Competition.findOneAndUpdate({_id: compId}, competitionUpdate, { new: true }).populate('teams', 'name')
     })
     .then(competition => {
       res.status(200).send(competition)
@@ -98,11 +98,11 @@ function updateCompetition(req, res, next) {
     .catch(err => {
       next({message: err.message, err, root: 'updateCompetition'})
     })
-};
+}
 
 // Maybe need to add headers/ authentication to prevent anybody deleting data
 function deleteCompetition(req, res, next) {
-  const competitionId = req.params.competition_id;
+  const competitionId = req.params.competition_id
 
   return Competition.findByIdAndRemove(competitionId)
     .lean()
@@ -112,7 +112,7 @@ function deleteCompetition(req, res, next) {
     .catch(err => {
       next({message: err.message, err, root: 'DeleteCompetition'})
     })
-};
+}
 
 // Utils
 
@@ -132,7 +132,7 @@ async function updateTeamsCompetitions(compUpdate, currentComp) {
   const competitionNameUpdated = Boolean(compUpdate.name && currentComp.name !== compUpdate.name)
   const updatedTeams = []
 
-  for (let i = 0; i < currentTeams.length; i++) {
+  for (let i = 0 i < currentTeams.length i++) {
     const team = currentTeams[i]
     const teamComps = team.competitions
     const teamRmvdFromCompetition = Boolean(teamsToUpdate && teamsToUpdate.indexOf(team.name) < 0)
@@ -166,7 +166,7 @@ async function createMissingTeams(compUpdate, currentComp) {
   const currentTeamsNames = currentComp.teams.map(team => team.name)
 
   if (updatedTeams && updatedTeams.length > 0) {
-    for (let i = 0; i < updatedTeams.length; i++) {
+    for (let i = 0 i < updatedTeams.length i++) {
       const team = updatedTeams[i]
       
       if (currentTeamsNames.indexOf(team) < 0) {
@@ -188,4 +188,4 @@ module.exports = {
   addNewCompetition,
   updateCompetition,
   deleteCompetition
-};
+}

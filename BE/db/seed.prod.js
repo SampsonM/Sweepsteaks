@@ -1,8 +1,8 @@
-'use strict';
-const mongoose = require('mongoose');
-mongoose.Promise = Promise;
-const { DB_URL } = require('../config');
-const seedDB = require('./seed.js');
+'use strict'
+const mongoose = require('mongoose')
+mongoose.Promise = Promise
+const { DB_URL } = require('../config')
+const seedDB = require('./seed.js')
 
 mongoose.connect(DB_URL, {useNewUrlParser: true})
   .then(() => console.log(`Connected to database ${DB_URL}`))

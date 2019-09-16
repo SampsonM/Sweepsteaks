@@ -1,11 +1,11 @@
-"use strict";
-import { User } from "../models/index";
-import passport from "passport";
+'use strict'
+import { User } from '../models/index'
+import passport from 'passport'
 import { userNameQuery, userDeleteQuery } from '../config/mongoQueries'
 
 // GET user
 function getUserByName(req, res, next) {
-  const username = req.params.user_name;
+  const username = req.params.user_name
 
   if (username === 'status') {
     return next()
@@ -15,11 +15,11 @@ function getUserByName(req, res, next) {
     .lean()
     .then(user => {
       user._id = undefined
-      res.status(200).send(user);
+      res.status(200).send(user)
     })
     .catch(() => {
-      res.status(404).send('Invalid username');
-    });
+      res.status(404).send('Invalid username')
+    })
 }
 
 // GET checks if user is currently logged in
@@ -27,7 +27,7 @@ function getUserLoginState(req, res, next) {
   if (req.user.id) {
     return User.findById(req.user.id)
       .then((user) => {
-        return res.status(200).send({ user: user.toAuthJSON() });
+        return res.status(200).send({ user: user.toAuthJSON() })
       })
   } else {
     return res.staus(409).send('User not signed in.')
@@ -39,7 +39,7 @@ function logUserOut(req, res, next) {
   if (req.user.id) {
     return User.findById(req.user.id)
       .then((user) => {
-        return res.status(200).send({ user: user.unauthUser() });
+        return res.status(200).send({ user: user.unauthUser() })
       })
   } else {
     return res.staus(409).send('User not signed in.')
@@ -65,7 +65,7 @@ function createUser(req, res, next) {
         return res.status(404).send(err)
       } else if (!user) {
 
-        const newUser = new User(userData);
+        const newUser = new User(userData)
         newUser.setHash(userData.password)
 
         return newUser.save()
@@ -76,7 +76,7 @@ function createUser(req, res, next) {
         return res.status(409).send(err)
       }
 
-    })(req, res, next);
+    })(req, res, next)
   } else {
     return res.status(404).send('No userData attached to body')
   }
@@ -90,11 +90,11 @@ function logUserIn(req, res, next) {
     }
 
     if (!user) {
-	  	return res.status(404).send('User does not exist');
+	  	return res.status(404).send('User does not exist')
     }
     
     return res.status(200).send({ user: user.toAuthJSON() })
-	})(req, res, next);
+	})(req, res, next)
 }
 
 // update user
@@ -136,7 +136,7 @@ function deleteUser(req, res, next) {
 }
 
 function userDataValid(userData) {
-  const { firstName, lastName, username, email, password } = userData;
+  const { firstName, lastName, username, email, password } = userData
 
   if (!firstName || firstName.length < 2 || firstName.match(/\d/g)) {
     return 'First name must be atleast 2 characters and be alphabetical characters only'
@@ -173,4 +173,4 @@ module.exports = {
   deleteUser,
   logUserIn,
   getUserLoginState
-};
+}

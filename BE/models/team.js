@@ -1,6 +1,6 @@
-'use strict';
-import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
+'use strict'
+import mongoose from 'mongoose'
+const Schema = mongoose.Schema
 
 const TeamSchema = new Schema({
   name: {
@@ -20,6 +20,6 @@ const TeamSchema = new Schema({
     type: String,
     required: false
   }]
-});
+})
 
-module.exports = mongoose.model('teams', TeamSchema);
+module.exports = mongoose.model('teams', TeamSchema)
