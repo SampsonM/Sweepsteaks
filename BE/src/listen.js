@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'development') {
   const options = {
     key: fs.readFileSync(path.resolve(__dirname, '../config/certs/rootCA.key'), 'utf8'),
     cert: fs.readFileSync(path.resolve(__dirname, '../config/certs/rootCA.pem'), 'utf8'),
-    passphrase: fs.readFileSync(path.resolve(__dirname, '../config/certs/passphrase.pem'), 'utf8'),
+    passphrase: fs.readFileSync(path.resolve(__dirname, '../config/certs/passphrase.txt'), 'utf8'),
   }
 
   https.createServer(options, app).listen(PORT, () => {

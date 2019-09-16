@@ -132,7 +132,7 @@ async function updateTeamsCompetitions(compUpdate, currentComp) {
   const competitionNameUpdated = Boolean(compUpdate.name && currentComp.name !== compUpdate.name)
   const updatedTeams = []
 
-  for (let i = 0 i < currentTeams.length i++) {
+  for (let i = 0; i < currentTeams.length; i++) {
     const team = currentTeams[i]
     const teamComps = team.competitions
     const teamRmvdFromCompetition = Boolean(teamsToUpdate && teamsToUpdate.indexOf(team.name) < 0)
@@ -166,7 +166,7 @@ async function createMissingTeams(compUpdate, currentComp) {
   const currentTeamsNames = currentComp.teams.map(team => team.name)
 
   if (updatedTeams && updatedTeams.length > 0) {
-    for (let i = 0 i < updatedTeams.length i++) {
+    for (let i = 0; i < updatedTeams.length; i++) {
       const team = updatedTeams[i]
       
       if (currentTeamsNames.indexOf(team) < 0) {
