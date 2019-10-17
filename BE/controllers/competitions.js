@@ -120,6 +120,8 @@ function deleteCompetition(req, res, next) {
       .catch(err => {
         next({message: err.message, err, root: 'DeleteCompetition'})
       })
+  } else {
+    return res.status(401).json('fail')
   }
 }
 

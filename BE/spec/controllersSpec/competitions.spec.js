@@ -158,7 +158,7 @@ describe('/competitions', () => {
       })
     })
 
-    describe.only('POST /', () => {
+    describe('POST /', () => {
       it('/ ADDS a competition to DB', () => {
         const teams = teamDocs  
           .filter(team => team.sport === 'football')
@@ -180,7 +180,7 @@ describe('/competitions', () => {
           .expect(201)
           .then(competition => {
             expect(competition.body).to.have.all.keys('__v', '_id', 'teams', 'name', 'sport')
-            expect(competition.body.teams[0]).to.have.keys('_id', 'name', 'competition', 'sport')
+            expect(competition.body.teams[0]).to.have.keys('_id', 'name', 'competitions', 'pastCompetitions', 'sport')
             return request
               .get(`/api/competitions/${competition.body._id}`)
               .set({ 'authorisation': userToken })
@@ -188,7 +188,7 @@ describe('/competitions', () => {
           })
       })
     
-      it.only('/:competition_id UPDATES teams competitions when competition teams updated', () => {
+      it('/:competition_id UPDATES a teams competitions when a competitions teams array is updated', () => {
         const data = {
           competitionUpdate: {
             teams: ["england", "france", "germany", "argentina"],
@@ -207,10 +207,11 @@ describe('/competitions', () => {
             const newTeams = competition.teams.map(team => team.name)
             expect(newTeams).to.eql(data.competitionUpdate.teams)
 
-            return request.get(`/api/teams/${competition.teams[0].name}`)
+            return request
+              .get(`/api/teams/${competition.teams[0].name}`)
               .set({ 'authorisation': userToken })
               .then(res => {
-                console.log(res.body)
+                expect(res.body.competitions.indexOf(compDocs[0].name) !== -1)
               })
           })
       })
@@ -256,7 +257,7 @@ describe('/competitions', () => {
             const competition = response.body
             expect(response.body._id).to.equal(compDocs[0]._id.toString())
 
-            request.get('/api/competitions?name=world%20cup%202018')
+            return request.get('/api/competitions?name=world%20cup%202018')
               .set({ 'authorisation': userToken })
               .then(response => {
                 expect(response.body.teams).to.eql(competition.teams)
@@ -270,17 +271,7 @@ describe('/competitions', () => {
         return request
           .del(`/api/competitions/${compDocs[0]._id}`)
           .set({ 'authorisation': userToken })
-          .expect(202)
-          .then(() => {
-            
-            return request
-              .get('/api/competitions')
-              .set({ 'authorisation': userToken })
-              .expect(200)
-              .then(competitions => {
-                expect(competitions.body.length).to.equal(compDocs.length - 1)
-              })
-          })
+          .expect(401)
       })
     })
   })

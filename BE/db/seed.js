@@ -19,7 +19,7 @@ function seedGroups(userIds) {
     let userObject = Object.entries(userIds)
     let users = []
 
-    for (let i = 0 i < 3 i++) {
+    for (let i = 0; i < 3; i++) {
       let rand = Number(Math.floor(Math.random() * userObject.length))
       users[i] = userObject.splice(rand, 1)[0][1]
     }
