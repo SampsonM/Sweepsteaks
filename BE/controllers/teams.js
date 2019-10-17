@@ -29,8 +29,12 @@ function createTeam(req, res, next) {
   const teamData = req.body
 
   const err = isTeamDataValid(teamData)
-  if (err){
-    return res.status(400).send(err)
+
+  if (err.length > 0){
+    const errRes = Array.isArray(err) ? err[0] : err
+
+    return res.status(400).send(errRes)
+  
   } else if (req.user) {
 
     return Team.findOne({ name: teamData.name })
@@ -73,7 +77,7 @@ function deleteTeam(req, res, next) {
     })
 }
 
-function isTeamDataValid({ name, sport, competition }) {
+function isTeamDataValid({ name, sport, competitions }) {
   if (!name || name.match(/[\d<>]|(script)/g) || name.length < 2 || name.length > 25) {
     return 'Team name must only have letters and and be 2 - 25 characters'
   }
@@ -81,10 +85,17 @@ function isTeamDataValid({ name, sport, competition }) {
   if (!sport || sport.match(/[\d<>]|(script)/g) || sport.length < 2 || sport.length > 15) {
     return 'Team sport must only have letters and and be 2 - 15 characters'
   }
- 
-  if (!competition || competition.match(/(script)/g) || competition.length < 2 || competition.length > 25) {
-    return 'Team competition must only have letters and and be 2 - 25 characters'
+
+  if (!competitions || competitions.length === 0) {
+    return 'Team must be supplied with competitions'
   }
+
+  return competitions.reduce((acc, comp) => {
+    if (!comp || comp.match(/(script)/g) || comp.length < 2 || comp.length > 25) {
+      acc.push('Team competition name must only have letters and and be 2 - 25 characters')
+    }
+    return acc
+  }, [])
 }
 
 module.exports = {

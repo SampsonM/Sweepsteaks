@@ -180,7 +180,7 @@ describe('/competitions', () => {
           .expect(201)
           .then(competition => {
             expect(competition.body).to.have.all.keys('__v', '_id', 'teams', 'name', 'sport')
-            expect(competition.body.teams[0]).to.have.keys('_id', 'name', 'competitions', 'pastCompetitions', 'sport')
+            expect(competition.body.teams[0]).to.have.keys('__v', '_id', 'name', 'competitions', 'pastCompetitions', 'sport')
             return request
               .get(`/api/competitions/${competition.body._id}`)
               .set({ 'authorisation': userToken })

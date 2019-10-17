@@ -102,7 +102,6 @@ function updateCompetition(req, res, next) {
     })
 }
 
-// Need to add headers/ authentication to prevent anybody deleting data
 function deleteCompetition(req, res, next) {
   const competitionId = req.params.competition_id
   const authOwnerHeader = req.get('ownerAuth')
@@ -128,13 +127,19 @@ function deleteCompetition(req, res, next) {
 // Utils
 
 function createTeamsArray(competitionData) {
-  return competitionData.teams.map(team => {
-    return new Team({
-      "name": team,
-      "competition": competitionData.name,
-      "sport": competitionData.sport
+  return Promise.all(competitionData.teams.map(async team => {
+    return await Team.findOne({ name: team })
+      .then(team => {
+        return team
+          ? team
+          : new Team({
+              "name": team,
+              "competition": competitionData.name,
+              "sport": competitionData.sport
+            })
+      })
     })
-  })
+  )
 }
 
 async function updateTeamsCompetitions(compUpdate, currentComp) {

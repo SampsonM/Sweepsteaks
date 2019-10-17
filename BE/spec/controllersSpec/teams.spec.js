@@ -179,7 +179,7 @@ describe('/teams', () => {
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(teamData))
           .expect(team => {
-            expect(team.body).to.have.keys('_id', 'name', 'sport', 'competitions', '__v')
+            expect(team.body).to.have.keys('_id', 'name', 'sport', 'competitions', 'pastCompetitions', '__v')
           })
       })
       
@@ -232,7 +232,25 @@ describe('/teams', () => {
           .send(JSON.stringify(teamData))
           .expect(400)
           .expect(res => {
-            expect(res.text).to.equal('Team competition must only have letters and and be 2 - 25 characters')
+            expect(res.text).to.equal('Team must be supplied with competitions')
+          })
+      })
+      
+      it('/create fails to create team with INVALID data structure', () => {
+        const teamData = {
+          'name': 'Manchester United',
+          'sport': 'Football',
+          'competitions': ['s']
+        }
+
+        return request
+          .post('/api/teams/create')
+          .set({ 'authorisation': userToken })
+          .set({'Content-Type':'application/json'})
+          .send(JSON.stringify(teamData))
+          .expect(400)
+          .expect(res => {
+            expect(res.text).to.equal('Team competition name must only have letters and and be 2 - 25 characters')
           })
       })
     })
