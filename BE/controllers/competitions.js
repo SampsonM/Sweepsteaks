@@ -131,7 +131,7 @@ function createTeamsArray(competitionData) {
     return await Team.findOne({ name: team })
       .then(team => {
         return team
-          ? team
+          ? team // update yeams competitions here too
           : new Team({
               "name": team,
               "competition": competitionData.name,
