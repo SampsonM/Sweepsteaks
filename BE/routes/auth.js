@@ -11,7 +11,8 @@ const authHeader = (req) => req.headers.authorisation
 const auth = {
   required: exJwt({
     secret: KEY,
-    getToken: authHeader
+    getToken: authHeader,
+    clockTimestamp: new Date().getTime()
   }),
   optional: exJwt({
     secret: KEY,
