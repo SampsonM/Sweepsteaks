@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.412c7f693fdf068d36a41fdcb3ee4e6d.js"
+  "precache-manifest.93936e3d2094d7b1bb2b932a42be6bdb.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "vue-sweepstakes"});
