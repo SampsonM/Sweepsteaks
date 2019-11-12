@@ -1,12 +1,13 @@
 <template>
-	<fieldset>
+	<div class="fieldset">
     <label :for="name">{{ label }}</label>
     <input
+      :class="{ 'error' : hasError }"
       v-bind="$attrs"
       :name="name"
       :type="type"
       @input="$emit('input', $event.target.value)">
-  </fieldset>
+  </div>
 </template>
 
 <script>
@@ -25,32 +26,64 @@ export default {
       type: String,
       required: false,
       default: 'text'
+    },
+    hasError: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-fieldset {
-  width: 100%;
-  margin-bottom: 15px;
+.fieldset {
+  width: 90%;
+  margin: auto 10px 15px 20px;
   padding: 0;
   border: none;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+
+  @include breakpoint(tablet) {
+    margin: auto 10px 35px 20px;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
   label {
-    float: left;
+    font-size: 16px;
     color: #2c2c2c;
-    top: 12px;
-    position: relative;
+    margin: 7px 0;
+
+    @include breakpoint(tablet) {
+      font-size: 18px;
+    }
   }
 
   input {
-    float: right;
-    width: 70%;
-    max-width: 320px;
+    width: 100%;
     height: 45px;
     border-radius: 4px;
-    border: none;
+    border: 2px solid transparent;
     padding: 5px;
+    font-size: 14px;
+
+    @include breakpoint(tablet) {
+      width: 70%;
+      max-width: 320px;
+    }
+
+    &:focus {
+      outline: none;
+      transition: 0.3s;
+      border: 2px solid orange;
+    }
+
+    &.error {
+      border: 3px solid red;
+    }
   }
 }
 

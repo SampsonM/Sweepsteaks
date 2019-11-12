@@ -5,10 +5,6 @@
 </template>
 
 <style lang="scss">
-@import "./styles/_vars.scss";
-@import "./styles/_global.scss";
-@import "./styles/_mixins.scss";
-
 * {
   margin: 0;
 }
@@ -23,6 +19,7 @@
   min-height: 100vh;
   min-width: 100vw;
   overflow: hidden;
+  padding: 20px;
 }
 
 #nav {

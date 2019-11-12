@@ -1,50 +1,18 @@
 <template>
-  <form class="sign-up">
+  <form class="sign-up" autocomplete="on">
+
+    <h2 class="sign-up__title">Sign up</h2>
 
     <MyInput
-      label="First name:"
-      name="firstName"
-      placeholder="First Name"
-      @input="handleFirstNameInput"
-      :class="{ 'error' : $v.firstName.$error }"
-      :hasError="$v.firstName.$error">
-    </MyInput>
-
-    <MyInput
-      label="Last name:"
-      name="lastName"
-      placeholder="Last name"
-      @input="handleLastNameInput"
-      :class="{ 'error' : $v.lastName.$error }"
-      :hasError="$v.lastName.$error">
-    </MyInput>
-    
-    <MyInput
-      label="Email:"
-      name="email"
-      placeholder="Email"
-      @input="handleEmailInput"
-      :class="{ 'error' : $v.email.$error }"
-      :hasError="$v.email.$error">
-    </MyInput>
-   
-    <MyInput
-      label="Username:"
-      name="username"
-      placeholder="Username"
-      @input="handleUsernameInput"
-      :class="{ 'error' : $v.username.$error }"
-      :hasError="$v.username.$error">
-    </MyInput>
-   
-    <MyInput
-      label="Password:"
-      name="password"
-      placeholder="Password"
-      type="password"
-      @input="handlePasswordInput"
-      :class="{ 'error' : $v.password.$error }"
-      :hasError="$v.password.$error">
+      v-for="field in formFields"
+      :key="field.label"
+      :label="field.label"
+      :name="field.name"
+      :placeholder="field.placeholder"
+      :type="field.type || 'text'"
+      @input="(val) => handleInput(field.name, val)"
+      :class="{ 'error' : $v[field.errClass].$error }"
+      :hasError="$v[field.errClass].$error">
     </MyInput>
 
     <button class="sign-up__btn" @click.prevent="signup">
@@ -55,7 +23,7 @@
 
 <script>
 import MyInput from '../components/input.vue'
-import { required } from 'vuelidate/lib/validators'
+import { required, minLength, email} from 'vuelidate/lib/validators'
 import UserAPI from '../services/api/userApi'
 
 export default {
@@ -68,18 +36,59 @@ export default {
       lastName: '',
       email: '',
       username: '',
-      password: ''
+      password: '',
+      formFields: [
+        {
+          name: 'firstName',
+          label: 'First name:',
+          placeholder: 'First Name',
+          errClass: 'firstName'
+        },
+        {
+          name: 'lastName',
+          label: 'Last name:',
+          placeholder: 'Last Name',
+          errClass: 'lastName'
+        },
+        {
+          name: 'email',
+          label: 'Email:',
+          placeholder: 'Email',
+          errClass: 'email'
+        },
+        {
+          name: 'username',
+          label: 'Username:',
+          placeholder: 'Username',
+          errClass: 'username'
+        },
+        {
+          name: 'username',
+          label: 'Password:',
+          placeholder: 'Password',
+          errClass: 'username',
+          type: 'password'
+        }
+      ]
     }
   },
   validations: {
-    firstName: { required },
-    lastName: { required },
-    email: { required },
-    username: { required },
-    password: { required }
+    firstName: { required, minLength: minLength(2) },
+    lastName: { required, minLength: minLength(2) },
+    email: { required, email },
+    // add unique username validation with endpoint /api/users/:user_name
+    username: { required, minLength: minLength(4) },
+    password: { required, minLength: minLength(6) }
+  },
+  computed: {
+    firstNameHasError(field) {
+      return this.$v.firstName.$error
+    }
   },
   methods: {
-    signup() {
+    async signup() {
+      await this.$v.$touch()
+
       if (!this.$v.$error) {
         const userData = {
           firstName: this.firstName,
@@ -97,48 +106,30 @@ export default {
           })
       }
     },
-    handleFirstNameInput(firstName) {
-      this.firstName = firstName
-      this.$v.firstName.$touch()
-    },
-    handleLastNameInput(lastName) {
-      this.lastName = lastName
-      this.$v.lastName.$touch()
-    },
-    handleEmailInput(email) {
-      this.email = email
-      this.$v.email.$touch()
-    },
-    handleUsernameInput(username) {
-      this.username = username
-      this.$v.username.$touch()
-    },
-    handlePasswordInput(password) {
-      this.password = password
-      this.$v.password.$touch()
+    handleInput(field, value) {
+      this[field] = value
+      this.$v[field].$touch()
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/_mixins.scss";
-@import "../styles/_vars.scss";
-
 .sign-up {
   display: flex;
   flex-direction: column;
-  width: 96vw;
-  max-width: 800px;
-  position: relative;
-  top: 10px;
+  max-width: 700px;
   margin: 0 auto;
   background: #ffd760;
   border-radius: 4px;
-  padding: 15px 10px;
+  padding: 15px;
 
   @include breakpoint(tablet) {
     padding: 20px;
+  }
+
+  &__title {
+    margin-bottom: 15px;
   }
 
   &__btn {
@@ -168,6 +159,12 @@ export default {
       color: #2d69ad;
       text-decoration: none;
     }
+  }
+}
+
+.error {
+  input {
+    border-color: red;
   }
 }
 </style>
