@@ -80,11 +80,6 @@ export default {
     username: { required, minLength: minLength(4) },
     password: { required, minLength: minLength(6) }
   },
-  computed: {
-    firstNameHasError(field) {
-      return this.$v.firstName.$error
-    }
-  },
   methods: {
     async signup() {
       await this.$v.$touch()
