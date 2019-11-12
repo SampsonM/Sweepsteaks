@@ -32,11 +32,11 @@ self.__precacheManifest = [
     "url": "js/dashboard.059796fe.js"
   },
   {
-    "revision": "976ae5641218527702c3",
-    "url": "js/app.42060a70.js"
+    "revision": "6153ee43c4e701d8da2f",
+    "url": "js/app.f6ed6ee9.js"
   },
   {
-    "revision": "8c97fdf80960e421b9dfad811faee920",
+    "revision": "b2e01022fe4ef12c829180d6239d78bf",
     "url": "index.html"
   },
   {
@@ -52,7 +52,11 @@ self.__precacheManifest = [
     "url": "css/signup.5a84ec53.css"
   },
   {
-    "revision": "976ae5641218527702c3",
+    "revision": "6153ee43c4e701d8da2f",
     "url": "css/app.6a6da3e3.css"
+  },
+  {
+    "revision": "74e9a7ae3ba9bfa90580ef4deab2a327",
+    "url": "404.html"
   }
 ];
