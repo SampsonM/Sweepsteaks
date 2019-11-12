@@ -61,15 +61,11 @@ UserSchema.methods.validatePassword = function(hash) {
   return this.hash === hash
 }
 
-UserSchema.methods.generateJWT = function(expDate) {
+UserSchema.methods.generateJWT = function(expDate = 5) {
   const currentDate = new Date()
   const expirationDate = new Date()
 
-  if (expDate) {
-    expirationDate.setDate(currentDate.getDate() - expDate)
-  } else {
-    expirationDate.setDate(currentDate.getDate() + 5)
-  }
+  expirationDate.setDate(currentDate.getDate() + expDate)
 
   return jwt.sign({
     email: this.email,
@@ -95,7 +91,7 @@ UserSchema.methods.unauthUser = function() {
   return {
     firstName: this.firstName,
     authenticated: false,
-    token: this.generateJWT(10)
+    token: this.generateJWT(-10)
   }
 }
 

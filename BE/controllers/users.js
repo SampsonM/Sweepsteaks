@@ -18,7 +18,7 @@ function getUserByName(req, res, next) {
       res.status(200).send(user)
     })
     .catch(() => {
-      res.status(404).send('Invalid username')
+      res.status(404).json({err:'Invalid username.'})
     })
 }
 
@@ -30,7 +30,7 @@ function getUserLoginState(req, res, next) {
         return res.status(200).send({ user: user.toAuthJSON() })
       })
   } else {
-    return res.staus(409).send('User not signed in.')
+    return res.staus(409).send({err: 'User not signed in.'})
   }
 }
 

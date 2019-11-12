@@ -372,7 +372,7 @@ describe('/users', () => {
           })
 
           it('returns nothing when username is INVALID', () => {
-            expect(userData).to.eql({})
+            expect(userData).to.eql({err:'Invalid username.'})
           })
         })
       })
@@ -389,7 +389,7 @@ describe('/users', () => {
         })
 
         describe('/logout', () => {
-          it('returns 200 with valid token and unaithenticates user', () => {
+          it('returns 200 with valid token and unauthenticates user', () => {
             return request
               .get('/api/users/status/logout')
               .set({ 'authorisation': userToken })

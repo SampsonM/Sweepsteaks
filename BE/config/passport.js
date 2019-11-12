@@ -13,20 +13,20 @@ passport.use(new LocalStrategy((username, password, done) => {
 
   
   User.findOne({ username })
-  .then((user, err) => {
-      if (err) {
-        return done(err);
-      }
-      
-      if (!user) {
-        return done('Username not found, please enter valid username', false);
-      }
+    .then((user, err) => {
+        if (err) {
+          return done(err);
+        }
+        
+        if (!user) {
+          return done('Username not found, please enter valid username', false);
+        }
 
-      if (passwordValid(password, user.salt, user.hash)) {
-        return done(null, user);
-      }
-      
-      return done('Password invalid, please enter valid password or reset password', false);
-    });
+        if (passwordValid(password, user.salt, user.hash)) {
+          return done(null, user);
+        }
+        
+        return done('Password invalid, please enter valid password or reset password', false);
+      });
   }
 ));

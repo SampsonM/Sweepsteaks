@@ -4,7 +4,7 @@ import auth from '../auth'
 import * as usersCtrl from '../../controllers/users'
 
 // GET User by name (publically accessible)
-usersRouter.get('/:user_name', usersCtrl.getUserByName)
+usersRouter.get('/:user_name', auth.optional, usersCtrl.getUserByName)
 
 // GET current route (required, only authenticated users have access)
 usersRouter.get('/status', auth.required, usersCtrl.getUserLoginState)
