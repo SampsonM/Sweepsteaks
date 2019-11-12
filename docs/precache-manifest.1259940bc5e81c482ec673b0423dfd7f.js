@@ -24,19 +24,19 @@ self.__precacheManifest = [
     "url": "robots.txt"
   },
   {
-    "revision": "9103f2b1425e1a6f8690",
-    "url": "js/signup.a8def0fb.js"
+    "revision": "1b14a23afc326e2de148",
+    "url": "js/signup.4961626e.js"
   },
   {
     "revision": "b36a7a552611267eb649",
     "url": "js/dashboard.059796fe.js"
   },
   {
-    "revision": "de6d6a595f4b2e88935a",
-    "url": "js/app.197c5205.js"
+    "revision": "6153ee43c4e701d8da2f",
+    "url": "js/app.f6ed6ee9.js"
   },
   {
-    "revision": "6e6b431db4e7d2750107500d6e6ecd46",
+    "revision": "5be5270918727fe84c111b16ccba9781",
     "url": "index.html"
   },
   {
@@ -48,11 +48,11 @@ self.__precacheManifest = [
     "url": "favicon.png"
   },
   {
-    "revision": "9103f2b1425e1a6f8690",
-    "url": "css/signup.cebe7472.css"
+    "revision": "1b14a23afc326e2de148",
+    "url": "css/signup.5a84ec53.css"
   },
   {
-    "revision": "de6d6a595f4b2e88935a",
+    "revision": "6153ee43c4e701d8da2f",
     "url": "css/app.6a6da3e3.css"
   }
 ];
