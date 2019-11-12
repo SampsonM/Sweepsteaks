@@ -4,7 +4,7 @@ import passport from 'passport'
 import { userNameQuery, userDeleteQuery } from '../config/mongoQueries'
 
 // GET user
-function getUserByName(req, res, next) {
+function getUserByUsername(req, res, next) {
   const username = req.params.user_name
 
   if (username === 'status') {
@@ -166,7 +166,7 @@ function userDataValid(userData) {
 }
 
 module.exports = {
-  getUserByName,
+  getUserByUsername,
   logUserOut,
   createUser,
   updateUser,
