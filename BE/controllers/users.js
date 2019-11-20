@@ -1,13 +1,13 @@
 'use strict'
 import { User } from '../models/index'
 import passport from 'passport'
-import { userNameQuery, userDeleteQuery } from '../config/mongoQueries'
+import { userNameQuery, userDeleteQuery, userNameUniqueQuery } from '../config/mongoQueries'
 
 // GET user
 function getUserByUsername(req, res, next) {
   const username = req.params.user_name
 
-  if (username === 'status') {
+  if (username === 'unique') {
     return next()
   }
 
@@ -19,6 +19,21 @@ function getUserByUsername(req, res, next) {
     })
     .catch(() => {
       res.status(404).json({err:'Invalid username.'})
+    })
+}
+
+// GET check is username is unique
+function isUserNameUnique(req, res, next) {
+  const username = req.params.user_name
+
+  return User.findOne({ username: username })
+    .lean()
+    .then(user => {
+      user._id = undefined
+      res.status(200).json({ msg: 'Username already exists', unique: false })
+    })
+    .catch(() => {
+      res.status(200).json({ msg: 'Username available', unique: true })
     })
 }
 
@@ -167,6 +182,7 @@ function userDataValid(userData) {
 
 module.exports = {
   getUserByUsername,
+  isUserNameUnique,
   logUserOut,
   createUser,
   updateUser,

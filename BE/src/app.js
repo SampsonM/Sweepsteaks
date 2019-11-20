@@ -32,7 +32,7 @@ app.use(helmet.contentSecurityPolicy({
 }))
 app.use(cors({
   origin: ['www.sweepsteaks.co.uk', 'http://localhost:8080'],
-  exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
+  exposedHeaders: ['Content-Length', 'authorisation'],
   credentials: true
 }))
 app.use(passport.initialize())

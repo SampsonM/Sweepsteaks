@@ -40,9 +40,9 @@ describe('/users', () => {
         it('returns user by name', () => {
           return request
             .get(`/api/users/${userDocs[0].username}`)
-            .expect(200)
-            .then(user => {
-              expect(user.body.lastName).to.equal('davidson')
+            .expect(response => {
+              const status = response.body.status
+              if (status !== 401) throw new Error(`Incorrect status code returned, expected 401 received: ${status}`)
             })
         })
       })
