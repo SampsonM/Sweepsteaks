@@ -6,7 +6,7 @@
       v-bind="$attrs"
       :name="name"
       :type="type"
-      @input="$emit('input', $event.target.value)">
+      @blur="$emit('blur', $event.target.value)">
   </div>
 </template>
 

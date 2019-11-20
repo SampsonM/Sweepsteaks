@@ -6,6 +6,10 @@ export default {
 	getUserByUserName(username) {
     return axiosInstance.get(`/${base}/${username}`)
 	},
+	
+	isUserNameUnique(username) {
+    return axiosInstance.get(`/${base}/unique/${username}`)
+	},
 
 	getUserLoginState() {
     return axiosInstance.get(`/${base}/current`)

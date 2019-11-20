@@ -10,7 +10,7 @@
       :name="field.name"
       :placeholder="field.placeholder"
       :type="field.type || 'text'"
-      @input="(val) => handleInput(field.name, val)"
+      @blur="(val) => handleInput(field.name, val)"
       :class="{ 'error' : $v[field.errClass].$error }"
       :hasError="$v[field.errClass].$error">
     </MyInput>
@@ -63,7 +63,7 @@ export default {
           errClass: 'username'
         },
         {
-          name: 'username',
+          name: 'password',
           label: 'Password:',
           placeholder: 'Password',
           errClass: 'username',
@@ -76,8 +76,16 @@ export default {
     firstName: { required, minLength: minLength(2) },
     lastName: { required, minLength: minLength(2) },
     email: { required, email },
-    // add unique username validation with endpoint /api/users/:user_name
-    username: { required, minLength: minLength(4) },
+    username: {
+      required,
+      minLength: minLength(4),
+      isUnique: async (username) => {
+        if (username === '') return true
+
+        const { data } = await UserAPI.isUserNameUnique(username)  
+        return data.unique
+      }
+    },
     password: { required, minLength: minLength(6) }
   },
   methods: {
