@@ -1,12 +1,14 @@
 <template>
 	<div class="fieldset">
-    <label :for="name">{{ label }}</label>
+    <label :for="name">{{ label }}:</label>
     <input
       :class="{ 'error' : hasError }"
       v-bind="$attrs"
       :name="name"
       :type="type"
       @blur="$emit('blur', $event.target.value)">
+      <p v-if="!error.minLength && error.$params.minLength && hasError">{{label}} must be atleast {{ error.$params.minLength.min }} characters</p>
+      <p v-if="!error.required && error.$params.required && hasError">{{label}} is required</p>
   </div>
 </template>
 
@@ -31,7 +33,14 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    error: {
+      type: Object,
+      required: false
     }
+  },
+  computed() {
+
   }
 }
 </script>

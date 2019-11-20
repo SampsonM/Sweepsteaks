@@ -12,7 +12,8 @@
       :type="field.type || 'text'"
       @blur="(val) => handleInput(field.name, val)"
       :class="{ 'error' : $v[field.errClass].$error }"
-      :hasError="$v[field.errClass].$error">
+      :hasError="$v[field.errClass].$error"
+      :error="$v[field.errClass]">
     </MyInput>
 
     <button class="sign-up__btn" @click.prevent="signup">
@@ -40,31 +41,31 @@ export default {
       formFields: [
         {
           name: 'firstName',
-          label: 'First name:',
+          label: 'First name',
           placeholder: 'First Name',
           errClass: 'firstName'
         },
         {
           name: 'lastName',
-          label: 'Last name:',
+          label: 'Last name',
           placeholder: 'Last Name',
           errClass: 'lastName'
         },
         {
           name: 'email',
-          label: 'Email:',
+          label: 'Email',
           placeholder: 'Email',
           errClass: 'email'
         },
         {
           name: 'username',
-          label: 'Username:',
+          label: 'Username',
           placeholder: 'Username',
           errClass: 'username'
         },
         {
           name: 'password',
-          label: 'Password:',
+          label: 'Password',
           placeholder: 'Password',
           errClass: 'username',
           type: 'password'
