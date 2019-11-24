@@ -4,8 +4,11 @@ import router from './router'
 import store from './store/index.js'
 import './registerServiceWorker'
 import Vuelidate from 'vuelidate'
+import featureFlagService from './services/featureFlageService'
 
 Vue.use(Vuelidate)
+
+featureFlagService.enableFeatureFlags()
 
 Vue.config.productionTip = false
 

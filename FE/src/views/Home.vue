@@ -8,7 +8,7 @@
     <div class="landing-page__content">
       <h1 class="landing-page__title">- welcome to -<br/>SWEEP-STEAKS</h1>
 
-      <div class="landing-page__ctas">
+      <div class="landing-page__ctas" v-if="$sweepAccessAllowed">
         <button class="landing-page__ctas-login">
           <router-link to="/login">Login</router-link>
         </button>
