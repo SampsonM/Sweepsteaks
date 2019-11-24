@@ -21,13 +21,19 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
-  name: 'landingPage',
+  name: 'home',
   components: {},
   methods: {
     login() {
     }
+  },
+  async fetch() {
+    const res = await axios.get('https://baconipsum.com/api/?type=meat-and-filler')
+
+    console.log(res)
   }
 }
 </script>
