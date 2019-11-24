@@ -22,6 +22,7 @@ if (isProdBuild) {
 			// request has fetched all the necessary data,
 			// so we create a snapshot of the page after the
 			// `data-view` attribute exists in the DOM.
+			// renderAfterElementExists: '[data-view]'
 			renderAfterTime: 5000
 		})
 	})
