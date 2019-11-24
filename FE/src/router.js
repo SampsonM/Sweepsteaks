@@ -34,7 +34,6 @@ export default function createRouter() {
   })
 
   router.beforeEach((to, from, next) => {
-    console.log(to.path)
     if (to.path === '/') {
       next()
     } else if (Vue.prototype.$sweepAccessAllowed) {
