@@ -5,7 +5,8 @@ import mongoose from 'mongoose'
 export default () => {
 	return mongoose.connect(
 		DB_URL,
-		{ useNewUrlParser: true },
+		{ useNewUrlParser: true,
+			useUnifiedTopology: true },
 		() => {
 		  process.env.NODE_ENV !== 'test' && console.log("connected at app.js to mongo")
 		}
