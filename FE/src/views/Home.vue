@@ -1,5 +1,5 @@
 <template>
-  <div class="landing-page">
+  <div class="landing-page" data-view>
     <div class="animated-image">
       <img class="brush" alt="Sweepsteaks" src="../assets/broom.svg" />
       <img class="steak" src="../assets/meat.svg" />
