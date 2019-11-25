@@ -1,5 +1,5 @@
 <template>
-  <div class="landing-page" data-view>
+  <div class="landing-page">
     <div class="animated-image">
       <img class="brush" alt="Sweepsteaks" src="../assets/broom.svg" />
       <img class="steak" src="../assets/meat.svg" />
@@ -30,11 +30,11 @@ export default {
     login() {
     }
   },
-  async fetch() {
-    const res = await axios.get('https://baconipsum.com/api/?type=meat-and-filler')
+  // async fetch() {
+  //   // const res = await axios.get('https://baconipsum.com/api/?type=meat-and-filler')
 
-    console.log(res)
-  }
+  //   // console.log(res)
+  // }
 }
 </script>
 

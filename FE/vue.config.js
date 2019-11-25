@@ -1,6 +1,7 @@
 const CnameWebpackPlugin = require('cname-webpack-plugin')
 const path = require('path');
-const PrerenderSpaPlugin = require('prerender-spa-plugin');
+const PrerenderSpaPlugin = require('prerender-spa-plugin')
+const Renderer = PrerenderSpaPlugin.PuppeteerRenderer
 
 const isProdBuild = process.env.NODE_ENV === 'production'
 
@@ -13,12 +14,9 @@ const webpackPlugins = [
 if (isProdBuild) {
 	const preRenderPlugin = new PrerenderSpaPlugin({
     staticDir: path.resolve(__dirname, '..', 'docs'),
-    routes: ['/', '/signup'],
-    renderer: new PrerenderSpaPlugin.PuppeteerRenderer({
-      injectProperty: '__PRERENDER_INJECTED',
-      inject: {
-        prerendered: true
-      },
+    routes: ['/'],
+    renderer: new Renderer({
+      headless: true,
       renderAfterDocumentEvent: 'render-event'
     })
   })
