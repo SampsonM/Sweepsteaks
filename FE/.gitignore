@@ -1,6 +1,11 @@
+# gitignore for heroku
 .DS_Store
+.browserlistrc
+.eslintrc.js
 node_modules
-/dist
+
+./src
+./public
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/

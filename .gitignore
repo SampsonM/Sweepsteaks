@@ -1,0 +1,29 @@
+# Frontend
+/FE/.DS_Store
+/FE/node_modules
+
+/FE/tests/e2e/videos/
+/FE/tests/e2e/screenshots/
+
+# local env files
+/FE/.env.local
+/FE/.env.*.local
+
+# Log files
+/FE/npm-debug.log*
+/FE/yarn-debug.log*
+/FE/yarn-error.log*
+
+# Editor directories and files
+/FE/.idea
+/FE/.vscode
+/FE/*.suo
+/FE/*.ntvs*
+/FE/*.njsproj
+/FE/*.sln
+/FE/*.sw*
+
+# Backend
+/BE/node_modules
+/BE/config/certs
+/BE/config/environment

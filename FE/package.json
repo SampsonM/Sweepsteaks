@@ -7,11 +7,15 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:e2e": "vue-cli-service test:e2e",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "postinstall": "if test \"$NODE_ENV\" = \"production\" ; then npm run build ; fi ",
+    "start": "node server.js"
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "express": "^4.17.1",
     "register-service-worker": "^1.0.0",
+    "serve-static": "^1.14.1",
     "vue": "^2.5.17",
     "vue-cookies": "^1.5.13",
     "vue-router": "^3.0.1",
@@ -20,7 +24,6 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.4",
-    "@vue/cli-plugin-e2e-cypress": "^3.0.4",
     "@vue/cli-plugin-eslint": "^3.0.4",
     "@vue/cli-plugin-pwa": "^3.0.4",
     "@vue/cli-plugin-unit-mocha": "^3.0.4",

@@ -12,20 +12,20 @@ const webpackPlugins = [
 ]
 
 if (isProdBuild) {
-	const preRenderPlugin = new PrerenderSpaPlugin({
-    staticDir: path.resolve(__dirname, '..', 'docs'),
-    routes: ['/'],
-    renderer: new Renderer({
-      headless: true,
-      renderAfterDocumentEvent: 'render-event'
-    })
-  })
+	// const preRenderPlugin = new PrerenderSpaPlugin({
+  //   staticDir: path.resolve(__dirname, 'dist'),
+  //   routes: ['/'],
+  //   renderer: new Renderer({
+  //     headless: true,
+  //     renderAfterDocumentEvent: 'render-event'
+  //   })
+  // })
 
-	webpackPlugins.push(preRenderPlugin)
+	// webpackPlugins.push(preRenderPlugin)
 }
 
 module.exports = {
-	outputDir: '../docs',
+	outputDir: './dist',
 
 	publicPath: '',
 
