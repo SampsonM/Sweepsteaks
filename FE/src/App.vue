@@ -19,7 +19,6 @@
   min-height: 100vh;
   min-width: 100vw;
   overflow: hidden;
-  padding: 20px;
 }
 
 #nav {

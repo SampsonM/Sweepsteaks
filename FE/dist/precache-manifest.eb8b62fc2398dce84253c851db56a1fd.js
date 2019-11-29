@@ -12,31 +12,31 @@ self.__precacheManifest = [
     "url": "img/wood.9439f718.svg"
   },
   {
-    "revision": "24f2b5a10c362767decf",
-    "url": "js/chunk-vendors.89cd368b.js"
+    "revision": "53c3ce88c5d819bf86ef",
+    "url": "js/chunk-vendors.a2e967cb.js"
   },
   {
-    "revision": "d9425dc49e8d355a4187",
-    "url": "js/login.9f1b48f9.js"
+    "revision": "36118dad8bd5d4bfa026",
+    "url": "js/login.6fd9eaed.js"
   },
   {
     "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
     "url": "robots.txt"
   },
   {
-    "revision": "3b847cdfe326ae974e1f",
-    "url": "js/signup.3bc08249.js"
+    "revision": "a689243d7c3bdde1b5bb",
+    "url": "js/signup.d295cd9a.js"
   },
   {
-    "revision": "d7583e607c126ab976d9",
-    "url": "js/dashboard.c810a231.js"
+    "revision": "015c19954534e98f3830",
+    "url": "js/dashboard.c6f628c1.js"
   },
   {
-    "revision": "4c750bec4f1d0f482d11",
-    "url": "js/app.1c32c6a3.js"
+    "revision": "970bcfe38523613b3a4a",
+    "url": "js/app.369835aa.js"
   },
   {
-    "revision": "fa712fd6762cd2b37d93be740337436f",
+    "revision": "a1b2307a6e21a2cfbd7483a5d2069283",
     "url": "index.html"
   },
   {
@@ -48,12 +48,12 @@ self.__precacheManifest = [
     "url": "favicon.png"
   },
   {
-    "revision": "3b847cdfe326ae974e1f",
+    "revision": "a689243d7c3bdde1b5bb",
     "url": "css/signup.b9dfaf37.css"
   },
   {
-    "revision": "4c750bec4f1d0f482d11",
-    "url": "css/app.54c6e172.css"
+    "revision": "970bcfe38523613b3a4a",
+    "url": "css/app.223d0c42.css"
   },
   {
     "revision": "dc918c40b4b5c0cc8385e7e56a3d6c7f",
