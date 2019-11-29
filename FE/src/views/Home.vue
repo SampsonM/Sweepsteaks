@@ -1,33 +1,37 @@
 <template>
   <div class="landing-page">
-    <div class="animated-image">
+
+    <Header />
+
+    <div :class="['animated-image', { 'animated-image__animate': !hasSeenAnimation }]">
       <img class="brush" alt="Sweepsteaks" src="../assets/broom.svg" />
       <img class="steak" src="../assets/meat.svg" />
       <img class="steak" src="../assets/meat.svg" />
     </div>
+
     <div class="landing-page__content">
       <h1 class="landing-page__title">- welcome to -<br/>SWEEP-STEAKS</h1>
-
-      <div class="landing-page__ctas" v-if="$sweepAccessAllowed">
-        <button class="landing-page__ctas-login">
-          <router-link to="/login">Login</router-link>
-        </button>
-        <button class="landing-page__ctas-sign-up">
-          <router-link to="/signup">Sign-up</router-link>
-        </button>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+import { mapFields } from 'vuex-map-fields'
+import Header from '@/components/header.vue'
 
 export default {
-  name: 'landingPage',
-  components: {},
-  methods: {
-    login() {
-    }
+  name: 'home',
+  components: {
+    Header
+  },
+  computed: {
+    ...mapFields([
+      'hasSeenAnimation'
+    ])
+  },
+  beforeDestroy() {
+    this.hasSeenAnimation = true
   }
 }
 </script>
@@ -37,6 +41,9 @@ export default {
 @import "../styles/_vars.scss";
 
 .landing-page {
+  padding: 20px;
+  min-height: 100vh;
+
   &__content {
     margin-top: 28%;
     left:0;
@@ -66,70 +73,6 @@ export default {
       font-size: 1em;
     }
   }
-
-  &__ctas {
-    color: white;
-    display: flex;
-    justify-content: center;
-    padding-top: 10px;
-  }
-  
-  &__ctas-login {
-    height: 45px;
-    width: 100px;
-    background-color: #ff8d8d;
-    margin-right: 10px;
-    border-radius: 5px;
-    transition-duration: 200ms;
-
-    &:hover,
-    :active,
-    :focus {
-      background-color: #fda0a0;
-      outline: none !important;
-      border:1px solid #2d69ad;
-
-      a {
-        text-decoration: underline;
-      }
-    }
-
-    a {
-      font-family: $font;
-      font-size: 16px;
-      font-weight: 500;
-      color: #2d69ad;
-      text-decoration: none;
-    }
-  }
-
-  &__ctas-sign-up {
-    height: 45px;
-    width: 100px;
-    background-color: #2d69ad;
-    border-radius: 5px;
-    transition-duration: 200ms;
-
-    &:hover,
-    :active,
-    :focus {
-      background-color: #5684b8;
-      outline: none !important;
-      border: 1px solid #ff8d8d;
-
-      a {
-        text-decoration: underline;
-      }
-    }
-
-    a {
-      font-family: $font;
-      font-size: 16px;
-      font-weight: 500;
-      color: #ff8d8d;
-      text-decoration: none;
-    }
-  }
 }
 
 @keyframes animateCloud {
@@ -143,11 +86,13 @@ export default {
 
 .animated-image {
   display: flex;
-  margin: 80px 0 0 20%;
+  margin: 150px 0 0 20%;
 
-	-webkit-animation: animateCloud 1.4s ease-in-out 1;
-	-moz-animation: animateCloud 1.4s ease-in-out 1;
-  animation: animateCloud 1.4s ease-in-out 1;
+  &__animate {
+    -webkit-animation: animateCloud 1.4s ease-in-out 1;
+    -moz-animation: animateCloud 1.4s ease-in-out 1;
+    animation: animateCloud 1.4s ease-in-out 1;
+  }
 
   @include breakpoint(tablet) {
     margin-top: 18%;
@@ -178,7 +123,6 @@ export default {
     -moz-transform: scale(4.3);
     transform: scale(4.3);
   }
-
 }
 
 .steak {
@@ -188,7 +132,7 @@ export default {
 
   @include breakpoint(tablet) {
     top: 240px;
-  };
+  }
 
   @include breakpoint(desktop) {
     left: -10%;

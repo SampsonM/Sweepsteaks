@@ -104,7 +104,7 @@ export default {
 
         UserAPI.createUser(userData)
           .then(res => {
-            console.log(res.data.user)
+            // console.log(res.data.user)
             // set cookie here to update user auth header and cookie
             // set logged in to true and send user to dashboard
           })

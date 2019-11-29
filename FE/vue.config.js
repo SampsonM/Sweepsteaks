@@ -1,7 +1,22 @@
 const CnameWebpackPlugin = require('cname-webpack-plugin')
+const path = require('path')
+const PrerenderSpaPlugin = require('prerender-spa-plugin')
+
+const webpackPlugins = [
+	new CnameWebpackPlugin({
+		domain: 'www.sweepsteaks.co.uk',
+	})
+]
+
+if (process.env.NODE_ENV === 'production') {
+	webpackPlugins.push(new PrerenderSpaPlugin(
+		path.join(__dirname, './dist'),
+		[ '/' ]
+	))
+}
 
 module.exports = {
-	outputDir: '../docs',
+	outputDir: './dist',
 
 	publicPath: '',
 
@@ -18,10 +33,6 @@ module.exports = {
   },
 
 	configureWebpack: {
-		plugins: [
-			new CnameWebpackPlugin({
-			  domain: 'www.sweepsteaks.co.uk',
-			})
-		]
+		plugins: webpackPlugins
 	}
 };
