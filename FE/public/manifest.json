@@ -3,12 +3,12 @@
   "short_name": "vue-sweepstakes",
   "icons": [
     {
-      "src": "./favicon.ico",
+      "src": "./favicon.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "./favicon.ico",
+      "src": "./favicon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
