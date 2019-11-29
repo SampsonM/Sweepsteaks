@@ -4,9 +4,9 @@
     <Header />
 
     <div :class="['animated-image', { 'animated-image__animate': !hasSeenAnimation }]">
-      <img class="brush" alt="Sweepsteaks" src="../assets/broom.svg" />
-      <img class="steak" src="../assets/meat.svg" />
-      <img class="steak" src="../assets/meat.svg" />
+      <img class="brush" alt="Sweepstakes" src="../assets/broom.svg" />
+      <img class="steak" alt="Sweepstakes" src="../assets/meat.svg" />
+      <img class="steak" alt="Sweepstakes" src="../assets/meat.svg" />
     </div>
 
     <div class="landing-page__content">
