@@ -1,16 +1,16 @@
 <template>
-  <div class="landing-page">
+  <div class="landing-page" itemscope itemtype="http://schema.org/Brand">
 
     <Header />
 
     <div :class="['animated-image', { 'animated-image__animate': !hasSeenAnimation }]">
-      <img class="brush" alt="Sweepstakes" src="../assets/broom.svg" />
-      <img class="steak" alt="Sweepstakes" src="../assets/meat.svg" />
-      <img class="steak" alt="Sweepstakes" src="../assets/meat.svg" />
+      <img itemprop="logo" class="brush" alt="Sweepsteaks" src="../assets/broom.svg" />
+      <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/meat.svg" />
+      <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/meat.svg" />
     </div>
 
-    <div class="landing-page__content">
-      <h1 class="landing-page__title">- welcome to -<br/>SWEEP-STEAKS</h1>
+    <div  class="landing-page__content">
+      <h1 class="landing-page__title">- welcome to -<br/> <span itemprop="name">SWEEP-STEAKS</span></h1>
     </div>
   </div>
 </template>

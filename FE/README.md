@@ -37,6 +37,9 @@ npm run test:unit
 
 ## ** To-Do!! **
 
-- fix breakpoint mixin
-- add slide away on scroll and have about the site information under neath page fold
-- remove navigation headers
+- Build landing page to build SEO ranking
+--- sell the site and have multiple sign up login btns
+--- add information and links to pages like wikapedia, update the wikapedia page to talk about sweepstakes
+
+- build about page with links from home to create site links on google results
+- use [structured data](https://developers.google.com/search/docs/guides/intro-structured-data) to improve seo and rich snippets
