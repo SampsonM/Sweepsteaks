@@ -13,7 +13,7 @@
       <h1 class="landing-page__title">- welcome to -<br/> <span itemprop="name">SWEEP-STEAKS</span></h1>
     </div>
 
-    <LandingPageContent></LandingPageContent>
+    <LandingPageContent v-if="$sweepAccessAllowed"></LandingPageContent>
   </div>
 </template>
 
