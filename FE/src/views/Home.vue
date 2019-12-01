@@ -1,17 +1,20 @@
 <template>
   <div class="landing-page" itemscope itemtype="http://schema.org/Brand">
 
-    <Menu />
+    <Menu v-if="$sweepAccessAllowed"/>
 
-    <div :class="['animated-image', { 'animated-image__animate': !hasSeenAnimation }]">
-      <img itemprop="logo" class="brush" alt="Sweepsteaks" src="../assets/icons/broom.svg" />
-      <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/icons/meat.svg" />
-      <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/icons/meat.svg" />
+    <div class="landing-page__banner">
+      <div :class="['animated-image', { 'animated-image__animate': !hasSeenAnimation }]">
+        <img itemprop="logo" class="brush" alt="Sweepsteaks" src="../assets/icons/broom.svg" />
+        <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/icons/meat.svg" />
+        <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/icons/meat.svg" />
+      </div>
+
+      <div  class="landing-page__title-wrapper">
+        <h1 class="landing-page__title">- welcome to -<br/> <span itemprop="name">SWEEP-STEAKS</span></h1>
+      </div>
     </div>
 
-    <div  class="landing-page__title-wrapper">
-      <h1 class="landing-page__title">- welcome to -<br/> <span itemprop="name">SWEEP-STEAKS</span></h1>
-    </div>
 
     <LandingPageContent v-if="$sweepAccessAllowed"></LandingPageContent>
   </div>
@@ -44,21 +47,31 @@ export default {
   padding: 20px;
   min-height: 100vh;
 
+  &__banner {
+    position: relative;
+    min-height: 100vh;
+    padding-top: 40%;
+
+    @include breakpoint(tablet) {
+      padding-top: 25%;
+    }
+  }
+
   &__title-wrapper {
-    margin-top: 28%;
+    margin-top: 34%;
     left:0;
     right:0;
     color: $red;
 
-    @include breakpoint(mobileL) {
+    @include breakpoint(mobileLg) {
       position: absolute;
       top: 0;
-      margin: 20% 0 0 50%;
+      margin: 35% 0 0 50%;
     }
 
     @include breakpoint(desktop) {
       position: absolute;
-      bottom: 36%;
+      bottom: 43%;
       margin-left: 38%;
       font-size: 5em;
     }
@@ -86,7 +99,7 @@ export default {
 
 .animated-image {
   display: flex;
-  margin: 150px 0 0 20%;
+  margin: 0 0 0 20%;
 
   &__animate {
     -webkit-animation: animateCloud 1.4s ease-in-out 1;
@@ -102,7 +115,7 @@ export default {
     margin-top: 24%;
   }
 
-  @include breakpoint(mobileL) {
+  @include breakpoint(mobileLg) {
     margin-top: 52px;
   }
 }

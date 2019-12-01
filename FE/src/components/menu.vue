@@ -1,5 +1,5 @@
 <template>
-	<nav class="menu" v-if="$sweepAccessAllowed">
+	<nav class="menu">
 		<font-awesome-icon
 			class="menu__menu-btn"
 			icon="bars"
