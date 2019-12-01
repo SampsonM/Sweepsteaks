@@ -124,11 +124,13 @@ export default {
   -webkit-transform: scale(2.2);
 	-moz-transform: scale(2.2);
   transform: scale(2.2);
+  max-width: 312px;
   
   @include breakpoint(tablet) {
     -webkit-transform: scale(3.3);
     -moz-transform: scale(3.3);
     transform: scale(3.3);
+    max-width: none;
   }
   
   @include breakpoint(desktop) {
@@ -142,9 +144,11 @@ export default {
   position: relative;
   top: 110px;
   left: -20%;
+  max-width: 150px;
 
   @include breakpoint(tablet) {
     top: 240px;
+    max-width: none;
   }
 
   @include breakpoint(desktop) {
