@@ -1,29 +1,32 @@
 <template>
   <div class="landing-page" itemscope itemtype="http://schema.org/Brand">
 
-    <Header />
+    <Menu />
 
     <div :class="['animated-image', { 'animated-image__animate': !hasSeenAnimation }]">
-      <img itemprop="logo" class="brush" alt="Sweepsteaks" src="../assets/broom.svg" />
-      <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/meat.svg" />
-      <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/meat.svg" />
+      <img itemprop="logo" class="brush" alt="Sweepsteaks" src="../assets/icons/broom.svg" />
+      <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/icons/meat.svg" />
+      <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/icons/meat.svg" />
     </div>
 
-    <div  class="landing-page__content">
+    <div  class="landing-page__title-wrapper">
       <h1 class="landing-page__title">- welcome to -<br/> <span itemprop="name">SWEEP-STEAKS</span></h1>
     </div>
+
+    <LandingPageContent></LandingPageContent>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 import { mapFields } from 'vuex-map-fields'
-import Header from '@/components/header.vue'
+import Menu from '@/components/menu.vue'
+import LandingPageContent from '@/components/landingPageContent.vue'
 
 export default {
   name: 'home',
   components: {
-    Header
+    Menu,
+    LandingPageContent
   },
   computed: {
     ...mapFields([
@@ -37,14 +40,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../styles/_mixins.scss";
-@import "../styles/_vars.scss";
-
 .landing-page {
   padding: 20px;
   min-height: 100vh;
 
-  &__content {
+  &__title-wrapper {
     margin-top: 28%;
     left:0;
     right:0;

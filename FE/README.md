@@ -42,4 +42,7 @@ npm run test:unit
 --- add information and links to pages like wikapedia, update the wikapedia page to talk about sweepstakes
 
 - build about page with links from home to create site links on google results
-- use [structured data](https://developers.google.com/search/docs/guides/intro-structured-data) to improve seo and rich snippets
+- use [structured data](https://developers.google.com/search/docs/guides/intro-structured-data) on landing page to improve seo and rich snippets
+- add sitemap to google console
+- add lots of internal links
+- 

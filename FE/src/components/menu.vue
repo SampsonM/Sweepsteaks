@@ -1,12 +1,11 @@
 <template>
-	<nav class="menu">
+	<nav class="menu" v-if="$sweepAccessAllowed">
 		<font-awesome-icon
 			class="menu__menu-btn"
 			icon="bars"
 			@click="toggleMenu" />
 
-		<div :class="['menu__ctas', {'menu__ctas--open' : menuOpen}]"
-			v-if="$sweepAccessAllowed">
+		<div :class="['menu__ctas', {'menu__ctas--open' : menuOpen}]">
 
 			<font-awesome-icon
 				class="menu__close-btn"
@@ -24,15 +23,22 @@
 	</nav>
 </template>
 <script>
+import { enableScroll, disableScroll } from '@/utils'
+
 export default {
 	name: 'menu',
 	data() {
     return {
-      menuOpen: false
+      menuOpen: false,
+      scrollPosition: 0
     }
   },
   methods: {
     toggleMenu() {
+      !this.menuOpen
+        ? disableScroll()
+        : enableScroll()
+
       this.menuOpen = !this.menuOpen
     }
   }
@@ -49,9 +55,11 @@ export default {
   display: flex;
   flex-direction: row-reverse;
   overflow: hidden;
+  z-index: 20;
+  position: fixed;
+
 
   &__menu-btn {
-    z-index: 10;
     color: $red;
     float: right;
     font-size: 23px;

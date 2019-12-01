@@ -94,20 +94,20 @@ export default {
       await this.$v.$touch()
 
       if (!this.$v.$error) {
-        const userData = {
-          firstName: this.firstName,
-          lastName: this.lastName,
-          username: this.username,
-          email: this.email,
-          password: this.password
-        }
+        // const userData = {
+        //   firstName: this.firstName,
+        //   lastName: this.lastName,
+        //   username: this.username,
+        //   email: this.email,
+        //   password: this.password
+        // }
 
-        UserAPI.createUser(userData)
-          .then(res => {
-            // console.log(res.data.user)
-            // set cookie here to update user auth header and cookie
-            // set logged in to true and send user to dashboard
-          })
+        // UserAPI.createUser(userData)
+        //   .then(res => {
+        //     console.log(res.data.user)
+        //     set cookie here to update user auth header and cookie
+        //     set logged in to true and send user to dashboard
+        //   })
       }
     },
     handleInput(field, value) {

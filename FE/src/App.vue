@@ -14,11 +14,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background: url('./assets/wood.svg') no-repeat fixed center;
+  background: url('./assets/img/wood.svg') no-repeat fixed center;
   background-size: cover;
   min-height: 100vh;
   min-width: 100vw;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 #nav {

@@ -24,9 +24,9 @@ module.exports = {
     loaderOptions: {
       sass: {
         data: `
-          @import "@/styles/_vars.scss";
-					@import "@/styles/_mixins.scss";
-					@import "@/styles/_global.scss";
+          @import "@/assets/styles/_vars.scss";
+					@import "@/assets/styles/_mixins.scss";
+					@import "@/assets/styles/_global.scss";
         `
       }
     }
