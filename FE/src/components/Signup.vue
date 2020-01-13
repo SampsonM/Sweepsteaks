@@ -67,7 +67,7 @@ export default {
           name: 'password',
           label: 'Password',
           placeholder: 'Password',
-          errClass: 'username',
+          errClass: 'password',
           type: 'password'
         }
       ]

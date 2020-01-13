@@ -9,6 +9,16 @@ export default function createRouter() {
   const router = new Router({
     mode: 'history',
     base: process.env.BASE_URL,
+    scrollBehavior: to => {
+      if (to.hash) {
+        const element = document.querySelector(to.hash);
+        if (element) {
+          return window.scrollTo({ top: element.offsetTop, behavior: 'smooth' });
+        }
+      } else {
+        return window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    },
     routes: [
       {
         path: '/',
