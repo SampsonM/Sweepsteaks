@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "img/broom.6fd4c1b2.svg"
   },
   {
-    "revision": "f1c8e73e74230a24b16908b793cea257",
+    "revision": "9b5345ef78a34abd4374207b8b623aa9",
     "url": "style.css"
   },
   {
@@ -28,11 +28,11 @@ self.__precacheManifest = [
     "url": "js/dashboard.20b27b72.js"
   },
   {
-    "revision": "98d08324f723b799c573",
-    "url": "js/app.2462c6a0.js"
+    "revision": "14d8286af89c49d02904",
+    "url": "js/app.4a08a20d.js"
   },
   {
-    "revision": "9171c5763b2490cfb780c0d844fdff6e",
+    "revision": "189036636018f3b03bad9bb50d50766d",
     "url": "index.html"
   },
   {
@@ -44,8 +44,8 @@ self.__precacheManifest = [
     "url": "favicon.png"
   },
   {
-    "revision": "98d08324f723b799c573",
-    "url": "css/app.897c2ebb.css"
+    "revision": "14d8286af89c49d02904",
+    "url": "css/app.e084e185.css"
   },
   {
     "revision": "dc918c40b4b5c0cc8385e7e56a3d6c7f",
