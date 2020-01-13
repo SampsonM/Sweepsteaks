@@ -21,11 +21,6 @@ export default function createRouter() {
         component: () => import(/* webpackChunkName: "login" */ './views/Login.vue')
       },
       {
-        path: '/signup',
-        name: 'signup',
-        component: () => import(/* webpackChunkName: "signup" */ './views/Signup.vue')
-      },
-      {
         path: '/dashboard',
         name: 'dashboard',
         component: () => import(/* webpackChunkName: "dashboard" */ './views/Dashboard.vue')

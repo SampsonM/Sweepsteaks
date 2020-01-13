@@ -1,5 +1,5 @@
 <template>
-  <form class="sign-up" autocomplete="on">
+  <form id="signup" class="sign-up" autocomplete="on">
 
     <h2 class="sign-up__title">Sign up</h2>
 

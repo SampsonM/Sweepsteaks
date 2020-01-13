@@ -1,7 +1,15 @@
 <template>
   <div class="landing-page" itemscope itemtype="http://schema.org/Brand">
 
-    <Menu v-if="$sweepAccessAllowed"/>
+    <div class="landing-page__ctas" v-if="$sweepAccessAllowed">
+			<button class="landing-page__ctas-login">
+				<router-link to="/login">Login</router-link>
+			</button>
+
+			<a class="landing-page__ctas-sign-up" href="#signup">
+				Sign-up
+			</a>
+		</div>
 
     <div class="landing-page__banner">
       <div :class="['animated-image', { 'animated-image__animate': !hasSeenAnimation }]">
@@ -15,20 +23,17 @@
       </div>
     </div>
 
-
     <LandingPageContent v-if="$sweepAccessAllowed"></LandingPageContent>
   </div>
 </template>
 
 <script>
 import { mapFields } from 'vuex-map-fields'
-import Menu from '@/components/menu.vue'
 import LandingPageContent from '@/components/landingPageContent.vue'
 
 export default {
   name: 'home',
   components: {
-    Menu,
     LandingPageContent
   },
   computed: {
@@ -50,10 +55,83 @@ export default {
   &__banner {
     position: relative;
     min-height: 100vh;
-    padding-top: 40%;
+    padding-top: 55%;
 
     @include breakpoint(tablet) {
       padding-top: 25%;
+    }
+  }
+
+  &__ctas {
+    z-index: 10;
+    position: absolute;
+    right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+    &--open {
+      margin-right: 0;
+      transition: 0.5s;
+    }
+  }
+  
+  &__ctas-login {
+    height: 45px;
+    width: 100px;
+    background-color: #ff8d8d;
+    border-radius: 5px;
+    transition-duration: 200ms;
+    margin-right: 10px;
+
+    &:hover,
+    :active,
+    :focus {
+      background-color: #fda0a0;
+      outline: none !important;
+      border:1px solid #2d69ad;
+
+      a {
+        text-decoration: underline;
+      }
+    }
+
+    a {
+      font-family: $font;
+      font-size: 16px;
+      font-weight: 500;
+      color: #2d69ad;
+      text-decoration: none;
+    }
+  }
+
+  &__ctas-sign-up {
+    height: 45px;
+    width: 100px;
+    line-height: 45px;
+    background-color: #2d69ad;
+    border-radius: 5px;
+    transition-duration: 200ms;
+
+    &:hover,
+    :active,
+    :focus {
+      background-color: #5684b8;
+      outline: none !important;
+      border: 1px solid #ff8d8d;
+
+      a {
+        text-decoration: underline;
+      }
+    }
+
+    a {
+      font-family: $font;
+      font-size: 16px;
+      font-weight: 500;
+      color: #ff8d8d;
+      text-decoration: none;
     }
   }
 
