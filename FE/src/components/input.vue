@@ -1,14 +1,29 @@
 <template>
-	<div class="fieldset">
-    <label :for="name">{{ label }}:</label>
-    <input
-      :class="{ 'error' : hasError }"
-      v-bind="$attrs"
-      :name="name"
-      :type="type"
-      @blur="$emit('blur', $event.target.value)">
-      <p v-if="!error.minLength && error.$params.minLength && hasError">{{label}} must be atleast {{ error.$params.minLength.min }} characters</p>
-      <p v-if="!error.required && error.$params.required && hasError">{{label}} is required</p>
+	<div class="input">
+    <label :for="name">{{ label }}</label>
+    <i v-if="hint"
+      class="input__hint">
+      {{ hint }}
+    </i>
+    
+    <span class="input__input-wrapper">
+      <input
+        :class="{ 'error' : hasError }"
+        v-bind="$attrs"
+        :name="name"
+        :type="type"
+        @blur="$emit('blur', $event.target.value)">
+
+        <p class="input__input-error"
+          v-if="!error.minLength && error.$params.minLength && hasError">
+          {{label}} must be atleast {{ error.$params.minLength.min }} characters!
+        </p>
+
+        <p class="input__input-error" 
+          v-if="!error.required && error.$params.required && hasError">
+          {{label}} is required!
+        </p>
+    </span>
   </div>
 </template>
 
@@ -19,6 +34,10 @@ export default {
     label: {
       type: String,
       required: true
+    },
+    hint: {
+      type: String,
+      required: false
     },
     name: {
       type: String,
@@ -38,17 +57,14 @@ export default {
       type: Object,
       required: false
     }
-  },
-  computed() {
-
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.fieldset {
+.input {
   width: 90%;
-  margin: auto 10px 15px 20px;
+  margin: auto 10px 20px 20px;
   padding: 0;
   border: none;
   display: flex;
@@ -56,19 +72,30 @@ export default {
   text-align: left;
 
   @include breakpoint(tablet) {
-    margin: auto 10px 35px 20px;
-    flex-direction: row;
-    justify-content: space-between;
+    margin: auto 10px 25px 20px;
   }
 
   label {
     font-size: 16px;
-    color: #2c2c2c;
-    margin: 7px 0;
+    color: $black;
+    margin: 0;
+  }
 
-    @include breakpoint(tablet) {
-      font-size: 18px;
-    }
+  &__hint {
+    color: #5e5e5e;
+    font-size: 14px;
+    margin: 6px 0 5px 0;
+  }
+
+  &__input-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__input-error {
+    padding: 5px 0;
+    color: $red;
   }
 
   input {
@@ -79,11 +106,6 @@ export default {
     padding: 5px;
     font-size: 14px;
 
-    @include breakpoint(tablet) {
-      width: 70%;
-      max-width: 320px;
-    }
-
     &:focus {
       outline: none;
       transition: 0.3s;
@@ -91,7 +113,8 @@ export default {
     }
 
     &.error {
-      border: 3px solid red;
+      color: $red;
+      border: 3px solid $red;
     }
   }
 }

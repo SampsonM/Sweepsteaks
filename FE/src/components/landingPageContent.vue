@@ -13,9 +13,3 @@ export default {
 	}	
 }
 </script>
-
-<style lang="scss" scoped>
-.landing-content {
-	color: blue;
-}
-</style>

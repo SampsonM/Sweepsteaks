@@ -58,7 +58,7 @@ export default {
     padding-top: 55%;
 
     @include breakpoint(tablet) {
-      padding-top: 25%;
+      padding-top: 10%;
     }
   }
 
@@ -141,12 +141,6 @@ export default {
     right:0;
     color: $red;
 
-    @include breakpoint(mobileLg) {
-      position: absolute;
-      top: 0;
-      margin: 35% 0 0 50%;
-    }
-
     @include breakpoint(desktop) {
       position: absolute;
       bottom: 43%;
@@ -162,6 +156,10 @@ export default {
 
     @include breakpoint(desktop) {
       font-size: 1em;
+      background: rgba($yellow, 0.7);
+      backdrop-filter: blur(2px);
+      padding: 0 10px;
+      border-radius: 10px;
     }
   }
 }
@@ -186,15 +184,7 @@ export default {
   }
 
   @include breakpoint(tablet) {
-    margin-top: 18%;
-  }
-
-  @include breakpoint(desktop) {
-    margin-top: 24%;
-  }
-
-  @include breakpoint(mobileLg) {
-    margin-top: 52px;
+    margin-top: 10%;
   }
 }
 

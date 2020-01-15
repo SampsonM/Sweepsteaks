@@ -8,8 +8,8 @@
       :key="field.label"
       :label="field.label"
       :name="field.name"
-      :placeholder="field.placeholder"
       :type="field.type || 'text'"
+      :hint="field.hint"
       @blur="(val) => handleInput(field.name, val)"
       :class="{ 'error' : $v[field.errClass].$error }"
       :hasError="$v[field.errClass].$error"
@@ -42,31 +42,28 @@ export default {
         {
           name: 'firstName',
           label: 'First name',
-          placeholder: 'First Name',
           errClass: 'firstName'
         },
         {
           name: 'lastName',
           label: 'Last name',
-          placeholder: 'Last Name',
           errClass: 'lastName'
         },
         {
           name: 'email',
           label: 'Email',
-          placeholder: 'Email',
           errClass: 'email'
         },
         {
           name: 'username',
           label: 'Username',
-          placeholder: 'Username',
+          hint: 'Must be atleast 6 characters and include 2 numbers',
           errClass: 'username'
         },
         {
           name: 'password',
           label: 'Password',
-          placeholder: 'Password',
+          hint: 'Must be atleast 8 characters',
           errClass: 'password',
           type: 'password'
         }
@@ -79,7 +76,7 @@ export default {
     email: { required, email },
     username: {
       required,
-      minLength: minLength(4),
+      minLength: minLength(6),
       isUnique: async (username) => {
         if (username === '') return true
 
@@ -87,7 +84,7 @@ export default {
         return data.unique
       }
     },
-    password: { required, minLength: minLength(6) }
+    password: { required, minLength: minLength(8) }
   },
   methods: {
     async signup() {
@@ -122,9 +119,9 @@ export default {
 .sign-up {
   display: flex;
   flex-direction: column;
-  max-width: 700px;
+  max-width: 500px;
   margin: 0 auto;
-  background: #ffd760;
+  background: rgba($yellow, 0.9);
   border-radius: 4px;
   padding: 15px;
 
@@ -134,6 +131,7 @@ export default {
 
   &__title {
     margin-bottom: 15px;
+    color: $black;
   }
 
   &__btn {
