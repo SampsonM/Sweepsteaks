@@ -69,7 +69,11 @@ function seedUsers(users) {
 function seedDB() {
   return mongoose.connection
     .dropDatabase()
-    .then(() => {
+    .then(async () => {
+      if (path === 'production') {
+        let data = await teamData.default()
+        return Team.insertMany(data)
+      }
       return Team.insertMany(teamData)
     })
     .then(teamDocs => {
