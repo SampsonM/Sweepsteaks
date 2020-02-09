@@ -5,7 +5,7 @@ Vue.use(VueCookie)
 
 export default class fetureFlagService {
 	static enableFeatureFlags() {
-		const cookies = Vue.cookies.keys()
+		const cookies = Vue.$cookies.keys()
 
 		const testRegex = new RegExp(/sweep/)
 

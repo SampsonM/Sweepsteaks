@@ -79,8 +79,7 @@ export default {
       minLength: minLength(6),
       isUnique: async (username) => {
         if (username === '') return true
-
-        const { data } = await UserAPI.isUserNameUnique(username)  
+        const { data } = await UserAPI.isUserNameUnique(username)
         return data.unique
       }
     },

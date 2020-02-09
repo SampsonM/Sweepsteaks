@@ -16,12 +16,17 @@
 
         <p class="input__input-error"
           v-if="!error.minLength && error.$params.minLength && hasError">
-          {{label}} must be atleast {{ error.$params.minLength.min }} characters!
+          {{label}} must be atleast {{ error.$params.minLength.min }} characters
+        </p>
+
+        <p class="input__input-error"
+          v-if="hasError && error.isUnique === false">
+          Entered username currently exists, please choose another
         </p>
 
         <p class="input__input-error" 
           v-if="!error.required && error.$params.required && hasError">
-          {{label}} is required!
+          {{label}} is required
         </p>
     </span>
   </div>

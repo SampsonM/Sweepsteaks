@@ -1,17 +1,3 @@
-export function injectInitialState(state) {
-  const script = document.createElement('script');
-  script.innerHTML = `window.__INITIAL_STATE__ = ${JSON.stringify(state)}`;
-  document.head.appendChild(script);
-}
-
-export function registerStoreModule({ module, name, store }) {
-  const moduleIsRegistered = store._modules.root._children[name] !== undefined;
-  const preserveState = store.state[name] !== undefined;
-
-  if (!moduleIsRegistered) store.registerModule(name, module, { preserveState });
-}
-
-
 // left: 37, up: 38, right: 39, down: 40,
 // spacebar: 32, pageup: 33, pagedown: 34, end: 35, home: 36
 const keys = {37: 1, 38: 1, 39: 1, 40: 1}

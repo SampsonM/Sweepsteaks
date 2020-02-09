@@ -70,6 +70,30 @@ describe('/users', () => {
           })
         })
       })
+
+      describe('/unique', () => {
+        it('returns 200 and unique false is username exists', () => {
+          return request
+            .get(`/api/users/unique/${userDocs[0].username}`)
+            .expect(response => {
+              const status = response.body.unique
+              const msg = response.body.msg
+              if (status) throw new Error(`Error, userename expected to exist but received: ${status}`)
+              if (msg !== 'Username already exists') throw new Error(`Error expected message "Username available" but received: ${msg}`)
+            })
+        })
+
+        it('returns 200 and unique true is username exists', () => {
+          return request
+            .get('/api/users/unique/madeupuniqueusername')
+            .expect(response => {
+              const status = response.body.unique
+              const msg = response.body.msg
+              if (!status) throw new Error(`Error, userename expected to be unique but received: ${status}`)
+              if (msg !== 'Username available') throw new Error(`Error expected message "Username available" but received: ${msg}`)
+            })
+        })
+      })
     })
 
     describe('POST /', () => {

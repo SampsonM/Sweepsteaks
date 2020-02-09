@@ -8,6 +8,7 @@ import Vuelidate from 'vuelidate'
 import featureFlagService from './services/featureFlageService'
 
 Vue.use(Vuelidate)
+
 featureFlagService.enableFeatureFlags()
 Vue.config.productionTip = false
 
