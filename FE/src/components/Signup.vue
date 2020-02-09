@@ -16,6 +16,8 @@
       :error="$v[field.errClass]">
     </MyInput>
 
+    {{ firstServerError }}
+
     <button class="sign-up__btn" @click.prevent="signup">
       <p>Sign-up</p>
     </button>
@@ -67,13 +69,21 @@ export default {
           errClass: 'password',
           type: 'password'
         }
-      ]
+      ],
+      serverErrors: []
     }
   },
   validations: {
     firstName: { required, minLength: minLength(2) },
     lastName: { required, minLength: minLength(2) },
-    email: { required, email },
+    email: {
+      required,
+      email: (email) => {
+        if (email === '') return true
+        const regExp = /(^$|^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$)/g
+        return regExp.test(email)
+      }
+    },
     username: {
       required,
       minLength: minLength(6),
@@ -83,32 +93,55 @@ export default {
         return data.unique
       }
     },
-    password: { required, minLength: minLength(8) }
+    password: {
+      required,
+      minLength: minLength(8),
+      password: (password) => {
+        if (password === '') return true
+        const regExp = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{6,20})/g
+        return regExp.test(password)
+      }
+    }
   },
   methods: {
     async signup() {
       await this.$v.$touch()
 
       if (!this.$v.$error) {
-        // const userData = {
-        //   firstName: this.firstName,
-        //   lastName: this.lastName,
-        //   username: this.username,
-        //   email: this.email,
-        //   password: this.password
-        // }
+        const userData = {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          username: this.username,
+          email: this.email,
+          password: this.password
+        }
 
-        // UserAPI.createUser(userData)
-        //   .then(res => {
-        //     console.log(res.data.user)
-        //     set cookie here to update user auth header and cookie
-        //     set logged in to true and send user to dashboard
-        //   })
+        UserAPI.createUser(userData)
+          .then(res => {
+            const user = res.data.user
+
+            // 12 hour session
+            this.$cookies.set('ssTok', user.token, 60 * 60 * 6)
+
+            // redirect to dashboard, set logged in to true
+          })
+          .catch(err => {
+            console.log(err)
+            const errors = err.response.data
+            for (let key in errors) {
+              this.serverErrors.push(errors[key].message)
+            }
+          })
       }
     },
     handleInput(field, value) {
       this[field] = value
       this.$v[field].$touch()
+    }
+  },
+  computed: {
+    firstServerError() {
+      return this.serverErrors[0]
     }
   }
 }

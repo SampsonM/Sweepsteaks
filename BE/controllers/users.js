@@ -71,8 +71,8 @@ function createUser(req, res, next) {
 
   if (userData && Object.keys(userData).length > 0 && userData.constructor === Object) {
     
-    const err = userDataValid(userData)
-    if (err) return res.status(400).send(err)
+    const validationErr = userDataValid(userData)
+    if (validationErr) return res.status(400).send(validationErr)
 
     passport.authenticate('local', (err, user) => {
 
@@ -85,7 +85,7 @@ function createUser(req, res, next) {
 
         return newUser.save()
           .then(user => res.status(201).send({ user: user.toAuthJSON() }))
-          .catch(err => res.status(400).send(err))
+          .catch(err => res.status(400).send(err.errors))
 
       } else if (user) {
         return res.status(409).send(err)
@@ -153,15 +153,15 @@ function deleteUser(req, res, next) {
 function userDataValid(userData) {
   const { firstName, lastName, username, email, password } = userData
 
-  if (!firstName || firstName.length < 2 || firstName.match(/\d/g)) {
+  if (!firstName || firstName.length < 2 || firstName.match(/[^\w\d]/g)) {
     return 'First name must be atleast 2 characters and be alphabetical characters only'
   }
 
-  if (!lastName || lastName.length < 2 || lastName.match(/\d/g)) {
+  if (!lastName || lastName.length < 2 || lastName.match(/[^\w\d]/g)) {
     return 'Last name must be at least 2 characters and be alphabetical characters only'
   }
 
-  if (!email || !email.match(/^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/g)) {
+  if (!email || !email.match(/(^$|^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$)/g)) {
     return 'Email must be a valid format'
   }
   

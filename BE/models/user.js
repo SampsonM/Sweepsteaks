@@ -4,6 +4,7 @@ import { createHashSalt } from '../utils'
 import jwt from 'jsonwebtoken'
 import fs from 'fs'
 import path from 'path'
+import uniqueValidator from 'mongoose-unique-validator'
 const Schema = mongoose.Schema
 
 const KEY = process.env.NODE_ENV === 'production'
@@ -49,6 +50,8 @@ const UserSchema = new Schema({
     }
   }]
 })
+
+UserSchema.plugin(uniqueValidator)
 
 UserSchema.methods.setHash = function(password) {
   const { hash, salt } = createHashSalt(password)

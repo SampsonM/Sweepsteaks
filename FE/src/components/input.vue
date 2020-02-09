@@ -11,6 +11,7 @@
         :class="{ 'error' : hasError }"
         v-bind="$attrs"
         :name="name"
+        :id="name"
         :type="type"
         @blur="$emit('blur', $event.target.value)">
 
@@ -22,6 +23,16 @@
         <p class="input__input-error"
           v-if="hasError && error.isUnique === false">
           Entered username currently exists, please choose another
+        </p>
+
+        <p class="input__input-error"
+          v-if="hasError && error.password === false">
+          Password must contain atleast 1 lower & uppercase letter, number, special character and be between 6-20 characters
+        </p>
+
+        <p class="input__input-error"
+          v-if="hasError && error.email === false">
+          Entered email is invalid
         </p>
 
         <p class="input__input-error" 
@@ -114,7 +125,7 @@ export default {
     &:focus {
       outline: none;
       transition: 0.3s;
-      border: 2px solid orange;
+      border: 3px solid #c09000;
     }
 
     &.error {
