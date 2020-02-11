@@ -1,4 +1,5 @@
 import { axiosInstance } from './api'
+import Vue from 'vue'
 
 const baseUrl = '/users';
 
@@ -21,7 +22,16 @@ export default {
 	},
 
 	logUserIn(loginData) {
-    return axiosInstance.post(`${baseUrl}/login`, loginData)
+		const jsonData = JSON.stringify(loginData)
+    return axiosInstance.post(`${baseUrl}/status/login`, jsonData)
+	},
+
+	logUserOut() {
+		return axiosInstance.patch(`${baseUrl}/status/logout`, null, {
+			headers: {
+				authorisation: Vue.$cookies.get('ssTok')
+			}
+		})
 	},
 
 	updateUser(userId, userData) {

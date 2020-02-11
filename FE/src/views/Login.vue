@@ -14,11 +14,13 @@
       name="password"
       type="text"
       placeholder="Password">
-    <button @click="login">Login</button>
+    <button @click="logUserIn">Login</button>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   data() {
     return {
@@ -27,7 +29,11 @@ export default {
     }
   },
   methods: {
-    login() {
+    logUserIn() {
+      this.$store.dispatch('logUserIn', {
+        username: this.username,
+        password: this.password
+      })
     }
   }
 }

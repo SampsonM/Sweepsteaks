@@ -1,28 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { getField, updateField } from 'vuex-map-fields'
+import state from './state'
+import mutations from './mutations'
+import actions from './actions'
+import getters from './getters'
 
 Vue.use(Vuex)
 
-const state = {
-  hasSeenAnimation: false
-}
-
-const getters = {
-  getField
-}
-
-const actions = {}
-
-const mutations = {
-  updateField
-}
-
-export default function createStore() {
-  return new Vuex.Store({
-    state,
-    getters,
-    actions,
-    mutations
-  })
-}
+export default new Vuex.Store({
+  state,
+  getters,
+  actions,
+  mutations
+})

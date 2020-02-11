@@ -18,7 +18,7 @@
 
     {{ firstServerError }}
 
-    <button class="sign-up__btn" @click.prevent="signup">
+    <button class="sign-up__btn" @click.prevent="handleSignup">
       <p>Sign-up</p>
     </button>
   </form>
@@ -26,8 +26,9 @@
 
 <script>
 import MyInput from '../components/input.vue'
-import { required, minLength, email} from 'vuelidate/lib/validators'
+import { required, minLength } from 'vuelidate/lib/validators'
 import UserAPI from '../services/api/userApi'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -69,8 +70,7 @@ export default {
           errClass: 'password',
           type: 'password'
         }
-      ],
-      serverErrors: []
+      ]
     }
   },
   validations: {
@@ -104,7 +104,8 @@ export default {
     }
   },
   methods: {
-    async signup() {
+    ...mapActions(['signup']),
+    async handleSignup() {
       await this.$v.$touch()
 
       if (!this.$v.$error) {
@@ -116,22 +117,7 @@ export default {
           password: this.password
         }
 
-        UserAPI.createUser(userData)
-          .then(res => {
-            const user = res.data.user
-
-            // 12 hour session
-            this.$cookies.set('ssTok', user.token, 60 * 60 * 6)
-
-            // redirect to dashboard, set logged in to true
-          })
-          .catch(err => {
-            console.log(err)
-            const errors = err.response.data
-            for (let key in errors) {
-              this.serverErrors.push(errors[key].message)
-            }
-          })
+        this.signup(userData)
       }
     },
     handleInput(field, value) {
@@ -140,9 +126,9 @@ export default {
     }
   },
   computed: {
-    firstServerError() {
-      return this.serverErrors[0]
-    }
+    ...mapGetters([
+      'firstServerError'
+    ])
   }
 }
 </script>

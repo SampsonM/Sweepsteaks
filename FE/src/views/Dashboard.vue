@@ -1,3 +1,21 @@
 <template>
-  <h1>Dashboard</h1>
+  <div>
+
+    <h1>Dashboard</h1>
+
+    <button
+      @click="logout"
+      >Logout</button>
+  </div>
+
 </template>
+
+<script>
+import { mapActions } from 'vuex'
+
+export default {
+  methods: {
+    ...mapActions(['logout'])
+  }
+}
+</script>

@@ -14,7 +14,7 @@ usersRouter.get('/:user_name', auth.required, usersCtrl.getUserByUsername)
 usersRouter.get('/unique/:user_name', usersCtrl.isUserNameUnique)
 
 // POST new user route (optional, publically accessible)
-usersRouter.post('/', usersCtrl.createUser)
+usersRouter.post('/', auth.optional, usersCtrl.createUser)
 
 // POST to update user (required, only user should have access)
 usersRouter.put('/', auth.required, usersCtrl.updateUser)

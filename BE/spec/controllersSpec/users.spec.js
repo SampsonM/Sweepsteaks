@@ -61,7 +61,7 @@ describe('/users', () => {
         describe('/logout', () => {
           it('returns 401 with invalid token', () => {
             return request
-              .get('/api/users/status/logout')
+              .patch('/api/users/status/logout')
               .set('authorisation', 'UN-authorised-token')
               .expect(response => {
                 const status = response.body.status
@@ -415,7 +415,7 @@ describe('/users', () => {
         describe('/logout', () => {
           it('returns 200 with valid token and unauthenticates user', () => {
             return request
-              .get('/api/users/status/logout')
+              .patch('/api/users/status/logout')
               .set({ 'authorisation': userToken })
               .expect(response => {
                 const status = response.status

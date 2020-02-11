@@ -3,10 +3,14 @@
 
     <div class="landing-page__ctas" v-if="$sweepAccessAllowed">
 			<button class="landing-page__ctas-login">
-				<router-link to="/login">Login</router-link>
+				<router-link v-if="!allwd" to="/login">Login</router-link>
+				<router-link v-else to="/dashboard">Dashboard</router-link>
 			</button>
 
-			<a class="landing-page__ctas-sign-up" href="#signup">
+			<a
+        v-if="!allwd"
+        class="landing-page__ctas-sign-up"
+        href="#signup">
 				Sign-up
 			</a>
 		</div>
@@ -29,6 +33,7 @@
 
 <script>
 import { mapFields } from 'vuex-map-fields'
+import { mapState } from 'vuex'
 import LandingPageContent from '@/components/landingPageContent.vue'
 
 export default {
@@ -39,6 +44,9 @@ export default {
   computed: {
     ...mapFields([
       'hasSeenAnimation'
+    ]),
+    ...mapState([
+      'allwd'
     ])
   },
   beforeDestroy() {
