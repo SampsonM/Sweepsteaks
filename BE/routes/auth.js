@@ -7,7 +7,6 @@ const KEY = process.env.NODE_ENV === 'production'
   : fs.readFileSync(path.resolve(__dirname, '../config/certs/rootCA.key'))
 
 const authHeader = (req) => {
-  console.log(req.headers.authorisation, KEY)
   return req.headers.authorisation
 }
 

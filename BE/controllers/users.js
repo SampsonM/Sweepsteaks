@@ -175,8 +175,8 @@ function userDataValid(userData) {
   // 1 number
   // 1 special character
   // 6 - 20 characters
-  if (!password || !password.match(/((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{6,20})/g) || password.length < 6 || password.length > 20) {
-    return 'Password must contain atleast 1 lower & uppercase letter, number, special character and be between 6-20 characters'
+  if (!password || !password.match(/((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,20})/g) || password.length < 8 || password.length > 20) {
+    return 'Password must contain atleast 1 lower & uppercase letter, number, special character and be between 8-20 characters'
   }
 }
 

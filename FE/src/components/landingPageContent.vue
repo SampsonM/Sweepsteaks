@@ -13,3 +13,10 @@ export default {
 	}	
 }
 </script>
+
+<style lang="scss">
+.landing-content {
+	min-height: 100vh;
+	padding-top: 10%;
+}
+</style>

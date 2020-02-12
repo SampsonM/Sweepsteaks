@@ -46,7 +46,6 @@ router.beforeEach((to, from, next) => {
     next()
   } else if (Vue.prototype.$sweepAccessAllowed && store.state.allwd) {
     if (to.path === '/login') {
-      console.log('testing', to.path)
       return next('/dashboard')
     }
     next()

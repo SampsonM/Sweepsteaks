@@ -66,7 +66,7 @@ export default {
         {
           name: 'password',
           label: 'Password',
-          hint: 'Must be atleast 8 characters',
+          hint: 'Password must contain 1 lower & uppercase letter, number and special character and be between 8-20 characters',
           errClass: 'password',
           type: 'password'
         }
@@ -87,6 +87,10 @@ export default {
     username: {
       required,
       minLength: minLength(6),
+      userNameFormat: (username) => {
+        const reg = new RegExp(/[0-9]{2}/)
+        return reg.test(username)
+      },
       isUnique: async (username) => {
         if (username === '') return true
         const { data } = await UserAPI.isUserNameUnique(username)
@@ -98,7 +102,7 @@ export default {
       minLength: minLength(8),
       password: (password) => {
         if (password === '') return true
-        const regExp = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{6,20})/g
+        const regExp = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,20})/g
         return regExp.test(password)
       }
     }
@@ -138,10 +142,11 @@ export default {
   display: flex;
   flex-direction: column;
   max-width: 500px;
-  margin: 0 auto;
-  background: rgba($yellow, 0.9);
+  margin: 0 auto 15px auto;
+  background: rgba($yellow, 0.8);
   border-radius: 4px;
-  padding: 15px;
+  padding: 15px 0;
+  width: 95%;
 
   @include breakpoint(tablet) {
     padding: 20px;

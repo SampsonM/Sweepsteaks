@@ -1,29 +1,31 @@
 <template>
   <div class="landing-page" itemscope itemtype="http://schema.org/Brand">
 
-    <div class="landing-page__ctas" v-if="$sweepAccessAllowed">
-			<button class="landing-page__ctas-login">
-				<router-link v-if="!allwd" to="/login">Login</router-link>
-				<router-link v-else to="/dashboard">Dashboard</router-link>
-			</button>
+    <div class="landing-page__splash">
+      <div class="landing-page__banner">
+        <div class="landing-page__logo">
+          <img itemprop="logo" class="brush" alt="Sweepsteaks" src="../assets/icons/broom.svg" />
+          <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/icons/meat.svg" />
+          <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/icons/meat.svg" />
+        </div>
 
-			<a
-        v-if="!allwd"
-        class="landing-page__ctas-sign-up"
-        href="#signup">
-				Sign-up
-			</a>
-		</div>
+        <div  class="landing-page__title-wrapper">
+          <h1 class="landing-page__title">- welcome to -<br/> <span itemprop="name">SWEEP-STEAKS</span></h1>
+        </div>
 
-    <div class="landing-page__banner">
-      <div :class="['animated-image', { 'animated-image__animate': !hasSeenAnimation }]">
-        <img itemprop="logo" class="brush" alt="Sweepsteaks" src="../assets/icons/broom.svg" />
-        <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/icons/meat.svg" />
-        <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/icons/meat.svg" />
-      </div>
+        <div class="landing-page__ctas" v-if="$sweepAccessAllowed">
+          <button class="landing-page__ctas-login">
+            <router-link v-if="!allwd" to="/login">Login</router-link>
+            <router-link v-else to="/dashboard">Dashboard</router-link>
+          </button>
 
-      <div  class="landing-page__title-wrapper">
-        <h1 class="landing-page__title">- welcome to -<br/> <span itemprop="name">SWEEP-STEAKS</span></h1>
+          <a
+            v-if="!allwd"
+            class="landing-page__ctas-sign-up"
+            href="#signup">
+            Sign-up
+          </a>
+        </div>
       </div>
     </div>
 
@@ -32,7 +34,6 @@
 </template>
 
 <script>
-import { mapFields } from 'vuex-map-fields'
 import { mapState } from 'vuex'
 import LandingPageContent from '@/components/landingPageContent.vue'
 
@@ -42,46 +43,74 @@ export default {
     LandingPageContent
   },
   computed: {
-    ...mapFields([
-      'hasSeenAnimation'
-    ]),
     ...mapState([
       'allwd'
     ])
-  },
-  beforeDestroy() {
-    this.hasSeenAnimation = true
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .landing-page {
-  padding: 20px;
   min-height: 100vh;
+
+  &__splash {
+    min-height: 100vh;
+
+    @include breakpoint(desktop) {
+      padding: 5% 0 0 0;
+    }
+  }
 
   &__banner {
     position: relative;
-    min-height: 100vh;
-    padding-top: 55%;
+    min-height: 440px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
 
     @include breakpoint(tablet) {
-      padding-top: 10%;
+      justify-content: start;
+    }
+
+    @include breakpoint(desktop) {
+      flex-direction: row;
+      justify-content: center;
+      align-items: baseline;
+      min-height: 440px;
+    }
+  }
+
+  &__logo {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    left: -16px;
+
+    @include breakpoint(tablet) {
+      margin: 100px 30px 90px 0;
+    }
+ 
+    @include breakpoint(desktop) {
+      margin: 100px 100px 90px 0;
     }
   }
 
   &__ctas {
-    z-index: 10;
-    position: absolute;
-    right: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
 
-    &--open {
-      margin-right: 0;
-      transition: 0.5s;
+    @include breakpoint(tablet) {
+      margin-top: 20px;
+    }
+
+    @include breakpoint(desktop) {
+      position: absolute;
+      bottom: 130px;
+      right: 385px;
     }
   }
   
@@ -92,6 +121,11 @@ export default {
     border-radius: 5px;
     transition-duration: 200ms;
     margin-right: 10px;
+
+    @include breakpoint(tablet) {
+      height: 65px;
+      width: 130px;
+    }
 
     &:hover,
     :active,
@@ -111,6 +145,10 @@ export default {
       font-weight: 500;
       color: #2d69ad;
       text-decoration: none;
+
+      @include breakpoint(tablet) {
+        font-size: 20px;
+      }
     }
   }
 
@@ -122,38 +160,34 @@ export default {
     border-radius: 5px;
     transition-duration: 200ms;
 
+    @include breakpoint(tablet) {
+      height: 65px;
+      line-height: 65px;
+      width: 130px;
+      font-size: 20px;
+    }
+
     &:hover,
     :active,
     :focus {
       background-color: #5684b8;
       outline: none !important;
       border: 1px solid #ff8d8d;
-
-      a {
-        text-decoration: underline;
-      }
-    }
-
-    a {
-      font-family: $font;
-      font-size: 16px;
-      font-weight: 500;
-      color: #ff8d8d;
-      text-decoration: none;
+      text-decoration: underline;
     }
   }
 
   &__title-wrapper {
-    margin-top: 34%;
-    left:0;
-    right:0;
     color: $red;
 
+    @include breakpoint(tablet) {
+      font-size: 1.5em;
+    }
+
     @include breakpoint(desktop) {
-      position: absolute;
-      bottom: 43%;
-      margin-left: 38%;
-      font-size: 5em;
+      font-size: 3em;
+      position: relative;
+      top: -110px;
     }
   }
 
@@ -172,63 +206,35 @@ export default {
   }
 }
 
-@keyframes animateCloud {
-  0% {
-    margin-left: -1100px;
-  }
-  100% {
-    margin-left: 20%;
-  }
-}
-
-.animated-image {
-  display: flex;
-  margin: 0 0 0 20%;
-
-  &__animate {
-    -webkit-animation: animateCloud 1.4s ease-in-out 1;
-    -moz-animation: animateCloud 1.4s ease-in-out 1;
-    animation: animateCloud 1.4s ease-in-out 1;
-  }
-
-  @include breakpoint(tablet) {
-    margin-top: 10%;
-  }
-}
-
 .brush {
-  -webkit-transform: scale(2.2);
-	-moz-transform: scale(2.2);
-  transform: scale(2.2);
-  max-width: 312px;
-  
+  transform: scale(1.5);
+
   @include breakpoint(tablet) {
-    -webkit-transform: scale(3.3);
-    -moz-transform: scale(3.3);
-    transform: scale(3.3);
-    max-width: none;
+    transform: scale(2);
   }
-  
+
   @include breakpoint(desktop) {
-    -webkit-transform: scale(4.3);
-    -moz-transform: scale(4.3);
-    transform: scale(4.3);
+    max-width: 200px
   }
 }
 
 .steak {
   position: relative;
-  top: 110px;
-  left: -20%;
-  max-width: 150px;
+  top: 95px;
+  left: -32%;
+  height: 105px;
 
   @include breakpoint(tablet) {
-    top: 240px;
-    max-width: none;
+    height: 145px;
+    left: -22%;
   }
 
-  @include breakpoint(desktop) {
-    left: -10%;
+  &:last-of-type {
+    left: -42%;
+
+    @include breakpoint(tablet) {
+      left: -32%;
+    }
   }
 }
 </style>

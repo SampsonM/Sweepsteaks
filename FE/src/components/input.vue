@@ -31,6 +31,11 @@
         </p>
 
         <p class="input__input-error"
+          v-if="hasError && error.userNameFormat === false">
+          Username must contain atleast 2 numbers and be 6 characters long
+        </p>
+
+        <p class="input__input-error"
           v-if="hasError && error.email === false">
           Entered email is invalid
         </p>
