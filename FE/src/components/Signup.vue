@@ -1,5 +1,9 @@
 <template>
-  <form id="signup" class="sign-up" autocomplete="on">
+  <form
+    id="signup"
+    class="sign-up"
+    autocomplete="on"
+    v-if="!allwd">
 
     <h2 class="sign-up__title">Sign up</h2>
 
@@ -11,7 +15,7 @@
       :type="field.type || 'text'"
       :hint="field.hint"
       @blur="(val) => handleInput(field.name, val)"
-      :class="{ 'error' : $v[field.errClass].$error }"
+      :class="[ `${field.name}-input`, { 'error' : $v[field.errClass].$error }]"
       :hasError="$v[field.errClass].$error"
       :error="$v[field.errClass]">
     </MyInput>
@@ -28,7 +32,7 @@
 import MyInput from '../components/input.vue'
 import { required, minLength } from 'vuelidate/lib/validators'
 import UserAPI from '../services/api/userApi'
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapState } from 'vuex'
 
 export default {
   components: {
@@ -60,13 +64,13 @@ export default {
         {
           name: 'username',
           label: 'Username',
-          hint: 'Must be atleast 6 characters and include 2 numbers',
+          hint: 'Must be at least 6 characters and include 2 numbers',
           errClass: 'username'
         },
         {
           name: 'password',
           label: 'Password',
-          hint: 'Password must contain 1 lower & uppercase letter, number and special character and be between 8-20 characters',
+          hint: 'Password must contain 1 lower & uppercase letter, 1 number and be between 8-20 characters',
           errClass: 'password',
           type: 'password'
         }
@@ -102,7 +106,7 @@ export default {
       minLength: minLength(8),
       password: (password) => {
         if (password === '') return true
-        const regExp = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,20})/g
+        const regExp = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20})/g
         return regExp.test(password)
       }
     }
@@ -132,6 +136,9 @@ export default {
   computed: {
     ...mapGetters([
       'firstServerError'
+    ]),
+    ...mapState([
+      'allwd'
     ])
   }
 }
@@ -139,17 +146,15 @@ export default {
 
 <style lang="scss" scoped>
 .sign-up {
-  display: flex;
-  flex-direction: column;
-  max-width: 500px;
+  max-width: 400px;
   margin: 0 auto 15px auto;
-  background: rgba($yellow, 0.8);
-  border-radius: 4px;
-  padding: 15px 0;
+  background: rgba($yellow, 0.4);
+  backdrop-filter: blur(5px);
+  border-radius: 5px;
   width: 95%;
+  padding: 20px;
 
   @include breakpoint(tablet) {
-    padding: 20px;
   }
 
   &__title {
@@ -184,6 +189,17 @@ export default {
       color: #2d69ad;
       text-decoration: none;
     }
+  }
+
+  .firstName-input,
+  .lastName-input {
+    max-width: 47%;
+    margin: 0 0 20px 0;
+    display: inline-block;
+  }
+
+  .firstName-input {
+    margin-right: 20px;
   }
 }
 

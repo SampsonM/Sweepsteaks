@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import store from './store'
+import userApi from './services/api/userApi'
 
 Vue.use(Router)
 
@@ -41,18 +42,39 @@ const router = new Router({
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  if (to.path === '/') {
-    next()
-  } else if (Vue.prototype.$sweepAccessAllowed && store.state.allwd) {
+router.beforeEach(async (to, from, next) => {
+  console.log('test', to.path, store.state.allwd)
+  
+  const rootAcc = Vue.prototype.$sweepAccessAllowed
+
+  if (rootAcc) {
     if (to.path === '/login') {
-      return next('/dashboard')
+      if (store.state.allwd) {
+        return next('/dashboard')
+      } else {
+        const loggedIn = await userApi.getUserLoginState()
+        if (loggedIn) {
+          return next('/dashboard')
+        }
+        return next()
+      }
+    } else if (to.path === '/dashboard') {
+      if (store.state.allwd) {
+        next()
+      } else {
+        const userLoggedIn = await userApi.getUserLoginState()
+        if (userLoggedIn) {
+          return next()
+        }
+        return next('/')
+      }
+    } else {
+      return next()
     }
-    next()
-  } else if (to.path === '/login') {
-    next()
+  } else if (to.path === '/') {
+    return next()
   } else {
-    next('/')
+    return next('/')
   }
 })
 

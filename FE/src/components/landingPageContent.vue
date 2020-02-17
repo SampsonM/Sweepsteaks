@@ -1,7 +1,11 @@
 <template>
-	<div class="landing-content">
+	<main class="landing-content">
+		<section class="main-content">
+			Landing page content
+		</section>
+
 		<SignupForm></SignupForm>
-	</div>
+	</main>
 </template>
 
 <script>
@@ -16,7 +20,6 @@ export default {
 
 <style lang="scss">
 .landing-content {
-	min-height: 100vh;
-	padding-top: 10%;
+	padding-top: 40px;
 }
 </style>

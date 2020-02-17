@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="sweep-steaks">
     <router-view/>
   </div>
 </template>
@@ -9,7 +9,7 @@
   margin: 0;
 }
 
-#app {
+#sweep-steaks {
   font-family: $font, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -20,24 +20,5 @@
   min-width: 100vw;
   overflow-x: hidden;
   overflow-y: scroll;
-}
-
-#nav {
-  padding: 30px;
-  display: flex;
-  justify-content: center;
-  a {
-    font-weight: bold;
-    color: $dark-blue;
-    text-decoration: none;
-    &.router-link-exact-active {
-      color: $light-blue;
-    }
-  }
-
-  @include breakpoint(tablet) {
-    justify-content: flex-end;
-    font-size: 1.5em;
-  }
 }
 </style>

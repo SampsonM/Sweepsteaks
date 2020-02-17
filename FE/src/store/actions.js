@@ -29,7 +29,6 @@ export default {
 			const res = await UserAPI.logUserIn(payload)
 			const user = res.data.user
 
-			Vue.$cookies.set('ssTok', user.token)
 			commit('UPDATE_ALLWD', user.authenticated)
 
 			router.push('/dashboard')
@@ -43,15 +42,14 @@ export default {
 			const res = await UserAPI.logUserOut()
 			const user = res.data.user
 
-			Vue.$cookies.set('ssTok', user.token)
+			Vue.$cookies.remove('ssTok')
 			commit('UPDATE_ALLWD', user.authenticated)
 
-			router.push('/')
-
 		} catch(err) {
-			Vue.$cookies.set('ssTok', null)
+			Vue.$cookies.remove('ssTok')
 			commit('UPDATE_ALLWD', false)
-			router.push('/')
 		}
+		
+		router.push('/')
 	}
 }

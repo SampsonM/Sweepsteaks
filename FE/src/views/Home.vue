@@ -1,35 +1,27 @@
 <template>
   <div class="landing-page" itemscope itemtype="http://schema.org/Brand">
 
-    <div class="landing-page__splash">
-      <div class="landing-page__banner">
-        <div class="landing-page__logo">
-          <img itemprop="logo" class="brush" alt="Sweepsteaks" src="../assets/icons/broom.svg" />
-          <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/icons/meat.svg" />
-          <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/icons/meat.svg" />
-        </div>
-
-        <div  class="landing-page__title-wrapper">
-          <h1 class="landing-page__title">- welcome to -<br/> <span itemprop="name">SWEEP-STEAKS</span></h1>
-        </div>
-
-        <div class="landing-page__ctas" v-if="$sweepAccessAllowed">
-          <button class="landing-page__ctas-login">
-            <router-link v-if="!allwd" to="/login">Login</router-link>
-            <router-link v-else to="/dashboard">Dashboard</router-link>
-          </button>
-
-          <a
-            v-if="!allwd"
-            class="landing-page__ctas-sign-up"
-            href="#signup">
-            Sign-up
-          </a>
-        </div>
+    <div class="landing-page__banner">
+      <div class="landing-page__logo">
+        <img itemprop="logo" class="brush" alt="Sweepsteaks" src="../assets/icons/broom.svg" />
+        <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/icons/meat.svg" />
+        <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/icons/meat.svg" />
       </div>
+
+      <h1 class="landing-page__title" itemprop="name" v-if="$sweepAccessAllowed">Sweepsteaks</h1>
+
+      <button class="landing-page__login" v-if="$sweepAccessAllowed">
+        <router-link v-if="!allwd" to="/login">Login</router-link>
+        <router-link v-else to="/dashboard">Dashboard</router-link>
+      </button>
     </div>
 
     <LandingPageContent v-if="$sweepAccessAllowed"></LandingPageContent>
+   
+    <div v-else class="coming-soon">
+      <h1 itemprop="name">Sweepsteaks, Coming soon!!</h1>
+      <p>Online sweepstakes for you and your mates!</p>
+    </div>
   </div>
 </template>
 
@@ -54,77 +46,33 @@ export default {
 .landing-page {
   min-height: 100vh;
 
-  &__splash {
-    min-height: 100vh;
-
-    @include breakpoint(desktop) {
-      padding: 5% 0 0 0;
-    }
-  }
-
   &__banner {
     position: relative;
-    min-height: 440px;
     display: flex;
-    flex-direction: column;
+    background: rgba($yellow, 0.4);
+    backdrop-filter: blur(5px);
     align-items: center;
-    justify-content: space-evenly;
-
-    @include breakpoint(tablet) {
-      justify-content: start;
-    }
-
-    @include breakpoint(desktop) {
-      flex-direction: row;
-      justify-content: center;
-      align-items: baseline;
-      min-height: 440px;
-    }
+    justify-content: space-around;
+    height: 100px;
   }
 
   &__logo {
-    display: flex;
-    flex-direction: row;
     position: relative;
-    left: -16px;
-
-    @include breakpoint(tablet) {
-      margin: 100px 30px 90px 0;
-    }
- 
-    @include breakpoint(desktop) {
-      margin: 100px 100px 90px 0;
-    }
-  }
-
-  &__ctas {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: row;
-
-    @include breakpoint(tablet) {
-      margin-top: 20px;
-    }
-
-    @include breakpoint(desktop) {
-      position: absolute;
-      bottom: 130px;
-      right: 385px;
-    }
+    margin: 0;
+    height: 100px;
+    width: 100px;
   }
   
-  &__ctas-login {
-    height: 45px;
-    width: 100px;
+  &__login {
+    height: 42px;
+    width: 90px;
     background-color: #ff8d8d;
     border-radius: 5px;
     transition-duration: 200ms;
-    margin-right: 10px;
 
     @include breakpoint(tablet) {
-      height: 65px;
-      width: 130px;
     }
 
     &:hover,
@@ -157,13 +105,13 @@ export default {
     width: 100px;
     line-height: 45px;
     background-color: #2d69ad;
+    color: #ff8d8d;
     border-radius: 5px;
     transition-duration: 200ms;
 
     @include breakpoint(tablet) {
-      height: 65px;
-      line-height: 65px;
-      width: 130px;
+      text-decoration: none;
+      line-height: 45px;
       font-size: 20px;
     }
 
@@ -172,69 +120,67 @@ export default {
     :focus {
       background-color: #5684b8;
       outline: none !important;
-      border: 1px solid #ff8d8d;
       text-decoration: underline;
     }
   }
 
-  &__title-wrapper {
-    color: $red;
-
-    @include breakpoint(tablet) {
-      font-size: 1.5em;
-    }
-
-    @include breakpoint(desktop) {
-      font-size: 3em;
-      position: relative;
-      top: -110px;
-    }
-  }
-
   &__title {
+    color: $red;
+    font-size: 1.2rem;
+    position: relative;
+    left: -10px;
+
     @include breakpoint(tablet) {
       font-size: 3em;
-    }
-
-    @include breakpoint(desktop) {
-      font-size: 1em;
-      background: rgba($yellow, 0.7);
-      backdrop-filter: blur(2px);
-      padding: 0 10px;
-      border-radius: 10px;
     }
   }
 }
 
 .brush {
-  transform: scale(1.5);
+  width: 60px;
 
   @include breakpoint(tablet) {
-    transform: scale(2);
-  }
-
-  @include breakpoint(desktop) {
-    max-width: 200px
+    width: 70px;
   }
 }
 
 .steak {
-  position: relative;
-  top: 95px;
-  left: -32%;
-  height: 105px;
+  position: absolute;
+  bottom: 16px;
+  right: 30px;
+  width: 40px;
+  height: 30px;
 
   @include breakpoint(tablet) {
-    height: 145px;
-    left: -22%;
   }
 
   &:last-of-type {
-    left: -42%;
+    right: 10px;
 
     @include breakpoint(tablet) {
-      left: -32%;
     }
+  }
+}
+
+.coming-soon {
+  background: rgba($yellow, 0.4);
+  backdrop-filter: blur(5px);
+  margin: 0 auto;
+  max-width: 600px;
+  margin-top: 100px;
+  padding: 50px;
+
+  h1 {
+    color: $red;
+    font-size: 1.2rem;
+
+    @include breakpoint(tablet) {
+      font-size: 3em;
+    }
+  }
+
+  p {
+    margin-top: 20px;
   }
 }
 </style>

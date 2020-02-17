@@ -1,5 +1,7 @@
 import { axiosInstance } from './api'
 import Vue from 'vue'
+import store from '@/store'
+import router from '@/router.js'
 
 const baseUrl = '/users';
 
@@ -12,8 +14,18 @@ export default {
     return axiosInstance.get(`${baseUrl}/unique/${username}`)
 	},
 
-	getUserLoginState() {
-    return axiosInstance.get(`${baseUrl}/current`)
+	async getUserLoginState() {
+		if (Vue.$cookies.get('ssTok')) {
+			try {
+				const { data } = await axiosInstance.get(`${baseUrl}/status/`)
+				store.commit('UPDATE_ALLWD', data.user.authenticated)
+				return data.user.authenticated
+			} catch(err) {
+				return false
+			}
+		} else {
+			return false
+		}
 	},
 
 	createUser(userData) {

@@ -84,8 +84,8 @@ export default {
 
 <style lang="scss" scoped>
 .input {
-  width: 90%;
-  margin: auto 10px 20px 20px;
+  width: 100%;
+  margin: auto auto 20px auto;
   padding: 0;
   border: none;
   display: flex;
@@ -93,19 +93,19 @@ export default {
   text-align: left;
 
   @include breakpoint(tablet) {
-    margin: auto 10px 25px 20px;
   }
 
   label {
     font-size: 16px;
     color: $black;
     margin: 0;
+    padding-bottom: 2px;
   }
 
   &__hint {
     color: #5e5e5e;
     font-size: 14px;
-    margin: 6px 0 5px 0;
+    margin: 3px 0 5px 0;
   }
 
   &__input-wrapper {
@@ -115,7 +115,7 @@ export default {
   }
 
   &__input-error {
-    padding: 5px 0;
+    padding: 5px 0 0 0;
     color: $red;
   }
 
