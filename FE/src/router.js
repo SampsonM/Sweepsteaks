@@ -43,11 +43,7 @@ const router = new Router({
 })
 
 router.beforeEach(async (to, from, next) => {
-  console.log('test', to.path, store.state.allwd)
-  
-  const rootAcc = Vue.prototype.$sweepAccessAllowed
-
-  if (rootAcc) {
+  if (Vue.prototype.$sweepAccessAllowed) {
     if (to.path === '/login') {
       if (store.state.allwd) {
         return next('/dashboard')
