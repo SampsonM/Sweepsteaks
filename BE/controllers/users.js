@@ -42,7 +42,9 @@ function getUserLoginState(req, res, next) {
   if (req.user.id) {
     return User.findById(req.user.id)
       .then((user) => {
-        return res.status(200).send({ user: user.toAuthJSON() })
+        const userData = user.toAuthJSON()
+        res.cookie('ssTok', userData.token, {maxAge: 360000, sameSite: true})
+        return res.status(200).send({ user: userData })
       })
   } else {
     return res.staus(409).send({err: 'User not signed in.'})
@@ -108,7 +110,9 @@ function logUserIn(req, res, next) {
 	  	return res.status(404).send('User does not exist')
     }
     
-    return res.status(200).send({ user: user.toAuthJSON() })
+    const userData = user.toAuthJSON()
+    res.cookie('ssTok', userData.token, {maxAge: 360000, sameSite: true})
+    return res.status(200).send({ user: userData })
 	})(req, res, next)
 }
 
@@ -173,10 +177,9 @@ function userDataValid(userData) {
   // 1 lower case character
   // 1 upper case character
   // 1 number
-  // 1 special character
   // 6 - 20 characters
-  if (!password || !password.match(/((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,20})/g) || password.length < 8 || password.length > 20) {
-    return 'Password must contain atleast 1 lower & uppercase letter, number, special character and be between 8-20 characters'
+  if (!password || !password.match(/((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20})/g) || password.length < 8 || password.length > 20) {
+    return 'Password must contain atleast 1 lower & uppercase letter, 1 number and be between 8-20 characters'
   }
 }
 
