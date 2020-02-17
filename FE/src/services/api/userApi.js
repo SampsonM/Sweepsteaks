@@ -18,7 +18,7 @@ export default {
 			try {
 				const { data } = await axiosInstance.get(`${baseUrl}/status/`)
 				store.commit('UPDATE_ALLWD', data.user.authenticated)
-				Vue.$cookies.set('ssTok', data.user.token, 60 * 60 * 12, '/', 'https://www.sweepsteaks.co.uk', true)
+				Vue.$cookies.set('ssTok', data.user.token, 60 * 60 * 12)
 				return data.user.authenticated
 			} catch(err) {
 				return false
