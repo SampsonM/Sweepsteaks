@@ -3,10 +3,15 @@ import http from 'http'
 import https from 'https'
 import path from 'path'
 import fs from 'fs'
+import dotenv from 'dotenv'
+
+const currentEnv = process.env.NODE_ENV
+
+dotenv.config({ path: path.join(__dirname, `../.env.${currentEnv}`)})
 
 const PORT = process.env.PORT || require('../config/environment').PORT
 
-if (process.env.NODE_ENV === 'production') {
+if (currentEnv === 'production') {
   http.createServer(app).listen(PORT, () => {
     console.log(`HTTP listening on PORT: ${PORT} http://localhost:${PORT}/api`)
   })
@@ -15,7 +20,7 @@ if (process.env.NODE_ENV === 'production') {
 // Keep HTTPS to run localhost on chrome
 // due to chrome updating the scheme from HTTP to HTTPS
 // Heroku does not reauire this however so we keep HTTP
-if (process.env.NODE_ENV === 'development') {
+if (currentEnv === 'development') {
   const options = {
     key: fs.readFileSync(path.resolve(__dirname, '../config/certs/rootCA.key'), 'utf8'),
     cert: fs.readFileSync(path.resolve(__dirname, '../config/certs/rootCA.pem'), 'utf8'),

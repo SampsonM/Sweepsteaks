@@ -1,3 +1,4 @@
 node_modules
 config/certs
 config/environment
+package-lock.json

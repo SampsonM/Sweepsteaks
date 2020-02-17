@@ -39,11 +39,12 @@ function isUserNameUnique(req, res, next) {
 
 // GET checks if user is currently logged in
 function getUserLoginState(req, res, next) {
+  console.log(process.env.CLIENT_DOM)
   if (req.user.id) {
     return User.findById(req.user.id)
       .then((user) => {
         const userData = user.toAuthJSON()
-        res.cookie('ssTok', userData.token, {maxAge: 360000, sameSite: true})
+        res.cookie('ssTok', userData.token, {maxAge: 360000, sameSite: true, secure: true, domain: process.env.CLIENT_DOM})
         return res.status(200).send({ user: userData })
       })
   } else {

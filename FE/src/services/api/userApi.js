@@ -1,7 +1,6 @@
 import { axiosInstance } from './api'
 import Vue from 'vue'
 import store from '@/store'
-import router from '@/router.js'
 
 const baseUrl = '/users';
 
