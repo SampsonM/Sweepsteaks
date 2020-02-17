@@ -1,7 +1,7 @@
 'use strict'
 import { User } from '../models/index'
 import passport from 'passport'
-import { userNameQuery, userDeleteQuery, userNameUniqueQuery } from '../config/mongoQueries'
+import { userNameQuery, userDeleteQuery } from '../config/mongoQueries'
 
 // GET user
 function getUserByUsername(req, res, next) {
@@ -39,13 +39,11 @@ function isUserNameUnique(req, res, next) {
 
 // GET checks if user is currently logged in
 function getUserLoginState(req, res, next) {
-  console.log(process.env.CLIENT_DOM)
+  console.warn(process.env.CLIENT_DOM)
   if (req.user.id) {
     return User.findById(req.user.id)
       .then((user) => {
-        const userData = user.toAuthJSON()
-        res.cookie('ssTok', userData.token, {maxAge: 360000, sameSite: true, secure: true, domain: process.env.CLIENT_DOM})
-        return res.status(200).send({ user: userData })
+        return res.status(200).send({ user: user.toAuthJSON() })
       })
   } else {
     return res.staus(409).send({err: 'User not signed in.'})
@@ -110,10 +108,8 @@ function logUserIn(req, res, next) {
     if (!user) {
 	  	return res.status(404).send('User does not exist')
     }
-    
-    const userData = user.toAuthJSON()
-    res.cookie('ssTok', userData.token, {maxAge: 360000, sameSite: true})
-    return res.status(200).send({ user: userData })
+
+    return res.status(200).send({ user: user.toAuthJSON() })
 	})(req, res, next)
 }
 

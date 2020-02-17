@@ -31,6 +31,8 @@ export default {
 
 			commit('UPDATE_ALLWD', user.authenticated)
 
+			Vue.$cookies.set('ssTok', user.token, 60 * 60 * 12, '', '', true)
+
 			router.push('/dashboard')
 
 		} catch (err) {
