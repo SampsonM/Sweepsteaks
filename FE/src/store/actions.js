@@ -8,7 +8,8 @@ export default {
 			const res = await UserAPI.createUser(userData)
 			const user = res.data.user
 
-			// Vue.$cookies.set('ssTok', user.token)
+			Vue.$cookies.set('ssTok', user.token)
+
 			commit('UPDATE_ALLWD', user.authenticated)
 
 			router.push('/dashboard')
@@ -31,7 +32,7 @@ export default {
 
 			commit('UPDATE_ALLWD', user.authenticated)
 
-			// Vue.$cookies.set('ssTok', user.token, 60 * 60 * 12)
+			Vue.$cookies.set('ssTok', user.token, 60 * 60 * 12)
 
 			router.push('/dashboard')
 
