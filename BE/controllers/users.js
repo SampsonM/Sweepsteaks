@@ -43,7 +43,9 @@ function getUserLoginState(req, res, next) {
   if (req.user.id) {
     return User.findById(req.user.id)
       .then((user) => {
-        return res.status(200).send({ user: user.toAuthJSON() })
+        const userData = user.toAuthJSON()
+        res.cookie('ssTok', userData.token, {maxAge: 360000, sameSite: 'strict', secure: true, domain: process.env.CLIENT_DOM,  httpOnly: false})
+        return res.status(200).send({ user: userData })
       })
   } else {
     return res.staus(409).send({err: 'User not signed in.'})
@@ -108,8 +110,10 @@ function logUserIn(req, res, next) {
     if (!user) {
 	  	return res.status(404).send('User does not exist')
     }
-
-    return res.status(200).send({ user: user.toAuthJSON() })
+    
+    const userData = user.toAuthJSON()
+    res.cookie('ssTok', userData.token, {maxAge: 360000, sameSite: 'strict', secure: true, domain: process.env.CLIENT_DOM, httpOnly: false})
+    return res.status(200).send({ user: userData })
 	})(req, res, next)
 }
 

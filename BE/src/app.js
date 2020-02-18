@@ -9,6 +9,7 @@ import helmet from "helmet"
 import passport from 'passport'
 import path from 'path'
 import '../config/passport'
+import cookieParser from 'cookie-parser'
 
 // Configure mongoose
 mongoose.Promise = Promise;
@@ -37,6 +38,7 @@ app.use(cors({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(cookieParser())
 
 process.env.NODE_ENV !== 'test' && mongooseConnect()
 
