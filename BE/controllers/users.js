@@ -44,7 +44,7 @@ function getUserLoginState(req, res, next) {
     return User.findById(req.user.id)
       .then((user) => {
         const userData = user.toAuthJSON()
-        res.cookie('ssTok', userData.token, {maxAge: 360000, sameSite: 'strict', secure: true, domain: process.env.CLIENT_DOM,  httpOnly: false})
+        res.cookie('ssTok', userData.token, {maxAge: 360000, path: '/', secure: true,  httpOnly: true})
         return res.status(200).send({ user: userData })
       })
   } else {
@@ -87,7 +87,10 @@ function createUser(req, res, next) {
         newUser.setHash(userData.password)
 
         return newUser.save()
-          .then(user => res.status(201).send({ user: user.toAuthJSON() }))
+          .then(user => {
+            const userData = user.toAuthJSON()
+            res.cookie('ssTok', userData.token, {maxAge: 360000, path: '/', secure: true,  httpOnly: true})
+            return res.status(201).send({ user: userData })})
           .catch(err => res.status(400).send(err.errors))
 
       } else if (user) {
@@ -112,7 +115,7 @@ function logUserIn(req, res, next) {
     }
     
     const userData = user.toAuthJSON()
-    res.cookie('ssTok', userData.token, {maxAge: 360000, sameSite: 'strict', secure: true, domain: process.env.CLIENT_DOM, httpOnly: false})
+    res.cookie('ssTok', userData.token, {maxAge: 360000, path: '/', secure: true,  httpOnly: true})
     return res.status(200).send({ user: userData })
 	})(req, res, next)
 }
