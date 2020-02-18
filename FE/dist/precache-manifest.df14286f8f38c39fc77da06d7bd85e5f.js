@@ -28,11 +28,11 @@ self.__precacheManifest = [
     "url": "js/dashboard.d7c478f6.js"
   },
   {
-    "revision": "6baf64aa1e4e83db7205",
-    "url": "js/app.939ea6c2.js"
+    "revision": "f2ab85049ba173754963",
+    "url": "js/app.2f77b4be.js"
   },
   {
-    "revision": "a9de3877185056dfdc80e0a7b4d7a1b7",
+    "revision": "32838b1faba3e8594a96e8e2ad3b2af5",
     "url": "index.html"
   },
   {
@@ -44,7 +44,7 @@ self.__precacheManifest = [
     "url": "favicon.png"
   },
   {
-    "revision": "6baf64aa1e4e83db7205",
+    "revision": "f2ab85049ba173754963",
     "url": "css/app.069fbd86.css"
   },
   {
