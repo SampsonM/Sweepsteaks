@@ -22,9 +22,9 @@
 
     {{ firstServerError }}
 
-    <button class="sign-up__btn" @click.prevent="handleSignup">
-      <p>Sign-up</p>
-    </button>
+    <MyButton @click.prevent="handleSignup">
+      Sign-up
+    </MyButton>
   </form>
 </template>
 
@@ -33,10 +33,12 @@ import MyInput from '../components/input.vue'
 import { required, minLength } from 'vuelidate/lib/validators'
 import UserAPI from '../services/api/userApi'
 import { mapActions, mapGetters, mapState } from 'vuex'
+import MyButton from './button'
 
 export default {
   components: {
-    MyInput
+    MyInput,
+    MyButton
   },
   data() {
     return {
@@ -114,6 +116,7 @@ export default {
   methods: {
     ...mapActions(['signup']),
     async handleSignup() {
+      console.log('hello')
       await this.$v.$touch()
 
       if (!this.$v.$error) {
@@ -162,44 +165,15 @@ export default {
     color: $black;
   }
 
-  &__btn {
-    height: 45px;
-    width: 100px;
-    margin: 0 auto;
-    background-color: #ff8d8d;
-    border-radius: 5px;
-    transition-duration: 200ms;
-
-    &:hover,
-    :active,
-    :focus {
-      background-color: #fda0a0;
-      outline: none !important;
-      border:1px solid #2d69ad;
-
-      p {
-        text-decoration: underline;
-      }
-    }
-
-    p {
-      font-family: $font;
-      font-size: 16px;
-      font-weight: 500;
-      color: #2d69ad;
-      text-decoration: none;
-    }
-  }
-
   .firstName-input,
   .lastName-input {
-    max-width: 47%;
+    max-width: 48%;
     margin: 0 0 20px 0;
     display: inline-block;
   }
 
   .firstName-input {
-    margin-right: 20px;
+    margin-right: 14px;
   }
 }
 
