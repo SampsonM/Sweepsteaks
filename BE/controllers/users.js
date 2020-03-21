@@ -39,7 +39,6 @@ function isUserNameUnique(req, res, next) {
 
 // GET checks if user is currently logged in
 function getUserLoginState(req, res, next) {
-  console.warn(process.env.CLIENT_DOM)
   if (req.user.id) {
     return User.findById(req.user.id)
       .then((user) => {
@@ -100,7 +99,11 @@ function createUser(req, res, next) {
 
 // POST existing user login
 function logUserIn(req, res, next) {
+  console.log('req.body', req.body)
+
   passport.authenticate('local', (err, user) => {
+    console.log('user',user)
+
     if (err) {
       return res.status(404).send(err)
     }

@@ -1,20 +1,27 @@
 <template>
   <div class="landing-page" itemscope itemtype="http://schema.org/Brand">
-
-    <div class="landing-page__banner">
-      <div class="landing-page__logo">
+    <header class="header">
+      <div class="header__logo">
         <img itemprop="logo" class="brush" alt="Sweepsteaks" src="../assets/icons/broom.svg" />
         <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/icons/meat.svg" />
         <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/icons/meat.svg" />
       </div>
 
-      <h1 class="landing-page__title" itemprop="name" v-if="$sweepAccessAllowed">Sweepsteaks</h1>
+      <h1 itemprop="name" v-if="$sweepAccessAllowed">Sweepsteaks</h1>
 
-      <button class="landing-page__login" v-if="$sweepAccessAllowed">
-        <router-link v-if="!allwd" to="/login">Login</router-link>
-        <router-link v-else to="/dashboard">Dashboard</router-link>
-      </button>
-    </div>
+      <div v-if="$sweepAccessAllowed">
+        <router-link
+          to="/login"
+          v-if="!allwd">
+          <MyButton>Login</MyButton>
+        </router-link>
+        <router-link
+          v-else
+          to="/dashboard">
+          <MyButton>Dashboard</MyButton>
+        </router-link>
+      </div>
+    </header>
 
     <LandingPageContent v-if="$sweepAccessAllowed"></LandingPageContent>
    
@@ -27,12 +34,14 @@
 
 <script>
 import { mapState } from 'vuex'
+import MyButton from '../components/button'
 import LandingPageContent from '@/components/landingPageContent.vue'
 
 export default {
   name: 'home',
   components: {
-    LandingPageContent
+    LandingPageContent,
+    MyButton
   },
   computed: {
     ...mapState([
@@ -45,16 +54,16 @@ export default {
 <style lang="scss" scoped>
 .landing-page {
   min-height: 100vh;
-
-  &__banner {
-    position: relative;
-    display: flex;
-    background: rgba($yellow, 0.4);
-    backdrop-filter: blur(5px);
-    align-items: center;
-    justify-content: space-around;
-    height: 100px;
-  }
+}
+  
+.header {
+  position: relative;
+  display: flex;
+  background: rgba($yellow, 0.4);
+  backdrop-filter: blur(5px);
+  align-items: center;
+  justify-content: space-around;
+  height: 100px;
 
   &__logo {
     position: relative;
@@ -63,76 +72,6 @@ export default {
     margin: 0;
     height: 100px;
     width: 100px;
-  }
-  
-  &__login {
-    height: 42px;
-    width: 90px;
-    background-color: #ff8d8d;
-    border-radius: 5px;
-    transition-duration: 200ms;
-
-    @include breakpoint(tablet) {
-    }
-
-    &:hover,
-    :active,
-    :focus {
-      background-color: #fda0a0;
-      outline: none !important;
-      border:1px solid #2d69ad;
-
-      a {
-        text-decoration: underline;
-      }
-    }
-
-    a {
-      font-family: $font;
-      font-size: 16px;
-      font-weight: 500;
-      color: #2d69ad;
-      text-decoration: none;
-
-      @include breakpoint(tablet) {
-        font-size: 20px;
-      }
-    }
-  }
-
-  &__ctas-sign-up {
-    height: 45px;
-    width: 100px;
-    line-height: 45px;
-    background-color: #2d69ad;
-    color: #ff8d8d;
-    border-radius: 5px;
-    transition-duration: 200ms;
-
-    @include breakpoint(tablet) {
-      text-decoration: none;
-      line-height: 45px;
-      font-size: 20px;
-    }
-
-    &:hover,
-    :active,
-    :focus {
-      background-color: #5684b8;
-      outline: none !important;
-      text-decoration: underline;
-    }
-  }
-
-  &__title {
-    color: $red;
-    font-size: 1.2rem;
-    position: relative;
-    left: -10px;
-
-    @include breakpoint(tablet) {
-      font-size: 3em;
-    }
   }
 }
 

@@ -7,6 +7,7 @@
     "test": "NODE_ENV=test mocha './spec/**/*.js' -r @babel/register",
     "start": "NODE_ENV=production babel-node src/listen.js",
     "start:dev": "NODE_ENV=development nodemon --exec babel-node src/listen.js",
+    "start:dev:debug": "NODE_ENV=development DEBUG=express:* nodemon --exec babel-node src/listen.js",
     "seed:dev": "NODE_ENV=development babel-node ./db/seed.dev.js",
     "seed:prod": "NODE_ENV=production babel-node ./db/seed.prod.js"
   },

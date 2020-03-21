@@ -3,6 +3,7 @@
 .browserlistrc
 .eslintrc.js
 node_modules
+package-lock.json
 
 ./src
 ./public

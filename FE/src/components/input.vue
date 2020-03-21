@@ -16,7 +16,7 @@
         @blur="$emit('blur', $event.target.value)">
 
         <p class="input__input-error"
-          v-if="!error.minLength && error.$params.minLength && hasError">
+          v-if="hasError && !error.minLength && error.$params.minLength">
           {{label}} must be atleast {{ error.$params.minLength.min }} characters
         </p>
 
@@ -41,7 +41,7 @@
         </p>
 
         <p class="input__input-error" 
-          v-if="!error.required && error.$params.required && hasError">
+          v-if="hasError && !error.required && error.$params.required">
           {{label}} is required
         </p>
     </span>

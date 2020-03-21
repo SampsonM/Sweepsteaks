@@ -12,7 +12,7 @@
       :key="field.label"
       :label="field.label"
       :name="field.name"
-      :type="field.type || 'text'"
+      :type="field.type"
       :hint="field.hint"
       @blur="(val) => handleInput(field.name, val)"
       :class="[ `${field.name}-input`, { 'error' : $v[field.errClass].$error }]"
@@ -149,17 +149,6 @@ export default {
 
 <style lang="scss" scoped>
 .sign-up {
-  max-width: 400px;
-  margin: 0 auto 15px auto;
-  background: rgba($yellow, 0.4);
-  backdrop-filter: blur(5px);
-  border-radius: 5px;
-  width: 95%;
-  padding: 20px;
-
-  @include breakpoint(tablet) {
-  }
-
   &__title {
     margin-bottom: 15px;
     color: $black;
