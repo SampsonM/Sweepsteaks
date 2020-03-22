@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <form>
+    <form class="login__form">
       <MyInput
         label="Username"
         name="username"
@@ -52,3 +52,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.login {
+  &__form {
+    margin-top: 140px;
+  }
+}
+</style>

@@ -26,7 +26,6 @@ module.exports = {
         data: `
           @import "@/assets/styles/_vars.scss";
 					@import "@/assets/styles/_mixins.scss";
-					@import "@/assets/styles/_global.scss";
         `
       }
     }

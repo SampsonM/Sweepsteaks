@@ -1,15 +1,13 @@
 <template>
-  <div id="sweep-steaks">
+  <div class="sweep-steaks">
     <router-view/>
   </div>
 </template>
 
 <style lang="scss">
-* {
-  margin: 0;
-}
+@import "@/assets/styles/_global.scss";
 
-#sweep-steaks {
+.sweep-steaks {
   font-family: $font, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

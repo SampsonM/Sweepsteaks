@@ -27,14 +27,18 @@ export default {
 	border: 1px solid #e16666;
 
 	&:hover,
-	:active,
-	:focus {
+	&:active,
+	&:focus {
 		cursor: pointer;
-		background-color: #f8a0a0;
-		outline: none !important;
-		border:1px solid #1c3359;
+		outline: none;
+		border: 1px solid #1c3359;
 		text-decoration: underline;
 		transition-duration: 0.2s;
+	}
+
+	&:hover,
+	&:active {
+		background-color: #f8a0a0;
 	}
 }
 </style>
