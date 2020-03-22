@@ -1,7 +1,6 @@
 <template>
 	<main class="landing-content">
 		<section class="main-content">
-			Landing page content
 		</section>
 
 		<MyButton

@@ -15,9 +15,8 @@
       :type="field.type"
       :hint="field.hint"
       @blur="(val) => handleInput(field.name, val)"
-      :class="[ `${field.name}-input`, { 'error' : $v[field.errClass].$error }]"
+      :class="`${field.name}-input`"
       :hasError="$v[field.errClass].$error"
-      :error="$v[field.errClass]"
       :errMessage="fieldErr(field.name)">
     </MyInput>
 
@@ -30,10 +29,10 @@
 </template>
 
 <script>
-import MyInput from '../components/input.vue'
+import MyInput from '@/components/input.vue'
 import MyButton from './button'
 import { mapActions, mapGetters, mapState } from 'vuex'
-import { signUpValidations } from '../validations'
+import { signUpValidations } from '@/validations'
 import validationHelpers from '@/helpers/validations'
 
 export default {

@@ -17,11 +17,20 @@ export const signUpValidations = {
 		required: validationHelpers.required('Username'),
 		minLength: validationHelpers.minLength('Username', 6),
 		format: validationHelpers.usernameFormat(),
-		isUnique: validationHelpers.usernameUnique()
+		unique: validationHelpers.usernameUnique()
 	},
 	password: {
 		required: validationHelpers.required('Password'),
 		minLength: validationHelpers.minLength('Password', 8),
 		password: validationHelpers.passwordFormat()
+	}
+}
+
+export const loginValidations = {
+	username: {
+		required: validationHelpers.required('Username')
+	},
+	password: {
+		required: validationHelpers.required('Password')
 	}
 }

@@ -7,7 +7,7 @@
         <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/icons/meat.svg" />
       </div>
 
-      <h1 itemprop="name" v-if="$sweepAccessAllowed">Sweepsteaks</h1>
+      <h1 itemprop="name" v-if="$sweepAccessAllowed">SweepSteaks</h1>
 
       <div v-if="$sweepAccessAllowed">
         <router-link

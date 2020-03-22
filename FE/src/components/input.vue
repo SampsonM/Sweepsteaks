@@ -49,10 +49,6 @@ export default {
       required: false,
       default: false
     },
-    error: {
-      type: Object,
-      required: false
-    },
     errMessage: {
       type: String,
       required: false

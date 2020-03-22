@@ -6,14 +6,18 @@
         name="username"
         @blur="(val) => handleInput('username', val)"
         type="text"
-        placeholder="Username">
+        placeholder="Username"
+        :hasError="$v.username.$error"
+        :errMessage="fieldErr('username')">
       </MyInput>
       <MyInput
         label="Password"
         name="password"
         @blur="(val) => handleInput('password', val)"
         type="text"
-        placeholder="Password">
+        placeholder="Password"
+        :hasError="$v.password.$error"
+        :errMessage="fieldErr('password')">
       </MyInput>
 
       <MyButton @click="logUserIn">Login</MyButton>
@@ -22,8 +26,10 @@
 </template>
 
 <script>
-import MyButton from '../components/button'
-import MyInput from '../components/input'
+import MyButton from '@/components/button'
+import MyInput from '@/components/input'
+import { loginValidations } from '@/validations'
+import validationHelpers from '@/helpers/validations'
 
 export default {
   components: {
@@ -36,6 +42,7 @@ export default {
       password: ''
     }
   },
+  validations: loginValidations,
   methods: {
     logUserIn(e) {
       e.preventDefault()
@@ -47,7 +54,10 @@ export default {
     },
     handleInput(field, value) {
       this[field] = value
-      // this.$v[field].$touch()
+      this.$v[field].$touch()
+    },
+    fieldErr(field) {
+      return validationHelpers.createErrorMessages(this.$v[field])[0]
     }
   }
 }
