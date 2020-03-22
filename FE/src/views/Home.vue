@@ -7,7 +7,7 @@
         <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/icons/meat.svg" />
       </div>
 
-      <h1 itemprop="name" v-if="$sweepAccessAllowed">SweepSteaks</h1>
+      <h1 class="header__title" itemprop="name" v-if="$sweepAccessAllowed">SweepSteaks</h1>
 
       <div v-if="$sweepAccessAllowed">
         <router-link
@@ -53,25 +53,50 @@ export default {
 
 <style lang="scss" scoped>
 .landing-page {
-  min-height: 100vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
-  
+
 .header {
   position: relative;
   display: flex;
-  background: rgba($yellow, 0.4);
-  backdrop-filter: blur(5px);
+  background: rgba($yellow, 0.6);
+  backdrop-filter: blur(4px);
   align-items: center;
   justify-content: space-around;
-  height: 100px;
+  padding: 0 20px;
+  height: 90px;
+
+  @include breakpoint(tablet) {
+    height: 100px;
+    padding: 0 60px;
+  }
+
+@include breakpoint(desktop) {
+    padding: 0 110px;
+  }
 
   &__logo {
     position: relative;
     display: flex;
     flex-direction: row;
     margin: 0;
-    height: 100px;
-    width: 100px;
+    height: 60px;
+    width: 88px;
+
+    @include breakpoint(tablet) {
+      height: 100px;
+      width: 100px;
+    }
+  }
+
+  &__title {
+    display: none;
+
+    @include breakpoint(tablet) {
+      display: inline;
+    }
   }
 }
 
@@ -85,12 +110,13 @@ export default {
 
 .steak {
   position: absolute;
-  bottom: 16px;
+  bottom: 0;
   right: 30px;
   width: 40px;
   height: 30px;
 
   @include breakpoint(tablet) {
+    bottom: 16px;
   }
 
   &:last-of-type {

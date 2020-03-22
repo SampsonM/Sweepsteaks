@@ -11,7 +11,7 @@ const webpackPlugins = [
 if (process.env.NODE_ENV === 'production') {
 	webpackPlugins.push(new PrerenderSpaPlugin(
 		path.join(__dirname, './dist'),
-		[ '/' ]
+		[ '/', '/login' ]
 	))
 }
 

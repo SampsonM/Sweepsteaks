@@ -5,8 +5,6 @@
     autocomplete="on"
     v-if="!allwd">
 
-    <h2 class="sign-up__title">Sign up</h2>
-
     <MyInput
       v-for="field in formFields"
       :key="field.label"
@@ -118,16 +116,15 @@ export default {
 
 <style lang="scss" scoped>
 .sign-up {
-  &__title {
-    margin-bottom: 15px;
-    color: $black;
-  }
-
   .firstName-input,
   .lastName-input {
-    max-width: 48%;
-    margin: 0 0 20px 0;
-    display: inline-block;
+    max-width: 100%;
+
+    @include breakpoint(tablet) {
+      margin: 0 0 20px 0;
+      max-width: 48%;
+      display: inline-block;
+    }
   }
 
   .firstName-input {

@@ -14,7 +14,7 @@
   text-align: center;
   background: url('./assets/img/wood.svg') no-repeat fixed center;
   background-size: cover;
-  min-height: 100vh;
+  height: 100%;
   min-width: 100vw;
   overflow-x: hidden;
   overflow-y: scroll;

@@ -1,18 +1,25 @@
 <template>
 	<main class="landing-content">
+		<transition name="slide-in">
+			<SignupForm v-if="signUpOpen">
+			</SignupForm>
+		</transition>
+
 		<section class="main-content">
+			<h1 class="main-content__title">Sweep Steaks</h1>
+
+			<h2 class="main-content__sub-title">
+				Free online sweepstakes for you and your mates, 
+				set up a group sweeptakes for the horses, 
+				World Cup or Premier League!
+			</h2>
 		</section>
 
 		<MyButton
 			v-if="!signUpOpen"
 			@click="openSignUp">
-			Sign up?
+			Sign up
 		</MyButton>
-
-		<transition name="slide-in">
-			<SignupForm v-if="signUpOpen">
-			</SignupForm>
-		</transition>
 	</main>
 </template>
 
@@ -40,7 +47,25 @@ export default {
 
 <style lang="scss">
 .landing-content {
-	padding-top: 40px;
+	width: 95%;
+	height: 100%;
+	margin: 10px auto 10px auto;
+	background: rgba($yellow, 0.6);
+	backdrop-filter: blur(4px);
+	border-radius: 5px;
+}
+
+.main-content {
+	height: 80%;
+	padding: 10px;
+
+	&__title {
+		padding: 15px 0 5px 0;
+	}
+
+	&__sub-title {
+		padding-left: 5px;
+	}
 }
 
 .slide-in-enter-active {

@@ -3,9 +3,19 @@
   margin: 0;
 }
 
+html {
+  background-color: #FC3342;
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
+body {
+  height: 100%
+}
+
 form {
 	max-width: 400px;
-  margin: 0 auto 15px auto;
+  margin: 15px auto;
   background: $yellow;
   border-radius: 5px;
   width: 95%;
@@ -18,13 +28,18 @@ form {
 
 h1 {
 	color: $red;
-	font-size: 1.2rem;
-	position: relative;
-	left: -10px;
+	font-size: 3.5rem;
+	text-align: left;
+	margin-bottom: 10px;
 
 	@include breakpoint(tablet) {
 		font-size: 2.8em;
 	}
+}
+
+h2 {
+	text-align: left;
+	color: $black;
 }
 
 :focus {
