@@ -1,10 +1,29 @@
 <template>
 	<div class="input">
-    <label :for="name">{{ label }}</label>
-    <i v-if="hint"
-      class="input__hint">
-      {{ hint }}
-    </i>
+    <span class="input__label">
+      <label :for="name">{{ label }}</label>
+
+      <transition name="rotate-question">
+        <font-awesome-icon
+          v-if="hint && !hintOpen"
+          @click="toggleHint"
+          class="input__hint"
+          :icon="['far','question-circle']" />
+      </transition>
+      <transition name="rotate-cross">
+        <font-awesome-icon
+          v-if="hint && hintOpen"
+          @click="toggleHint"
+          class="input__hint"
+          :icon="['far','times-circle']" />
+      </transition>
+    </span>
+
+    <transition name="hint">
+      <div v-if="hintOpen" class="input__hint-text">
+        {{ hint }}
+      </div>
+    </transition>
     
     <span class="input__input-wrapper">
       <input
@@ -26,6 +45,11 @@
 <script>
 export default {
   inheritAttrs: false,
+  data() {
+    return {
+      hintOpen: false
+    }
+  },
   props: {
     label: {
       type: String,
@@ -53,6 +77,11 @@ export default {
       type: String,
       required: false
     }
+  },
+  methods: {
+    toggleHint() {
+      this.hintOpen = !this.hintOpen
+    }
   }
 }
 </script>
@@ -60,7 +89,7 @@ export default {
 <style lang="scss" scoped>
 .input {
   width: 100%;
-  margin: auto auto 20px auto;
+  margin: auto auto 15px auto;
   padding: 0;
   border: none;
   display: flex;
@@ -68,19 +97,26 @@ export default {
   text-align: left;
 
   @include breakpoint(tablet) {
+    margin-bottom: 20px;
   }
 
-  label {
+  &__label {
+    display: flex;
+    align-items: center;
     font-size: 16px;
     color: $black;
     margin: 0;
-    padding-bottom: 2px;
+    padding-bottom: 3px;
   }
 
   &__hint {
+    color: $dark-red;
+    margin: 0 0 0 5px;
+  }
+
+  &__hint-text {
     color: #5e5e5e;
-    font-size: 14px;
-    margin: 3px 0 5px 0;
+    margin-bottom: 2px;
   }
 
   &__input-wrapper {
@@ -113,6 +149,33 @@ export default {
       border: 3px solid $red;
     }
   }
+}
+
+.hint-enter-active {
+  animation: pop 0.3s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+}
+
+@keyframes pop {
+  0% { transform: scale(0.8);}
+  100% { transform: scale(1);}
+}
+
+.rotate-question-enter-active, .rotate-cross-enter-active {
+  transition: transform 0.5s;
+}
+
+.rotate-question-leave-active, .rotate-cross-leave-active {
+  display: none;
+}
+
+.rotate-question-enter {
+  opacity: 0;
+  transform: rotate(360deg);
+}
+
+.rotate-cross-enter {
+  opacity: 0;
+  transform: rotate(180deg);
 }
 
 </style>

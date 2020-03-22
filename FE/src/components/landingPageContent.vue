@@ -1,6 +1,6 @@
 <template>
 	<main class="landing-content">
-		<transition name="slide-in">
+		<transition name="signup-slide-in">
 			<SignupForm v-if="signUpOpen">
 			</SignupForm>
 		</transition>
@@ -68,10 +68,10 @@ export default {
 	}
 }
 
-.slide-in-enter-active {
+.signup-slide-in-enter-active {
   transition: all .2s cubic-bezier(1.0, 0.5, 0.8, 1.0);
 }
-.slide-in-enter, .slide-in-leave-to {
+.signup-slide-in-enter, .signup-slide-in-leave-to {
   transform: translateY(-100px);
   opacity: 0;
 }
