@@ -83,7 +83,6 @@ export default {
   methods: {
     ...mapActions(['signup']),
     async handleSignup() {
-      console.log('hello')
       await this.$v.$touch()
 
       if (!this.$v.$error) {
