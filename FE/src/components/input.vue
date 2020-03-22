@@ -16,33 +16,8 @@
         @blur="$emit('blur', $event.target.value)">
 
         <p class="input__input-error"
-          v-if="hasError && !error.minLength && error.$params.minLength">
-          {{label}} must be atleast {{ error.$params.minLength.min }} characters
-        </p>
-
-        <p class="input__input-error"
-          v-if="hasError && error.isUnique === false">
-          Entered username currently exists, please choose another
-        </p>
-
-        <p class="input__input-error"
-          v-if="hasError && error.password === false">
-          Password must contain atleast 1 lower & uppercase letter, number, special character and be between 6-20 characters
-        </p>
-
-        <p class="input__input-error"
-          v-if="hasError && error.userNameFormat === false">
-          Username must contain atleast 2 numbers and be 6 characters long
-        </p>
-
-        <p class="input__input-error"
-          v-if="hasError && error.email === false">
-          Entered email is invalid
-        </p>
-
-        <p class="input__input-error" 
-          v-if="hasError && !error.required && error.$params.required">
-          {{label}} is required
+          v-if="hasError && errMessage">
+          {{ errMessage }}
         </p>
     </span>
   </div>
@@ -76,6 +51,10 @@ export default {
     },
     error: {
       type: Object,
+      required: false
+    },
+    errMessage: {
+      type: String,
       required: false
     }
   }
@@ -130,7 +109,7 @@ export default {
     &:focus {
       outline: none;
       transition: 0.3s;
-      border: 3px solid #c09000;
+      border: 3px solid $dark-yellow;
     }
 
     &.error {

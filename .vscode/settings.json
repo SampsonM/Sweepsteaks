@@ -1,0 +1,6 @@
+{
+	"tslint.run": "onSave",
+	"files.autoSave": "onFocusChange",
+	"editor.insertSpaces": false,
+	"projects.indentationSpaces": 2
+}

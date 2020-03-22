@@ -9,6 +9,6 @@ userStatusRouter.get('/', auth.required, usersCtrl.getUserLoginState)
 userStatusRouter.patch('/logout', auth.required, usersCtrl.logUserOut)
 
 // POST login route (optional, publically accessible)
-userStatusRouter.post('/login', auth.optional, usersCtrl.logUserIn)
+userStatusRouter.post('/login', usersCtrl.logUserIn)
 
 export default userStatusRouter

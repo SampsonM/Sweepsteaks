@@ -17,7 +17,8 @@
       @blur="(val) => handleInput(field.name, val)"
       :class="[ `${field.name}-input`, { 'error' : $v[field.errClass].$error }]"
       :hasError="$v[field.errClass].$error"
-      :error="$v[field.errClass]">
+      :error="$v[field.errClass]"
+      :errMessage="fieldErr(field.name)">
     </MyInput>
 
     {{ firstServerError }}
@@ -30,10 +31,10 @@
 
 <script>
 import MyInput from '../components/input.vue'
-import { required, minLength } from 'vuelidate/lib/validators'
-import UserAPI from '../services/api/userApi'
-import { mapActions, mapGetters, mapState } from 'vuex'
 import MyButton from './button'
+import { mapActions, mapGetters, mapState } from 'vuex'
+import { signUpValidations } from '../validations'
+import validationHelpers from '@/helpers/validations'
 
 export default {
   components: {
@@ -79,40 +80,7 @@ export default {
       ]
     }
   },
-  validations: {
-    firstName: { required, minLength: minLength(2) },
-    lastName: { required, minLength: minLength(2) },
-    email: {
-      required,
-      email: (email) => {
-        if (email === '') return true
-        const regExp = /(^$|^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$)/g
-        return regExp.test(email)
-      }
-    },
-    username: {
-      required,
-      minLength: minLength(6),
-      userNameFormat: (username) => {
-        const reg = new RegExp(/[0-9]{2}/)
-        return reg.test(username)
-      },
-      isUnique: async (username) => {
-        if (username === '') return true
-        const { data } = await UserAPI.isUserNameUnique(username)
-        return data.unique
-      }
-    },
-    password: {
-      required,
-      minLength: minLength(8),
-      password: (password) => {
-        if (password === '') return true
-        const regExp = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20})/g
-        return regExp.test(password)
-      }
-    }
-  },
+  validations: signUpValidations,
   methods: {
     ...mapActions(['signup']),
     async handleSignup() {
@@ -134,6 +102,9 @@ export default {
     handleInput(field, value) {
       this[field] = value
       this.$v[field].$touch()
+    },
+    fieldErr(field) {
+      return validationHelpers.createErrorMessages(this.$v[field])[0]
     }
   },
   computed: {

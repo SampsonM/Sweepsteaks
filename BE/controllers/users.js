@@ -99,11 +99,7 @@ function createUser(req, res, next) {
 
 // POST existing user login
 function logUserIn(req, res, next) {
-  console.log('req.body', req.body)
-
   passport.authenticate('local', (err, user) => {
-    console.log('user',user)
-
     if (err) {
       return res.status(404).send(err)
     }
@@ -177,9 +173,9 @@ function userDataValid(userData) {
   // 1 lower case character
   // 1 upper case character
   // 1 number
-  // 6 - 20 characters
+  // 8 characters min
   if (!password || !password.match(/((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20})/g) || password.length < 8 || password.length > 20) {
-    return 'Password must contain atleast 1 lower & uppercase letter, 1 number and be between 8-20 characters'
+    return 'Password must contain atleast 1 lower & uppercase letter, 1 number and be atleast 8 characters'
   }
 }
 
