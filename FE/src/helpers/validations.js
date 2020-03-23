@@ -16,6 +16,16 @@ export default {
 			data => data.length >= length
 		)
 	},
+	nameFormat(field) {
+		return helpers.withParams(
+			{ errMsg: `${field} can only contain letters` },
+			name => {
+				if (name === '') return true
+				const regExp = /[±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,0-9]/g
+				return !regExp.test(name)
+			}
+		)
+	},
 	emailFormat() {
 		return helpers.withParams(
 			{ errMsg: 'Email must be valid format' },

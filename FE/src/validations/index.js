@@ -3,11 +3,13 @@ import validationHelpers from '../helpers/validations'
 export const signUpValidations = {
 	firstName: {
 		required: validationHelpers.required('First name'),
-		minLength: validationHelpers.minLength('First name', 2)
+		minLength: validationHelpers.minLength('First name', 2),
+		format: validationHelpers.nameFormat('First name')
 	},
 	lastName: {
 		required: validationHelpers.required('Last name'),
-		minLength: validationHelpers.minLength('Last name', 2)
+		minLength: validationHelpers.minLength('Last name', 2),
+		format: validationHelpers.nameFormat('Last name')
 	},
 	email: {
 		required: validationHelpers.required('Email'),
