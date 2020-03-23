@@ -11,6 +11,7 @@
 			<h1 class="main-content__title">Sweep Steaks</h1>
 
 			<h2 class="main-content__sub-title">
+				<span class="main-content__sub-title-sub-text">Sweepsteaks, Coming soon!!</span><br>
 				Free online sweepstakes for you and your mates, 
 				set up a group sweeptakes for the horses, 
 				World Cup or Premier League!
@@ -73,7 +74,7 @@ export default {
 	}
 
 	&__title {
-		padding: 15px 0 5px 0;
+		padding: 0 0 5px 0;
 		
 		@include breakpoint(desktop) {
 			max-width: 50%;
@@ -88,6 +89,9 @@ export default {
 		}
 	}
 
+	&__sub-title-sub-text {
+		color: $blue;
+	}
 }
 
 .signup-slide-in-enter-active {

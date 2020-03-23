@@ -7,7 +7,7 @@
         <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/icons/meat.svg" />
       </div>
 
-      <div v-if="$sweepAccessAllowed">
+      <div class="header__ctas">
         <router-link
           to="/login"
           v-if="!allwd">
@@ -21,12 +21,7 @@
       </div>
     </header>
 
-    <LandingPageContent v-if="$sweepAccessAllowed"></LandingPageContent>
-   
-    <div v-else class="coming-soon">
-      <h1 itemprop="name">Sweepsteaks, Coming soon!!</h1>
-      <p>Online sweepstakes for you and your mates!</p>
-    </div>
+    <LandingPageContent></LandingPageContent>
   </div>
 </template>
 
@@ -122,28 +117,6 @@ export default {
 
     @include breakpoint(tablet) {
     }
-  }
-}
-
-.coming-soon {
-  background: rgba($yellow, 0.4);
-  backdrop-filter: blur(5px);
-  margin: 0 auto;
-  max-width: 600px;
-  margin-top: 100px;
-  padding: 50px;
-
-  h1 {
-    color: $red;
-    font-size: 1.2rem;
-
-    @include breakpoint(tablet) {
-      font-size: 3em;
-    }
-  }
-
-  p {
-    margin-top: 20px;
   }
 }
 </style>
