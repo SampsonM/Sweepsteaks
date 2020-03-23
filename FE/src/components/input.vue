@@ -4,18 +4,22 @@
       <label :for="name">{{ label }}</label>
 
       <transition name="rotate-question">
-        <font-awesome-icon
-          v-if="hint && !hintOpen"
+        <button
+          ref="question"
           @click="toggleHint"
-          class="input__hint"
-          :icon="['far','question-circle']" />
+          v-show="hint && !hintOpen"
+          class="input__hint">
+          <font-awesome-icon :icon="['far','question-circle']" />
+        </button>
       </transition>
       <transition name="rotate-cross">
-        <font-awesome-icon
-          v-if="hint && hintOpen"
+        <button
+          ref="cross"
           @click="toggleHint"
-          class="input__hint"
-          :icon="['far','times-circle']" />
+          v-show="hint && hintOpen"
+          class="input__hint">
+          <font-awesome-icon :icon="['far','times-circle']" />
+        </button>
       </transition>
     </span>
 
@@ -79,8 +83,15 @@ export default {
     }
   },
   methods: {
-    toggleHint() {
+    toggleHint(e) {
+      e.preventDefault()
       this.hintOpen = !this.hintOpen
+
+      this.$nextTick(() => {
+        this.hintOpen
+          ? this.$refs.cross.focus()
+          : this.$refs.question.focus()
+      })
     }
   }
 }
@@ -104,13 +115,12 @@ export default {
     display: flex;
     align-items: center;
     font-size: 16px;
-    color: $black;
+    color: $dark-blue;
     margin: 0;
     padding-bottom: 3px;
   }
 
   &__hint {
-    color: $dark-red;
     margin: 0 0 0 5px;
   }
 
@@ -141,7 +151,7 @@ export default {
     &:focus {
       outline: none;
       transition: 0.3s;
-      border: 3px solid $dark-yellow;
+      border: 3px solid $blue;
     }
 
     &.error {
@@ -170,12 +180,12 @@ export default {
 
 .rotate-question-enter {
   opacity: 0;
-  transform: rotate(360deg);
+  transform: rotate(-360deg);
 }
 
 .rotate-cross-enter {
   opacity: 0;
-  transform: rotate(180deg);
+  transform: rotate(360deg);
 }
 
 </style>

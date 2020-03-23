@@ -1,7 +1,9 @@
 <template>
 	<main class="landing-content">
 		<transition name="signup-slide-in">
-			<SignupForm v-if="signUpOpen">
+			<SignupForm
+				v-if="signUpOpen"
+				@closeSignUp="closeSignUp">
 			</SignupForm>
 		</transition>
 
@@ -16,6 +18,7 @@
 		</section>
 
 		<MyButton
+			type="button"
 			v-if="!signUpOpen"
 			@click="openSignUp">
 			Sign up
@@ -40,6 +43,10 @@ export default {
 	methods: {
 		openSignUp() {
 			this.signUpOpen = true
+		},
+		closeSignUp(e) {
+			e.preventDefault()
+			this.signUpOpen = false
 		}
 	}
 }
@@ -50,22 +57,37 @@ export default {
 	width: 95%;
 	height: 100%;
 	margin: 10px auto 10px auto;
-	background: rgba($yellow, 0.6);
-	backdrop-filter: blur(4px);
-	border-radius: 5px;
 }
 
 .main-content {
 	height: 80%;
 	padding: 10px;
 
+	@include breakpoint(tablet) {
+		margin-bottom: 30px;
+	}
+
+	@include breakpoint(desktop) {
+		margin-bottom: 0;
+		padding: 10px 10px 10px 60px;
+	}
+
 	&__title {
 		padding: 15px 0 5px 0;
+		
+		@include breakpoint(desktop) {
+			max-width: 50%;
+		}
 	}
 
 	&__sub-title {
 		padding-left: 5px;
+		
+		@include breakpoint(desktop) {
+			max-width: 80%;
+		}
 	}
+
 }
 
 .signup-slide-in-enter-active {

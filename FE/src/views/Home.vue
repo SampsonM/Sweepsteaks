@@ -7,8 +7,6 @@
         <img itemprop="logo" class="steak" alt="Sweepsteaks" src="../assets/icons/meat.svg" />
       </div>
 
-      <h1 class="header__title" itemprop="name" v-if="$sweepAccessAllowed">SweepSteaks</h1>
-
       <div v-if="$sweepAccessAllowed">
         <router-link
           to="/login"
@@ -64,9 +62,9 @@ export default {
   background: rgba($yellow, 0.6);
   backdrop-filter: blur(4px);
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 0 20px;
-  height: 90px;
+  min-height: 80px;
 
   @include breakpoint(tablet) {
     height: 100px;

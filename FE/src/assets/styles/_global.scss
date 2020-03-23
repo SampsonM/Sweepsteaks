@@ -28,18 +28,37 @@ form {
 
 h1 {
 	color: $red;
-	font-size: 3.5rem;
+	font-size: 23vw;
 	text-align: left;
 	margin-bottom: 10px;
 
 	@include breakpoint(tablet) {
-		font-size: 2.8em;
+		font-size: 21vh;
 	}
 }
 
 h2 {
+	font-size: 4.1vh;
 	text-align: left;
 	color: $black;
+}
+
+h3 {
+	color: $red;
+	font-size: 3.1vh;
+}
+
+button {
+	border: 2px solid transparent;
+	padding: 2px 3px;
+	font-size: 16px;
+	color: $red;
+  background: transparent;
+
+	&:focus {
+		border-radius: 5px;
+		border-color: $blue;
+	}
 }
 
 :focus {

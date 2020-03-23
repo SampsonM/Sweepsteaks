@@ -1,29 +1,42 @@
 <template>
-  <form
-    id="signup"
-    class="sign-up"
-    autocomplete="on"
-    v-if="!allwd">
+  <div class="sign-up">
+    <h3 class="sign-up__title">
+      Sign up to SweepSteaks now!
+    </h3>
 
-    <MyInput
-      v-for="field in formFields"
-      :key="field.label"
-      :label="field.label"
-      :name="field.name"
-      :type="field.type"
-      :hint="field.hint"
-      @blur="(val) => handleInput(field.name, val)"
-      :class="`${field.name}-input`"
-      :hasError="$v[field.errClass].$error"
-      :errMessage="fieldErr(field.name)">
-    </MyInput>
+    <form
+      id="signup"
+      class="sign-up__form"
+      autocomplete="on"
+      v-if="!allwd">
 
-    {{ firstServerError }}
+      <button
+        class="sign-up__close"
+        @click="e=>$emit('closeSignUp', e)"
+        type="button">
+        <font-awesome-icon :icon="['far','times-circle']" />
+      </button>
 
-    <MyButton @click.prevent="handleSignup">
-      Sign-up
-    </MyButton>
-  </form>
+      <MyInput
+        v-for="field in formFields"
+        :key="field.label"
+        :label="field.label"
+        :name="field.name"
+        :type="field.type"
+        :hint="field.hint"
+        @blur="(val) => handleInput(field.name, val)"
+        :class="`${field.name}-input`"
+        :hasError="$v[field.errClass].$error"
+        :errMessage="fieldErr(field.name)">
+      </MyInput>
+
+      {{ firstServerError }}
+
+      <MyButton @click.prevent="handleSignup">
+        Sign-up
+      </MyButton>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -116,6 +129,30 @@ export default {
 
 <style lang="scss" scoped>
 .sign-up {
+  min-height: 87%;
+  padding-top: 20px;
+
+  @include breakpoint(tablet) {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__title {
+    @include breakpoint(tablet) {
+      width: 45%;
+      margin-top: -80px;
+    }
+  }
+
+  &__close {
+    display: block;
+    position: relative;
+    left: 96%;
+    top: -8px;
+  }
+
   .firstName-input,
   .lastName-input {
     max-width: 100%;
@@ -128,7 +165,11 @@ export default {
   }
 
   .firstName-input {
-    margin-right: 14px;
+    margin-top: -10px;
+
+    @include breakpoint(tablet) {
+      margin-right: 14px;
+    }
   }
 }
 

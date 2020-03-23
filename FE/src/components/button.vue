@@ -5,17 +5,16 @@
 		<slot />
 	</button>
 </template>
+
 <script>
-export default {
-	
-}
+export default {}
 </script>
 
 <style lang="scss">
 .my-button {
-	height: 40px;
+	height: 42px;
 	min-width: 90px;
-	line-height: 39px;
+	line-height: 38px;
 	background-color: #ff8d8d;
 	border-radius: 5px;
 	padding: 0 15px;
@@ -38,7 +37,7 @@ export default {
 	&:focus {
 		cursor: pointer;
 		outline: none;
-		border: 1px solid #1c3359;
+		border: 2px solid $blue;
 		text-decoration: underline;
 		transition-duration: 0.2s;
 	}
