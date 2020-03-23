@@ -16,19 +16,19 @@ self.__precacheManifest = [
     "url": "js/chunk-vendors.6175e888.js"
   },
   {
-    "revision": "0e46703b39c8de51e657",
-    "url": "js/dashboard.28decaca.js"
+    "revision": "d3bb0200161f532fb2ca",
+    "url": "js/dashboard.38178de6.js"
   },
   {
-    "revision": "3f272a3040568a4cdfef",
-    "url": "js/login.1c275156.js"
+    "revision": "794d36953f91aa6a709b",
+    "url": "js/login.297a70b5.js"
   },
   {
-    "revision": "9ba9fb8a5771ad57cda7",
-    "url": "js/app.eea2cfe6.js"
+    "revision": "216a9762441cc380f58c",
+    "url": "js/app.35bbe047.js"
   },
   {
-    "revision": "9e03c70b4d8dcc9a7cba0b26bbcdc525",
+    "revision": "f6ef0ead523900c40627b8bbe3f8d6c1",
     "url": "index.html"
   },
   {
@@ -40,15 +40,15 @@ self.__precacheManifest = [
     "url": "favicon.png"
   },
   {
-    "revision": "3f272a3040568a4cdfef",
+    "revision": "794d36953f91aa6a709b",
     "url": "css/login.fc47590e.css"
   },
   {
-    "revision": "0e46703b39c8de51e657",
+    "revision": "d3bb0200161f532fb2ca",
     "url": "css/dashboard.cf6ba903.css"
   },
   {
-    "revision": "9ba9fb8a5771ad57cda7",
+    "revision": "216a9762441cc380f58c",
     "url": "css/app.40578c0b.css"
   },
   {
