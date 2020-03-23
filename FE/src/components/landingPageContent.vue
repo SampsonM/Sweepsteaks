@@ -2,7 +2,7 @@
 	<main class="landing-content">
 		<transition name="signup-slide-in">
 			<SignupForm
-				v-show="signUpOpen"
+				v-if="signUpOpen"
 				@closeSignUp="closeSignUp">
 			</SignupForm>
 		</transition>
@@ -20,7 +20,7 @@
 
 		<MyButton
 			type="button"
-			v-show="!signUpOpen"
+			v-if="!signUpOpen"
 			@click="openSignUp">
 			Sign up
 		</MyButton>
