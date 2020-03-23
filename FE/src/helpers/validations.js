@@ -38,9 +38,9 @@ export default {
 	},
 	usernameFormat() {
 		return helpers.withParams(
-			{ errMsg: 'Username must contain atleast 2 numbers' },
+			{ errMsg: 'Username must contain atleast 2 numbers and no symbols' },
 			username => {
-				const reg = new RegExp(/[0-9]{2}/)
+				const reg = new RegExp(/[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,][0-9]{2}/)
 				return reg.test(username)
 			}
 		)
