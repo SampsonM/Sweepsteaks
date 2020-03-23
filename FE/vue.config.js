@@ -33,7 +33,6 @@ module.exports = {
 
 	configureWebpack: {
 		entry: {
-			'babel-polyfill':'babel-polyfill',
 			app: path.resolve(__dirname, './src/main.js')
 		},
 	
