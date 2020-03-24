@@ -64,8 +64,7 @@ function logUserOut(req, res, next) {
 // POST new user 
 function createUser(req, res, next) {
   const userData = req.body
-  
-  console.log(req.user)
+
   if (req.user) {
     return res.status(409).send('Please sign out to continue creating account.')
   }
@@ -154,7 +153,7 @@ function deleteUser(req, res, next) {
 function userDataValid(userData) {
   const { firstName, lastName, username, email, password } = userData
 
-  if (!firstName || firstName.length < 2 || firstName.match(/[^\w\d]/g)) {
+  if (!firstName || firstName.length < 2 || firstName.match(/[^A-z]/g)) {
     return 'First name must be atleast 2 characters and be alphabetical characters only'
   }
 

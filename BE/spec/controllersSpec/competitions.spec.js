@@ -16,9 +16,7 @@ describe('/competitions', () => {
 
   beforeEach(() => {
     return mongooseConnect()
-      .then(() => {
-        return seedDB()
-      })
+      .then(() => seedDB())
       .then(data => {
         compDocs = data.compDocs
         teamDocs = data.teamDocs

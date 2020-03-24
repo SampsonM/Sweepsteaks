@@ -8,7 +8,7 @@ import mongooseConnect from '../../src/connectMongoose'
 import userData from '../../db/test-data/User.json'
 const request = require('supertest')(app)
 
-describe('/users', () => {
+describe.only('/users', () => {
   let userDocs
   const userZeroPass = userData[0].password
   const userZeroUsername = userData[0].username
@@ -35,7 +35,6 @@ describe('/users', () => {
   describe('when user is not logged in', () => {
 
     describe('GET /', () => {
-
       describe('/:user_name', () => {
         it('returns user by name', () => {
           return request
@@ -51,7 +50,7 @@ describe('/users', () => {
         it('returns 401 with invalid token', () => {
           return request
             .get('/api/users/status')
-            .set('authorisation', 'UN-authorised-token')
+            .set('cookie','ssTok=UN-authorised-token')
             .expect(response => {
               const status = response.body.status
               if (status !== 401) throw new Error(`Incorrect status code returned, expected 401 received: ${status}`)
@@ -62,7 +61,7 @@ describe('/users', () => {
           it('returns 401 with invalid token', () => {
             return request
               .patch('/api/users/status/logout')
-              .set('authorisation', 'UN-authorised-token')
+              .set('cookie','ssTok=UN-authorised-token')
               .expect(response => {
                 const status = response.body.status
                 if (status !== 401) throw new Error(`Incorrect status code returned, expected 401 received: ${status}`)
@@ -105,7 +104,7 @@ describe('/users', () => {
           lastName: 'sampo',
           username: 'sampo',
           email: 'sampo@test.com',
-          password: 'sampo18@'
+          password: 'Sampo18@'
         }
       })
 
@@ -153,7 +152,7 @@ describe('/users', () => {
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(userData))
           .expect(response => {
-            if (response.error.text !== 'First name must be atleast 2 characters and be alphabetical characters only') throw new Error(`Incorrect error msg returned, recieved: ${rresponse.error.text}`)
+            if (response.error.text !== 'First name must be atleast 2 characters and be alphabetical characters only') throw new Error(`Incorrect error msg returned, recieved: ${response.error.text}`)
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
           })
       })
@@ -205,7 +204,7 @@ describe('/users', () => {
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(userData))
           .expect(response => {
-            if (response.error.text !== 'Password must contain atleast 1 lower & uppercase letter, number, special character and be between 6-20 characters') throw new Error(`Incorrect error msg returned, recieved: ${response.error.text}`)
+            if (response.error.text !== 'Password must contain atleast 1 lower & uppercase letter, 1 number and be atleast 8 characters') throw new Error(`Incorrect error msg returned, recieved: ${response.error.text}`)
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
           })
       })
@@ -216,7 +215,7 @@ describe('/users', () => {
           lastName: 'winas',
           username: 'ginwin2',
           email: 'ginwin@test.com',
-          password: 'Gin@123'
+          password: 'Gin@1234'
         }
   
         return request
@@ -284,8 +283,8 @@ describe('/users', () => {
 
       it('/:user_id returns 401 when trying to update user data when not signed in', () => {
         return request
-          .put(`/api/users/12344567`)
-          .set({ 'authorisation': 'invalid userToken' })
+          .put('/api/users/12344567')
+          .set('Cookie', 'ssTok=invalid-userToken')
           .send(JSON.stringify(userData))
           .expect(response => {
             if (response.body.status !== 401) throw new Error(`Incorrect statucode returned, expected 401, recieved: ${response.body.status}`)
@@ -305,7 +304,7 @@ describe('/users', () => {
       it('/:user_id returns 401 when trying to update user data when not signed in', () => {
         return request
           .delete(`/api/users/12344567`)
-          .set({ 'authorisation': 'invalid userToken' })
+          .set('cookie','ssTok=UN-authorised-token')
           .send(JSON.stringify(userData))
           .expect(response => {
             if (response.body.status !== 401) throw new Error(`Incorrect statucode returned, expected 401, recieved: ${response.body.status}`)
@@ -338,7 +337,7 @@ describe('/users', () => {
           beforeEach('', () => {
             return request
               .get(`/api/users/${userZeroUsername}`)
-              .set({ 'authorisation': userToken })
+              .set('cookie',`ssTok=${userToken}`)
               .expect(200)
               .expect(response => {
                 userData = response.body
@@ -388,7 +387,7 @@ describe('/users', () => {
           beforeEach('', () => {
             return request
               .get(`/api/users/totallyMadeUpIllegalUsername`)
-              .set({ 'authorisation': userToken })
+              .set('cookie',`ssTok=${userToken}`)
               .expect(404)
               .expect(response => {
                 userData = response.body
@@ -405,7 +404,7 @@ describe('/users', () => {
         it('returns 200 with valid token', () => {
           return request
             .get('/api/users/status')
-            .set({ 'authorisation': userToken })
+            .set('cookie',`ssTok=${userToken}`)
             .expect(response => {
               const status = response.status
               if (status !== 200) throw new Error(`Incorrect status code returned, expected 200 received: ${status}`)
@@ -416,7 +415,7 @@ describe('/users', () => {
           it('returns 200 with valid token and unauthenticates user', () => {
             return request
               .patch('/api/users/status/logout')
-              .set({ 'authorisation': userToken })
+              .set('cookie',`ssTok=${userToken}`)
               .expect(response => {
                 const status = response.status
                 if (status !== 200) throw new Error(`Incorrect status code returned, expected 200 received: ${status}`)
@@ -431,7 +430,7 @@ describe('/users', () => {
       it('rejects request and tells user to sign in', () => {
         return request
           .post(`/api/users/`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .expect(409)
           .expect(response => {
             if (response.error.text !== `Please sign out to continue creating account.`) throw new Error(`Expected error message telling user to sign out: recieved: ${response.error.text}`)
@@ -455,7 +454,7 @@ describe('/users', () => {
       it('return 400 without user_id', () => {
         return request
           .put(`/api/users/`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify({ firstName: 'markus' }))
           .expect(400)
@@ -467,7 +466,7 @@ describe('/users', () => {
       it ('returns 400 when no userData is supplied', () => {
         return request
           .put(`/api/users/${id}`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .expect(400)
           .expect(response => {
             if (response.error.text !== 'No userdata found') throw new Error('Expected error text to say No userdata found')
@@ -477,7 +476,7 @@ describe('/users', () => {
       it('updates users firstName when passed id and data', () => {
         return request
           .put(`/api/users/${id}`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify({ firstName: 'markus' }))
           .expect(200)
@@ -489,7 +488,7 @@ describe('/users', () => {
       it('updates users lastName when passed id and data', () => {
         return request
           .put(`/api/users/${id}`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify({ lastName: 'chariot' }))
           .expect(200)
@@ -501,7 +500,7 @@ describe('/users', () => {
       it('updates users lastName and firstName when passed id and multiple data', () => {
         return request
           .put(`/api/users/${id}`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify({ lastName: 'chariot', firstName: 'markus' }))
           .expect(200)
@@ -518,14 +517,14 @@ describe('/users', () => {
       it('returns 404 with no user_id', () => {
         return request
           .delete(`/api/users/`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .expect(404)
       })
 
       it('returns 400 with incorrect user_id', () => {
         return request
           .delete(`/api/users/098ujnm`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .expect(400)
           .expect(res => {
             if (res.error.text !== 'User not found') throw new Error(`Incorrect error returned, expected user not found recieved: ${res.error}`)
@@ -535,14 +534,14 @@ describe('/users', () => {
       it('returns 200 with correct user_id', () => {
         return request
           .delete(`/api/users/${id}`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .expect(200)
       })
       
       it('returns deleted users firstName with correct user_id', () => {
         return request
           .delete(`/api/users/${id}`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .expect(res => {
             if (res.body.firstName !== userZeroFirstName) throw new Error('First name of deleted user not returned')
           })

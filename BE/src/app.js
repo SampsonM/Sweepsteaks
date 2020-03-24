@@ -9,6 +9,7 @@ import helmet from "helmet"
 import passport from 'passport'
 import path from 'path'
 import '../config/passport'
+import cookieParser from 'cookie-parser'
 
 // Configure mongoose
 mongoose.Promise = Promise;
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, '../views')))
 // Configure the app
 app.use(bodyparser.json())
 app.use(bodyparser.urlencoded({ extended: true }))
+app.use(cookieParser())
 app.use(helmet())
 app.use(helmet.contentSecurityPolicy({
   directives: {
