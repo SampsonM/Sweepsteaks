@@ -8,7 +8,7 @@ import mongooseConnect from '../../src/connectMongoose'
 import userData from '../../db/test-data/User.json'
 const request = require('supertest')(app)
 
-describe.only('/users', () => {
+describe('/users', () => {
   let userDocs
   const userZeroPass = userData[0].password
   const userZeroUsername = userData[0].username

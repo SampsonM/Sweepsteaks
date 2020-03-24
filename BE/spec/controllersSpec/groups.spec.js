@@ -117,7 +117,7 @@ describe('/groups', () => {
       it('/ Returns all groups', () => {
         return request
           .get('/api/groups')
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .expect(200)
           .then(groups => {
             expect(groups.body.length).to.equal(groupDocs.length)
@@ -127,7 +127,7 @@ describe('/groups', () => {
       it(':group_id returns group by id', () => {
         return request
           .get(`/api/groups/${groupDocs[0]._id}`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .expect(200)
           .then(group => {
             expect(group.body._id).to.equal(groupDocs[0]._id.toString())
@@ -137,7 +137,7 @@ describe('/groups', () => {
       it('?group_name Returns group by name', () => {
         return request
           .get(`/api/groups?name=${groupDocs[0].name}`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .expect(200)
           .then(group => {
             expect(group.body.name).to.equal(groupDocs[0].name)
@@ -157,7 +157,7 @@ describe('/groups', () => {
     
         return request
           .post('/api/groups')
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(data))
           .expect(201)
@@ -173,7 +173,7 @@ describe('/groups', () => {
 
             return request
               .get(`/api/groups?name=${group.body.name}`)
-              .set({ 'authorisation': userToken })
+              .set('cookie',`ssTok=${userToken}`)
               .expect(200)
           })
       })
@@ -188,7 +188,7 @@ describe('/groups', () => {
     
         return request
           .post(`/api/groups/${groupDocs[0].name}`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(data))
           .expect(200)

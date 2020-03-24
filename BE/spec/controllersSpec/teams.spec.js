@@ -6,7 +6,6 @@ import mongooseConnect from '../../src/connectMongoose'
 import { expect } from 'chai'
 import seedDB from '../../db/seed'
 import userData from '../../db/test-data/User.json'
-import { isRegExp } from 'util'
 const request = require('supertest')(app)
 
 describe('/teams', () => {
@@ -123,7 +122,7 @@ describe('/teams', () => {
       it('Returns all teams', () => {
         return request
           .get('/api/teams')
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .expect(200)
           .then(teams => {
             expect(teams.body.length).to.equal(teamDocs.length)
@@ -133,7 +132,7 @@ describe('/teams', () => {
       it(':team_name returns team by name', () => {
         return request
           .get(`/api/teams/${teamDocs[0].name}`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .expect(200)
           .then(team => {
             expect(team.body.name).to.equal(teamDocs[0].name)
@@ -154,7 +153,7 @@ describe('/teams', () => {
   
         return request
           .put(`/api/teams/${teamDocs[0].id}`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(updatedTeamInfo))
           .expect(200)
@@ -175,7 +174,7 @@ describe('/teams', () => {
 
         return request
           .post('/api/teams/create')
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(teamData))
           .expect(team => {
@@ -192,7 +191,7 @@ describe('/teams', () => {
 
         return request
           .post('/api/teams/create')
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(teamData))
           .expect(400)
@@ -210,7 +209,7 @@ describe('/teams', () => {
 
         return request
           .post('/api/teams/create')
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(teamData))
           .expect(400)
@@ -227,7 +226,7 @@ describe('/teams', () => {
 
         return request
           .post('/api/teams/create')
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(teamData))
           .expect(400)
@@ -245,7 +244,7 @@ describe('/teams', () => {
 
         return request
           .post('/api/teams/create')
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(teamData))
           .expect(400)
@@ -259,7 +258,7 @@ describe('/teams', () => {
       it(':team_ID deletes team by id', () => {
         return request
           .delete(`/api/teams/${teamZeroId}`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .expect(200)
           .then(team => {
             return Promise.all([team, request.get('/api/teams')])
