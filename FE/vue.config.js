@@ -8,12 +8,12 @@ const webpackPlugins = [
 	})
 ]
 
-// if (process.env.NODE_ENV === 'production') {
-// 	webpackPlugins.push(new PrerenderSpaPlugin(
-// 		path.join(__dirname, './dist'),
-// 		[ '/' ]
-// 	))
-// }
+if (process.env.NODE_ENV === 'production') {
+	webpackPlugins.push(new PrerenderSpaPlugin(
+		path.join(__dirname, './dist'),
+		[ '/', '/login' ]
+	))
+}
 
 module.exports = {
 	outputDir: './dist',
@@ -32,10 +32,6 @@ module.exports = {
   },
 
 	configureWebpack: {
-		entry: {
-			app: path.resolve(__dirname, './src/main.js')
-		},
-	
-		plugins: webpackPlugins
+		plugins: webpackPlugins,
 	}
 };

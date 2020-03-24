@@ -8,7 +8,7 @@ Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
-  base: process.env.BASE_URL,
+  base: '/',
   scrollBehavior: to => {
     if (to.hash) {
       const element = document.querySelector(to.hash);
@@ -28,12 +28,12 @@ const router = new Router({
     {
       path: '/login',
       name: 'login',
-      component: () => import(/* webpackChunkName: "login" */ './views/Login.vue')
+      component: () => import(/* webpackChunkName: "dashboard" */ '@/views/Login.vue')
     },
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: () => import(/* webpackChunkName: "dashboard" */ './views/Dashboard.vue')
+      component: () => import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard.vue')
     },
     {
       path: '*',
@@ -43,34 +43,28 @@ const router = new Router({
 })
 
 router.beforeEach(async (to, from, next) => {
-  if (Vue.prototype.$sweepAccessAllowed) {
-    if (to.path === '/login') {
-      if (store.state.allwd) {
-        return next('/dashboard')
-      } else {
-        const loggedIn = await userApi.getUserLoginState()
-        if (loggedIn) {
-          return next('/dashboard')
-        }
-        return next()
-      }
-    } else if (to.path === '/dashboard') {
-      if (store.state.allwd) {
-        next()
-      } else {
-        const userLoggedIn = await userApi.getUserLoginState()
-        if (userLoggedIn) {
-          return next()
-        }
-        return next('/')
-      }
+  if (to.path === '/login') {
+    if (store.state.allwd) {
+      return next('/dashboard')
     } else {
+      const loggedIn = await userApi.getUserLoginState()
+      if (loggedIn) {
+        return next('/dashboard')
+      }
       return next()
     }
-  } else if (to.path === '/') {
-    return next()
+  } else if (to.path === '/dashboard') {
+    if (store.state.allwd) {
+      next()
+    } else {
+      const userLoggedIn = await userApi.getUserLoginState()
+      if (userLoggedIn) {
+        return next()
+      }
+      return next('/')
+    }
   } else {
-    return next('/')
+    return next()
   }
 })
 
