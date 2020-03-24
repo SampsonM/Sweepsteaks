@@ -127,7 +127,7 @@ describe('/competitions', () => {
       it('/ Returns all competitions', () => {
         return request
           .get('/api/competitions')
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .expect(200)
           .then(competitions => {
             expect(competitions.body.length).to.equal(2)
@@ -137,7 +137,7 @@ describe('/competitions', () => {
       it(':competition_id Returns single competition', () => {
         return request
           .get(`/api/competitions/${compDocs[0]._id}`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .expect(200)
           .then(competition => {
             expect(competition.body.name).to.equal('world cup')
@@ -148,7 +148,7 @@ describe('/competitions', () => {
       it('?name Returns competition by name', () => {
         return request
           .get('/api/competitions?name=world+cup')
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .expect(200)
           .then(competition => {
             expect(competition.body.name).to.eql(compDocs[0].name)
@@ -172,7 +172,7 @@ describe('/competitions', () => {
     
         return request
           .post(`/api/competitions`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(data))
           .expect(201)
@@ -181,7 +181,7 @@ describe('/competitions', () => {
             expect(competition.body.teams[0]).to.have.keys('__v', '_id', 'name', 'competitions', 'pastCompetitions', 'sport')
             return request
               .get(`/api/competitions/${competition.body._id}`)
-              .set({ 'authorisation': userToken })
+              .set('cookie',`ssTok=${userToken}`)
               .expect(200)
           })
       })
@@ -196,7 +196,7 @@ describe('/competitions', () => {
     
         return request
           .post(`/api/competitions/${compDocs[0]._id}`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(data))
           .expect(200)
@@ -207,7 +207,7 @@ describe('/competitions', () => {
 
             return request
               .get(`/api/teams/${competition.teams[0].name}`)
-              .set({ 'authorisation': userToken })
+              .set('cookie',`ssTok=${userToken}`)
               .then(res => {
                 expect(res.body.competitions.indexOf(compDocs[0].name) !== -1)
               })
@@ -225,7 +225,7 @@ describe('/competitions', () => {
     
         return request
           .post(`/api/competitions/${compDocs[0]._id}`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(data))
           .expect(200)
@@ -247,7 +247,7 @@ describe('/competitions', () => {
     
         return request
           .post(`/api/competitions/${compDocs[0]._id}`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(data))
           .expect(200)
@@ -256,7 +256,7 @@ describe('/competitions', () => {
             expect(response.body._id).to.equal(compDocs[0]._id.toString())
 
             return request.get('/api/competitions?name=world%20cup%202018')
-              .set({ 'authorisation': userToken })
+              .set('cookie',`ssTok=${userToken}`)
               .then(response => {
                 expect(response.body.teams).to.eql(competition.teams)
               })
@@ -268,7 +268,7 @@ describe('/competitions', () => {
       it(':competition_id DELETES competition data', () => {
         return request
           .del(`/api/competitions/${compDocs[0]._id}`)
-          .set({ 'authorisation': userToken })
+          .set('cookie',`ssTok=${userToken}`)
           .expect(401)
       })
     })
