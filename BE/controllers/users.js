@@ -105,9 +105,9 @@ function logUserIn(req, res, next) {
     }
 
     if (!user) {
-	  	return res.status(404).send('User does not exist')
+	  	return res.status(401).send('User does not exist')
     }
-    
+
     return res.status(200).send({ user: user.toAuthJSON() })
 	})(req, res, next)
 }
