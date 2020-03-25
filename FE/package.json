@@ -1,5 +1,5 @@
 {
-  "name": "vue-sweepstakes",
+  "name": "sweepstakes-fe",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,8 +7,7 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:e2e": "vue-cli-service test:e2e",
-    "test:unit": "vue-cli-service test:unit",
-    "postinstall": "if test \"$NODE_ENV\" = \"production\" ; then npm run build ; fi "
+    "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.27",

@@ -1,0 +1,12 @@
+{
+	"name": "sweepsteaks",
+	"version": "1.0.0",
+	"scripts": {
+		"deployApp": "./scripts/deploy.sh",
+		"pre-commit": "./scripts/preCommit.sh"
+	},
+	"pre-commit": ["pre-commit"],
+	"devDependencies": {
+		"pre-commit": "^1.2.2"
+	}
+}

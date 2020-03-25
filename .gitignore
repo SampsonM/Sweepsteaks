@@ -27,3 +27,6 @@
 /BE/node_modules
 /BE/config/certs
 /BE/config/environment
+
+node_modules
+package-lock.json

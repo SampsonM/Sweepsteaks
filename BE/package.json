@@ -1,10 +1,10 @@
 {
-  "name": "be",
+  "name": "vue-sweepsteaks-be",
   "version": "1.0.0",
   "description": "Sweepstakes BE",
   "main": "src/listen.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha './spec/**/*.js' -r @babel/register",
+    "test": "NODE_ENV=test mocha --bail --exit './spec/**/*.js' -r @babel/register",
     "start": "NODE_ENV=production babel-node src/listen.js",
     "start:dev": "NODE_ENV=development nodemon --exec babel-node src/listen.js",
     "start:dev:debug": "NODE_ENV=development DEBUG=express:* nodemon --exec babel-node src/listen.js",

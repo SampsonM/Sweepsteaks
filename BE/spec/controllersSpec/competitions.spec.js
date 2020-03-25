@@ -33,7 +33,7 @@ describe('/competitions', () => {
       it('/ Returns 401 with invalid JWT', () => {
         return request
           .get('/api/competitions')
-          .set({ 'authorisation': 'INVALIDuserToken' })
+          .set('cookie',`ssTok=INVALIDuserToken`)
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
@@ -42,7 +42,7 @@ describe('/competitions', () => {
       it(':competition_id Returns 401 with invalid JWT', () => {
         return request
           .get(`/api/competitions/${compDocs[0]._id}`)
-          .set({ 'authorisation': 'INVALIDuserToken' })
+          .set('cookie',`ssTok=INVALIDuserToken`)
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
@@ -51,7 +51,7 @@ describe('/competitions', () => {
       it('?name Returns 401 with invalid JWT', () => {
         return request
           .get('/api/competitions?name=World+Cup')
-          .set({ 'authorisation': 'INVALIDuserToken' })
+          .set('cookie',`ssTok=INVALIDuserToken`)
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
@@ -70,7 +70,7 @@ describe('/competitions', () => {
     
         return request
           .post(`/api/competitions`)
-          .set({ 'authorisation': 'INVALIDuserToken' })
+          .set('cookie',`ssTok=INVALIDuserToken`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(data))
           .expect(res => {
@@ -89,7 +89,7 @@ describe('/competitions', () => {
     
         return request
           .post(`/api/competitions/${compDocs[0]._id}`)
-          .set({ 'authorisation': 'INVALIDuserToken' })
+          .set('cookie',`ssTok=INVALIDuserToken`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(data))
           .expect(res => {
@@ -102,7 +102,7 @@ describe('/competitions', () => {
       it(':competition_id DELETES competition data', () => {
         return request
           .del(`/api/competitions/${compDocs[0]._id}`)
-          .set({ 'authorisation': 'INVALIDuserToken' })
+          .set('cookie',`ssTok=INVALIDuserToken`)
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })

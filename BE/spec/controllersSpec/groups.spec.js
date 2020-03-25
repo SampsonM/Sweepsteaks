@@ -35,7 +35,7 @@ describe('/groups', () => {
       it('/ Returns all groups', () => {
         return request
           .get('/api/groups')
-          .set({ 'authorisation': 'INVALIDuserToken' })
+          .set('cookie',`ssTok=INVALIDuserToken`)
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
@@ -44,7 +44,7 @@ describe('/groups', () => {
       it(':group_id returns group by id', () => {
         return request
           .get(`/api/groups/${groupDocs[0]._id}`)
-          .set({ 'authorisation': 'INVALIDuserToken' })
+          .set('cookie',`ssTok=INVALIDuserToken`)
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
@@ -53,7 +53,7 @@ describe('/groups', () => {
       it('?group_name Returns group by name', () => {
         return request
           .get(`/api/groups?name=${groupDocs[0].name}`)
-          .set({ 'authorisation': 'INVALIDuserToken' })
+          .set('cookie',`ssTok=INVALIDuserToken`)
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
@@ -72,7 +72,7 @@ describe('/groups', () => {
     
         return request
           .post('/api/groups')
-          .set({ 'authorisation': 'INVALIDuserToken' })
+          .set('cookie',`ssTok=INVALIDuserToken`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(data))
           .expect(res => {
@@ -90,7 +90,7 @@ describe('/groups', () => {
     
         return request
           .post(`/api/groups/${groupDocs[0].name}`)
-          .set({ 'authorisation': 'INVALIDuserToken' })
+          .set('cookie',`ssTok=hgcjvk`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(data))
           .expect(res => {

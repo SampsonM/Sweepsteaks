@@ -36,7 +36,7 @@ describe('/teams', () => {
       it('/ returns 401 with invalid JWT', () => {
         return request
           .get('/api/teams')
-          .set({ 'authorisation': 'INVALIDuserToken' })
+          .set('cookie',`ssTok=INVALIDuserToken`)
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
@@ -45,7 +45,7 @@ describe('/teams', () => {
       it(':team_name returns 401 with invalid JWT', () => {
         return request
           .get(`/api/teams/${teamDocs[0].name}`)
-          .set({ 'authorisation': 'INVALIDuserToken' })
+          .set('cookie',`ssTok=INVALIDuserToken`)
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
@@ -65,7 +65,7 @@ describe('/teams', () => {
   
         return request
           .put(`/api/teams/${teamDocs[0].id}`)
-          .set({ 'authorisation': 'INVALIDuserToken' })
+          .set('cookie',`ssTok=INVALIDuserToken`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(updatedTeamInfo))
           .expect(res => {
@@ -84,7 +84,7 @@ describe('/teams', () => {
 
         return request
           .post('/api/teams/create')
-          .set({ 'authorisation': 'INVALIDuserToken' })
+          .set('cookie',`ssTok=INVALIDuserToken`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(teamData))
           .expect(res => {
@@ -97,7 +97,7 @@ describe('/teams', () => {
       it(':team_ID returns 401 with invalid JWT', () => {
         return request
           .delete(`/api/teams/${teamZeroId}`)
-          .set({ 'authorisation': 'INVALIDuserToken' })
+          .set('cookie',`ssTok=INVALIDuserToken`)
           .expect(res => {
             if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
           })
