@@ -12,6 +12,7 @@ export default {}
 
 <style lang="scss">
 .my-button {
+	position: relative;
 	height: 42px;
 	min-width: 90px;
 	line-height: 38px;
@@ -38,12 +39,12 @@ export default {}
 		cursor: pointer;
 		outline: none;
 		border: 2px solid $blue;
-		text-decoration: underline;
 		transition-duration: 0.2s;
 	}
 
 	&:hover,
 	&:active {
+		text-decoration: underline;
 		background-color: #f8a0a0;
 	}
 }

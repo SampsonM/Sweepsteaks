@@ -20,7 +20,16 @@
         :errMessage="fieldErr('password')">
       </MyInput>
 
-      <MyButton @click="logUserIn">Login</MyButton>
+      <MyButton 
+        type="submit"
+        class="login__submit"
+        @click="logUserIn">
+        Login
+        <font-awesome-icon
+          v-if="submitting"
+          class="login__submit-loader"
+          :icon="['fas','circle-notch']" />
+      </MyButton>
     </form>
   </div>
 </template>
@@ -39,18 +48,28 @@ export default {
   data() {
     return {
       username: '',
-      password: ''
+      password: '',
+      submitting: false
     }
   },
   validations: loginValidations,
   methods: {
-    logUserIn(e) {
+    async logUserIn(e) {
       e.preventDefault()
 
-      this.$store.dispatch('logUserIn', {
-        username: this.username,
-        password: this.password
-      })
+      if (!this.submitting && !this.$v.$error) {
+        this.submitting = true
+        this.$v.$touch()
+
+        if (!this.$v.$error) {
+          await this.$store.dispatch('logUserIn', {
+            username: this.username,
+            password: this.password
+          })
+        }
+          
+        this.submitting = false
+      }
     },
     handleInput(field, value) {
       this[field] = value
@@ -68,5 +87,17 @@ export default {
   &__form {
     margin-top: 140px;
   }
+
+  &__submit-loader {
+    color: $black;
+    position: relative;
+    right: -6px;
+    animation: spin 1.1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 </style>

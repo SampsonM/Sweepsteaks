@@ -30,13 +30,17 @@ export default {
 			const res = await UserAPI.logUserIn(payload)
 			const user = res.data.user
 
-			commit('UPDATE_ALLWD', user.authenticated)
-
-			Vue.$cookies.set('ssTok', user.token, 60 * 60 * 12)
-
-			router.push('/dashboard')
+			if (user.authenticated) {
+				commit('UPDATE_ALLWD', user.authenticated)
+				Vue.$cookies.set('ssTok', user.token, 60 * 60 * 12)
+				router.push('/dashboard')
+			} else {
+				console.log(res)
+			}
 
 		} catch (err) {
+			console.log(err.response.data)
+			// commit error message
 			router.push('/')
 		}
 	},
