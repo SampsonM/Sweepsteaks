@@ -14,10 +14,10 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.7423f8870cdbc89a949a5b0861ada617.js"
+  "precache-manifest.685d63d34d63e3a756172519a1af3ce8.js"
 );
 
-workbox.core.setCacheNameDetails({prefix: "vue-sweepstakes"});
+workbox.core.setCacheNameDetails({prefix: "sweepstakes-fe"});
 
 /**
  * The workboxSW.precacheAndRoute() method efficiently caches and responds to

@@ -18,10 +18,13 @@ Vue.$cookies.config(60 * 60 * 6, null, url, true)
 featureFlagService.enableFeatureFlags()
 Vue.config.productionTip = false
 
-const app = new Vue({
+new Vue({
+  el: '#sweep-steaks',
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
+  mounted () {
+    // You'll need this for renderAfterDocumentEvent.
+    document.dispatchEvent(new Event('render-event'))
+  }
 })
-
-app.$mount('#sweep-steaks')

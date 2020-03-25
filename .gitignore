@@ -1,6 +1,7 @@
 # Frontend
 /FE/.DS_Store
 /FE/node_modules
+/FE/package-lock.json
 
 /FE/tests/e2e/videos/
 /FE/tests/e2e/screenshots/
@@ -25,6 +26,7 @@
 
 # Backend
 /BE/node_modules
+/BE/package-lock.json
 /BE/config/certs
 /BE/config/environment
 

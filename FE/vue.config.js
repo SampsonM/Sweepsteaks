@@ -1,6 +1,7 @@
 const CnameWebpackPlugin = require('cname-webpack-plugin')
 const path = require('path')
 const PrerenderSpaPlugin = require('prerender-spa-plugin')
+const Renderer = PrerenderSpaPlugin.PuppeteerRenderer
 
 const webpackPlugins = [
 	new CnameWebpackPlugin({
@@ -9,10 +10,16 @@ const webpackPlugins = [
 ]
 
 if (process.env.NODE_ENV === 'production') {
-	webpackPlugins.push(new PrerenderSpaPlugin(
-		path.join(__dirname, './dist'),
-		[ '/' ]
-	))
+	webpackPlugins.push(
+		new PrerenderSpaPlugin({
+			staticDir: path.join(__dirname, './dist'),
+			routes: [ '/' ],
+			renderer: new Renderer({
+        headless: true,
+        renderAfterDocumentEvent: 'render-event'
+      })
+		})
+	)
 }
 
 module.exports = {
