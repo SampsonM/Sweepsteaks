@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === 'production') {
 	webpackPlugins.push(
 		new PrerenderSpaPlugin({
 			staticDir: path.join(__dirname, './dist'),
-			routes: [ '/' ],
+			routes: [ '/', '/login' ],
 			renderer: new Renderer({
         headless: true,
         renderAfterDocumentEvent: 'render-event'
@@ -25,7 +25,7 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
 	outputDir: './dist',
 
-	publicPath: '/',
+	publicPath: './',
 
 	css: {
     loaderOptions: {
