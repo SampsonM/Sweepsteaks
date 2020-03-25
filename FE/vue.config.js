@@ -9,25 +9,11 @@ const webpackPlugins = [
 	})
 ]
 
-if (process.env.NODE_ENV === 'production') {
-	webpackPlugins.push(
-		new PrerenderSpaPlugin({
-			staticDir: path.join(__dirname, './dist'),
-			routes: [ '/' ],
-			renderer: new Renderer({
-        headless: true,
-        renderAfterDocumentEvent: 'render-event'
-      })
-		})
-	)
-}
-
 module.exports = {
-	outputDir: './dist',
+    outputDir: './dist',
+    publicPath: '/',
 
-	publicPath: '/',
-
-	css: {
+    css: {
     loaderOptions: {
       sass: {
         data: `
@@ -38,7 +24,20 @@ module.exports = {
     }
   },
 
-	configureWebpack: {
+    configureWebpack: {
 		plugins: webpackPlugins,
+	},
+
+	pluginOptions: {
+		prerenderSpa: {
+			registry: undefined,
+			renderRoutes: [
+				'/',
+				'/login'
+			],
+			useRenderEvent: true,
+			headless: true,
+			onlyProduction: true
+		}
 	}
 };
