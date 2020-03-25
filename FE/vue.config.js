@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === 'production') {
 	webpackPlugins.push(
 		new PrerenderSpaPlugin({
 			staticDir: path.join(__dirname, './dist'),
-			routes: [ '/', '/login' ],
+			routes: [ '/' ],
 			renderer: new Renderer({
         headless: true,
         renderAfterDocumentEvent: 'render-event'
