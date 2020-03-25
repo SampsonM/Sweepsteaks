@@ -10,7 +10,8 @@ const webpackPlugins = [
 ]
 
 module.exports = {
-    outputDir: './dist',
+		outputDir: './dist',
+
     publicPath: '/',
 
     css: {
@@ -24,7 +25,7 @@ module.exports = {
     }
   },
 
-    configureWebpack: {
+  configureWebpack: {
 		plugins: webpackPlugins,
 	}
 };
