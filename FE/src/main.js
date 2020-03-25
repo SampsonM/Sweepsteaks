@@ -22,6 +22,5 @@ new Vue({
   el: '#sweep-steaks',
   router,
   store,
-  render: h => h(App),
-  mounted: () => document.dispatchEvent(new Event('x-app-rendered'))
+  render: h => h(App)
 })

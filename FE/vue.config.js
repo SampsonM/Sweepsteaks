@@ -26,18 +26,5 @@ module.exports = {
 
     configureWebpack: {
 		plugins: webpackPlugins,
-	},
-
-	pluginOptions: {
-		prerenderSpa: {
-			registry: undefined,
-			renderRoutes: [
-				'/',
-				'/login'
-			],
-			useRenderEvent: true,
-			headless: true,
-			onlyProduction: true
-		}
 	}
 };

@@ -24,8 +24,12 @@ self.__precacheManifest = [
     "url": "/js/login.e64fa644.js"
   },
   {
-    "revision": "1d4bea35eb3882cbd825",
-    "url": "/js/app.7b6ea2e4.js"
+    "revision": "e043da66bc24c98976c7",
+    "url": "/js/app.6f1e7800.js"
+  },
+  {
+    "revision": "4da6a594b65fe340d46a03f3851705cc",
+    "url": "/index.html"
   },
   {
     "revision": "6fd4c1b20827f3ade7592f809729126d",
@@ -44,12 +48,8 @@ self.__precacheManifest = [
     "url": "/css/dashboard.cf6ba903.css"
   },
   {
-    "revision": "1d4bea35eb3882cbd825",
+    "revision": "e043da66bc24c98976c7",
     "url": "/css/app.ed507855.css"
-  },
-  {
-    "revision": "2b94123990ec12a0aad3afd15c6d74c6",
-    "url": "/app.html"
   },
   {
     "revision": "dc918c40b4b5c0cc8385e7e56a3d6c7f",
