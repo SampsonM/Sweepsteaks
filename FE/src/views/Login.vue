@@ -1,5 +1,7 @@
 <template>
   <div class="login">
+    <Header />
+
     <form class="login__form">
       <MyInput
         label="Username"
@@ -35,6 +37,7 @@
 </template>
 
 <script>
+import Header from '@/components/header.vue'
 import MyButton from '@/components/button'
 import MyInput from '@/components/input'
 import { loginValidations } from '@/validations'
@@ -42,6 +45,7 @@ import validationHelpers from '@/helpers/validations'
 
 export default {
   components: {
+    Header,
     MyButton,
     MyInput
   },
@@ -85,7 +89,7 @@ export default {
 <style lang="scss">
 .login {
   &__form {
-    margin-top: 140px;
+    margin-top: 90px;
   }
 
   &__submit-loader {
