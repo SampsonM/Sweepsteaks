@@ -2,7 +2,7 @@
   <div class="login">
     <Header />
 
-    <form class="login__form">
+    <form :class="['login__form', { 'error' : (loginError || $v.$error) }]">
       <MyInput
         label="Username"
         name="username"
@@ -22,9 +22,16 @@
         :errMessage="fieldErr('password')">
       </MyInput>
 
+      <p
+        v-if="!$v.$error"
+        class="login__error-msg">
+        {{ loginError }}
+      </p>
+
       <MyButton 
         type="submit"
         class="login__submit"
+        btnStyle="cta-1"
         @click="logUserIn">
         Login
         <font-awesome-icon
@@ -40,6 +47,7 @@
 import Header from '@/components/header.vue'
 import MyButton from '@/components/button'
 import MyInput from '@/components/input'
+import { mapState } from 'vuex'
 import { loginValidations } from '@/validations'
 import validationHelpers from '@/helpers/validations'
 
@@ -57,6 +65,11 @@ export default {
     }
   },
   validations: loginValidations,
+  computed: {
+    ...mapState([
+      'loginError'
+    ])
+  },
   methods: {
     async logUserIn(e) {
       e.preventDefault()
@@ -90,6 +103,12 @@ export default {
 .login {
   &__form {
     margin-top: 90px;
+  }
+
+  &__error-msg {
+    margin-bottom: 15px;
+    color: $red;
+    font-weight: 600;
   }
 
   &__submit-loader {

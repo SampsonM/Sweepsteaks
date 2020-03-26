@@ -21,6 +21,10 @@ form {
   width: 95%;
 	padding: 15px 20px;
 	border: 3px solid $dark-yellow;
+
+	&.error {
+		border-color: $red;
+	}
 	
 	@include breakpoint(tablet) {
   }

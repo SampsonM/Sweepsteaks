@@ -7,24 +7,24 @@
 		</router-link>
 
 		<div class="header__ctas">
-			<MyButton
-				btnStyle="cta-1"
+			<router-link
+				tabindex="-1"
+				to="/login"
 				v-if="!allwd && $route.name !== 'login'">
-				<router-link
-					tabindex="-1"
-					to="/login">
+				<MyButton
+					btnStyle="cta-1">
 					Login
-				</router-link>
-			</MyButton>
-			<MyButton
-				v-if="allwd"
-				btnStyle="cta-1">
-				<router-link
-					tabindex="-1"
-					to="/dashboard">
+				</MyButton>
+			</router-link>
+			<router-link
+				tabindex="-1"
+				to="/dashboard">
+				<MyButton
+					v-if="allwd"
+					btnStyle="cta-1">
 					Dashboard
-				</router-link>
-			</MyButton>
+				</MyButton>
+			</router-link>
 		</div>
 	</header>
 </template>

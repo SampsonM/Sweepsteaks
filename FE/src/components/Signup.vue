@@ -6,7 +6,7 @@
 
     <form
       id="signup"
-      class="sign-up__form"
+      :class="['sign-up__form', { 'error' : (loginError || $v.$error) }]"
       autocomplete="on"
       v-if="!allwd">
 
@@ -43,7 +43,7 @@
 <script>
 import MyInput from '@/components/input.vue'
 import MyButton from './button'
-import { mapActions, mapGetters, mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 import { signUpValidations } from '@/validations'
 import validationHelpers from '@/helpers/validations'
 
@@ -118,9 +118,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'firstServerError'
-    ]),
     ...mapState([
       'allwd'
     ])
