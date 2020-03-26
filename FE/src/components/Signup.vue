@@ -10,12 +10,13 @@
       autocomplete="on"
       v-if="!allwd">
 
-      <button
+      <MyButton
         class="sign-up__close"
         @click="e=>$emit('closeSignUp', e)"
-        type="button">
+        type="button"
+        btnStyle="icon">
         <font-awesome-icon :icon="['far','times-circle']" />
-      </button>
+      </MyButton>
 
       <MyInput
         v-for="field in formFields"
@@ -32,7 +33,7 @@
 
       {{ firstServerError }}
 
-      <MyButton @click.prevent="handleSignup">
+      <MyButton btnStyle="cta-1" @click.prevent="handleSignup">
         Sign-up
       </MyButton>
     </form>
@@ -129,10 +130,12 @@ export default {
 
 <style lang="scss" scoped>
 .sign-up {
-  min-height: 87%;
+  height: auto;
+  width: 100%;
   padding-top: 20px;
 
   @include breakpoint(tablet) {
+    min-height: 87%;
     display: flex;
     justify-content: center;
     flex-direction: column;

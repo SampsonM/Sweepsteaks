@@ -21,7 +21,8 @@
 		<MyButton
 			type="button"
 			v-if="!signUpOpen"
-			@click="openSignUp">
+			@click="openSignUp"
+			btnStyle="cta-1">
 			Sign up
 		</MyButton>
 	</main>
@@ -56,12 +57,20 @@ export default {
 <style lang="scss">
 .landing-content {
 	width: 95%;
-	height: 100%;
-	margin: 10px auto 10px auto;
+	height: 80%;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+	align-items: center;
+	margin: 10px auto;
+
+	@include breakpoint(tablet) {
+		height: 100%;
+		justify-content: start;
+	}
 }
 
 .main-content {
-	height: 80%;
 	padding: 10px;
 
 	@include breakpoint(tablet) {

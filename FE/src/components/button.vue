@@ -1,17 +1,32 @@
 <template>
 	<button
 		v-on="$listeners"
-		class="my-button">
+		v-bind="$attrs"
+		ref="button"
+		:class="[`my-button--${btnStyle}`]">
 		<slot />
 	</button>
 </template>
 
 <script>
-export default {}
+export default {
+	props: {
+		btnStyle: {
+			type: String,
+			required: true,
+			validator: type => ['cta-1', 'icon'].indexOf(type) !== -1
+		}
+	},
+	methods: {
+		focus() {
+			this.$refs.button.focus()
+		}	
+	}
+}
 </script>
 
 <style lang="scss">
-.my-button {
+.my-button--cta-1 {
 	position: relative;
 	height: 42px;
 	min-width: 90px;
@@ -46,6 +61,19 @@ export default {}
 	&:active {
 		text-decoration: underline;
 		background-color: #f8a0a0;
+	}
+}
+
+.my-button--icon {
+	border: 2px solid transparent;
+	padding: 2px 3px;
+	font-size: 16px;
+	color: $red;
+  background: transparent;
+
+	&:focus {
+		border-radius: 5px;
+		border-color: $blue;
 	}
 }
 </style>

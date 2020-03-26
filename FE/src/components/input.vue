@@ -4,22 +4,26 @@
       <label :for="name">{{ label }}</label>
 
       <transition name="rotate-question">
-        <button
+        <MyButton
           ref="question"
           @click="toggleHint"
-          v-show="hint && !hintOpen"
-          class="input__hint">
+          btnStyle="icon"
+          class="input__hint"
+          type="button"
+          v-show="hint && !hintOpen">
           <font-awesome-icon :icon="['far','question-circle']" />
-        </button>
+        </MyButton>
       </transition>
       <transition name="rotate-cross">
-        <button
+        <MyButton
           ref="cross"
+          type="button"
+          class="input__hint"
           @click="toggleHint"
-          v-show="hint && hintOpen"
-          class="input__hint">
+          btnStyle="icon"
+          v-show="hint && hintOpen">
           <font-awesome-icon :icon="['far','times-circle']" />
-        </button>
+        </MyButton>
       </transition>
     </span>
 
@@ -47,8 +51,13 @@
 </template>
 
 <script>
+import MyButton from './button'
+
 export default {
   inheritAttrs: false,
+  components: {
+    MyButton
+  },
   data() {
     return {
       hintOpen: false
@@ -83,8 +92,7 @@ export default {
     }
   },
   methods: {
-    toggleHint(e) {
-      e.preventDefault()
+    toggleHint() {
       this.hintOpen = !this.hintOpen
 
       this.$nextTick(() => {
@@ -122,6 +130,10 @@ export default {
 
   &__hint {
     margin: 0 0 0 5px;
+
+    & button {
+      padding: 5px 5px 3px 4px;
+    }
   }
 
   &__hint-text {
