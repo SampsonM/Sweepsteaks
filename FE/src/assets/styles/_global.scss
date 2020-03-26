@@ -6,11 +6,11 @@
 html {
   background-color: #FC3342;
   scroll-behavior: smooth;
-  height: 100vh;
+  height: 100%;
 }
 
 body {
-  height: 100vh;
+  height: 100%;
 }
 
 form {
@@ -45,19 +45,10 @@ h2 {
 
 h3 {
 	color: $red;
-	font-size: 3.1vh;
-}
+	font-size: 5.1vw;
 
-button {
-	border: 2px solid transparent;
-	padding: 2px 3px;
-	font-size: 16px;
-	color: $red;
-  background: transparent;
-
-	&:focus {
-		border-radius: 5px;
-		border-color: $blue;
+	@include breakpoint(desktop) {
+		font-size: 3.1vh;
 	}
 }
 
