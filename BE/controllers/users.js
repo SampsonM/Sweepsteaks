@@ -66,6 +66,7 @@ function createUser(req, res, next) {
   const userData = req.body
 
   if (req.user) {
+    console.log(req.user)
     return res.status(409).send('Please sign out to continue creating account.')
   }
 

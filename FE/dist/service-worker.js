@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.9b2409f85e3dd53cb5590b1278652b3e.js"
+  "/precache-manifest.e1338603c465fefd1099d1ccd050c283.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "sweepstakes-fe"});
