@@ -13,7 +13,7 @@ Vue.use(Vuelidate)
 
 const url = process.env.NODE_ENV === 'development' ? 'localhost' : 'sweepsteaks.co.uk'
 
-Vue.$cookies.config(60 * 60 * 6, null, url, true)
+Vue.$cookies.config(null, null, url, true)
 
 featureFlagService.enableFeatureFlags()
 Vue.config.productionTip = false

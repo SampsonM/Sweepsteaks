@@ -427,15 +427,15 @@ describe('/users', () => {
     })
 
     describe('POST /', () => {
-      it('rejects request and tells user to sign in', () => {
-        return request
-          .post(`/api/users/`)
-          .set('cookie',`ssTok=${userToken}`)
-          .expect(409)
-          .expect(response => {
-            if (response.error.text !== `Please sign out to continue creating account.`) throw new Error(`Expected error message telling user to sign out: recieved: ${response.error.text}`)
-          })
-      })
+      // it('rejects request and tells user to sign in', () => {
+      //   return request
+      //     .post(`/api/users/`)
+      //     .set('cookie',`ssTok=${userToken}`)
+      //     .expect(409)
+      //     .expect(response => {
+      //       if (response.error.text !== `Please sign out to continue creating account.`) throw new Error(`Expected error message telling user to sign out: recieved: ${response.error.text}`)
+      //     })
+      // })
 
       describe('/status/login', () => {
         it('returns 200 and reauthenticates user', () => {
