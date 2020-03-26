@@ -6,7 +6,7 @@
 
     <form
       id="signup"
-      :class="['sign-up__form', { 'error' : (loginError || $v.$error) }]"
+      :class="['sign-up__form', { 'error' : formHasErrors }]"
       autocomplete="on"
       v-if="!allwd">
 
@@ -30,8 +30,6 @@
         :hasError="$v[field.errClass].$error"
         :errMessage="fieldErr(field.name)">
       </MyInput>
-
-      {{ firstServerError }}
 
       <MyButton btnStyle="cta-1" @click.prevent="handleSignup">
         Sign-up
@@ -120,7 +118,14 @@ export default {
   computed: {
     ...mapState([
       'allwd'
-    ])
+    ]),
+    formHasErrors() {
+      return this.$v.firstName.$error
+        || this.$v.lastName.$error
+        || this.$v.email.$error
+        || this.$v.username.$error
+        || this.$v.password.$error
+    }
   }
 }
 </script>
