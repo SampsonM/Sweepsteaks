@@ -1,7 +1,7 @@
 import { helpers } from 'vuelidate/lib/validators'
 import UserAPI from '../services/api/userApi'
 
-const validFields = ['required', 'minLength', 'format', 'unique']
+const validFields = ['required', 'minLength', 'format', 'unique', 'password']
 
 export default {
 	required(field) {
