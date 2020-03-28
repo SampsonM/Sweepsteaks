@@ -1,0 +1,19 @@
+@mixin breakpoint($class) {
+  @if $class == mobileLg {
+    @media (min-width: 420px) {
+      @content; 
+    }
+  }
+
+  @else if $class == tablet {
+    @media (min-width: 700px) {
+      @content; 
+    }
+  }
+ 
+  @else if $class == desktop {
+    @media (min-width: 1025px) {
+      @content;
+    }
+  }
+}
