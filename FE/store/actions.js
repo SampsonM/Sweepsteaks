@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 export default {
   async signup({ commit }, userData) {
     try {
