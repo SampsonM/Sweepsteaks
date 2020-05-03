@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 export default function enableFeatureFlags() {
   // enable feature flags?
-  const cookies = Vue.$cookies.keys()
+  const cookies = this.$cookie.keys()
 
   const testRegex = new RegExp(/sweep/)
 

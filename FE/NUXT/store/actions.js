@@ -12,7 +12,6 @@ export default {
 
       window.$nuxt.$router.push('/dashboard')
     } catch (err) {
-      console.log('err', err)
       const errors = err.response.data
       const serverErrs = []
 
@@ -31,7 +30,7 @@ export default {
       commit('UPDATE_LOGIN_ERROR', null)
       commit('UPDATE_ALLWD', user.authenticated)
 
-      Vue.$cookies.set('ssTok', user.token, 60 * 60 * 12)
+      this.$cookie.set('ssTok', user.token, 60 * 60 * 12)
 
       window.$nuxt.$router.push('/dashboard')
     } catch (err) {
@@ -43,10 +42,10 @@ export default {
       const res = await this.$UserApi.logUserOut()
       const user = res.data.user
 
-      Vue.$cookies.remove('ssTok')
+      this.$cookie.remove('ssTok')
       commit('UPDATE_ALLWD', user.authenticated)
     } catch (err) {
-      Vue.$cookies.remove('ssTok')
+      this.$cookie.remove('ssTok')
       commit('UPDATE_ALLWD', false)
     }
 
