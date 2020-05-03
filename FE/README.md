@@ -1,48 +1,22 @@
-# vue-sweepstakes
+# sweepsteks
 
-## Project setup
-```
-npm install
-```
+> ssr-sweepsteaks app
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Build Setup
 
-### Compiles and minifies for production
-```
-npm run build
-```
+```bash
+# install dependencies
+$ npm install
 
-### Run your tests
-```
-npm run test
-```
+# serve with hot reload at localhost:3000
+$ npm run dev
 
-### Lints and fixes files
-```
-npm run lint
+# build for production and launch server
+$ npm run build
+$ npm run start
+
+# generate static project
+$ npm run generate
 ```
 
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-## ** To-Do!! **
-
-- Build landing page to build SEO ranking
---- sell the site and have multiple sign up login btns
---- add information and links to pages like wikapedia, update the wikapedia page to talk about sweepstakes
-
-- build about page with links from home to create site links on google results
-- use [structured data](https://developers.google.com/search/docs/guides/intro-structured-data) on landing page to improve seo and rich snippets
-- add sitemap to google console
-- add lots of internal links
-- 
+For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
