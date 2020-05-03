@@ -48,7 +48,6 @@ import { mapState } from 'vuex'
 import Header from '@/components/header.vue'
 import MyButton from '@/components/button'
 import MyInput from '@/components/input'
-import { loginValidations } from '@/validations'
 import validationHelpers from '@/helpers/validations'
 
 export default {
@@ -67,7 +66,9 @@ export default {
 	computed: {
 		...mapState(['loginError'])
 	},
-	validations: loginValidations,
+	validations() {
+		return this.$LoginValidations
+	},
 	methods: {
 		async logUserIn(e) {
 			e.preventDefault()

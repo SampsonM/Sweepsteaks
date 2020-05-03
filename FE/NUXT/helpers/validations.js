@@ -1,5 +1,4 @@
 import { helpers } from 'vuelidate/lib/validators'
-import UserAPI from '../plugins/api/userApi'
 
 const validFields = ['required', 'minLength', 'format', 'unique', 'password']
 
@@ -45,13 +44,17 @@ export default {
       }
     )
   },
-  usernameUnique() {
+  usernameUnique($UserApi) {
     return helpers.withParams(
       { errMsg: 'Username already exists' },
       async(username) => {
         if (username === '') { return true }
-        const { data } = await UserAPI.isUserNameUnique(username)
-        return data.unique
+        try {
+          const { data } = await $UserApi.isUserNameUnique(username)
+          return data.unique
+        } catch (err) {
+          return false
+        }
       }
     )
   },

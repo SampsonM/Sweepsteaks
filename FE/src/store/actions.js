@@ -1,11 +1,10 @@
-import UserAPI from '../services/api/userApi'
 import router from '../router'
 import Vue from 'vue'
 
 export default {
 	async signup({ commit }, userData) {
 		try {
-			const res = await UserAPI.createUser(userData)
+			const res = await this.$UserApi.createUser(userData)
 			const user = res.data.user
 
 			Vue.$cookies.set('ssTok', user.token)
@@ -27,7 +26,7 @@ export default {
 	},
 	async logUserIn({ commit }, payload) {
 		try {
-			const res = await UserAPI.logUserIn(payload)
+			const res = await this.$UserApi.logUserIn(payload)
 			const user = res.data.user
 
 			commit('UPDATE_LOGIN_ERROR', null)
@@ -43,7 +42,7 @@ export default {
 	},
 	async logout({ commit }) {
 		try {
-			const res = await UserAPI.logUserOut()
+			const res = await this.$UserApi.logUserOut()
 			const user = res.data.user
 
 			Vue.$cookies.remove('ssTok')

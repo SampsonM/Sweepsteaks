@@ -42,17 +42,16 @@ export default {
   */
   plugins: [
     {
-      src: '~/plugins/cookie'
-    },
-    {
-      src: '~/plugins/vuelidate',
-      ssr: true
+      src: '~/plugins/cookies'
     },
     {
       src: '~/plugins/fontAwesome'
     },
     {
       src: '~/plugins/api/index'
+    },
+    {
+      src: '~/plugins/vuelidate'
     }
   ],
   /*

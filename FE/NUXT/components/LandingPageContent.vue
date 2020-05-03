@@ -20,7 +20,7 @@
 
 				<br />
 				Free online sweepstakes for you and your mates, set up a group
-				sweeptakes for the horses, World Cup or Premier League!
+				sweepstakes for the horses, World Cup or Premier League!
 			</h2>
 		</section>
 

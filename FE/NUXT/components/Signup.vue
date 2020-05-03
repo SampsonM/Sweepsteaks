@@ -43,7 +43,6 @@
 import { mapActions, mapState } from 'vuex'
 import MyButton from './button'
 import MyInput from '@/components/input.vue'
-import { signUpValidations } from '@/validations'
 import validationHelpers from '@/helpers/validations'
 
 export default {
@@ -91,7 +90,9 @@ export default {
 			]
 		}
 	},
-	validations: signUpValidations,
+	validations() {
+		return this.$SignUpValidations
+	},
 	computed: {
 		...mapState(['allwd']),
 		formHasErrors() {

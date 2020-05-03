@@ -3,15 +3,16 @@ import Vue from 'vue'
 export default {
   async signup({ commit }, userData) {
     try {
-      const res = await this.$UserAPI.createUser(userData)
+      const res = await this.$UserApi.createUser(userData)
       const user = res.data.user
 
-      Vue.$cookies.set('ssTok', user.token)
+      this.$cookie.set('ssTok', user.token)
 
       commit('UPDATE_ALLWD', user.authenticated)
 
       window.$nuxt.$router.push('/dashboard')
     } catch (err) {
+      console.log('err', err)
       const errors = err.response.data
       const serverErrs = []
 
@@ -24,7 +25,7 @@ export default {
   },
   async logUserIn({ commit }, payload) {
     try {
-      const res = await this.$UserAPI.logUserIn(payload)
+      const res = await this.$UserApi.logUserIn(payload)
       const user = res.data.user
 
       commit('UPDATE_LOGIN_ERROR', null)
@@ -39,7 +40,7 @@ export default {
   },
   async logout({ commit }) {
     try {
-      const res = await this.$UserAPI.logUserOut()
+      const res = await this.$UserApi.logUserOut()
       const user = res.data.user
 
       Vue.$cookies.remove('ssTok')
