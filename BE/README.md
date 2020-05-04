@@ -8,13 +8,16 @@ To set up the env follow these steps:
 - git clone this repo
 - Run 'NPM i' to install packages
 - Open the terminal and install mongod and mongo db clis tools
-- Run 'mongod'
-- Open a new window and run 'mongo'
-- Run 'NPM run seed:dev' to seed dev environment
-- Ensure DB seeded by checking mongo shell with 'show dbs' you can further check the collections with 
-	'use Sweepstakes'
-	'show collections'
-	'db.*collection name*.find().pretty()'
+- mkdir `/Users/$(whoami)/data/db`
+- Run `mongod --dbpath=/Users/$(whoami)/data/db`
+- Open a new window and run `mongo`
+- Run `NPM run seed:dev` to seed dev environment
+- Ensure DB seeded by checking mongo shell with `show dbs` you can further check the collections with 
+	`use Sweepstakes`
+	
+	`show collections`
+
+	`db.*collection name*.find().pretty()`
 - Run 'NPM run start:dev' to start api
 - In the browser enter 'https://localhost:3000/api' to see the base api page
 
@@ -23,14 +26,21 @@ To set up the env follow these steps:
 To run in development environment use:
 
 ```bash
+#terminal 1:
+mongod --dbpath=/Users/$(whoami)/data/db
+
+#terminal 2:
+mongo
+
+#terminal 3:
 npm run start:dev
 ```
 
 ## **Running tests**
 
 To run the tests follow these steps:
-- Open the terminal and run 'mongo'
-- Open new terminal window and run 'mongod'
+- Open new terminal window and run `mongod --dbpath=/Users/$(whoami)/data/db`
+- Open the terminal and run `mongo`
 - Check the db has been sown in the terminal window with mongo running, run 'show dbs' to check 'Sweepstakes_test' exists, you can further check the internals if you wish with relevant mongo commands
 - Run 'NPM run test' in the BE folder of the Repo to run Util tests
 
@@ -73,11 +83,11 @@ After Git adding all the files you wish to change currently I push to github the
 ## **TO-DO**
 
 - started testing! MORE!!! and USER tests need doing!!!
-- finally got the first controller func working to send competitions
 - started first error handling, *learn more about error handling
 - fixed config to have test config and test db
 - ADD Validation to requests!! ### https://medium.freecodecamp.org/how-to-make-input-validation-simple-and-clean-in-your-express-js-app-ea9b5ff5a8a7 ###
 - Add validation on reserved api calls for superuser only 
 - add authentication to delete requests
+- CHANGE USERNAME to LOWER CASE VALIDATION on is unique
 
 #

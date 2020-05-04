@@ -10,6 +10,9 @@ import passport from 'passport'
 import path from 'path'
 import '../config/passport'
 import cookieParser from 'cookie-parser'
+import dotenv from 'dotenv'
+
+dotenv.config({ path: path.join(__dirname, `../.env.${process.env.NODE_ENV}`)})
 
 // Configure mongoose
 mongoose.Promise = Promise;
@@ -33,7 +36,7 @@ app.use(helmet.contentSecurityPolicy({
   }
 }))
 app.use(cors({
-  origin: ['https://www.sweepsteaks.co.uk', 'http://localhost:8080'],
+  origin: process.env.CORS_ORIGIN,
   exposedHeaders: ['Content-Length', 'authorisation'],
   credentials: true
 }))

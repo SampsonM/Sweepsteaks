@@ -51,6 +51,8 @@ function getCompetitionByName(req, res, next) {
 function addNewCompetition(req, res, next) {
   const {newCompetition} = req.body
 
+  // TODO - add owner auth check
+
   return Competition.find()
     .then(() => {
       return createTeamsArray(newCompetition)
@@ -76,6 +78,8 @@ function addNewCompetition(req, res, next) {
 function updateCompetition(req, res, next) {
   const compId = req.params.competition_id
   let {competitionUpdate} = req.body
+
+  // TODO - add owner auth check
 
   return Competition.findById(compId)
     .populate('teams')
