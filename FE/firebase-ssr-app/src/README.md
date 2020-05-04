@@ -1,6 +1,6 @@
-# sweepsteks
+# newapp
 
-> ssr-sweepsteaks app
+> Sweepsteaks-ssr-app
 
 ## Build Setup
 

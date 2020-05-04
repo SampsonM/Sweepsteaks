@@ -6,8 +6,9 @@
           "@babel/preset-env",
           {
             "targets": {
-              "node": "current"
-            }
+              "ie": "11"
+            },
+            "modules": "commonjs"
           }
         ]
       ]
