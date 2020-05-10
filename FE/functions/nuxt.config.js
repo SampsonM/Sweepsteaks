@@ -1,5 +1,6 @@
 module.exports = {
   mode: 'universal',
+  debug: true,
   /*
    ** Headers of the page
    */
@@ -52,9 +53,6 @@ module.exports = {
     },
     {
       src: '~/plugins/vuelidate'
-    },
-    {
-      src: '~/plugins/compositionApi'
     }
   ],
   /*
@@ -71,6 +69,7 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    // Doc: https://pwa.nuxtjs.org/
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
@@ -89,15 +88,16 @@ module.exports = {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend ( config, ctx) {
+    }
   },
   /*
    ** PWA config
   */
   pwa: {
     manifest: {
-      name: 'vue-sweepstakes',
-      short_name: 'vue-sweepstakes',
+      name: 'Sweepsteaks',
+      short_name: 'Sweepsteak',
       icons: [
         {
           src: './img/icons/favicon-16x16.png',
@@ -110,7 +110,6 @@ module.exports = {
           type: 'image/png'
         }
       ],
-      start_url: '/index.html',
       display: 'standalone',
       background_color: '#4554DD',
       theme_color: '#ffbf00'

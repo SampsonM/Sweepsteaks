@@ -5,8 +5,13 @@
 		"deployApp": "./scripts/deployApp.sh",
 		"pre-commit": "./scripts/preCommit.sh"
 	},
-	"pre-commit": ["pre-commit"],
+	"pre-commit": [
+		"pre-commit"
+	],
 	"devDependencies": {
 		"pre-commit": "^1.2.2"
+	},
+	"dependencies": {
+		"firebase": "^4.8.0"
 	}
 }

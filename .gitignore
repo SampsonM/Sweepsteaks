@@ -6,16 +6,12 @@
 /FE/tests/e2e/videos/
 /FE/tests/e2e/screenshots/
 
-/FE/public/.nuxt
-/FE/public/icons
-/FE/public/sw.js
-/FE/public/favicon.png
+/FE/public/
 
 /FE/functions/*
 /FE/functions/package.json
 /FE/functions/nuxt.config.js
-/FE/functions/nuxt
-/FE/functions/nuxt/*
+/FE/functions/nuxt/
 /FE/functions/.
 
 # local env files

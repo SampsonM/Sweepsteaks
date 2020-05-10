@@ -1,4 +1,4 @@
-# newapp
+# Sweepsteaks
 
 > Sweepsteaks-ssr-app
 

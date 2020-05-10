@@ -1,5 +1,5 @@
 {
-  "name": "newapp",
+  "name": "sweepsteaks",
   "version": "1.0.0",
   "description": "Sweepsteaks-ssr-app",
   "author": "SampsonM",
@@ -32,6 +32,8 @@
     "@nuxtjs/firebase": "^5.2.0",
     "@nuxtjs/pwa": "^3.0.0-0",
     "@vue/composition-api": "^0.5.0",
+    "firebase": "^7.14.3",
+    "firebase-admin": "^8.12.1",
     "nuxt": "^2.0.0",
     "vue-cookies": "^1.7.0",
     "vuelidate": "^0.7.5",
