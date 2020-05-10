@@ -12,13 +12,13 @@ import { createStore } from './store.js'
 
 /* Plugins */
 
-import nuxt_plugin_workbox_35190b54 from 'nuxt_plugin_workbox_35190b54' // Source: ./workbox.js (mode: 'client')
-import nuxt_plugin_nuxticons_4f9861ce from 'nuxt_plugin_nuxticons_4f9861ce' // Source: ./nuxt-icons.js (mode: 'all')
-import nuxt_plugin_axios_5591e88c from 'nuxt_plugin_axios_5591e88c' // Source: ./axios.js (mode: 'all')
+import nuxt_plugin_workbox_62041425 from 'nuxt_plugin_workbox_62041425' // Source: ./workbox.js (mode: 'client')
+import nuxt_plugin_axios_7571cd49 from 'nuxt_plugin_axios_7571cd49' // Source: ./axios.js (mode: 'all')
 import nuxt_plugin_cookies_1f907659 from 'nuxt_plugin_cookies_1f907659' // Source: ../plugins/cookies (mode: 'all')
 import nuxt_plugin_fontAwesome_06ce83de from 'nuxt_plugin_fontAwesome_06ce83de' // Source: ../plugins/fontAwesome (mode: 'all')
 import nuxt_plugin_index_18e055e7 from 'nuxt_plugin_index_18e055e7' // Source: ../plugins/api/index (mode: 'all')
 import nuxt_plugin_vuelidate_4345260a from 'nuxt_plugin_vuelidate_4345260a' // Source: ../plugins/vuelidate (mode: 'all')
+import nuxt_plugin_compositionApi_77f57506 from 'nuxt_plugin_compositionApi_77f57506' // Source: ../plugins/compositionApi (mode: 'all')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -65,7 +65,7 @@ async function createApp (ssrContext) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"title":"newapp","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"Sweepsteaks-ssr-app"},{"hid":"mobile-web-app-capable","name":"mobile-web-app-capable","content":"yes"},{"hid":"apple-mobile-web-app-title","name":"apple-mobile-web-app-title","content":"newapp"},{"hid":"author","name":"author","content":"SampsonM"},{"hid":"theme-color","name":"theme-color","content":"#fff"},{"hid":"og:type","name":"og:type","property":"og:type","content":"website"},{"hid":"og:title","name":"og:title","property":"og:title","content":"newapp"},{"hid":"og:site_name","name":"og:site_name","property":"og:site_name","content":"newapp"},{"hid":"og:description","name":"og:description","property":"og:description","content":"Sweepsteaks-ssr-app"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.ico"},{"rel":"manifest","href":"\u002F_nuxt\u002Fmanifest.f8ec616d.json"},{"rel":"shortcut icon","href":"\u002F_nuxt\u002Ficons\u002Ficon_64.5f6a36.png"},{"rel":"apple-touch-icon","href":"\u002F_nuxt\u002Ficons\u002Ficon_512.5f6a36.png","sizes":"512x512"}],"style":[],"script":[],"htmlAttrs":{"lang":"en"}},
+    head: {"title":"newapp","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"Sweepsteaks-ssr-app"},{"hid":"mobile-web-app-capable","name":"mobile-web-app-capable","content":"yes"},{"hid":"apple-mobile-web-app-title","name":"apple-mobile-web-app-title","content":"vue-sweepstakes"},{"hid":"author","name":"author","content":"SampsonM"},{"hid":"theme-color","name":"theme-color","content":"#ffbf00"},{"hid":"og:type","name":"og:type","property":"og:type","content":"website"},{"hid":"og:title","name":"og:title","property":"og:title","content":"vue-sweepstakes"},{"hid":"og:site_name","name":"og:site_name","property":"og:site_name","content":"vue-sweepstakes"},{"hid":"og:description","name":"og:description","property":"og:description","content":"Sweepsteaks-ssr-app"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.png"},{"rel":"manifest","href":"\u002F_nuxt\u002Fmanifest.bb918bdb.json"},{"rel":"shortcut icon","href":".\u002Fimg\u002Ficons\u002Ffavicon-16x16.png"},{"rel":"apple-touch-icon","href":".\u002Fimg\u002Ficons\u002Ffavicon-32x32.png","sizes":"32x32"}],"style":[],"script":[],"htmlAttrs":{"lang":"en"}},
 
     store,
     router,
@@ -180,16 +180,12 @@ async function createApp (ssrContext) {
 
   // Plugin execution
 
-  if (process.client && typeof nuxt_plugin_workbox_35190b54 === 'function') {
-    await nuxt_plugin_workbox_35190b54(app.context, inject)
+  if (process.client && typeof nuxt_plugin_workbox_62041425 === 'function') {
+    await nuxt_plugin_workbox_62041425(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_nuxticons_4f9861ce === 'function') {
-    await nuxt_plugin_nuxticons_4f9861ce(app.context, inject)
-  }
-
-  if (typeof nuxt_plugin_axios_5591e88c === 'function') {
-    await nuxt_plugin_axios_5591e88c(app.context, inject)
+  if (typeof nuxt_plugin_axios_7571cd49 === 'function') {
+    await nuxt_plugin_axios_7571cd49(app.context, inject)
   }
 
   if (typeof nuxt_plugin_cookies_1f907659 === 'function') {
@@ -206,6 +202,10 @@ async function createApp (ssrContext) {
 
   if (typeof nuxt_plugin_vuelidate_4345260a === 'function') {
     await nuxt_plugin_vuelidate_4345260a(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_compositionApi_77f57506 === 'function') {
+    await nuxt_plugin_compositionApi_77f57506(app.context, inject)
   }
 
   // If server-side, wait for async component to be resolved first

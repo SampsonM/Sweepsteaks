@@ -52,6 +52,9 @@ module.exports = {
     },
     {
       src: '~/plugins/vuelidate'
+    },
+    {
+      src: '~/plugins/compositionApi'
     }
   ],
   /*
@@ -87,5 +90,30 @@ module.exports = {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
+  },
+  /*
+   ** PWA config
+  */
+  pwa: {
+    manifest: {
+      name: 'vue-sweepstakes',
+      short_name: 'vue-sweepstakes',
+      icons: [
+        {
+          src: './img/icons/favicon-16x16.png',
+          sizes: '16x16',
+          type: 'image/png'
+        },
+        {
+          src: './img/icons/favicon-32x32.png',
+          sizes: '32x32',
+          type: 'image/png'
+        }
+      ],
+      start_url: '/index.html',
+      display: 'standalone',
+      background_color: '#4554DD',
+      theme_color: '#ffbf00'
+    }
   }
 }
