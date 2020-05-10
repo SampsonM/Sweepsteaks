@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import MyButton from './button'
+import MyButton from './button.vue'
 
 export default {
 	components: {

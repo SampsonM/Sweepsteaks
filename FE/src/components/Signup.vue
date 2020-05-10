@@ -41,7 +41,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
-import MyButton from './button'
+import MyButton from './button.vue'
 import MyInput from '@/components/input.vue'
 import validationHelpers from '@/helpers/validations'
 

@@ -42,7 +42,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import MyButton from '@/components/button'
+import MyButton from '@/components/button.vue'
 
 export default {
 	components: {

@@ -16,7 +16,9 @@
   "engines": {
     "node": "10.16.3"
   },
-  "pre-commit": ["test"],
+  "pre-commit": [
+    "test"
+  ],
   "dependencies": {
     "@babel/runtime": "^7.8.3",
     "cookie-parser": "^1.4.5",
@@ -46,8 +48,11 @@
     "axios": "^0.19.2",
     "chai": "^4.2.0",
     "faker": "^4.1.0",
-    "mocha": "^5.2.0",
-    "nodemon": "^1.19.4",
+    "mocha": "^7.1.2",
+    "nodemon": "^2.0.3",
     "supertest": "^3.4.2"
+  },
+  "optionalDependencies": {
+    "minimist": "^1.2.3"
   }
 }
