@@ -5,7 +5,7 @@
   "author": "SampsonM",
   "private": true,
   "scripts": {
-    "dev": "nuxt-ts",
+    "dev": "nuxt-ts --port=8080",
     "build": "nuxt-ts build",
     "generate": "nuxt-ts generate",
     "start": "nuxt-ts start",
@@ -22,15 +22,16 @@
     }
   },
   "dependencies": {
-    "nuxt": "^2.0.0",
-    "@nuxt/typescript-runtime": "^0.4.0",
-    "@nuxtjs/axios": "^5.3.6",
-    "@nuxtjs/pwa": "^3.0.0-0",
-    "@nuxtjs/dotenv": "^1.4.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "@fortawesome/free-regular-svg-icons": "^5.13.0",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/vue-fontawesome": "^0.1.9",
+    "@nuxt/typescript-runtime": "^0.4.0",
+    "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/dotenv": "^1.4.0",
+    "@nuxtjs/pwa": "^3.0.0-0",
+    "@vue/composition-api": "^0.5.0",
+    "nuxt": "^2.0.0",
     "vue-cookies": "^1.7.0",
     "vuelidate": "^0.7.5",
     "vuex-map-fields": "^1.4.0"

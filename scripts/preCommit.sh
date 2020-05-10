@@ -12,5 +12,5 @@ if [[ ${stagedFiles} == *"BE/"* ]]; then
 fi
 
 if [[ ${stagedFiles} == *"FE/"* ]]; then
-	cd ./FE/firebase-ssr-app/src && npm run test:unit && echo 'FE: APP TESTS PASSED' || exit 1
+	cd ./FE/src && npm run test:unit && echo 'FE: APP TESTS PASSED' || exit 1
 fi

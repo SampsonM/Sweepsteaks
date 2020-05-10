@@ -52,6 +52,9 @@ module.exports = {
     },
     {
       src: '~/plugins/vuelidate'
+    },
+    {
+      src: '~/plugins/compositionApi'
     }
   ],
   /*
