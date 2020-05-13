@@ -1,4 +1,3 @@
-node_modules/
-nuxt/
-packages.json
-nuxt.config.js
+/node_modules
+/nuxt
+/nuxt.config.js

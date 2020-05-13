@@ -11,7 +11,7 @@
 /FE/functions/*
 /FE/functions/package.json
 /FE/functions/nuxt.config.js
-/FE/functions/nuxt/
+/FE/functions/nuxt/dist
 /FE/functions/.
 
 # local env files
