@@ -31,5 +31,5 @@ workflows:
     jobs:
       - test-ui-unit
       - deploy-to-firebase
-          requires: test-ui-unit
+          requires: 'test-ui-unit'
 
