@@ -13,10 +13,13 @@ then
 fi
 
 
-# build
-cd ./FE && npm run build
+# build and deploy
+cd ./FE/src && npm install
 
-firebase deploy --only hosting
+cd ..
+
+firebase deploy
+
 
 cd ..
 
