@@ -7,9 +7,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: npm update
-          command: npm update
-      - run:
           name: Install Dependencies
           command: npm install
      
