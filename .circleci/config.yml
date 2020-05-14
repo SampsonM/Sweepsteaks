@@ -1,14 +1,37 @@
-version: 2.1
-orbs:
-  node: circleci/node@1.1
+version: 2.1 
 jobs:
-  build:
-    executor:
-      name: node/default
-      tag: '10.4'
+  test:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/sweep
     steps:
       - checkout
       - node/with-cache:
           steps:
             - run: npm install
-      - run: npm run test
+      - run: npm run test:unit
+#   build:
+#     docker:
+#       - image: circleci/node:10
+#     working_directory: ~/sweep
+#     steps:
+#       - checkout
+#       - restore_cache:
+#           keys:
+#             # Find a cache corresponding to this specific package-lock.json
+#             - v1-npm-deps-{{ checksum "package-lock.json" }}
+#             # Fallback cache to be used
+#             - v1-npm-deps-
+#       - run:
+#           name: Install Dependencies
+#           command: npm install
+#       - save_cache:
+#           key: v1-npm-deps-{{ checksum "package-lock.json" }}
+#           paths:
+#             - ./node_modules
+#       - run:
+#           name: Gatsby Build
+#           command: npm run build
+#       - run:
+#           name: Firebase Deploy
+#           command: ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN"
