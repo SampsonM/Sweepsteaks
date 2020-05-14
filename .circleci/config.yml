@@ -30,7 +30,7 @@ workflows:
   build_and_test:
     jobs:
       - test-ui-unit
-      - deploy-to-firebase
+      - deploy-to-firebase:
           requires:
             - test-ui-unit
 
