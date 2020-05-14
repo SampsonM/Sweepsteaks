@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  build:
+  install-firebase:
     docker:
       - image: circleci/node:8
     working_directory: ~/sweep
@@ -8,5 +8,23 @@ jobs:
       - checkout
       - run:
           name: Install Dependencies
-          command: npm install
-     
+          command: cd ./FE && npm install
+  test-ui-unit:
+    docker:
+      - image: circleci/node:12
+    working_directory: ~/sweep
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: cd ./FE/src && npm install
+      - run:
+          name: Build UI
+          command: npm run test:unit
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - install-firebase
+      - test-ui-unit
+
