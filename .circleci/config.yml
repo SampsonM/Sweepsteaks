@@ -7,6 +7,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: clear npm mods
+          command: rm -rf node_modules packkage-lock.json
+      - run:
           name: Install Dependencies
           command: npm install
      
