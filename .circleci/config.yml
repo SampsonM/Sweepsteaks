@@ -14,7 +14,7 @@ jobs:
           command: cd ./FE/src && npm run test:unit
       - run:
           name: Build UI
-          command: cd ./FE/src && npm run test:unit
+          command: cd ./FE/src && npm run build
   deploy-to-firebase:
     docker:
       - image: circleci/node:8
