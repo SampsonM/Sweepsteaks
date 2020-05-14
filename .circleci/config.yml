@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/node:12
+      - image: maloubobola/circleci-gcloud-node
     working_directory: ~/sweep
     steps:
       - checkout
