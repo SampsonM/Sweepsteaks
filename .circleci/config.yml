@@ -6,9 +6,19 @@ jobs:
     working_directory: ~/sweep
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            # Find a cache corresponding to this specific package-lock.json
+            - v1-npm-deps-{{ checksum "package-lock.json" }}
+            # Fallback cache to be used
+            - v1-npm-deps-
       - run:
           name: Install Dependencies
           command: cd ./FE/src && npm install
+      - save_cache:
+          key: v1-npm-deps-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
       - run:
           name: Unit test UI
           command: cd ./FE/src && npm run test:unit
