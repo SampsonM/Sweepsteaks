@@ -1,6 +1,16 @@
+jobs:
+  install-node:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      - checkout
+      - node/install:
+          install-npm: true
+          node-version: latest
+      - run: node --version
 version: 2.1
 orbs:
-  node: circleci/node@1.1.6
+  node: circleci/node@2.1.1
 jobs:
   build-and-test:
     executor:
@@ -10,7 +20,7 @@ jobs:
       - node/with-cache:
           steps:
             - run: npm install
-            - run: npm test
+            - run: npm test:unit
 workflows:
     build-and-test:
       jobs:
