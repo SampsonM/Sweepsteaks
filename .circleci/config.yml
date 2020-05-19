@@ -11,9 +11,10 @@ jobs:
     executor: node-12-executor
     steps:
       - checkout
-      - run:
-          name: update-npm
-          command: "sudo npm install -g npm@6"
+
+      #--------
+      # Install App dependencies
+      #--------
       - restore_cache:
           keys:
             - node-v1-{{ .Branch }}-{{ checksum "FE/src/package.json" }}
@@ -26,14 +27,26 @@ jobs:
           key: node-v1-{{ .Branch }}-{{ checksum "FE/src/package.json" }}
           paths:
             - ./FE/src/node_modules
+      
+      #--------
+      # Test App
+      #--------
       - run:
-          name: Unit test UI
+          name: TEST - UI
           working_directory: ./FE/src
           command: npm run test:unit
+      
+      #--------
+      # Build App
+      #--------
       - run:
-          name: Build UI
+          name: BUILD - UI
           working_directory: ./FE/src
           command: npm run build
+     
+      #--------
+      # Install cached function dependencies
+      #--------
       - restore_cache:
           keys:
             - node-v1-{{ .Branch }}-{{ checksum "FE/functions/package.json" }}
@@ -46,6 +59,10 @@ jobs:
           key: node-v1-{{ .Branch }}-{{ checksum "FE/functions/package.json" }}
           paths:
             - ./FE/functions/node_modules
+      
+      #--------
+      # Install cached firebase dependencies
+      #--------
       - restore_cache:
           keys:
             - node-v1-{{ .Branch }}-{{ checksum "FE/package.json" }}
@@ -58,6 +75,10 @@ jobs:
           key: node-v1-{{ .Branch }}-{{ checksum "FE/package.json" }}
           paths:
             - ./FE/node_modules
+      
+      #--------
+      # Deploy App
+      #--------
       - run:
           name: INSTALL - Firebase Dependencies
           working_directory: ./FE
