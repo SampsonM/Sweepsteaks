@@ -6,6 +6,33 @@ executors:
       - image: circleci/node:12
     working_directory: ~/sweep
 
+commands:
+  restore-save-cache:
+    description: "Save and retore cache"
+    parameters:
+      checksumFile:
+        type: string
+        default: "/"
+      paths:
+        type: string
+        default: "/"
+      whichDeps:
+        type: string
+        default: "/"
+    steps:
+      - restore_cache:
+          keys:
+            - node-v1-{{ .Branch }}-{{ checksum << checksumFile >> }}
+            - node-v1-{{ .Branch }}
+      - run:
+          name: INSTALL - << whichDeps >> dependencies
+          working_directory: << paths >>
+          command: npm install
+      - save_cache:
+          key: node-v1-{{ .Branch }}-{{ checksum << checksumFile >> }}
+          paths:
+            - << paths >>/node_modules
+
 jobs:
   deploy-ui:
     executor: node-12-executor
@@ -15,18 +42,10 @@ jobs:
       #--------
       # Install App dependencies
       #--------
-      - restore_cache:
-          keys:
-            - node-v1-{{ .Branch }}-{{ checksum "FE/src/package.json" }}
-            - node-v1-{{ .Branch }}
-      - run:
-          name: INSTALL - App dependencies
-          working_directory: ./FE/src
-          command: npm install
-      - save_cache:
-          key: node-v1-{{ .Branch }}-{{ checksum "FE/src/package.json" }}
-          paths:
-            - ./FE/src/node_modules
+      - restore-save-cache:
+          checksumFile: FE/src/package.json
+          paths: ./FE/src
+          whichDeps: "App"
       
       #--------
       # Test App
@@ -80,7 +99,7 @@ jobs:
       # Deploy App
       #--------
       - run:
-          name: INSTALL - Firebase Dependencies
+          name: DEPLOY - App
           working_directory: ./FE
           command: ./node_modules/.bin/firebase deploy --token="$FIREBASE_TOKEN"
 
