@@ -11,7 +11,7 @@
 
       <h2 class="main-content__sub-title">
         <span class="main-content__sub-title-sub-text">
-          Sweepsteaks, Coming soon!!
+          Sweepsteaks, Coming soon!
         </span>
 
         <br />
