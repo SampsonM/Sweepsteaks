@@ -34,7 +34,9 @@ jobs:
           name: Build UI
           working_directory: ./FE/src
           command: |
-            ls -l -a
+            while IFS= read -r line; do
+                echo "Text read from file: $line"
+            done < package.json
             npm run build
       - run:
           name: Install function deps
