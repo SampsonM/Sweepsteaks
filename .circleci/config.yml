@@ -103,9 +103,10 @@ workflows:
     jobs:
       - test-ui
       - deploy-ui:
-          requires:
-            - test-ui
           filters:
             branches:
-              only: master
+              only:
+                - master
+          requires:
+            - test-ui
 
