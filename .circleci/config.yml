@@ -33,7 +33,9 @@ jobs:
       - run:
           name: Build UI
           working_directory: ./FE/src
-          command: npm run build
+          command: |
+            ls -l -a
+            npm run build
       - run:
           name: Install function deps
           working_directory: ./FE/functions
