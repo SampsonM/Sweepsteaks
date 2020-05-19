@@ -17,17 +17,20 @@ jobs:
             - node-v1-{{ .Branch }}
       - run:
           name: Install Dependencies
-          command: cd ./FE/src && npm install
+          working_directory: /FE/src
+          command: npm install
       - save_cache:
           key: node-v1-{{ .Branch }}-{{ checksum "FE/src/package.json" }}
           paths:
             - ./FE/src/node_modules
       - run:
           name: Unit test UI
-          command: cd ./FE/src && npm run test:unit
+          working_directory: /FE/src
+          command: npm run test:unit
       - run:
           name: Build UI
-          command: cd ./FE/src && npm run build
+          working_directory: /FE/src
+          command: npm run build
       - run:
           name: Install function deps
           command: cd ./FE/functions && npm install
