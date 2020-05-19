@@ -34,7 +34,7 @@ jobs:
           command: cd ./FE && npm install
       - run:
           name: Deploy app to Firebase
-          command: cd ./FE && echo pwd &&  ./node_modules/firebase deploy --token "$FIREBASE_TOKEN"
+          command: cd ./FE && echo $(pwd) &&  ./node_modules/firebase deploy --token "$FIREBASE_TOKEN"
 
 workflows:
   version: 2
