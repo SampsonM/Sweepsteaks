@@ -28,8 +28,8 @@ jobs:
           name: Install Firebase Dependencies
           command: cd ./FE && npm install
       - run:
-          name: Deploy App to Firebase
-          command: cd ./FE && firebase deploy
+          name: Firebase Deploy
+          command: ./FE/node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN"
 
 workflows:
   version: 2
