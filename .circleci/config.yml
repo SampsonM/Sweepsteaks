@@ -7,25 +7,27 @@ executors:
     working_directory: ~/sweep
 
 jobs:
-  deploy-ui:
+  test-ui:
     executor: node-12-executor
     steps:
       - checkout
       - restore_cache:
           keys:
-            # when lock file changes, use increasingly general patterns to restore cache
             - node-v1-{{ .Branch }}-{{ checksum "FE/src/package.json" }}
-            - node-v1-{{ .Branch }}-
+            - node-v1-{{ .Branch }}
       - run:
           name: Install Dependencies
           command: cd ./FE/src && npm install
       - save_cache:
-          paths:
-            - ~/usr/local/lib/node_modules  # location depends on npm version
           key: node-v1-{{ .Branch }}-{{ checksum "FE/src/package.json" }}
+          paths:
+            - ./FE/src/node_modules
       - run:
           name: Unit test UI
           command: cd ./FE/src && npm run test:unit
+  deploy-ui:
+    executor: node-12-executor
+    steps:
       - run:
           name: Build UI
           command: cd ./FE/src && npm run build
@@ -38,7 +40,8 @@ jobs:
 
 workflows:
   version: 2
-  build_and_test:
+  test_and_deploy:
     jobs:
+      - test-ui
       - deploy-ui
 
