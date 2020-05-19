@@ -71,7 +71,7 @@ jobs:
       #--------
       # Install cached firebase dependencies
       #--------
-       - restore-save-cache:
+      - restore-save-cache:
           checksumFile: FE/package.json
           paths: ./FE
           whichDeps: "Firebase"
