@@ -30,6 +30,9 @@ jobs:
           name: Build UI
           command: cd ./FE/src && npm run build
       - run:
+          name: Install function deps
+          command: cd ./FE/functions && npm install
+      - run:
           name: Install Firebase Dependencies
           command: cd ./FE && npm install && ./node_modules/.bin/firebase deploy --token="$FIREBASE_TOKEN"
 
