@@ -12,13 +12,10 @@ commands:
     parameters:
       checksumFile:
         type: string
-        default: "/"
       paths:
         type: string
-        default: "/"
       whichDeps:
         type: string
-        default: "/"
     steps:
       - restore_cache:
           keys:
