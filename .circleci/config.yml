@@ -7,7 +7,7 @@ executors:
     working_directory: ~/sweep
 
 jobs:
-  test_and_deploy:
+  deploy-ui:
     executor: node-12-executor
     steps:
       - checkout
