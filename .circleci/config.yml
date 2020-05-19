@@ -63,34 +63,18 @@ jobs:
       #--------
       # Install cached function dependencies
       #--------
-      - restore_cache:
-          keys:
-            - node-v1-{{ .Branch }}-{{ checksum "FE/functions/package.json" }}
-            - node-v1-{{ .Branch }}
-      - run:
-          name: INSTALL - Function dependencies
-          working_directory: ./FE/functions
-          command: npm install
-      - save_cache:
-          key: node-v1-{{ .Branch }}-{{ checksum "FE/functions/package.json" }}
-          paths:
-            - ./FE/functions/node_modules
+      - restore-save-cache:
+          checksumFile: FE/functions/package.json
+          paths: ./FE/functions
+          whichDeps: "Functions"
       
       #--------
       # Install cached firebase dependencies
       #--------
-      - restore_cache:
-          keys:
-            - node-v1-{{ .Branch }}-{{ checksum "FE/package.json" }}
-            - node-v1-{{ .Branch }}
-      - run:
-          name: INSTALL - Firebase dependencies
-          working_directory: ./FE
-          command: npm install
-      - save_cache:
-          key: node-v1-{{ .Branch }}-{{ checksum "FE/package.json" }}
-          paths:
-            - ./FE/node_modules
+       - restore-save-cache:
+          checksumFile: FE/package.json
+          paths: ./FE
+          whichDeps: "Firebase"
       
       #--------
       # Deploy App
