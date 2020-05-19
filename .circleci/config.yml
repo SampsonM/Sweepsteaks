@@ -105,4 +105,7 @@ workflows:
       - deploy-ui:
           requires:
             - test-ui
+          filters:
+            branches:
+              only: master
 
