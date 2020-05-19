@@ -12,6 +12,7 @@
     "node": "8.9.4"
   },
   "dependencies": {
-    "firebase": "^7.14.4"
+    "firebase": "^7.14.4",
+    "firebase-tools": "^8.3.0"
   }
 }

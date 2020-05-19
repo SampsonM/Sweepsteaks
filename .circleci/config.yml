@@ -31,10 +31,7 @@ jobs:
           command: cd ./FE/src && npm run build
       - run:
           name: Install Firebase Dependencies
-          command: cd ./FE && npm install
-      - run:
-          name: Install Firebase Tools
-          command: cd ./FE && npm install --prefix=./firebase-deploy firebase-tools && ./firebase-deploy/node_modules/.bin/firebase deploy --token="$FIREBASE_TOKEN"
+          command: cd ./FE && npm install && ./node_modules/.bin/firebase deploy --token="$FIREBASE_TOKEN"
 
 workflows:
   version: 2
