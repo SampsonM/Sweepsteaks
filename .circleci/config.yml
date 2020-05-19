@@ -22,16 +22,16 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - node-v1-{{ .Branch }}-{{ checksum << checksumFile >> }}
+            - node-v1-{{ .Branch }}-{{ checksum << parameters.checksumFile >> }}
             - node-v1-{{ .Branch }}
       - run:
-          name: INSTALL - << whichDeps >> dependencies
+          name: INSTALL - << parameters.whichDeps >> dependencies
           working_directory: << paths >>
           command: npm install
       - save_cache:
-          key: node-v1-{{ .Branch }}-{{ checksum << checksumFile >> }}
+          key: node-v1-{{ .Branch }}-{{ checksum << parameters.checksumFile >> }}
           paths:
-            - << paths >>/node_modules
+            - << parameters.paths >>/node_modules
 
 jobs:
   deploy-ui:
