@@ -1,9 +1,14 @@
 version: 2.1
-jobs:
-  test-ui-unit:
+
+executors:
+  node-12-executor:
     docker:
       - image: circleci/node:12
     working_directory: ~/sweep
+
+jobs:
+  test-ui-unit:
+    executor: node-12-executor
     steps:
       - checkout
       - restore_cache:
@@ -21,6 +26,10 @@ jobs:
       - run:
           name: Unit test UI
           command: cd ./FE/src && npm run test:unit
+
+  deploy-firebase:
+    executor: node-12-executor
+    steps:
       - run:
           name: Build UI
           command: cd ./FE/src && npm run build
@@ -33,3 +42,7 @@ workflows:
   build_and_test:
     jobs:
       - test-ui-unit
+      - deploy-firebase:
+          requires:
+            - test-ui-unit
+
