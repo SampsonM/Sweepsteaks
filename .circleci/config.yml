@@ -27,7 +27,7 @@ jobs:
           command: cd ./FE/src && npm run build
   deploy-to-firebase:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:12
     working_directory: ~/sweep
     steps:
       - checkout
