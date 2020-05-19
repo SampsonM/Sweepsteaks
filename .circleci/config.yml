@@ -19,14 +19,14 @@ commands:
     steps:
       - restore_cache:
           keys:
-            - node-v1-{{ .Branch }}-{{ checksum << parameters.checksumFile >> }}
+            - node-v1-{{ .Branch }}-{{ checksum "<< parameters.checksumFile >>" }}
             - node-v1-{{ .Branch }}
       - run:
           name: INSTALL - << parameters.whichDeps >> dependencies
           working_directory: << parameters.paths >>
           command: npm install
       - save_cache:
-          key: node-v1-{{ .Branch }}-{{ checksum << parameters.checksumFile >> }}
+          key: node-v1-{{ .Branch }}-{{ checksum "<< parameters.checksumFile >>" }}
           paths:
             - << parameters.paths >>/node_modules
 
@@ -40,7 +40,7 @@ jobs:
       # Install App dependencies
       #--------
       - restore-save-cache:
-          checksumFile: "FE/src/package.json"
+          checksumFile: FE/src/package.json
           paths: ./FE/src
           whichDeps: "App"
       
