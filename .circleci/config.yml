@@ -15,7 +15,6 @@ jobs:
           paths:
             - ~/usr/local/lib/node_modules  # location depends on npm version
           key: node-v1-{{ .Branch }}-{{ checksum "FE/src/package.json" }}
-
       - run:
           name: Install Dependencies
           command: cd ./FE/src && npm install
@@ -25,15 +24,12 @@ jobs:
       - run:
           name: Build UI
           command: cd ./FE/src && npm run build
-  deploy-to-firebase:
-    docker:
-      - image: circleci/node:12
-    working_directory: ~/sweep
-    steps:
-      - checkout
       - run:
-          name: Install Dependencies
+          name: Install Firebase Dependencies
           command: cd ./FE && npm install
+      - run:
+          name: Deploy App to Firebase
+          command: cd ./FE && firebase deploy
 
 workflows:
   version: 2

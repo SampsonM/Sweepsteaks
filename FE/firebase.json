@@ -2,7 +2,7 @@
   "functions": {
     "source": "functions",
     "predeploy": [
-      "npm --prefix src run build && cp -r src/.nuxt/ functions/nuxt/ && cp src/nuxt.config.js functions/"
+      "cp -r src/.nuxt/ functions/nuxt/ && cp src/nuxt.config.js functions/"
     ]
   },
   "hosting": {

@@ -5,12 +5,8 @@
   "license": "ISC",
   "description": "Sweepsteaks ui",
   "main": "index.js",
-  "scripts": {
-    "test": "test"
-  },
   "keywords": [
-    "sweepsteaks",
-    "ui"
+    "sweepsteaks"
   ],
   "engines": {
     "node": "8.9.4"

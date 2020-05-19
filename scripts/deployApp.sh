@@ -12,15 +12,6 @@ then
 	exit 1
 fi
 
-
-# build and deploy
-cd ./FE/src && npm install
-
-cd ..
-
-firebase deploy
-
-
 cd ..
 
 git add .
