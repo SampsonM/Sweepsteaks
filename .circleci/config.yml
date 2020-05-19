@@ -33,11 +33,7 @@ jobs:
       - run:
           name: Build UI
           working_directory: ./FE/src
-          command: |
-            while IFS= read -r line; do
-                echo "Text read from file: $line"
-            done < package.json
-            npm run build
+          command: npm run build
       - run:
           name: Install function deps
           working_directory: ./FE/functions
