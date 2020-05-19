@@ -52,7 +52,7 @@ jobs:
           working_directory: ./FE/src
           command: npm run test:unit
 
-       - when:
+      - when:
           condition: $CIRCLE_BRANCH = "master"
           steps:
             #--------
