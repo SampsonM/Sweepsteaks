@@ -1,0 +1,21 @@
+{
+  "name": "sweep-fe",
+  "version": "1.0.0",
+  "author": "Mark Sampson",
+  "license": "ISC",
+  "description": "Sweepsteaks ui",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "sweepsteaks",
+    "ui"
+  ],
+  "engines": {
+		"node": "8.9.4"
+  },
+	"dependencies": {
+		"firebase": "^4.8.0"
+	}
+}

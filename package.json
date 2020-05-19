@@ -8,13 +8,7 @@
 	"pre-commit": [
 		"pre-commit"
 	],
-	"engines": {
-		"node": "8.9.4"
-	},
 	"devDependencies": {
 		"pre-commit": "^1.2.2"
-	},
-	"dependencies": {
-		"firebase": "^4.8.0"
 	}
 }
