@@ -31,7 +31,7 @@ commands:
             - << parameters.paths >>/node_modules
 
 jobs:
-  deploy-ui:
+  test-ui:
     executor: node-12-executor
     steps:
       - checkout
@@ -48,48 +48,61 @@ jobs:
       # Test App
       #--------
       - run:
-          name: TEST - UI
+          name: TEST - App
           working_directory: ./FE/src
           command: npm run test:unit
 
-      - when:
-          condition: $CIRCLE_BRANCH = "master"
-          steps:
-            #--------
-            # Build App
-            #--------
-            - run:
-                name: BUILD - UI
-                working_directory: ./FE/src
-                command: npm run build
-          
-            #--------
-            # Install cached function dependencies
-            #--------
-            - restore-save-cache:
-                checksumFile: FE/functions/package.json
-                paths: ./FE/functions
-                whichDeps: "Functions"
-            
-            #--------
-            # Install cached firebase dependencies
-            #--------
-            - restore-save-cache:
-                checksumFile: FE/package.json
-                paths: ./FE
-                whichDeps: "Firebase"
-            
-            #--------
-            # Deploy App
-            #--------
-            - run:
-                name: BUILD - UI
-                working_directory: ./FE
-                command: ./node_modules/.bin/firebase deploy --token="$FIREBASE_TOKEN"
+  deploy-ui:
+    executor: node-12-executor
+    steps:
+      - checkout
+
+      #--------
+      # Restore App dependencies
+      #--------
+      - restore_cache:
+          keys:
+            - node-v1-{{ .Branch }}-{{ checksum "FE/src/package.json" }}
+            - node-v1-{{ .Branch }}
+
+      #--------
+      # Build App
+      #--------
+      - run:
+          name: BUILD - App
+          working_directory: ./FE/src
+          command: npm run build
+    
+      #--------
+      # Install cached function dependencies
+      #--------
+      - restore-save-cache:
+          checksumFile: FE/functions/package.json
+          paths: ./FE/functions
+          whichDeps: "Functions"
+      
+      #--------
+      # Install cached firebase dependencies
+      #--------
+      - restore-save-cache:
+          checksumFile: FE/package.json
+          paths: ./FE
+          whichDeps: "Firebase"
+      
+      #--------
+      # Deploy App
+      #--------
+      - run:
+          name: DEPLOY - App
+          working_directory: ./FE
+          command: ./node_modules/.bin/firebase deploy --token="$FIREBASE_TOKEN"
 
 workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - deploy-ui
+      - test-ui
+      - deploy-ui:
+          requires:
+            - test-ui
 
