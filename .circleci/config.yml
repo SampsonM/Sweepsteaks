@@ -104,7 +104,7 @@ workflows:
       - deploy-ui:
           filters:
             branches:
-              only: circleci-project-setup
+              only: master
           requires:
             - test-ui
 
