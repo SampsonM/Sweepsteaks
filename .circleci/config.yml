@@ -11,13 +11,13 @@ jobs:
             # when lock file changes, use increasingly general patterns to restore cache
             - node-v1-{{ .Branch }}-{{ checksum "FE/src/package.json" }}
             - node-v1-{{ .Branch }}-
+      - run:
+          name: Install Dependencies
+          command: cd ./FE/src && npm install
       - save_cache:
           paths:
             - ~/usr/local/lib/node_modules  # location depends on npm version
           key: node-v1-{{ .Branch }}-{{ checksum "FE/src/package.json" }}
-      - run:
-          name: Install Dependencies
-          command: cd ./FE/src && npm install
       - run:
           name: Unit test UI
           command: cd ./FE/src && npm run test:unit
@@ -29,7 +29,7 @@ jobs:
           command: cd ./FE && npm install
       - run:
           name: Firebase Deploy
-          command: ./FE/node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN"
+          command: cd ./FE && ./node_modules/.bin/firebase deploy --token "$FIREBASE_TOKEN"
 
 workflows:
   version: 2
