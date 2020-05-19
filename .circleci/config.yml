@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  firebase-deploy: azdevs/firebase-deploy@1.0.0
+
 executors:
   node-12-executor:
     docker:
@@ -34,7 +37,11 @@ jobs:
           command: cd ./FE && npm install
       - run:
           name: Deploy app to Firebase
-          command: cd ./FE && echo pwd &&  ./node_modules/firebase deploy --token "$FIREBASE_TOKEN"
+          command: cd ./FE && ./node_modules/firebase deploy --token "$FIREBASE_TOKEN"
+      - attach_workspace:
+          at: /home/circleci/sweep/FE
+      - firebase-deploy/deploy:
+          token: $FIREBASE_TOKEN
 
 workflows:
   version: 2
