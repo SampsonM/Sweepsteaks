@@ -51,41 +51,44 @@ jobs:
           name: TEST - UI
           working_directory: ./FE/src
           command: npm run test:unit
-      
-      #--------
-      # Build App
-      #--------
-      - run:
-          name: BUILD - UI
-          working_directory: ./FE/src
-          command: npm run build
-     
-      #--------
-      # Install cached function dependencies
-      #--------
-      - restore-save-cache:
-          checksumFile: FE/functions/package.json
-          paths: ./FE/functions
-          whichDeps: "Functions"
-      
-      #--------
-      # Install cached firebase dependencies
-      #--------
-      - restore-save-cache:
-          checksumFile: FE/package.json
-          paths: ./FE
-          whichDeps: "Firebase"
-      
-      #--------
-      # Deploy App
-      #--------
-      - run: |
-          cd ./FE
-          if [ "$CIRCLE_BRANCH" = "master" ]; then
-              ./node_modules/.bin/firebase deploy --token="$FIREBASE_TOKEN"
-          else
-              circleci-agent step halt
-          fi
+
+       - when:
+          condition: $CIRCLE_BRANCH = "master"
+          steps:
+            #--------
+            # Build App
+            #--------
+            - run:
+                name: BUILD - UI
+                working_directory: ./FE/src
+                command: npm run build
+          
+            #--------
+            # Install cached function dependencies
+            #--------
+            - restore-save-cache:
+                checksumFile: FE/functions/package.json
+                paths: ./FE/functions
+                whichDeps: "Functions"
+            
+            #--------
+            # Install cached firebase dependencies
+            #--------
+            - restore-save-cache:
+                checksumFile: FE/package.json
+                paths: ./FE
+                whichDeps: "Firebase"
+            
+            #--------
+            # Deploy App
+            #--------
+            - run: |
+                cd ./FE
+                if [ "$CIRCLE_BRANCH" = "master" ]; then
+                    ./node_modules/.bin/firebase deploy --token="$FIREBASE_TOKEN"
+                else
+                    circleci-agent step halt
+                fi
 
 workflows:
   version: 2
