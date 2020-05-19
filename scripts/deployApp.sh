@@ -12,12 +12,6 @@ then
 	exit 1
 fi
 
-
-# build
-cd ./FE && npm run build
-
-firebase deploy --only hosting
-
 cd ..
 
 git add .
