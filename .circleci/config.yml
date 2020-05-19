@@ -26,7 +26,7 @@ commands:
             - node-v1-{{ .Branch }}
       - run:
           name: INSTALL - << parameters.whichDeps >> dependencies
-          working_directory: << paths >>
+          working_directory: << parameters.paths >>
           command: npm install
       - save_cache:
           key: node-v1-{{ .Branch }}-{{ checksum << parameters.checksumFile >> }}
