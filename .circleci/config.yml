@@ -43,7 +43,7 @@ jobs:
       # Install App dependencies
       #--------
       - restore-save-cache:
-          checksumFile: FE/src/package.json
+          checksumFile: "FE/src/package.json"
           paths: ./FE/src
           whichDeps: "App"
       
