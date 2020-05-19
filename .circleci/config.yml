@@ -51,7 +51,6 @@ jobs:
           name: TEST - App
           working_directory: ./FE/src
           command: npm run test:unit
-
   deploy-ui:
     executor: node-12-executor
     steps:
@@ -105,8 +104,7 @@ workflows:
       - deploy-ui:
           filters:
             branches:
-              only:
-                - master
+              only: master
           requires:
             - test-ui
 
