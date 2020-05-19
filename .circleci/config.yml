@@ -36,12 +36,8 @@ jobs:
           name: Install Firebase Dependencies
           command: cd ./FE && npm install
       - run:
-          name: Deploy app to Firebase
-          command: cd ./FE && echo $(pwd) && ./node_modules/firebase deploy --token "$FIREBASE_TOKEN"
-      - attach_workspace:
-          at: /home/circleci/sweep/FE
-      - firebase-deploy/deploy:
-          token: $FIREBASE_TOKEN
+          name: Install Firebase Tools
+          command: cd ./FE && npm install --prefix=./firebase-deploy firebase-tools && ./firebase-deploy/node_modules/.bin/firebase deploy --token="$FIREBASE_TOKEN"
 
 workflows:
   version: 2
