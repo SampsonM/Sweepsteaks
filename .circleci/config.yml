@@ -82,13 +82,10 @@ jobs:
             #--------
             # Deploy App
             #--------
-            - run: |
-                cd ./FE
-                if [ "$CIRCLE_BRANCH" = "master" ]; then
-                    ./node_modules/.bin/firebase deploy --token="$FIREBASE_TOKEN"
-                else
-                    circleci-agent step halt
-                fi
+            - run:
+                name: BUILD - UI
+                working_directory: ./FE
+                command: ./node_modules/.bin/firebase deploy --token="$FIREBASE_TOKEN"
 
 workflows:
   version: 2
