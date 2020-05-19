@@ -19,7 +19,7 @@ jobs:
             - node-v1-{{ .Branch }}-{{ checksum "FE/src/package.json" }}
             - node-v1-{{ .Branch }}
       - run:
-          name: Install Dependencies
+          name: INSTALL - App dependencies
           working_directory: ./FE/src
           command: npm install
       - save_cache:
@@ -34,14 +34,34 @@ jobs:
           name: Build UI
           working_directory: ./FE/src
           command: npm run build
+      - restore_cache:
+          keys:
+            - node-v1-{{ .Branch }}-{{ checksum "FE/functions/package.json" }}
+            - node-v1-{{ .Branch }}
       - run:
-          name: Install function deps
+          name: INSTALL - Function dependencies
           working_directory: ./FE/functions
           command: npm install
+      - save_cache:
+          key: node-v1-{{ .Branch }}-{{ checksum "FE/functions/package.json" }}
+          paths:
+            - ./FE/functions/node_modules
+      - restore_cache:
+          keys:
+            - node-v1-{{ .Branch }}-{{ checksum "FE/package.json" }}
+            - node-v1-{{ .Branch }}
       - run:
-          name: Install Firebase Dependencies
+          name: INSTALL - Firebase dependencies
           working_directory: ./FE
-          command: npm install && ./node_modules/.bin/firebase deploy --token="$FIREBASE_TOKEN"
+          command: npm install
+      - save_cache:
+          key: node-v1-{{ .Branch }}-{{ checksum "FE/package.json" }}
+          paths:
+            - ./FE/node_modules
+      - run:
+          name: INSTALL - Firebase Dependencies
+          working_directory: ./FE
+          command: ./node_modules/.bin/firebase deploy --token="$FIREBASE_TOKEN"
 
 workflows:
   version: 2
