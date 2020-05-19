@@ -25,9 +25,6 @@ jobs:
       - run:
           name: Unit test UI
           command: cd ./FE/src && npm run test:unit
-  deploy-ui:
-    executor: node-12-executor
-    steps:
       - run:
           name: Build UI
           command: cd ./FE/src && npm run build
@@ -42,6 +39,5 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - test-ui
       - deploy-ui
 
