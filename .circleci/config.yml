@@ -37,7 +37,10 @@ jobs:
       - checkout
       - run:
           name: PR branches
-          command: echo $CIRCLE_PULL_REQUEST
+          command: |
+            echo ${CIRCLE_PULL_REQUEST}
+            echo ${CIRCLE_USERNAME}
+            echo $CIRCLE_BRANCH
 
       #--------
       # Install App dependencies
