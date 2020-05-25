@@ -44,7 +44,9 @@ To run the tests follow these steps:
 - Check the db has been sown in the terminal window with mongo running, run 'show dbs' to check 'Sweepstakes_test' exists, you can further check the internals if you wish with relevant mongo commands
 - Run 'NPM run test' in the BE folder of the Repo to run Util tests
 
-## **Building on Heroku**
+## **Deploying to Heroku**
+TODO: add circle ci steps for BE
+
 After Git adding all the files you wish to change currently I push to github then to heroku using 'git push heroku master'
 - This builds the app and restarts using the heroku config
 
