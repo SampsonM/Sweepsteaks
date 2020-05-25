@@ -14,14 +14,11 @@ describe('/competitions', () => {
   const userZeroPass = userData[0].password
   const userZeroUsername = userData[0].username
 
-  beforeEach(() => {
-    return mongooseConnect()
-      .then(() => seedDB())
-      .then(data => {
-        compDocs = data.compDocs
-        teamDocs = data.teamDocs
-      })
-      .catch(console.log)
+  beforeEach(async () => {
+    await mongooseConnect()
+    const data = await seedDB()
+    compDocs = data.compDocs
+    teamDocs = data.teamDocs
   })
 
   afterEach(() => {
