@@ -31,13 +31,14 @@ commands:
             - << parameters.paths >>/node_modules
 
 jobs:
-  run-fe:
+  check-fe:
     docker:
       - image: bashell/alpine-bash
     steps:
       - checkout
       - run:
           name: Check Scripts
+          working_directory: .
           command: git log -1 --pretty=%B | grep -q 'FE:' && exit 0
 #   run-be:
 #     docker:
@@ -51,12 +52,6 @@ jobs:
     executor: node-12-executor
     steps:
       - checkout
-      - run:
-          name: PR branches
-          command: |
-            echo ${CIRCLE_PULL_REQUEST}
-            echo ${CIRCLE_USERNAME}
-            echo $CIRCLE_BRANCH
 
       #--------
       # Install App dependencies
@@ -122,15 +117,13 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - run-fe:
+      - check-fe
       - test-ui:
           requires:
-            - run-fe
+            - check-fe
       - deploy-ui:
           filters:
             branches:
               only: master
           requires:
             - test-ui
-            - run-fe
-
