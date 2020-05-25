@@ -31,7 +31,7 @@ commands:
             - << parameters.paths >>/node_modules
 
 jobs:
-  run-FE:
+  run-fe:
     docker:
       - image: koalaman/shellcheck-alpine:stable
     steps:
@@ -39,7 +39,7 @@ jobs:
       - run:
           name: Check Scripts
           command: git log -1 --pretty=%B | grep -q 'FE:' && exit 0
-  run-BE:
+  run-be:
     docker:
       - image: koalaman/shellcheck-alpine:stable
     steps:
@@ -122,15 +122,15 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - run-FE:
+      - run-fe:
       - test-ui:
           requires:
-            - run-FE
+            - run-fe
       - deploy-ui:
           filters:
             branches:
               only: master
           requires:
             - test-ui
-            - run-FE
+            - run-fe
 
