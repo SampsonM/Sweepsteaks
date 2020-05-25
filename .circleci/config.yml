@@ -9,6 +9,10 @@ executors:
     docker:
       - image: alpine/git
     working_directory: ~/sweep
+  mongo-express:
+    docker:
+      - image: mongo-express
+    working_directory: ~/sweep
 
 commands:
   restore-save-cache:
@@ -116,10 +120,11 @@ jobs:
           working_directory: ./FE
           command: ./node_modules/.bin/firebase deploy --token="$FIREBASE_TOKEN"
   test-server:
-    executor: node-12-executor
+    executor: mongo-express
     environment:
       KEY: $JWT_KEY
       OWNER_AUTH_KEY: $OWNER_AUTH_KEY
+      DB_URL: $DB_URL
     steps:
       - checkout
     
