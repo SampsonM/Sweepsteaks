@@ -33,7 +33,7 @@ commands:
 jobs:
   run-fe:
     docker:
-      - image: koalaman/shellcheck-alpine:stable
+      - image: bashell/alpine-bash
     steps:
       - checkout
       - run:
