@@ -39,14 +39,14 @@ jobs:
       - run:
           name: Check Scripts
           command: git log -1 --pretty=%B | grep -q 'FE:' && exit 0
-  run-be:
-    docker:
-      - image: koalaman/shellcheck-alpine:stable
-    steps:
-      - checkout
-      - run:
-          name: Check Scripts
-          command: git log -1 --pretty=%B | grep -q 'BE:' && exit 0
+#   run-be:
+#     docker:
+#       - image: koalaman/shellcheck-alpine:stable
+#     steps:
+#       - checkout
+#       - run:
+#           name: Check Scripts
+#           command: git log -1 --pretty=%B | grep -q 'BE:' && exit 0
   test-ui:
     executor: node-12-executor
     steps:
