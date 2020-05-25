@@ -33,7 +33,7 @@ commands:
 jobs:
   check-fe:
     docker:
-      - image: bashell/alpine-bash
+      - image: alpine/git
     steps:
       - checkout
       - run:
