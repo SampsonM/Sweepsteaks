@@ -5,6 +5,10 @@ executors:
     docker:
       - image: circleci/node:12
     working_directory: ~/sweep
+  bash-shell-executor:
+    docker:
+      - image: bashell/alpine-bash
+    working_directory: ~/sweep
 
 commands:
   restore-save-cache:
@@ -32,8 +36,7 @@ commands:
 
 jobs:
   check-fe:
-    docker:
-      - image: bashell/alpine-bash
+    executor: bash-shell-executor
     steps:
       - checkout
       - run:
@@ -41,8 +44,7 @@ jobs:
           working_directory: .
           command: git log -1 --pretty=%B | grep -q 'FE:' && exit 0
   check-be:
-    docker:
-      - image: bashell/alpine-bash
+    executor: bash-shell-executor
     steps:
       - checkout
       - run:
