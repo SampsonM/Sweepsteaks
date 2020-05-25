@@ -35,7 +35,7 @@ commands:
             - << parameters.paths >>/node_modules
 
 jobs:
-  check-fe:
+  run-fe:
     executor: bash-shell-executor
     steps:
       - checkout
@@ -43,7 +43,7 @@ jobs:
           name: Check Scripts
           working_directory: .
           command: git log -1 --pretty=%B | grep -q 'FE:' && exit 0
-  check-be:
+  run-be:
     executor: bash-shell-executor
     steps:
       - checkout
@@ -140,11 +140,11 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - check-fe
-      - check-be
+      - run-fe
+      - run-be
       - test-ui:
           requires:
-            - check-fe
+            - run-fe
       - deploy-ui:
           filters:
             branches:
@@ -153,5 +153,5 @@ workflows:
             - test-ui
       - test-server:
           requires:
-            - check-be
+            - run-be
 
