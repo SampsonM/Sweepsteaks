@@ -66,36 +66,35 @@ function seedUsers(users) {
   return User.insertMany(newUserData)
 }
 
-function seedDB() {
-  return mongoose.connection
-    .dropDatabase()
-    .then(async () => {
-      if (path === 'production') {
-        let data = await teamData.default()
-        return Team.insertMany(data)
-      }
-      return Team.insertMany(teamData)
-    })
-    .then(teamDocs => {
-      return Promise.all([
-        seedCompetitions(teamDocs),
-        seedUsers(userData),
-        teamDocs
-      ])
-    })
-    .then(([compDocs, userDocs, teamDocs]) => {
-      let userIds = generateIds(userData, userDocs)
-      return Promise.all([compDocs, userDocs, teamDocs, seedGroups(userIds)])
-    })
-    .then(([compDocs, userDocs, teamDocs, groupDocs]) => {
-      return {
-        compDocs,
-        userDocs,
-        teamDocs,
-        groupDocs
-      }
-    })
-    .catch(err => console.log(`${err} oh no! 🧟`))
+async function seedDB() {
+  try {
+    let teamDocs
+
+    await mongoose.connection.dropDatabase()
+    
+    if (path === 'production') {
+      let data = await teamData.default()
+      teamDocs = await Team.insertMany(data)
+    } else {
+      teamDocs = await Team.insertMany(teamData)
+    }
+
+    const compDocs = await seedCompetitions(teamDocs)
+    const userDocs = await seedUsers(userData)
+
+    const userIds = generateIds(userData, userDocs)
+    const groupDocs = await seedGroups(userIds)
+  
+    return {
+      compDocs,
+      userDocs,
+      teamDocs,
+      groupDocs
+    }
+
+  } catch (err) {
+    console.log(`${err} oh no! 🧟`)
+  }
 }
 
 module.exports = seedDB

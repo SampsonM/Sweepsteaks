@@ -23,7 +23,8 @@ function getGroupById(req, res, next) {
 
   return Group.findById(groupId)
     .lean()
-    .populate('createdBy', 'name')
+    .populate('createdBy', {_id: 0, username: 1, avatarUrl: 1})
+    .populate('users', {_id: 0, username: 1, avatarUrl: 1})
     .then(group => {
       res.status(200).send(group)
     })
@@ -35,9 +36,10 @@ function getGroupById(req, res, next) {
 function getGroupByName(req, res, next) {
   const groupName = req.query.name
 
-  return Group.findOne({ name: groupName })
+  return Group.findOne({ name: groupName }, {_id: 0, name: 1, createdBy: 1, users: 1, wager: 1 })
     .lean()
-    .populate('createdBy', 'name')
+    .populate('createdBy', {_id: 0, username: 1, avatarUrl: 1})
+    .populate('users', {_id: 0, username: 1, avatarUrl: 1})
     .then(group => {
       res.status(200).send(group)
     })
@@ -47,6 +49,7 @@ function getGroupByName(req, res, next) {
 }
 
 function addGroup(req, res, next) {
+  // Validate this data
   const {newGroup} = req.body
 
   return Group.find()
@@ -68,11 +71,11 @@ function addGroup(req, res, next) {
     })
 }
 
-function editGroupData(req, res, next) {
-  
+function editGroupData(req, res, next) { 
   // ADD SECURITY TO SOMEHOW ONLY ALLOW GROUP OWNER TO EDIT
+  // Validate this data here
+  const { updatedGroupData } = req.body
 
-  const {updatedGroupData} = req.body
   const groupName = req.params.group_name
 
   return Group.findOneAndUpdate({name: groupName}, {$set: updatedGroupData}, {new:true})

@@ -12,34 +12,39 @@
     "lastName": "davidson",
     "username": "Alf987",
     "email": "Alf987@123.com",
-    "password": "Alf987"
+    "password": "Alf987",
+    "avatarUrl": "https://avatar.co.uhmyeahRealURL"
   },
   {
     "firstName": "mark",
     "lastName": "sampson",
     "username": "Sampo18",
     "email": "Sampo18@123.com",
-    "password": "Sampo18"
+    "password": "Sampo18",
+    "avatarUrl": "https://avatar.co.uhmyeahRealURL"
   },
   {
     "firstName": "tom",
     "lastName": "davidson",
     "username": "tommo123",
     "email": "tommo@123.com",
-    "password": "tommo123"
+    "password": "tommo123",
+    "avatarUrl": "https://avatar.co.uhmyeahRealURL"
   },
   {
     "firstName": "bennie",
     "lastName": "davidson",
     "username": "bennie12",
     "email": "bennie@123.com",
-    "password": "bennie12"
+    "password": "bennie12",
+    "avatarUrl": "https://avatar.co.uhmyeahRealURL"
   },
   {
     "firstName": "shag",
     "lastName": "davidson",
     "username": "shag69",
     "email": "shag@123.com",
-    "password": "shag69"
+    "password": "shag69",
+    "avatarUrl": "https://avatar.co.uhmyeahRealURL"
   }
 ]

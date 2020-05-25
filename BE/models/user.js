@@ -39,6 +39,12 @@ const UserSchema = new Schema({
   avatarUrl: {
     type: String
   },
+  groups: [{
+    type: Schema.Types.ObjectId,
+    ref: 'groups',
+    required: false,
+    default: ''
+  }],
   sweepsWon: [{
     competition: {
       type: mongoose.Schema.Types.ObjectId,

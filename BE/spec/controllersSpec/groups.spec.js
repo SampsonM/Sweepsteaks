@@ -102,6 +102,7 @@ describe('/groups', () => {
 
   describe('when user logged in', () => {
     let userToken
+    let group
 
     beforeEach(() => {
       return request
@@ -124,24 +125,86 @@ describe('/groups', () => {
           })
       })
     
-      it(':group_id returns group by id', () => {
-        return request
-          .get(`/api/groups/${groupDocs[0]._id}`)
-          .set('cookie',`ssTok=${userToken}`)
-          .expect(200)
-          .then(group => {
-            expect(group.body._id).to.equal(groupDocs[0]._id.toString())
-          })
+      describe(':group_id', () => {
+        beforeEach(async () => {
+          group = await request
+            .get(`/api/groups/${groupDocs[0]._id}`)
+            .set('cookie',`ssTok=${userToken}`)
+            .expect(200)
+        })
+
+        it(':group_id returns group by id', () => {
+          expect(group.body._id).to.equal(groupDocs[0]._id.toString())
+        })
+
+        it('Returns group with createdBy populated with username and avatarUrl only', () => {
+          const createdByKeys = Object.keys(group.body.createdBy)
+
+          expect(createdByKeys.includes('_id')).to.equal(false)
+          expect(createdByKeys.includes('lastName')).to.equal(false)
+          expect(createdByKeys.includes('firstName')).to.equal(false)
+          expect(createdByKeys.includes('email')).to.equal(false)
+          expect(createdByKeys.includes('hash')).to.equal(false)
+          expect(createdByKeys.includes('salt')).to.equal(false)
+          expect(createdByKeys.includes('sweepsWon')).to.equal(false)
+          expect(createdByKeys.includes('avatarUrl')).to.equal(true)
+          expect(createdByKeys.includes('username')).to.equal(true)
+        })
+  
+        it('Returns group with users populated with username and avatarUrl only', () => {
+          const userKeys = Object.keys(group.body.users[0])
+
+          expect(userKeys.includes('_id')).to.equal(false)
+          expect(userKeys.includes('lastName')).to.equal(false)
+          expect(userKeys.includes('firstName')).to.equal(false)
+          expect(userKeys.includes('email')).to.equal(false)
+          expect(userKeys.includes('hash')).to.equal(false)
+          expect(userKeys.includes('salt')).to.equal(false)
+          expect(userKeys.includes('sweepsWon')).to.equal(false)
+          expect(userKeys.includes('avatarUrl')).to.equal(true)
+          expect(userKeys.includes('username')).to.equal(true)
+        })
       })
-    
-      it('?group_name Returns group by name', () => {
-        return request
-          .get(`/api/groups?name=${groupDocs[0].name}`)
-          .set('cookie',`ssTok=${userToken}`)
-          .expect(200)
-          .then(group => {
-            expect(group.body.name).to.equal(groupDocs[0].name)
-          })
+
+      describe('?group_name', () => {
+        beforeEach(async () => {
+          group = await request
+            .get(`/api/groups?name=${groupDocs[0].name}`)
+            .set('cookie',`ssTok=${userToken}`)
+            .expect(200)
+        })
+
+        it('Returns group by name', () => {
+          expect(group.body.name).to.equal(groupDocs[0].name)
+        })
+  
+        it('Returns group with createdBy populated with username and avatarUrl only', () => {
+          const createdByKeys = Object.keys(group.body.createdBy)
+
+          expect(createdByKeys.includes('_id')).to.equal(false)
+          expect(createdByKeys.includes('lastName')).to.equal(false)
+          expect(createdByKeys.includes('firstName')).to.equal(false)
+          expect(createdByKeys.includes('email')).to.equal(false)
+          expect(createdByKeys.includes('hash')).to.equal(false)
+          expect(createdByKeys.includes('salt')).to.equal(false)
+          expect(createdByKeys.includes('sweepsWon')).to.equal(false)
+          expect(createdByKeys.includes('avatarUrl')).to.equal(true)
+          expect(createdByKeys.includes('username')).to.equal(true)
+        })
+  
+        it('Returns group with users populated with username and avatarUrl only', () => {
+          const userKeys = Object.keys(group.body.users[0])
+
+          expect(userKeys.includes('_id')).to.equal(false)
+          expect(userKeys.includes('lastName')).to.equal(false)
+          expect(userKeys.includes('firstName')).to.equal(false)
+          expect(userKeys.includes('email')).to.equal(false)
+          expect(userKeys.includes('hash')).to.equal(false)
+          expect(userKeys.includes('salt')).to.equal(false)
+          expect(userKeys.includes('sweepsWon')).to.equal(false)
+          expect(userKeys.includes('avatarUrl')).to.equal(true)
+          expect(userKeys.includes('username')).to.equal(true)
+        })
       })
     })
 

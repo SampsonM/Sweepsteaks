@@ -13,14 +13,12 @@ const GroupSchema = new Schema({
     ref: 'users',
     required: true
   },
-  users: {
-    type: [{
-      type: Schema.Types.ObjectId,
-      ref: 'users',
-      required: false,
-      default: ''
-    }]
-  },
+  users: [{
+    type: Schema.Types.ObjectId,
+    ref: 'users',
+    required: false,
+    default: ''
+  }],
   wager: {
     type: Number,
     required: true,
