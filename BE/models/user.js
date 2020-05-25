@@ -7,9 +7,7 @@ import path from 'path'
 import uniqueValidator from 'mongoose-unique-validator'
 const Schema = mongoose.Schema
 
-const KEY = process.env.NODE_ENV === 'production'
-  ? process.env.KEY
-  : fs.readFileSync(path.resolve(__dirname, '../config/certs/rootCA.key'))
+const KEY = process.env.KEY || fs.readFileSync(path.resolve(__dirname, '../config/certs/rootCA.key'))
 
 const UserSchema = new Schema({
   firstName: {

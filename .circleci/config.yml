@@ -117,6 +117,9 @@ jobs:
           command: ./node_modules/.bin/firebase deploy --token="$FIREBASE_TOKEN"
   test-server:
     executor: node-12-executor
+    environment:
+      KEY: $JWT_KEY
+      OWNER_AUTH_KEY: $OWNER_AUTH_KEY
     steps:
       - checkout
     

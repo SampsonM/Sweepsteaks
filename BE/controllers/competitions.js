@@ -109,7 +109,7 @@ function updateCompetition(req, res, next) {
 function deleteCompetition(req, res, next) {
   const competitionId = req.params.competition_id
   const authOwnerHeader = req.get('ownerAuth')
-  const authOwnerToken = fs.readFileSync(path.resolve(__dirname, '../config/certs/ownerAuthKey.txt'), 'utf8')
+  const authOwnerToken = process.env.OWNER_AUTH_KEY || fs.readFileSync(path.resolve(__dirname, '../config/certs/ownerAuthKey.txt'), 'utf8')
 
   if (authOwnerHeader === authOwnerToken) {
     return Competition.deleteOne({ _id: competitionId })
