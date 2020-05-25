@@ -7,7 +7,7 @@ executors:
     working_directory: ~/sweep
   bash-shell-executor:
     docker:
-      - image: bashell/alpine-bash
+      - image: alpine/git
     working_directory: ~/sweep
 
 commands:
