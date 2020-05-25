@@ -40,14 +40,15 @@ jobs:
           name: Check Scripts
           working_directory: .
           command: git log -1 --pretty=%B | grep -q 'FE:' && exit 0
-#   run-be:
-#     docker:
-#       - image: koalaman/shellcheck-alpine:stable
-#     steps:
-#       - checkout
-#       - run:
-#           name: Check Scripts
-#           command: git log -1 --pretty=%B | grep -q 'BE:' && exit 0
+  check-be:
+    docker:
+      - image: bashell/alpine-bash
+    steps:
+      - checkout
+      - run:
+          name: Check Scripts
+          working_directory: .
+          command: git log -1 --pretty=%B | grep -q 'BE:' && exit 0
   test-ui:
     executor: node-12-executor
     steps:
@@ -112,12 +113,33 @@ jobs:
           name: DEPLOY - App
           working_directory: ./FE
           command: ./node_modules/.bin/firebase deploy --token="$FIREBASE_TOKEN"
+  test-server:
+    executor: node-12-executor
+    steps:
+      - checkout
+    
+      #--------
+      # Install cached function dependencies
+      #--------
+      - restore-save-cache:
+          checksumFile: BE/package.json
+          paths: ./BE
+          whichDeps: "Server"
+
+      #--------
+      # Test Server
+      #--------
+      - run:
+          name: Test - Server
+          working_directory: ./BE
+          command: npm run test
 
 workflows:
   version: 2
   test_and_deploy:
     jobs:
       - check-fe
+      - check-be
       - test-ui:
           requires:
             - check-fe
@@ -127,3 +149,7 @@ workflows:
               only: master
           requires:
             - test-ui
+      - test-server:
+          requires:
+            - check-be
+
