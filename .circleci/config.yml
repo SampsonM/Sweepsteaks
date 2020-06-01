@@ -153,7 +153,8 @@ jobs:
             npm install mongodb --save
             cd node_modules/mongodb
             ls -a -l
-            ./node_modules/mongodb
+            pwd
+            /node_modules/mongodb
       #--------
       # Test Server
       #--------
