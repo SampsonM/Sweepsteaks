@@ -151,8 +151,9 @@ jobs:
           working_directory: ./BE
           command: |
             npm install mongodb --save
-            cd node_modules
+            cd node_modules/mongodb
             ls -a -l
+            ./node_modules/mongodb
       #--------
       # Test Server
       #--------
