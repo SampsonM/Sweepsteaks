@@ -138,9 +138,6 @@ jobs:
 
     steps:
       - checkout
-      - run:
-          name: Database Setup
-          command: "mongod && mongo --eval 'db.createUser({ user: 'myrootuser', pwd: 'mypassword', roles: [ { role: 'userAdminAnyDatabase', db: 'admin' } ] })"
 
       #--------
       # Install cached function dependencies
