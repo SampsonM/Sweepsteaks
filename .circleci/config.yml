@@ -9,15 +9,15 @@ executors:
     docker:
       - image: alpine/git
     working_directory: ~/sweep
-  mongo-express:
-    docker:
-      - image: mongo-express
-      - image: mongo:4.2.0
-        port: 27017:27017
-        environment:
-          - MONGODB_USERNAME: "myrootuser"
-          - MONGODB_PASSWORD: "mypassword"
-    working_directory: ~/sweep
+  # mongo-express:
+  #   docker:
+  #     - image: mongo-express
+  #     - image: mongo:4.2.0
+  #       port: 27017:27017
+  #       environment:
+  #         - MONGODB_USERNAME: "myrootuser"
+  #         - MONGODB_PASSWORD: "mypassword"
+  #   working_directory: ~/sweep
 
 commands:
   restore-save-cache:
@@ -72,7 +72,7 @@ jobs:
           checksumFile: FE/src/package.json
           paths: ./FE/src
           whichDeps: "App"
-      
+
       #--------
       # Test App
       #--------
@@ -100,7 +100,7 @@ jobs:
           name: BUILD - App
           working_directory: ./FE/src
           command: npm run build
-    
+
       #--------
       # Install cached function dependencies
       #--------
@@ -108,7 +108,7 @@ jobs:
           checksumFile: FE/functions/package.json
           paths: ./FE/functions
           whichDeps: "Functions"
-      
+
       #--------
       # Install cached firebase dependencies
       #--------
@@ -116,7 +116,7 @@ jobs:
           checksumFile: FE/package.json
           paths: ./FE
           whichDeps: "Firebase"
-      
+
       #--------
       # Deploy App
       #--------
@@ -125,17 +125,26 @@ jobs:
           working_directory: ./FE
           command: ./node_modules/.bin/firebase deploy --token="$FIREBASE_TOKEN"
   test-server:
-    executor: mongo-express
+    docker:
+      - image: mongo-express
+      - image: mongo:4.2.0
+        environment:
+          MONGODB_USERNAME: "myrootuser"
+          MONGODB_PASSWORD: "mypassword"
+
+    working_directory: ~/sweep
+
     environment:
       KEY: $JWT_KEY
       OWNER_AUTH_KEY: $OWNER_AUTH_KEY
       DB_URL: $DB_URL
+
     steps:
       - checkout
       - run:
           name: Database Setup
           command: "mongodb && mongo --eval 'db.createUser({ user: 'myrootuser', pwd: 'mypassword', roles: [ { role: 'userAdminAnyDatabase', db: 'admin' } ] })"
-    
+
       #--------
       # Install cached function dependencies
       #--------
@@ -170,4 +179,3 @@ workflows:
       - test-server:
           requires:
             - run-be
-
