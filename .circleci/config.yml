@@ -12,6 +12,11 @@ executors:
   mongo-express:
     docker:
       - image: mongo-express
+      - image: mongo:4.2.0
+        port: 27017:27017
+        environment:
+          - MONGODB_USERNAME: "myrootuser"
+          - MONGODB_PASSWORD: "mypassword"
     working_directory: ~/sweep
 
 commands:
@@ -127,6 +132,9 @@ jobs:
       DB_URL: $DB_URL
     steps:
       - checkout
+      - run:
+          name: Database Setup
+          command: "mongodb && mongo --eval 'db.createUser({ user: 'myrootuser', pwd: 'mypassword', roles: [ { role: 'userAdminAnyDatabase', db: 'admin' } ] })"
     
       #--------
       # Install cached function dependencies
