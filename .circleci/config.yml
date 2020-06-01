@@ -154,7 +154,7 @@ jobs:
             cd node_modules/mongodb
             ls -a -l
             pwd
-            /node_modules/mongodb
+            which mongod
       #--------
       # Test Server
       #--------
