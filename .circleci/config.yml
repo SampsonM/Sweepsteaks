@@ -152,7 +152,7 @@ jobs:
           command: |
             npm install mongodb --save
             ls -a -l
-            ./bin/mongo
+            ./node_modules/mongo
       #--------
       # Test Server
       #--------
