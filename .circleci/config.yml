@@ -150,7 +150,7 @@ jobs:
           name: Test -Run Mongo Server
           working_directory: ./BE
           command: |
-            npm install mongodb --save
+            npm install -g mongodb
             mongod
       #--------
       # Test Server
