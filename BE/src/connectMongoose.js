@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 
 // Connect mongoose
 export default () => {
-	console.log(process.env.NODE_ENV)
+	console.log(process.env)
 	return mongoose.connect(
 		DB_URL,
 		{ useNewUrlParser: true,
