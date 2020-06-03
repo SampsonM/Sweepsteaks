@@ -134,7 +134,7 @@ jobs:
     environment:
       KEY: $JWT_KEY
       OWNER_AUTH_KEY: $OWNER_AUTH_KEY
-      DB_URL: $DB_URL
+      DB_URL: DB_URL
 
     steps:
       - checkout
