@@ -42,7 +42,7 @@ jobs:
       - run:
           name: Check Scripts
           working_directory: .
-          command: set +e && git log -1 --pretty=%B | grep -q 'FE:' && exit 0
+          command: git log -1 --pretty=%B | grep -q 'FE:' && exit 1
   run-be:
     executor: bash-shell-executor
     steps:
