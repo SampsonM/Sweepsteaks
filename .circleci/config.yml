@@ -5,19 +5,6 @@ executors:
     docker:
       - image: circleci/node:12
     working_directory: ~/sweep
-  bash-shell-executor:
-    docker:
-      - image: alpine/git
-    working_directory: ~/sweep
-  # mongo-express:
-  #   docker:
-  #     - image: mongo-express
-  #     - image: mongo:4.2.0
-  #       port: 27017:27017
-  #       environment:
-  #         - MONGODB_USERNAME: "myrootuser"
-  #         - MONGODB_PASSWORD: "mypassword"
-  #   working_directory: ~/sweep
 
 commands:
   restore-save-cache:
@@ -45,7 +32,9 @@ commands:
 
 jobs:
   run-fe:
-    executor: bash-shell-executor
+    docker:
+      - image: alpine/git
+    working_directory: ~/sweep
     steps:
       - checkout
       - run:
@@ -53,7 +42,9 @@ jobs:
           working_directory: .
           command: git log -1 --pretty=%B | grep -q 'FE:' && exit 0
   run-be:
-    executor: bash-shell-executor
+    docker:
+      - image: alpine/git
+    working_directory: ~/sweep
     steps:
       - checkout
       - run:
@@ -159,17 +150,17 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      # - run-fe
-      # - run-be
-      # - test-ui:
-      #     requires:
-      #       - run-fe
-      # - deploy-ui:
-          # filters:
-          #   branches:
-          #     only: master
-          # requires:
-          #   - test-ui
-      - test-server
-          # requires:
-          #   - run-be
+      - run-fe
+      - run-be
+      - test-ui:
+          requires:
+            - run-fe
+      - deploy-ui:
+          filters:
+            branches:
+              only: master
+          requires:
+            - test-ui
+      - test-server:
+          requires:
+            - run-be
