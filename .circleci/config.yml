@@ -156,7 +156,9 @@ jobs:
       - run:
           name: Test - Server
           working_directory: ./BE
-          command: npm run test
+          command: |
+            echo $DB_URL
+            npm run test
 
 workflows:
   version: 2
