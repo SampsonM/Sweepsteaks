@@ -150,11 +150,9 @@ jobs:
           name: Test -Run Mongo Server
           working_directory: ./BE
           command: |
-            npm install mongodb --save
-            cd node_modules/mongodb
-            ls -a -l
-            pwd
-            which mongod
+            ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+            brew tap mongodb/brew
+            brew install mongodb-community
       #--------
       # Test Server
       #--------
