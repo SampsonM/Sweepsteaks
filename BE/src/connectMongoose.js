@@ -5,8 +5,6 @@ import mongoose from 'mongoose'
 // Connect mongoose
 export default () => {
 	console.log('DB_URL - ' + process.env.DB_URL)
-	console.log('DB_URLa - ' + process.env.DB_URLa)
-	console.log('DB_URLb - ' + process.env.DB_URLb)
 	return mongoose.connect(
 		DB_URL,
 		{ useNewUrlParser: true,

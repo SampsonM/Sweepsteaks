@@ -154,7 +154,7 @@ jobs:
           name: Test - Server
           working_directory: ./BE
           command: |
-            npm run test DB_URL='testing'
+            ENV DB_URL=$DB_URL npm run test
 
 workflows:
   version: 2
