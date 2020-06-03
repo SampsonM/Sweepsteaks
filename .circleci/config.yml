@@ -150,8 +150,10 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - run-fe
-      - run-be
+      - run-fe:
+          type: approval
+      - run-be:
+          type: approval
       - test-ui:
           requires:
             - run-fe
