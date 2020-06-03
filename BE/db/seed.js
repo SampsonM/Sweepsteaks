@@ -1,5 +1,5 @@
 'use strict'
-let path = process.env.NODE_ENV
+const path = process.env.NODE_ENV
 const mongoose = require('mongoose')
 mongoose.Promise = Promise
 const { User, Group, Team, Competition } = require('../models')
