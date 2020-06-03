@@ -134,7 +134,7 @@ jobs:
     environment:
       KEY: $JWT_KEY
       OWNER_AUTH_KEY: $OWNER_AUTH_KEY
-      DB_URL: $DB_URL
+      DB_URL: mongodb://localhost:27017/
 
     steps:
       - checkout
@@ -153,8 +153,7 @@ jobs:
       - run:
           name: Test - Server
           working_directory: ./BE
-          command: |
-            DB_URL=$DB_URL npm run test
+          command: npm run test
 
 workflows:
   version: 2
