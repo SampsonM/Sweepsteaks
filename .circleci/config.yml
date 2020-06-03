@@ -129,7 +129,7 @@ jobs:
       - image: mongo-express
       - image: mongo:4.2.0
 
-    working_directory: ~/
+    working_directory: .
 
     environment:
       KEY: $JWT_KEY
