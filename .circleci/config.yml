@@ -150,6 +150,7 @@ jobs:
           name: Test -Run Mongo Server
           working_directory: ./BE
           command: |
+            cd ~
             pwd
             ls -l -a
       #--------
