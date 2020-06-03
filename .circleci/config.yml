@@ -42,7 +42,9 @@ jobs:
       - run:
           name: Check Scripts
           working_directory: .
-          command: git log -1 --pretty=%B | grep -q 'FE:' && exit 0
+          command: |
+            set +e
+            git log -1 --pretty=%B | grep -q 'FE:'
   run-be:
     executor: bash-shell-executor
     steps:
@@ -50,7 +52,9 @@ jobs:
       - run:
           name: Check Scripts
           working_directory: .
-          command: git log -1 --pretty=%B | grep -q 'BE:' && exit 0
+          command: |
+            set +e
+            git log -1 --pretty=%B | grep -q 'BE:'
   test-ui:
     executor: node-12-executor
     steps:
@@ -150,10 +154,8 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - run-fe:
-          type: approval
-      - run-be:
-          type: approval
+      - run-fe
+      - run-be
       - test-ui:
           requires:
             - run-fe
