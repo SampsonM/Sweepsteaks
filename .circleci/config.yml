@@ -166,17 +166,17 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - run-fe
-      - run-be
-      - test-ui:
-          requires:
-            - run-fe
-      - deploy-ui:
-          filters:
-            branches:
-              only: master
-          requires:
-            - test-ui
-      - test-server:
-          requires:
-            - run-be
+      # - run-fe
+      # - run-be
+      # - test-ui:
+      #     requires:
+      #       - run-fe
+      # - deploy-ui:
+          # filters:
+          #   branches:
+          #     only: master
+          # requires:
+          #   - test-ui
+      - test-server
+          # requires:
+          #   - run-be
