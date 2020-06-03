@@ -134,9 +134,7 @@ jobs:
     environment:
       KEY: $JWT_KEY
       OWNER_AUTH_KEY: $OWNER_AUTH_KEY
-      DB_URL: ${DB_URL}
-      DB_URLa: DB_URL
-      DB_URLb: $DB_URL
+      DB_URL: $DB_URL
 
     steps:
       - checkout
@@ -156,8 +154,7 @@ jobs:
           name: Test - Server
           working_directory: ./BE
           command: |
-            echo test ${DB_URL}
-            npm run test
+            npm run test DB_URL='testing'
 
 workflows:
   version: 2
