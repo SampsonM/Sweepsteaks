@@ -4,10 +4,8 @@ import mongoose from 'mongoose'
 
 // Connect mongoose
 export default () => {
-	console.log('DB_URL - ' + DB_URL)
-
 	return mongoose.connect(
-		'mongodb://localhost:27017/',
+		DB_URL,
 		{ useNewUrlParser: true,
 			useUnifiedTopology: true },
 		() => {
