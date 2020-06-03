@@ -7,7 +7,7 @@ export default () => {
 	console.log('DB_URL - ' + DB_URL)
 
 	return mongoose.connect(
-		DB_URL,
+		'mongodb://localhost:27017/',
 		{ useNewUrlParser: true,
 			useUnifiedTopology: true },
 		() => {
