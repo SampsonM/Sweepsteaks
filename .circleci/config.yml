@@ -150,10 +150,9 @@ jobs:
           name: Test -Run Mongo Server
           working_directory: ./BE
           command: |
-            npm install -g mongodb
-            pwd
-            ls -a -l
-            mongo
+            sudo apt update && sudo apt upgrade -y
+            sudo apt install mongodb
+            sudo systemctl status mongodb
       #--------
       # Test Server
       #--------
