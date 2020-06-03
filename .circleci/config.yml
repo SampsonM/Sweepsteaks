@@ -148,10 +148,7 @@ jobs:
           checksumFile: BE/package.json
           paths: ./BE
           whichDeps: "Server"
-      - run:
-          name: Test -Run Mongo Server
-          working_directory: ./BE
-          command: npm run test
+
       #--------
       # Test Server
       #--------
