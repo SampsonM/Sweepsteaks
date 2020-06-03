@@ -149,10 +149,7 @@ jobs:
       - run:
           name: Test -Run Mongo Server
           working_directory: ./BE
-          command: |
-            cd ~
-            pwd
-            ls -l -a
+          command: npm run test
       #--------
       # Test Server
       #--------
