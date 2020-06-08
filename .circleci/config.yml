@@ -60,6 +60,8 @@ jobs:
       - run:
           name: Check if UI should run
           command: |
+            RUN apk add --no-cache git
+
             if ! git log -1 --pretty=%B | grep -q 'FE:'; then
               circleci-agent step halt
             fi
