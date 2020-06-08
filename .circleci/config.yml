@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  heroku: circleci/heroku@0.0.10
+
 executors:
   node-12-executor:
     docker:
@@ -171,7 +174,7 @@ jobs:
 
 workflows:
   version: 2
-  test_and_deploy:
+  test-and-deploy-ui:
     jobs:
       - test-ui
       - deploy-ui:
@@ -180,7 +183,9 @@ workflows:
               only: master
           requires:
             - test-ui
+  test-and-deploy-server:
+    jobs:
       - test-server
-      - deploy-server:
+      - heroku/deploy-via-git:
           requires:
             - test-server
