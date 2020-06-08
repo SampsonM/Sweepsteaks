@@ -51,19 +51,18 @@ jobs:
     executor: bash-shell-executor
     steps:
       - checkout
-      - run:
-          name: Check Scripts
-          command: |
-            if git log -1 --pretty=%B | grep -q 'BE:'; then
-              exit 0
-            else
-              circleci-agent step halt
-            fi
+      
            
   test-ui:
     executor: node-12-executor
     steps:
       - checkout
+      - run:
+          name: Check if UI should run
+          command: |
+            if ! git log -1 --pretty=%B | grep -q 'FE:'; then
+              circleci-agent step halt
+            fi
 
       #--------
       # Install App dependencies
@@ -84,6 +83,12 @@ jobs:
     executor: node-12-executor
     steps:
       - checkout
+      - run:
+          name: Check if UI should deploy
+          command: |
+            if ! git log -1 --pretty=%B | grep -q 'FE:'; then
+              circleci-agent step halt
+            fi
 
       #--------
       # Restore App dependencies
@@ -138,6 +143,12 @@ jobs:
 
     steps:
       - checkout
+      - run:
+          name: Check if B/E should run
+          command: |
+            if ! git log -1 --pretty=%B | grep -q 'BE:'; then
+              circleci-agent step halt
+            fi
 
       #--------
       # Install cached function dependencies
@@ -159,11 +170,7 @@ workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - run-fe
-      - run-be
-      - test-ui:
-          requires:
-            - run-fe
+      - test-ui
       - deploy-ui:
           filters:
             branches:
