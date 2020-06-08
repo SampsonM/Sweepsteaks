@@ -162,6 +162,8 @@ workflows:
       - run-fe
       - run-be
       - test-ui:
+          requires:
+            - run-fe
       - deploy-ui:
           filters:
             branches:
