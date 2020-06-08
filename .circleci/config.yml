@@ -165,7 +165,7 @@ jobs:
           name: DEPLOY - Server
           working_directory: ./BE
           command: |
-            ga . && gc -m "DEPLOY" && gp heroku master
+            git add . && git commit -m "DEPLOY" && git push heroku master
 
 workflows:
   version: 2
