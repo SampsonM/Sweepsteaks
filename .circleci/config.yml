@@ -158,6 +158,8 @@ jobs:
   deploy-server:
     executor: bash-shell-executor
     steps:
+      - checkout
+
       #--------
       # Deploy Server
       #--------
