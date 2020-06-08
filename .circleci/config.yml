@@ -165,20 +165,20 @@ jobs:
           name: DEPLOY - Server
           working_directory: ./BE
           command: |
-            git add . && git commit -m "DEPLOY" && git push heroku master
+            echo "$(git remote -v)"
 
 workflows:
   version: 2
   test_and_deploy:
     jobs:
-      - test-ui
-      - deploy-ui:
-          filters:
-            branches:
-              only: master
-          requires:
-            - test-ui
-      - test-server
-      - deploy-server:
-          requires:
-            - test-server
+      # - test-ui
+      # - deploy-ui:
+      #     filters:
+      #       branches:
+      #         only: master
+      #     requires:
+      #       - test-ui
+      # - test-server
+      - deploy-server
+          # requires:
+          #   - test-server
