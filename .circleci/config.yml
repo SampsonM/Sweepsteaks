@@ -41,20 +41,25 @@ jobs:
       - checkout
       - run:
           name: Check Scripts
-          working_directory: .
           command: |
-            set +e
-            git log -1 --pretty=%B | grep -q 'FE:'
+            if [  git log -1 --pretty=%B | grep -q 'FE:' ]; then
+              exit 0
+            else
+              circleci-agent step halt
+            fi
   run-be:
     executor: bash-shell-executor
     steps:
       - checkout
       - run:
           name: Check Scripts
-          working_directory: .
           command: |
-            set +e
-            git log -1 --pretty=%B | grep -q 'BE:'
+            if [  git log -1 --pretty=%B | grep -q 'BE:' ]; then
+              exit 0
+            else
+              circleci-agent step halt
+            fi
+           
   test-ui:
     executor: node-12-executor
     steps:
