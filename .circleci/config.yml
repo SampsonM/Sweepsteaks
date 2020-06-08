@@ -179,3 +179,4 @@ workflows:
           requires:
             - test-ui
       - test-server
+      - deploy-server
