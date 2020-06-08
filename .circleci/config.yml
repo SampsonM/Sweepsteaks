@@ -181,6 +181,6 @@ workflows:
           requires:
             - test-ui
       - test-server
-      - deploy-server
+      - deploy-server:
           requires:
             - test-server
