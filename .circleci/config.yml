@@ -146,8 +146,8 @@ jobs:
       - run:
           name: Check if B/E should run
           command: |
-            apt update
-            apt install git
+            apt-get update
+            apt-get install git
             git --version
 
             if ! git log -1 --pretty=%B | grep -q 'BE:'; then
