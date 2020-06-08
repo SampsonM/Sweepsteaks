@@ -3,7 +3,7 @@ version: 2.1
 executors:
   node-12-executor:
     docker:
-      - image: circleci/node:12
+      - image: timbru31/node-alpine-git
     working_directory: ~/sweep
   bash-shell-executor:
     docker:
@@ -60,8 +60,6 @@ jobs:
       - run:
           name: Check if UI should run
           command: |
-            apk add --no-cache git
-
             if ! git log -1 --pretty=%B | grep -q 'FE:'; then
               circleci-agent step halt
             fi
