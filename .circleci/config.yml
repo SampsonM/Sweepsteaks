@@ -12,7 +12,7 @@ executors:
 
 commands:
   restore-save-cache:
-    description: "Save and retore cache"
+    description: Save and restore cache
     parameters:
       checksumFile:
         type: string
@@ -35,7 +35,7 @@ commands:
             - << parameters.paths >>/node_modules
 
   check-server-should-deploy:
-    description: "Determine if BE should deploy"
+    description: Determine if BE should deploy
     steps:
       - run:
           name: Check if B/E should run
@@ -51,7 +51,7 @@ commands:
   check-ui-should-run:
     steps:
       - run:
-          name: Check if UI should run
+          name: Check if UI should deploy
           command: |
             if ! git log -1 --pretty=%B | grep -q 'FE:'; then
               circleci-agent step halt
