@@ -42,7 +42,9 @@ jobs:
       - run:
           name: Check Scripts
           command: |
-            if ! git log -1 --pretty=%B | grep -q 'FE:'; then
+            if git log -1 --pretty=%B | grep -q 'FE:'; then
+              exit 0
+            else
               circleci-agent step halt
             fi
   run-be:
@@ -52,7 +54,9 @@ jobs:
       - run:
           name: Check Scripts
           command: |
-            if ! git log -1 --pretty=%B | grep -q 'BE:'; then
+            if git log -1 --pretty=%B | grep -q 'BE:'; then
+              exit 0
+            else
               circleci-agent step halt
             fi
            
@@ -158,8 +162,6 @@ workflows:
       - run-fe
       - run-be
       - test-ui:
-          requires:
-            - run-fe
       - deploy-ui:
           filters:
             branches:
