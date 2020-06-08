@@ -146,6 +146,10 @@ jobs:
       - run:
           name: Check if B/E should run
           command: |
+            sudo apt update
+            sudo apt install git
+            git --version
+
             if ! git log -1 --pretty=%B | grep -q 'BE:'; then
               circleci-agent step halt
             fi
