@@ -155,6 +155,17 @@ jobs:
           name: Test - Server
           working_directory: ./BE
           command: npm run test
+  deploy-server:
+    executor: bash-shell-executor
+    steps:
+      #--------
+      # Deploy Server
+      #--------
+      - run:
+          name: DEPLOY - Server
+          working_directory: ./BE
+          command: |
+            ga . && gc -m "DEPLOY" && gp heroku master
 
 workflows:
   version: 2
