@@ -177,6 +177,4 @@ workflows:
               only: master
           requires:
             - test-ui
-      - test-server:
-          requires:
-            - run-be
+      - test-server
