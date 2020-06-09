@@ -167,7 +167,7 @@ jobs:
           working_directory: .
           command: |
             cd ./BE
-            ls -l -a
+            git remote -v
 
       #--------
       # Deploy Server vie git
