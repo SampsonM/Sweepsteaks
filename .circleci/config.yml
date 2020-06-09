@@ -164,9 +164,9 @@ jobs:
       - checkout
       - run:
           name: BUILD - App
-          working_directory: .
+          working_directory: ./BE
           command: |
-            cd ./BE
+            ls -l -a
             git remote -v
 
       #--------
