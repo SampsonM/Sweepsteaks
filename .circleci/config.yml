@@ -159,9 +159,11 @@ jobs:
           working_directory: ./BE
           command: npm run test
   deploy-server:
-    executor: bash-shell-executor
+    executor: node-12-executor
     steps:
       - checkout
+      - heroku/install
+
       - run:
           name: BUILD - App
           working_directory: ./BE
@@ -170,7 +172,7 @@ jobs:
             git remote -v
 
       #--------
-      # Deploy Server vie git
+      # Deploy Server via git
       #--------
       - heroku/deploy-via-git
 
