@@ -165,7 +165,9 @@ jobs:
       - run:
           name: BUILD - App
           working_directory: .
-          command: cd ./BE
+          command: |
+            cd ./BE
+            ls -l -a
 
       #--------
       # Deploy Server vie git
