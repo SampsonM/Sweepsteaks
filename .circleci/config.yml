@@ -175,7 +175,8 @@ jobs:
             git remote add heroku https://git.heroku.com/sweep-steaks.git
             git remote -v
             git add .
-            git status
+            git commit -m "DEPLOY" --no-verify
+            git push
 
 workflows:
   version: 2
