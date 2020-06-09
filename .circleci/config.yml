@@ -172,8 +172,7 @@ jobs:
           working_directory: ./BE
           command: |
             git init
-            git config --global user.email "SampsonM@github.com"
-            git config --global user.name "SampsonM"
+            git config --list
             git remote add heroku https://git.heroku.com/sweep-steaks.git
             git remote -v
             git add .
@@ -182,18 +181,18 @@ jobs:
 
 workflows:
   version: 2
-  test-and-deploy-ui:
-    jobs:
-      - test-ui
-      - deploy-ui:
-          filters:
-            branches:
-              only: master
-          requires:
-            - test-ui
+  # test-and-deploy-ui:
+  #   jobs:
+  #     - test-ui
+  #     - deploy-ui:
+  #         filters:
+  #           branches:
+  #             only: master
+  #         requires:
+  #           - test-ui
   test-and-deploy-server:
     jobs:
-      - test-server
-      - deploy-server:
-          requires:
-            - test-server
+      # - test-server
+      - deploy-server
+          # requires:
+          #   - test-server
