@@ -161,6 +161,7 @@ jobs:
   deploy-server:
     executor: bash-shell-executor
     steps:
+      - checkout
       - run:
           name: BUILD - App
           working_directory: .
@@ -169,7 +170,7 @@ jobs:
       #--------
       # Deploy Server vie git
       #--------
-      - heroku/deploy-via-git:
+      - heroku/deploy-via-git
 
 workflows:
   version: 2
