@@ -36,8 +36,6 @@ mongo
 npm run start:dev
 ```
 
-
-
 ## **Running tests**
 
 To run the tests follow these steps:
