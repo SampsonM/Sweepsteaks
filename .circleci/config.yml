@@ -178,7 +178,7 @@ jobs:
             git remote -v
             git add .
             git commit -m "DEPLOY" --no-verify
-            git push
+            git push heroku master
 
 workflows:
   version: 2
