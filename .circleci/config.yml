@@ -161,16 +161,16 @@ jobs:
   deploy-server:
     executor: bash-shell-executor
     steps:
-      - checkout
+
+      - run:
+          name: BUILD - App
+          working_directory: .
+          command: cd ./BE
 
       #--------
-      # Deploy Server
+      # Deploy Server vie git
       #--------
-      - run:
-          name: DEPLOY - Server
-          working_directory: ./BE
-          command: |
-            git add . && git commit -m "DEPLOY" && git push heroku master
+      - heroku/deploy-via-git:
 
 workflows:
   version: 2
@@ -186,6 +186,6 @@ workflows:
   test-and-deploy-server:
     jobs:
       - test-server
-      - heroku/deploy-via-git:
+      - deploy-serve:
           requires:
             - test-server
