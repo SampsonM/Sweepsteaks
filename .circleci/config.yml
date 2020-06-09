@@ -161,7 +161,6 @@ jobs:
   deploy-server:
     executor: bash-shell-executor
     steps:
-
       - run:
           name: BUILD - App
           working_directory: .
@@ -186,6 +185,6 @@ workflows:
   test-and-deploy-server:
     jobs:
       - test-server
-      - deploy-serve:
+      - deploy-server:
           requires:
             - test-server
