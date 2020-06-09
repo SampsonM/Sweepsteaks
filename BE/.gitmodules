@@ -1,0 +1,3 @@
+[submodule "sweep-steaks"]
+	path = sweep-steaks
+	url = https://git.heroku.com/sweep-steaks.git
