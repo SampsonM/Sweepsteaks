@@ -172,7 +172,7 @@ jobs:
           working_directory: ./BE
           command: |
             git init
-            git remote add heroku https://git.heroku.com/sweep-steaks.git
+            heroku git:remote -a sweep-steaks
             git remote -v
             git add .
             git commit -m "DEPLOY" --no-verify
