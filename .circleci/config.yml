@@ -162,20 +162,11 @@ jobs:
     executor: node-12-executor
     steps:
       - checkout
-      - heroku/install
 
       #--------
       # Deploy Server via git
       #--------
-      - run:
-          name: BUILD - App
-          working_directory: ./BE
-          command: |
-            git config --global user.email "SampsonM@github.com"
-            git config --global user.name "SampsonM"
-            git remote add heroku https://git.heroku.com/sweep-steaks.git
-            git pull heroku master
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+      - heroku/deploy-via-git
 
 workflows:
   version: 2
