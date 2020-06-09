@@ -164,17 +164,17 @@ jobs:
       - checkout
       - heroku/install
 
+      #--------
+      # Deploy Server via git
+      #--------
       - run:
           name: BUILD - App
           working_directory: ./BE
           command: |
-            ls -l -a
+            git remote add heroku https://git.heroku.com/sweep-steaks.git
             git remote -v
-
-      #--------
-      # Deploy Server via git
-      #--------
-      - heroku/deploy-via-git
+            git add .
+            git status
 
 workflows:
   version: 2
