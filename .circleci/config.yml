@@ -171,9 +171,9 @@ jobs:
           name: BUILD - App
           working_directory: ./BE
           command: |
+            git init
             git config --global user.email "SampsonM@github.com"
             git config --global user.name "SampsonM"
-            git init
             git remote add heroku https://git.heroku.com/sweep-steaks.git
             git remote -v
             git add .
