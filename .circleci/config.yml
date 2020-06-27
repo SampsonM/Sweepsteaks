@@ -176,18 +176,18 @@ jobs:
 
 workflows:
   version: 2
-  # test-and-deploy-ui:
-  #   jobs:
-  #     - test-ui
-  #     - deploy-ui:
-  #         filters:
-  #           branches:
-  #             only: master
-  #         requires:
-  #           - test-ui
+  test-and-deploy-ui:
+    jobs:
+      - test-ui
+      - deploy-ui:
+          filters:
+            branches:
+              only: master
+          requires:
+            - test-ui
   test-and-deploy-server:
     jobs:
-      # - test-server
+      - test-server
       - deploy-server
-          # requires:
-          #   - test-server
+          requires:
+            - test-server
