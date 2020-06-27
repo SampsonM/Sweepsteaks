@@ -29,6 +29,7 @@ export default {
       commit('UPDATE_ALLWD', user.authenticated)
 
       this.$cookie.set('ssTok', user.token, 60 * 60 * 12)
+      this.$cookie.set('uid', user._id, 60 * 60 * 12)
 
       window.$nuxt.$router.push('/dashboard')
     } catch (err) {
@@ -37,15 +38,14 @@ export default {
   },
   async logout({ commit }) {
     try {
-      const res = await this.$UserApi.logUserOut()
-      const user = res.data.user
-
-      this.$cookie.remove('ssTok')
-      commit('UPDATE_ALLWD', user.authenticated)
+      await this.$UserApi.logUserOut()
     } catch (err) {
-      this.$cookie.remove('ssTok')
-      commit('UPDATE_ALLWD', false)
+      // error
     }
+    
+    commit('UPDATE_ALLWD', false)
+    this.$cookie.remove('ssTok')
+    this.$cookie.remove('uid')
 
     window.$nuxt.$router.push('/')
   }

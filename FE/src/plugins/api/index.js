@@ -10,7 +10,7 @@ export default function({ app, $axios, store }, inject) {
     headers: {
       'Content-Type': 'application/json'
     },
-    withCredentials: true
+    withCredentials: process.env.NODE_ENV !== 'development'
   })
 
   // Inject to context as $compApi
