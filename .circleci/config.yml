@@ -188,6 +188,6 @@ workflows:
   test-and-deploy-server:
     jobs:
       - test-server
-      - deploy-server
+      - deploy-server:
           requires:
             - test-server
