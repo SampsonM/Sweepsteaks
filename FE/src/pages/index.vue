@@ -15,6 +15,9 @@ export default {
 		LandingPageContent,
 		Header
 	},
+	mounted() {
+		 console.log(this.$route.name)
+	},
 	head() {
 		return {
 			title: 'SweepSteaks | Sweepstakes online',

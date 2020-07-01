@@ -48,5 +48,8 @@ export default {
     this.$cookie.remove('uid')
 
     window.$nuxt.$router.push('/')
+  },
+  updateCurrentGroups({ commit }, group) {
+    commit('UPDATE_CURRENT_GROUPS', group)
   }
 }

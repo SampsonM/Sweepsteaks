@@ -3,7 +3,7 @@
 		<span class="input__label">
 			<label :for="name">{{ label }}</label>
 
-			<transition name="rotate-question">
+			<transition name="rotate-question" @after-enter="focusRef('question')">
 				<MyButton
 					v-show="hint && !hintOpen"
 					ref="question"
@@ -15,7 +15,7 @@
 					<font-awesome-icon :icon="['far', 'question-circle']" />
 				</MyButton>
 			</transition>
-			<transition name="rotate-cross">
+			<transition name="rotate-cross" @after-enter="focusRef('cross')">
 				<MyButton
 					v-show="hint && hintOpen"
 					ref="cross"
@@ -38,11 +38,14 @@
 		<span class="input__input-wrapper">
 			<input
 				:id="name"
-				:class="{ error: hasError }"
+				:class="{ 'error': hasError }"
 				v-bind="$attrs"
 				:name="name"
 				:type="type"
+				:value="value"
+				@input="$emit('input', $event.target.value)"
 				@blur="$emit('blur', $event.target.value)"
+				@keypress.enter="$emit('keypress-enter', $event)"
 			/>
 
 			<p v-if="hasError && errMessage" class="input__input-error">
@@ -61,6 +64,10 @@ export default {
 	},
 	inheritAttrs: false,
 	props: {
+		value: {
+			type: String | Number,
+			default: ''
+		},
 		label: {
 			type: String,
 			required: true
@@ -98,10 +105,9 @@ export default {
 	methods: {
 		toggleHint() {
 			this.hintOpen = !this.hintOpen
-
-			this.$nextTick(() => {
-				this.hintOpen ? this.$refs.cross.focus() : this.$refs.question.focus()
-			})
+		},
+		focusRef(ref) {
+			this.$refs[ref].$el.focus()
 		}
 	}
 }

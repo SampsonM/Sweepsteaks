@@ -1,6 +1,9 @@
 <template>
 	<header class="header">
-		<nuxt-link to="/" class="header__logo">
+		<nuxt-link
+			to="/"
+			:event="allwd ? '' : 'click'"
+			:class="['header__logo', { 'header__logo--no-click': allwd }]">
 			<img
 				itemprop="logo"
 				class="header__logo-brush"
@@ -24,16 +27,25 @@
 		<div class="header__ctas">
 			<nuxt-link
 				v-if="!allwd && $route.name !== 'login'"
-				tabindex="-1"
-				to="/login"
-			>
+				to="/login">
 				<MyButton btn-style="cta-1">
 					Login
 				</MyButton>
 			</nuxt-link>
-			<nuxt-link tabindex="-1" to="/dashboard">
-				<MyButton v-if="allwd" btn-style="cta-1">
+
+			<nuxt-link
+				v-if="allwd && $route.name == 'index'"
+				to="/dashboard">
+				<MyButton btn-style="cta-1">
 					Dashboard
+				</MyButton>
+			</nuxt-link>
+
+			<nuxt-link
+				v-if="allwd && $route.name == 'dashboard'"
+				to="/settings">
+				<MyButton btn-style="cta-1">
+					Settings
 				</MyButton>
 			</nuxt-link>
 		</div>
@@ -91,6 +103,14 @@ export default {
 			padding: 10px;
 			height: 90px;
 			width: 100px;
+		}
+
+		&--no-click {
+			cursor: default;
+
+			&:focus {
+				border: none;
+			}
 		}
 	}
 

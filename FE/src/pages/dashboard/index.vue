@@ -1,5 +1,11 @@
 <template>
-	<div>
+	<div class="dashboard" v-if="sweepAdminAccess">
+		<Header />
+		<DashHasGroup v-if="groupsAvailable"></DashHasGroup>
+		<DashNoGroup v-else></DashNoGroup>
+	</div>
+
+	<div v-else>
 		<h1>Dashboard</h1>
 
 		<div class="coming-soon">
@@ -16,12 +22,29 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
+import Header from '@/components/header.vue'
+import DashNoGroup from '@/components/DashNoGroup.vue'
+import DashHasGroup from '@/components/DashHasGroup.vue'
 
 export default {
 	middleware: 'auth',
+	components: {
+		Header,
+		DashNoGroup,
+		DashHasGroup
+	},
 	methods: {
 		...mapActions(['logout'])
+	},
+	computed: {
+		...mapState(['currentGroups']),
+		sweepAdminAccess() {
+			return this.$cookie.get('adminAccess') || false
+		},
+		groupsAvailable() {
+			return this.currentGroups.length > 0
+		}
 	}
 }
 </script>

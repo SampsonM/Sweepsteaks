@@ -50,11 +50,18 @@ h2 {
 	font-size: 3.7vh;
 	text-align: left;
 	color: $black;
+	margin-bottom: 20px;
 }
 
 h3 {
-	color: $red;
-	font-size: 5.1vw;
+	color: $black;
+	font-size: 2.8vh;
+	margin-bottom: 15px;
+}
+
+h4 {
+	color: $black;
+	font-size: 3.2vh;
 
 	@include breakpoint(desktop) {
 		font-size: 3.1vh;

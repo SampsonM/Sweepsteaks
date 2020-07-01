@@ -1,5 +1,6 @@
 import competitionApi from './competitionApi'
 import userApi from './userApi'
+import groupApi from './groupApi'
 
 export default function({ app, $axios, store }, inject) {
   const api = $axios.create({
@@ -10,7 +11,7 @@ export default function({ app, $axios, store }, inject) {
     headers: {
       'Content-Type': 'application/json'
     },
-    withCredentials: process.env.NODE_ENV !== 'development'
+    withCredentials: true
   })
 
   // Inject to context as $compApi
@@ -18,4 +19,7 @@ export default function({ app, $axios, store }, inject) {
 
   // Inject to context as $usersApi
   inject('UserApi', userApi(api, app.$cookie, store))
+
+  // Inject to context as $usersApi
+  inject('GroupApi', groupApi(api, app.$cookie, store))
 }

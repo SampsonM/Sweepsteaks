@@ -2,7 +2,7 @@
 	<div class="login">
 		<Header />
 
-		<form :class="['login__form', { error: loginError || $v.$error }]">
+		<form :class="['login__form', { 'error': loginError || $v.$error }]">
 			<MyInput
 				label="Username"
 				name="username"
@@ -10,7 +10,7 @@
 				placeholder="Username"
 				:has-error="$v.username.$error"
 				:err-message="fieldErr('username')"
-				@blur="val => handleInput('username', val)"
+				v-model="username"
 			/>
 			<MyInput
 				label="Password"
@@ -19,7 +19,7 @@
 				placeholder="Password"
 				:has-error="$v.password.$error"
 				:err-message="fieldErr('password')"
-				@blur="val => handleInput('password', val)"
+				v-model="password"
 			/>
 
 			<p v-if="!$v.$error" class="login__error-msg">
@@ -30,8 +30,7 @@
 				type="submit"
 				class="login__submit"
 				btn-style="cta-1"
-				@click="logUserIn"
-			>
+				@click="logUserIn">
 				Login
 				<font-awesome-icon
 					v-if="submitting"
