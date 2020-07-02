@@ -90,7 +90,7 @@ module.exports = {
   build: {
     // https://nuxtjs.org/api/configuration-build#transpile
     transpile: [
-      'fs-extra'
+      '@nuxt/telemetry'
     ],
     /*
      ** You can extend webpack config here
