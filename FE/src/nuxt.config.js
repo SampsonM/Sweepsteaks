@@ -88,6 +88,10 @@ module.exports = {
    ** Build configuration
    */
   build: {
+    // https://nuxtjs.org/api/configuration-build#transpile
+    transpile: [
+      'fs-extra'
+    ],
     /*
      ** You can extend webpack config here
      */
