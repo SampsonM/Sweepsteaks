@@ -189,5 +189,8 @@ workflows:
     jobs:
       - test-server
       - deploy-server:
+          filters:
+            branches:
+              only: master
           requires:
             - test-server
