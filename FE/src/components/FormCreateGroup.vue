@@ -119,9 +119,9 @@
 </template>
 
 <script>
-import { MyButton, MyInput } from '../components'
+import MyButton from './button.vue'
+import MyInput from './input.vue'
 import { mapActions } from 'vuex'
-import * as T from '../types'
 import validationHelpers from '../helpers/validations'
 
 export default {

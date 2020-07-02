@@ -1,13 +1,13 @@
 import { ref, Ref } from '@vue/composition-api'
 
 export function toggleModal() {
-	const modalOpen: Ref<boolean> = ref(false)
+	const modalOpen = ref(false)
 
-	function openModal(): void {
+	function openModal() {
 		modalOpen.value = true
 	}
 
-	function closeModal(): void {
+	function closeModal() {
 		modalOpen.value = false
 	}
 

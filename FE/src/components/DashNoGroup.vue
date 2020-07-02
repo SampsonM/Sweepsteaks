@@ -41,12 +41,13 @@
 	</div>
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent, ref, Ref, watch } from '@vue/composition-api'
-import { MyButton, FormCreateGroup } from '../components'
+import MyButton from './button.vue'
+import FormCreateGroup from './FormCreateGroup.vue'
 import { toggleModal } from '../helpers'
 
-export default defineComponent({
+export default {
 	components: {
 		MyButton,
 		FormCreateGroup
@@ -73,7 +74,7 @@ export default defineComponent({
 			closeJoinGroup
 		}
 	}
-})
+}
 </script>
 
 <style lang="scss">

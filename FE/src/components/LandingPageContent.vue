@@ -35,13 +35,11 @@
 <script>
 import SignupForm from './FormSignup.vue'
 import MyButton from './button.vue'
-import test from './test.vue'
 
 export default {
   components: {
     SignupForm,
-		MyButton,
-		test
+		MyButton
   },
   data() {
     return {

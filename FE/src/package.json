@@ -5,9 +5,9 @@
   "author": "SampsonM",
   "private": true,
   "scripts": {
-    "dev": "nuxt-ts --port=8080",
-    "build": "nuxt-ts build",
-    "start": "nuxt-ts start --port=8080",
+    "dev": "nuxt --port=8080",
+    "build": "nuxt build",
+    "start": "nuxt start --port=8080",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "test:unit": "jest --passWithNoTests"
   },
@@ -25,22 +25,17 @@
     "@fortawesome/free-regular-svg-icons": "^5.13.0",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fortawesome/vue-fontawesome": "^0.1.9",
-    "@nuxt/typescript-runtime": "^0.4.0",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/dotenv": "^1.4.0",
     "@nuxtjs/firebase": "^5.2.0",
     "@nuxtjs/pwa": "^3.0.0-0",
     "@vue/composition-api": "^0.5.0",
-    "firebase": "^7.14.4",
     "nuxt": "^2.0.0",
     "vue-cookies": "^1.7.0",
     "vuelidate": "^0.7.5",
     "vuex-map-fields": "^1.4.0"
   },
   "devDependencies": {
-    "@nuxt/types": "^0.7.5",
-    "@nuxt/typescript-build": "^0.6.0",
-    "@nuxtjs/eslint-config-typescript": "^1.0.0",
     "@nuxtjs/eslint-module": "^1.0.0",
     "@nuxtjs/style-resources": "^1.0.0",
     "@nuxtjs/stylelint-module": "^3.1.0",
@@ -59,7 +54,6 @@
     "prettier": "^1.19.1",
     "sass-loader": "^8.0.2",
     "stylelint": "^10.1.0",
-    "ts-jest": "^25.0.0",
     "vue-jest": "^4.0.0-0"
   }
 }
