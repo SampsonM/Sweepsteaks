@@ -44,3 +44,16 @@ export function loginValidations() {
     }
   }
 }
+
+export function createGroupValidations() {
+  return {
+    groupName: {
+      required: validationHelpers.required('Group name'),
+    },
+    wager: {
+      required: validationHelpers.required('Wager'),
+      minValue: validationHelpers.minValue('wager', 5),
+      maxValue: validationHelpers.maxValue('wager', 50)
+    }
+  }
+}

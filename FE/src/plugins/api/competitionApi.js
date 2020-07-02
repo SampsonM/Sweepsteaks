@@ -6,7 +6,7 @@ export default function(api) {
       return api.get(`${compBase}/`)
     },
 
-    getCopetitionById(id) {
+    getCompetitionById(id) {
       return api.get(`${compBase}/${id}`)
     },
 

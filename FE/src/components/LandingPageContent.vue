@@ -1,6 +1,6 @@
 <template>
   <main class="landing-content">
-    <transition name="signup-slide-in">
+    <transition name="slide-in">
       <SignupForm v-if="signUpOpen" @closeSignUp="closeSignUp" />
     </transition>
 
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import SignupForm from './Signup.vue'
+import SignupForm from './FormSignup.vue'
 import MyButton from './button.vue'
 import test from './test.vue'
 
@@ -108,14 +108,5 @@ export default {
   &__sub-title-sub-text {
     color: $blue;
   }
-}
-
-.signup-slide-in-enter-active {
-  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
-}
-.signup-slide-in-enter,
-.signup-slide-in-leave-to {
-  transform: translateY(-100px);
-  opacity: 0;
 }
 </style>

@@ -2,9 +2,8 @@
 	<button
 		ref="button"
 		v-bind="$attrs"
-		:class="[`my-button--${btnStyle}`]"
-		v-on="$listeners"
-	>
+		:class="['my-button',`my-button--${btnStyle}`, `my-button--${size}`]"
+		v-on="$listeners">
 		<slot />
 	</button>
 </template>
@@ -15,39 +14,27 @@ export default {
 		btnStyle: {
 			type: String,
 			required: true,
-			validator: type => ['cta-1', 'icon'].includes(type)
-		}
-	},
-	methods: {
-		focus() {
-			this.$refs.button.focus()
+			validator: type => ['cta-1', 'cta-2', 'icon'].includes(type)
+		},
+		size: {
+			type: String,
+			validator: size => ['small', 'large', 'jumbo'].includes(size)
 		}
 	}
 }
 </script>
 
 <style lang="scss">
-.my-button--cta-1 {
+.my-button {
 	position: relative;
-	height: 42px;
-	min-width: 90px;
-	line-height: 38px;
-	background-color: #ff8d8d;
 	border-radius: 5px;
 	padding: 0 15px;
+	margin-bottom: 10px;
 	transition-duration: 200ms;
 	font-family: $font;
 	font-size: 16px;
 	font-weight: 500;
-	color: #1c3359;
 	text-decoration: none;
-	border: 1px solid #e16666;
-
-	@include breakpoint(tablet) {
-		height: 45px;
-		min-width: 100px;
-		line-height: 43px;
-	}
 
 	&:hover,
 	&:active,
@@ -61,20 +48,91 @@ export default {
 	&:hover,
 	&:active {
 		text-decoration: underline;
-		background-color: #f8a0a0;
 	}
-}
 
-.my-button--icon {
-	border: 2px solid transparent;
-	padding: 2px 3px;
-	font-size: 16px;
-	color: $red;
-	background: transparent;
+	&--cta-1 {
+		background-color: #e16666;
+		color: $light-gold;
+		border: 2px solid #e16666;
+		height: 42px;
+		min-width: 90px;
+		line-height: 38px;
 
-	&:focus {
-		border-radius: 5px;
-		border-color: $blue;
+		@include breakpoint(tablet) {
+			height: 45px;
+			min-width: 100px;
+			line-height: 43px;
+		}
+
+		&:hover,
+		&:active,
+		&:focus {
+			color: #1c3359;
+			border: 2px solid darken(#e16666, 10%);
+			background-color: lighten(#e16666, 5%);
+		}
+
+		&:hover,
+		&:active {
+			background-color: #f8a0a0;
+		}
+	}
+
+	&--cta-2 {
+		border: 2px solid $blue;
+		color: $dark-blue;
+		background-color: $light-blue;
+		height: 42px;
+		min-width: 90px;
+		line-height: 38px;
+
+		@include breakpoint(tablet) {
+			height: 45px;
+			min-width: 100px;
+			line-height: 43px;
+		}
+
+		&:hover,
+		&:active,
+		&:focus {
+			color: $yellow;
+			border: 2px solid $dark-blue;
+		}
+
+		&:hover,
+		&:active {
+			background-color: $blue;
+		}
+	}
+
+	&--jumbo {
+		height: 170px;
+		width: 170px;
+		border-radius: 10px;
+		
+		@include breakpoint(tablet) {
+			height: 200px;
+			width: 200px;
+		}
+
+		@include breakpoint(desktop) {
+			height: 300px;
+			width: 300px;
+			font-size: 20px;
+		}
+	}
+
+	&--icon {
+		border: 2px solid transparent;
+		padding: 3px;
+		color: $red;
+		background: transparent;
+		line-height: 14px;
+
+		&:focus {
+			border-radius: 5px;
+			border-color: $blue;
+		}
 	}
 }
 </style>

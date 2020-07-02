@@ -8,14 +8,12 @@
 			v-if="!allwd"
 			id="signup"
 			:class="['sign-up__form', { error: formHasErrors }]"
-			autocomplete="on"
-		>
+			autocomplete="on">
 			<MyButton
 				class="sign-up__close"
 				type="button"
 				btn-style="icon"
-				@click="e => $emit('closeSignUp', e)"
-			>
+				@click="e => $emit('closeSignUp', e)">
 				<font-awesome-icon :icon="['far', 'times-circle']" />
 			</MyButton>
 

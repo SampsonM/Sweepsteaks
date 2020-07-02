@@ -1,12 +1,24 @@
-import { helpers } from 'vuelidate/lib/validators'
+import { helpers, minValue, maxValue } from 'vuelidate/lib/validators'
 
-const validFields = ['required', 'minLength', 'format', 'unique', 'password']
+const validFields = ['required', 'minLength', 'format', 'unique', 'password', 'minValue']
 
 export default {
   required(field) {
     return helpers.withParams(
       { errMsg: `${field} field is required` },
       data => helpers.req(data)
+    )
+  },
+  minValue(field, min) {
+    return helpers.withParams(
+      { errMsg: `Minimum ${field} required is ${min}` },
+      minValue(min)
+    )
+  },
+  maxValue(field, max) {
+    return helpers.withParams(
+      { errMsg: `Maximum ${field} required is ${max}` },
+      maxValue(max)
     )
   },
   minLength(field, length) {
