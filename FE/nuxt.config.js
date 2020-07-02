@@ -1,5 +1,5 @@
 module.exports = {
-  mode: 'universal',
+  mode: 'spa',
   debug: true,
   /*
    ** Headers of the page
@@ -63,7 +63,6 @@ module.exports = {
    ** Nuxt.js dev-modules
    */
   buildModules: [
-    '@nuxt/typescript-build',
     // Doc: https://github.com/nuxt-community/stylelint-module
     '@nuxtjs/stylelint-module'
   ],
@@ -89,6 +88,10 @@ module.exports = {
    ** Build configuration
    */
   build: {
+    // https://nuxtjs.org/api/configuration-build#transpile
+    // transpile: [
+      // '@nuxt/telemetry'
+    // ],
     /*
      ** You can extend webpack config here
      */

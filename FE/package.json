@@ -1,18 +1,60 @@
 {
-  "name": "sweep-fe",
+  "name": "sweepsteaks",
   "version": "1.0.0",
-  "author": "Mark Sampson",
-  "license": "ISC",
-  "description": "Sweepsteaks ui",
-  "main": "index.js",
-  "keywords": [
-    "sweepsteaks"
-  ],
-  "engines": {
-    "node": "8.9.4"
+  "description": "Sweepsteaks-ssr-app",
+  "author": "SampsonM",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt --port=8080",
+    "build": "nuxt build",
+    "start": "nuxt start --port=8080",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "test:unit": "jest --passWithNoTests",
+    "export": "nuxt export"
+  },
+  "lint-staged": {
+    "*.{js,vue}": "npm run lint",
+    "*.{css,vue}": "stylelint"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "dependencies": {
-    "firebase": "^7.14.4",
-    "firebase-tools": "^8.3.0"
+    "@fortawesome/fontawesome-svg-core": "^1.2.28",
+    "@fortawesome/free-regular-svg-icons": "^5.13.0",
+    "@fortawesome/free-solid-svg-icons": "^5.13.0",
+    "@fortawesome/vue-fontawesome": "^0.1.9",
+    "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/dotenv": "^1.4.0",
+    "@nuxtjs/firebase": "^5.2.0",
+    "@nuxtjs/pwa": "^3.0.0-0",
+    "@vue/composition-api": "^0.5.0",
+    "nuxt": "^2.13.0",
+    "vue-cookies": "^1.7.0",
+    "vuelidate": "^0.7.5",
+    "vuex-map-fields": "^1.4.0"
+  },
+  "devDependencies": {
+    "@nuxtjs/eslint-module": "^1.0.0",
+    "@nuxtjs/style-resources": "^1.0.0",
+    "@nuxtjs/stylelint-module": "^3.1.0",
+    "@vue/test-utils": "^1.0.0-beta.27",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.1.0",
+    "core-js": "^2.6.5",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-nuxt": ">=0.4.2",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.0.0",
+    "jest": "^24.1.0",
+    "lint-staged": "^10.0.0",
+    "node-sass": "^4.13.1",
+    "prettier": "^1.19.1",
+    "sass-loader": "^8.0.2",
+    "stylelint": "^10.1.0",
+    "vue-jest": "^4.0.0-0"
   }
 }
