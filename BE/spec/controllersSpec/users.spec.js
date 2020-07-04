@@ -132,7 +132,9 @@ describe('/users', () => {
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(userData))
           .expect(response => {
-            if (response.error.text !== 'First name must be atleast 2 characters and be alphabetical characters only') throw new Error(`Incorrect error msg returned, recieved: ${response.error.text}`)
+            if (response.error.text !== 'First name must be at least 2 characters and be alphabetical characters only') throw new Error(
+              `Incorrect error msg returned. - Expected: First name must be at least 2 characters and be alphabetical characters only - Received: ${response.error.text}`
+            )
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
           })
       })
@@ -145,7 +147,7 @@ describe('/users', () => {
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(userData))
           .expect(response => {
-            if (response.error.text !== 'First name must be atleast 2 characters and be alphabetical characters only') throw new Error(`Incorrect error msg returned, recieved: ${response.error.text}`)
+            if (response.error.text !== 'First name must be at least 2 characters and be alphabetical characters only') throw new Error(`Incorrect error msg returned, received: ${response.error.text}`)
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
           })
       })
@@ -158,7 +160,7 @@ describe('/users', () => {
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(userData))
           .expect(response => {
-            if (response.error.text !== 'First name must be atleast 2 characters and be alphabetical characters only') throw new Error(`Incorrect error msg returned, recieved: ${response.error.text}`)
+            if (response.error.text !== 'First name must be at least 2 characters and be alphabetical characters only') throw new Error(`Incorrect error msg returned, received: ${response.error.text}`)
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
           })
       })
@@ -171,7 +173,7 @@ describe('/users', () => {
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(userData))
           .expect(response => {
-            if (response.error.text !== 'Last name must be at least 2 characters and be alphabetical characters only') throw new Error(`Incorrect error msg returned, recieved: ${response.error.text}`)
+            if (response.error.text !== 'Last name must be at least 2 characters and be alphabetical characters only') throw new Error(`Incorrect error msg returned, received: ${response.error.text}`)
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
           })
       })
@@ -184,7 +186,7 @@ describe('/users', () => {
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(userData))
           .expect(response => {
-            if (response.error.text !== 'Username must be between 3 and 12 characters') throw new Error(`Incorrect error msg returned, recieved: ${response.body}`)
+            if (response.error.text !== 'Username must be between 3 and 12 characters') throw new Error(`Incorrect error msg returned, received: ${response.body}`)
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
           })
       })
@@ -197,7 +199,7 @@ describe('/users', () => {
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(userData))
           .expect(response => {
-            if (response.error.text !== 'Email must be a valid format') throw new Error(`Incorrect error msg returned, recieved: ${response.error.text}`)
+            if (response.error.text !== 'Email must be a valid format') throw new Error(`Incorrect error msg returned, received: ${response.error.text}`)
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
           })
       })
@@ -210,7 +212,7 @@ describe('/users', () => {
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(userData))
           .expect(response => {
-            if (response.error.text !== 'Password must contain atleast 1 lower & uppercase letter, 1 number and be atleast 8 characters') throw new Error(`Incorrect error msg returned, recieved: ${response.error.text}`)
+            if (response.error.text !== 'Password must contain at least 1 lower & uppercase letter, 1 number and be at least 8 characters') throw new Error(`Incorrect error msg returned, received: ${response.error.text}`)
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
           })
       })
@@ -250,7 +252,7 @@ describe('/users', () => {
           return request
             .post('/api/users/status/login')
             .set({'Content-Type':'application/json'})
-            .send(JSON.stringify({ username: userZeroUsername, password: 'invaliduserZeroPass' }))
+            .send(JSON.stringify({ username: userZeroUsername, password: 'invalidUserZeroPass' }))
             .expect(404)
             .expect(response => {
               if (response.error.text !== 'Password invalid, please enter valid password or reset password') throw new Error(`Incorrect error returned, expected password invalid`)
@@ -293,8 +295,8 @@ describe('/users', () => {
           .set('Cookie', 'ssTok=invalid-userToken')
           .send(JSON.stringify(userData))
           .expect(response => {
-            if (response.body.status !== 401) throw new Error(`Incorrect statucode returned, expected 401, recieved: ${response.body.status}`)
-            if (response.body.message !== 'jwt malformed') throw new Error(`Incorrect error message returned, expected jwt malformed, recieved: ${response.body.message}`)
+            if (response.body.status !== 401) throw new Error(`Incorrect status code returned, expected 401, received: ${response.body.status}`)
+            if (response.body.message !== 'jwt malformed') throw new Error(`Incorrect error message returned, expected jwt malformed, received: ${response.body.message}`)
           })
       })
     })
@@ -313,8 +315,8 @@ describe('/users', () => {
           .set('cookie','ssTok=UN-authorised-token')
           .send(JSON.stringify(userData))
           .expect(response => {
-            if (response.body.status !== 401) throw new Error(`Incorrect statucode returned, expected 401, recieved: ${response.body.status}`)
-            if (response.body.message !== 'jwt malformed') throw new Error(`Incorrect error message returned, expected jwt malformed, recieved: ${response.body.message}`)
+            if (response.body.status !== 401) throw new Error(`Incorrect statucode returned, expected 401, received: ${response.body.status}`)
+            if (response.body.message !== 'jwt malformed') throw new Error(`Incorrect error message returned, expected jwt malformed, received: ${response.body.message}`)
           })
       })
     })
@@ -497,7 +499,7 @@ describe('/users', () => {
       //     .set('cookie',`ssTok=${userToken}`)
       //     .expect(409)
       //     .expect(response => {
-      //       if (response.error.text !== `Please sign out to continue creating account.`) throw new Error(`Expected error message telling user to sign out: recieved: ${response.error.text}`)
+      //       if (response.error.text !== `Please sign out to continue creating account.`) throw new Error(`Expected error message telling user to sign out: received: ${response.error.text}`)
       //     })
       // })
 
@@ -591,7 +593,7 @@ describe('/users', () => {
           .set('cookie',`ssTok=${userToken}`)
           .expect(400)
           .expect(res => {
-            if (res.error.text !== 'User not found') throw new Error(`Incorrect error returned, expected user not found recieved: ${res.error}`)
+            if (res.error.text !== 'User not found') throw new Error(`Incorrect error returned, expected user not found received: ${res.error}`)
           })
       })
       

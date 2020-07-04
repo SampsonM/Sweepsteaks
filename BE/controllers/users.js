@@ -169,7 +169,7 @@ function userDataValid(userData) {
   const { firstName, lastName, username, email, password } = userData
 
   if (!firstName || firstName.length < 2 || firstName.match(/[^A-z]/g)) {
-    return 'First name must be atleast 2 characters and be alphabetical characters only'
+    return 'First name must be at least 2 characters and be alphabetical characters only'
   }
 
   if (!lastName || lastName.length < 2 || lastName.match(/[^\w\d]/g)) {
@@ -190,7 +190,7 @@ function userDataValid(userData) {
   // 1 number
   // 8 characters min
   if (!password || !password.match(/((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20})/g) || password.length < 8 || password.length > 20) {
-    return 'Password must contain atleast 1 lower & uppercase letter, 1 number and be atleast 8 characters'
+    return 'Password must contain at least 1 lower & uppercase letter, 1 number and be at least 8 characters'
   }
 }
 

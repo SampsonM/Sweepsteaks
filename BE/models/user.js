@@ -79,7 +79,9 @@ UserSchema.methods.generateJWT = function(expDate = 5) {
     id: this._id,
     exp: parseInt(expirationDate.getTime(), 10),
     iat: Math.floor(new Date())
-  }, KEY)
+  },
+  KEY,
+  { algorithm: 'HS256' })
 }
 
 UserSchema.methods.toAuthJSON = function() {

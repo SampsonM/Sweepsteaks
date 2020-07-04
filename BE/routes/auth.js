@@ -12,12 +12,14 @@ const auth = {
   required: exJwt({
     secret: KEY,
     getToken: authHeader,
-    clockTimestamp: new Date().getTime()
+    clockTimestamp: new Date().getTime(),
+    algorithms: ['HS256']
   }),
   optional: exJwt({
     secret: KEY,
     getToken: authHeader,
-    credentialsRequired: false
+    credentialsRequired: false,
+    algorithms: ['HS256']
   })
 }
 
