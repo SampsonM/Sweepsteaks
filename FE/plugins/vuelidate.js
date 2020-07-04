@@ -4,8 +4,8 @@ import { signUpValidations, loginValidations, createGroupValidations } from '@/v
 
 Vue.use(Vuelidate)
 
-export default function({ app }, inject) {
-  inject('SignUpValidations', signUpValidations(app.$UserApi))
+export default function(_, inject) {
+  inject('SignUpValidations', signUpValidations())
   inject('LoginValidations', loginValidations())
   inject('CreateGroupValidations', createGroupValidations())
 }

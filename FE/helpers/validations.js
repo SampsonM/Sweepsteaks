@@ -51,18 +51,30 @@ export default {
     return helpers.withParams(
       { errMsg: 'Username must contain at least 2 numbers and no symbols' },
       (username) => {
-        const reg = new RegExp(/[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,][0-9]{2}/)
-        return reg.test(username)
+        const digitMatches = username.match(/\d/g)     
+        const reg = new RegExp(/[±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,]+/)
+        const includesSymbol = reg.test(username)
+
+        console.log(digitMatches, includesSymbol)
+
+        if (digitMatches && digitMatches.length >= 2 && !includesSymbol) {
+          return true
+        } else {
+          return false
+        }
       }
     )
   },
-  usernameUnique($UserApi) {
+  usernameUnique() {
     return helpers.withParams(
       { errMsg: 'Username already exists' },
-      async(username) => {
-        if (username === '') { return true }
+      async (username, vm) => {
+        if (username === '' || !vm.$v.username.format || !vm.$v.username.minLength) {
+          return true
+        }
+
         try {
-          const { data } = await $UserApi.isUserNameUnique(username)
+          const { data } = await vm.$UserApi.isUserNameUnique(username)
           return data.unique
         } catch (err) {
           return false

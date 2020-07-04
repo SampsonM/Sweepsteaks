@@ -152,7 +152,7 @@ export default {
 			groupName: '',
 			verifiedUser: '',
 			verifiedUsers: [],
-			wager: '£',
+			wager: null,
 			createdBy: '',
 			submitting: false,
 			submissionErr: false,

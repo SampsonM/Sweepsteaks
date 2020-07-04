@@ -5,12 +5,11 @@
   "author": "SampsonM",
   "private": true,
   "scripts": {
-    "dev": "nuxt --port=8080",
     "build": "nuxt build",
+    "dev": "nuxt --port=8080",
     "start": "nuxt start --port=8080",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "test:unit": "jest --passWithNoTests",
-    "export": "nuxt export"
+    "test:unit": "jest --passWithNoTests"
   },
   "lint-staged": {
     "*.{js,vue}": "npm run lint",

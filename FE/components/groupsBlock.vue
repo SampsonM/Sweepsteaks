@@ -33,7 +33,6 @@ export default {
 		...mapState(['currentGroups'])
 	},
 	mounted() {
-		console.log(this.$route)
 	}
 }
 </script>

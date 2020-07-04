@@ -1,6 +1,6 @@
 import validationHelpers from '../helpers/validations'
 
-export function signUpValidations($UserApi) {
+export function signUpValidations() {
   return {
     firstName: {
       required: validationHelpers.required('First name'),
@@ -20,7 +20,7 @@ export function signUpValidations($UserApi) {
       required: validationHelpers.required('Username'),
       minLength: validationHelpers.minLength('Username', 6),
       format: validationHelpers.usernameFormat(),
-      unique: validationHelpers.usernameUnique($UserApi)
+      unique: validationHelpers.usernameUnique()
     },
     password: {
       required: validationHelpers.required('Password'),
