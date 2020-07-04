@@ -4,13 +4,12 @@ import https from 'https'
 import path from 'path'
 import fs from 'fs'
 import dotenv from 'dotenv'
-import config from '../config/environment'
 
 const currentEnv = process.env.NODE_ENV
 
 dotenv.config({ path: path.join(__dirname, `../.env.${currentEnv}`)})
 
-const PORT = process.env.PORT || config.PORT
+const PORT = process.env.PORT || require('../config/environment').PORT
 
 if (currentEnv === 'production') {
   http.createServer(app).listen(PORT, () => {
