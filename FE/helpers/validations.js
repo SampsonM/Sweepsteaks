@@ -1,6 +1,6 @@
 import { helpers, minValue, maxValue } from 'vuelidate/lib/validators'
 
-const validFields = ['required', 'minLength', 'format', 'unique', 'password', 'minValue']
+const validFields = ['required', 'minLength', 'maxValue', 'format', 'unique', 'password', 'minValue', 'userCount', 'exists']
 
 export default {
   required(field) {
@@ -23,7 +23,7 @@ export default {
   },
   minLength(field, length) {
     return helpers.withParams(
-      { errMsg: `${field} must be atleat ${length} characters` },
+      { errMsg: `${field} must be at least ${length} characters` },
       data => data.length >= length
     )
   },
@@ -49,7 +49,7 @@ export default {
   },
   usernameFormat() {
     return helpers.withParams(
-      { errMsg: 'Username must contain atleast 2 numbers and no symbols' },
+      { errMsg: 'Username must contain at least 2 numbers and no symbols' },
       (username) => {
         const reg = new RegExp(/[^±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,][0-9]{2}/)
         return reg.test(username)
@@ -72,11 +72,40 @@ export default {
   },
   passwordFormat() {
     return helpers.withParams(
-      { errMsg: 'Password must contain atleast 1 lower & uppercase letter, number, special character and be atleast 8 characters' },
+      { errMsg: 'Password must contain at least 1 lower & uppercase letter, number, special character and be at least 8 characters' },
       (password) => {
         if (password === '') { return true }
         const regExp = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20})/g
         return regExp.test(password)
+      }
+    )
+  },
+  groupNameFormat() {
+    return helpers.withParams(
+      { errMsg: 'Group name must contain no symbols or spaces' },
+      (groupName) => {
+        const reg = new RegExp(/[±!@£$%^&*_+§¡€#¢§¶•ªº«\/\\<>?:;|=.,\s]/)
+        return !reg.test(groupName)
+      }
+    )
+  },
+  userCount() {
+    return helpers.withParams(
+      { errMsg: 'You can only add a maximum of 9 people to your group' },
+      (users, vm) => {
+        if (vm.verifiedUser.length > 0) {
+          return users.length !== 9
+        } else {
+          return true
+        }
+      }
+    )
+  },
+  userExists() {
+    return helpers.withParams(
+      { errMsg: 'User already exists in verified users below' },
+      (newUser, vm) => {
+        return vm.verifiedUsers.filter(user => newUser === user).length === 0
       }
     )
   },

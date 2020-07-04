@@ -49,10 +49,19 @@ export function createGroupValidations() {
   return {
     groupName: {
       required: validationHelpers.required('Group name'),
+      minLength: validationHelpers.minLength('Group name', 6),
+      format: validationHelpers.groupNameFormat()
+    },
+    verifiedUser: {
+      format: validationHelpers.emailFormat(),
+      exists: validationHelpers.userExists()
+    },
+    verifiedUsers: {
+      userCount: validationHelpers.userCount(),
     },
     wager: {
       required: validationHelpers.required('Wager'),
-      minValue: validationHelpers.minValue('wager', 5),
+      minValue: validationHelpers.minValue('wager', 2),
       maxValue: validationHelpers.maxValue('wager', 50)
     }
   }

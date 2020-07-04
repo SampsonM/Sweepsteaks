@@ -7,24 +7,31 @@
 			Create Group
 			
 			<MyInput
-				v-model="groupName"
+				v-model.trim.lazy="groupName"
+				@blur="handleBlur('groupName')"
 				label="Group Name"
 				name="groupName"
 				type="text"
 				class="group-name-input"
+				placeholder="Daves_sweeps"
+				aria-placeholder="Daves_sweeps"
 				:has-error="$v.groupName.$error"
 				:err-message="fieldErr('groupName')"
 			/>
 
 			<div class="create-group-form__add-user">
 				<MyInput
-					v-model="verifiedUser"
+					v-model.trim.lazy="verifiedUser"
 					@keypress-enter="addUser"
 					label="Enter your friends emails you want to join"
 					name="verifiedUser"
 					type="text"
 					class="verified-users-input"
-					hint="You can remove or add friends to your group later in the group settings menu."
+					hint="You can remove or add friends to your group later in the group settings menu. You can have a maximum of 10 people per group."
+					placeholder="your_friends_email@gmail.com"
+					aria-placeholder="your_friends_email@gmail.com"
+					:has-error="$v.verifiedUser.$error || $v.verifiedUsers.$error"
+					:err-message="fieldErr('verifiedUser') || fieldErr('verifiedUsers')"
 				/>
 				<MyButton
 					btn-style="cta-1"
@@ -52,15 +59,17 @@
 			</ul>
 
 			<MyInput
-				v-model="wager"
+				v-model.trim.lazy="wager"
 				label="Select a wager"
 				name="wager"
 				type="number"
-				min="0"
+				min="2"
 				max="50"
 				@blur="handleWagerBlur"
-				hint="Choose a wager between 5 and 50, this will be the stake each member puts in"
+				hint="Choose a wager between £2 and £50, this will be the stake each member puts in"
 				class="wager-input"
+				placeholder="£10"
+				aria-placeholder="£10"
 				:has-error="$v.wager.$error"
 				:err-message="fieldErr('wager')"
 			/>
@@ -85,7 +94,7 @@
 
 				<MyButton
 					btn-style="cta-2"
-					@click="handeCancel"
+					@click="handleCancel"
 					type="button">
 					Cancel
 				</MyButton>
@@ -140,10 +149,10 @@ export default {
 	},
 	data() {
 		return {
-			groupName: null,
+			groupName: '',
 			verifiedUser: '',
 			verifiedUsers: [],
-			wager: null,
+			wager: '£',
 			createdBy: '',
 			submitting: false,
 			submissionErr: false,
@@ -173,39 +182,49 @@ export default {
 						const { data } = await this.$GroupApi.createGroup({ newGroup })
 						this.newGroup = data.group
 					} catch (err) {
-						console.error(err)
 						this.submissionErr = true
-					} finally {
-						this.submitting = false
 					}
 				}
+
+				this.submitting = false
 			}
 		},
 		addUser(e) {
-			e.preventDefault()
-			this.verifiedUsers.push(this.verifiedUser)
-			this.verifiedUser = ''
+			this.$v.verifiedUser.$touch()
+			this.$v.verifiedUsers.$touch()
+
+			if (this.verifiedUser.length > 0 && !this.$v.verifiedUser.$error && !this.$v.verifiedUsers.$error) {
+				e.preventDefault()
+				this.verifiedUsers.push(this.verifiedUser)
+				this.verifiedUser = ''
+			}
 		},
 		deleteUser(index) {
 			this.verifiedUsers.splice(index, 1)
 		},
-		handeCancel() {
+		handleCancel() {
 			this.$v.$reset()
 			this.$emit('close-create-group')
 		},
 		handleWagerBlur(e) {
-			if (this.wager < 5 || this.wager > 50) {
+			if (this.wager < 2 || this.wager > 50) {
 				this.$v.$touch()
 				this.wager = 0
 			} else if (this.wager > 50) {
 				this.$v.$touch()
 			}
 		},
+		handleBlur(field) {
+			this.$v[field].$touch()
+		},
 		fieldErr(field) {
 			return validationHelpers.createErrorMessages(this.$v[field])[0]
 		},
 		finishedCreatingGroup() {
 			this.updateCurrentGroups(this.newGroup)
+		},
+		showVerifiedUserErr() {
+			return this.$v.verifiedUser.$error || this.$v.verifiedUsers.$error
 		}
 	}
 }
@@ -224,8 +243,12 @@ export default {
 	}
 
 	&__add-user-btn {
-    margin: 0 0 20px 10px;
-    min-width: 50px;
+		margin: 0 0 20px 10px;
+    min-width: 41px;
+
+		@include breakpoint(tablet) {
+    	min-width: 50px;
+		}
 	}
 
 	&__verified-users {

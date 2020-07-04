@@ -116,16 +116,12 @@ export default {
 <style lang="scss" scoped>
 .input {
 	width: 100%;
-	margin: auto auto 15px auto;
+	margin: auto auto 20px auto;
 	padding: 0;
 	border: none;
 	display: flex;
 	flex-direction: column;
 	text-align: left;
-
-	@include breakpoint(tablet) {
-		margin-bottom: 20px;
-	}
 
 	&__label {
 		display: flex;

@@ -18,16 +18,56 @@
 			</MyButton>
 
 			<MyInput
-				v-for="field in formFields"
-				:key="field.label"
-				:label="field.label"
-				:name="field.name"
-				:type="field.type"
-				:hint="field.hint"
-				:class="`${field.name}-input`"
-				:has-error="$v[field.errClass].$error"
-				:err-message="fieldErr(field.name)"
-				@blur="val => handleInput(field.name, val)"
+				v-model.trim.lazy="firstName"
+				@blur="handleBlur('firstName')"
+				label="First name"
+				name="firstName"
+				class="firstName-input"
+				:has-error="$v.firstName.$error"
+				:err-message="fieldErr('firstName')"
+			/>
+
+			<MyInput
+				v-model.trim.lazy="lastName"
+				@blur="handleBlur('lastName')"
+				label="Last name"
+				name="lastName"
+				class="lastName-input"
+				:has-error="$v.lastName.$error"
+				:err-message="fieldErr('lastName')"
+			/>
+
+			<MyInput
+				v-model.trim.lazy="email"
+				@blur="handleBlur('email')"
+				label="Email"
+				name="email"
+				class="email-input"
+				:has-error="$v.email.$error"
+				:err-message="fieldErr('email')"
+			/>
+
+			<MyInput
+				v-model.trim.lazy="username"
+				@blur="handleBlur('username')"
+				label="Username"
+				name="username"
+				class="username-input"
+				hint="Must be at least 6 characters and include 2 numbers"
+				:has-error="$v.username.$error"
+				:err-message="fieldErr('username')"
+			/>
+
+			<MyInput
+				v-model.trim.lazy="password"
+				@blur="handleBlur('password')"
+				label="Password"
+				name="password"
+				class="password-input"
+				type="password"
+				hint="Password must contain 1 lower U+0026 uppercase letter, 1 number and be between 8-20 characters"
+				:has-error="$v.password.$error"
+				:err-message="fieldErr('password')"
 			/>
 
 			<MyButton btn-style="cta-1" @click.prevent="handleSignup">
@@ -54,38 +94,7 @@ export default {
 			lastName: '',
 			email: '',
 			username: '',
-			password: '',
-			formFields: [
-				{
-					name: 'firstName',
-					label: 'First name',
-					errClass: 'firstName'
-				},
-				{
-					name: 'lastName',
-					label: 'Last name',
-					errClass: 'lastName'
-				},
-				{
-					name: 'email',
-					label: 'Email',
-					errClass: 'email'
-				},
-				{
-					name: 'username',
-					label: 'Username',
-					hint: 'Must be at least 6 characters and include 2 numbers',
-					errClass: 'username'
-				},
-				{
-					name: 'password',
-					label: 'Password',
-					hint:
-						'Password must contain 1 lower & uppercase letter, 1 number and be between 8-20 characters',
-					errClass: 'password',
-					type: 'password'
-				}
-			]
+			password: ''
 		}
 	},
 	validations() {
@@ -120,8 +129,7 @@ export default {
 				this.signup(userData)
 			}
 		},
-		handleInput(field, value) {
-			this[field] = value
+		handleBlur(field) {
 			this.$v[field].$touch()
 		},
 		fieldErr(field) {
@@ -174,7 +182,7 @@ export default {
 		margin-top: -10px;
 
 		@include breakpoint(tablet) {
-			margin-right: 14px;
+			margin-right: 9px;
 		}
 	}
 }
