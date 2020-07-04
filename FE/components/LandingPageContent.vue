@@ -43,8 +43,7 @@ export default {
   },
   data() {
     return {
-			signUpOpen: false,
-			user: {firstName: 'Mark', lastName: 'Sampo'}
+			signUpOpen: false
     }
   },
   methods: {

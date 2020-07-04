@@ -7,7 +7,6 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt --port=8080",
-    "export": "nuxt export",
     "start": "nuxt start --port=8080",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "test:unit": "jest --passWithNoTests"
@@ -31,7 +30,7 @@
     "@nuxtjs/firebase": "~5.2.0",
     "@nuxtjs/pwa": "~3.0.0-0",
     "@vue/composition-api": "~0.5.0",
-    "nuxt": "~2.13.0",
+    "nuxt": "2.12.2",
     "vue-cookies": "~1.7.0",
     "vuelidate": "~0.7.5",
     "vuex-map-fields": "~1.4.0"
