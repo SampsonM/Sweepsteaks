@@ -83,7 +83,18 @@ module.exports = {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL:
+      process.env.NODE_ENV === 'production'
+        ? 'https://sweep-steaks.herokuapp.com/api'
+        : 'https://localhost:3000/api',
+    headers: {
+      common: {
+        'Content-Type': 'application/json'
+      }
+    },
+    credentials: true
+  },
   /*
    ** Build configuration
    */
