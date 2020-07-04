@@ -3,6 +3,7 @@ export const userNameQuery = {
 	firstName: true,
 	lastName: true,
 	email: true,
+	groups: true,
 	avatarUrl: true,
 	sweepsWon: true
 }

@@ -4,22 +4,36 @@ import passport from 'passport'
 import { userNameQuery, userDeleteQuery } from '../config/mongoQueries'
 
 // GET user
-function getUserByUsername(req, res, next) {
+async function getUserByUsername(req, res, next) {
   const username = req.params.user_name
+  const userId = req.user.id
 
   if (username === 'unique') {
     return next()
   }
 
-  return User.findOne({ username: username }, userNameQuery)
-    .lean()
-    .then(user => {
-      user._id = undefined
-      res.status(200).send(user)
-    })
-    .catch(() => {
-      res.status(404).json({err:'Invalid username.'})
-    })
+  // console.log(req.user.id)
+  // Use this ID on authorized routes to confirm if a user is allowed to access 
+  // group info or see other user info!!!
+
+  try {
+    const user = await User.findOne({ username: username }, userNameQuery)
+      .populate('groups', 'name')
+      .lean()
+  
+    if (`${userId}` !== `${user._id}`) {
+      user.firstName = undefined
+      user.lastName = undefined
+      user.email = undefined
+    }
+  
+    user._id = undefined
+    
+    return res.status(200).send(user)
+
+  } catch (err) {
+    return res.status(404).json({err:'Invalid username.'})
+  }
 }
 
 // GET check is username is unique
@@ -45,7 +59,7 @@ function getUserLoginState(req, res, next) {
         return res.status(200).send({ user: user.toAuthJSON() })
       })
   } else {
-    return res.staus(409).send({err: 'User not signed in.'})
+    return res.status(409).send({err: 'User not signed in.'})
   }
 }
 
@@ -57,7 +71,7 @@ function logUserOut(req, res, next) {
         return res.status(200).send({ user: user.unauthUser() })
       })
   } else {
-    return res.staus(409).send('User not signed in.')
+    return res.status(409).send('User not signed in.')
   }
 }
 

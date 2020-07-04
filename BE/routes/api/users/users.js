@@ -10,10 +10,10 @@ usersRouter.use('/status', userStatusRouter)
 // GET User by name (required, only authenticated users have access)
 usersRouter.get('/:user_name', auth.required, usersCtrl.getUserByUsername)
 
-// GET Username unique (publically accessible)
+// GET Username unique (publicly accessible)
 usersRouter.get('/unique/:user_name', usersCtrl.isUserNameUnique)
 
-// POST new user route (optional, publically accessible)
+// POST new user route (optional, publicly accessible)
 usersRouter.post('/', usersCtrl.createUser)
 
 // POST to update user (required, only user should have access)

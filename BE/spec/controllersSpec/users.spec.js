@@ -16,6 +16,12 @@ describe('/users', () => {
   const userZeroLastName = userData[0].lastName
   const userZeroEmail = userData[0].email
   const userZeroAvatar = userData[0].avatarUrl
+  const userOnePass = userData[1].password
+  const userOneUsername = userData[1].username
+  const userOneFirstName = userData[1].firstName
+  const userOneLastName = userData[1].lastName
+  const userOneEmail = userData[1].email
+  const userOneAvatar = userData[1].avatarUrl
 
   beforeEach(() => {
     return mongooseConnect()
@@ -333,51 +339,109 @@ describe('/users', () => {
       describe('/:user_name', () => {
         describe('with valid username', () => {
           let userData
-  
-          beforeEach('', () => {
-            return request
-              .get(`/api/users/${userZeroUsername}`)
-              .set('cookie',`ssTok=${userToken}`)
-              .expect(200)
-              .expect(response => {
-                userData = response.body
-              })
+
+          describe('when user retrieves their own user info', () => {
+            beforeEach(() => {
+              return request
+                .get(`/api/users/${userZeroUsername}`)
+                .set('cookie',`ssTok=${userToken}`)
+                .expect(200)
+                .expect(response => {
+                  userData = response.body
+                })
+            })
+    
+            it('returns username', () => {
+              expect(userData.username).to.equal(userZeroUsername)
+            })
+    
+            it('returns groups', () => {
+              expect(userData.groups).to.eql([])
+            })
+            
+            it('returns firstName', () => {
+              expect(userData.firstName).to.equal(userZeroFirstName)
+            })
+            
+            it('returns lastName', () => {
+              expect(userData.lastName).to.equal(userZeroLastName)
+            })
+            
+            it('returns email', () => {
+              expect(userData.email).to.equal(userZeroEmail)
+            })
+            
+            it('returns avatarUrl', () => {
+              expect(userData.avatarUrl).to.equal(userZeroAvatar)
+            })
+            
+            it('returns sweepsWon', () => {
+              expect(userData.sweepsWon).to.eql([])
+            })
+            
+            it('DOES NOT return HASH', () => {
+              expect(userData.hash).to.equal(undefined)
+            })
+            
+            it('DOES NOT return SALT', () => {
+              expect(userData.salt).to.equal(undefined)
+            })
+            
+            it('DOES NOT return id', () => {
+              expect(userData._id).to.equal(undefined)
+            })
           })
-  
-          it('returns username with valid username', () => {
-            expect(userData.username).to.equal(userZeroUsername)
-          })
-          
-          it('returns firstName with valid username', () => {
-            expect(userData.firstName).to.equal(userZeroFirstName)
-          })
-          
-          it('returns laststName with valid username', () => {
-            expect(userData.lastName).to.equal(userZeroLastName)
-          })
-          
-          it('returns email with valid username', () => {
-            expect(userData.email).to.equal(userZeroEmail)
-          })
-          
-          it('returns avatarUrl with valid username', () => {
-            expect(userData.avatarUrl).to.equal(userZeroAvatar)
-          })
-          
-          it('returns sweepsWon with valid username', () => {
-            expect(userData.sweepsWon).to.eql([])
-          })
-          
-          it('DOES NOT return HASH with valid username', () => {
-            expect(userData.hash).to.equal(undefined)
-          })
-          
-          it('DOES NOT return SALT with valid username', () => {
-            expect(userData.salt).to.equal(undefined)
-          })
-          
-          it('DOES NOT return id with valid username', () => {
-            expect(userData._id).to.equal(undefined)
+         
+          describe('when user retrieves their others users info', () => {
+            beforeEach(() => {
+              return request
+                .get(`/api/users/${userOneUsername}`)
+                .set('cookie',`ssTok=${userToken}`)
+                .expect(200)
+                .expect(response => {
+                  userData = response.body
+                })
+            })
+    
+            it('returns username', () => {
+              expect(userData.username).to.equal(userOneUsername)
+            })
+    
+            it('returns groups', () => {
+              expect(userData.groups).to.eql([])
+            })
+            
+            it('DOES NOT return firstName', () => {
+              expect(userData.firstName).to.equal(undefined)
+            })
+            
+            it('DOES NOT return lastName', () => {
+              expect(userData.lastName).to.equal(undefined)
+            })
+            
+            it('DOES NOT return email', () => {
+              expect(userData.email).to.equal(undefined)
+            })
+            
+            it('returns avatarUrl', () => {
+              expect(userData.avatarUrl).to.equal(userOneAvatar)
+            })
+            
+            it('returns sweepsWon', () => {
+              expect(userData.sweepsWon).to.eql([])
+            })
+            
+            it('DOES NOT return HASH', () => {
+              expect(userData.hash).to.equal(undefined)
+            })
+            
+            it('DOES NOT return SALT', () => {
+              expect(userData.salt).to.equal(undefined)
+            })
+            
+            it('DOES NOT return id', () => {
+              expect(userData._id).to.equal(undefined)
+            })
           })
         })
 
