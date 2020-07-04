@@ -19,6 +19,11 @@ const GroupSchema = new Schema({
     required: false,
     default: ''
   }],
+  verifiedUsers: {
+    type: Array,
+    required: false,
+    unique: false
+  },
   wager: {
     type: Number,
     required: true,

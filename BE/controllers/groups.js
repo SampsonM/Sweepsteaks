@@ -4,18 +4,20 @@ import { Group } from '../models/index'
 function getGroups(req, res, next) {
   if (req.query.name) {
     return getGroupByName(req, res, next)
+  } else {
+    return next(req, res, next)
   }
 
-  return Group.find()
-    .lean()
-    .populate('createdBy', 'username')
-    .populate('users', 'username')
-    .then(groups => {
-      res.status(200).send(groups)
-    })
-    .catch(err => {
-      next({message: err.message, err, root: 'getGroups'})
-    })
+  // return Group.find()
+  //   .lean()
+  //   .populate('createdBy', 'username')
+  //   .populate('users', 'username')
+  //   .then(groups => {
+  //     res.status(200).send(groups)
+  //   })
+  //   .catch(err => {
+  //     next({message: err.message, err, root: 'getGroups'})
+  //   })
 }
 
 function getGroupById(req, res, next) {
@@ -50,21 +52,23 @@ function getGroupByName(req, res, next) {
 
 function addGroup(req, res, next) {
   // Validate this data
-  const {newGroup} = req.body
+  const { newGroup } = req.body
 
   return Group.find()
     .then(() => {
       return new Group({
-        "name": newGroup.name,
-        "createdBy": newGroup.createdBy,
-        "wager": newGroup.wager
+        'name': newGroup.name,
+        'createdBy': newGroup.createdBy,
+        'wager': newGroup.wager,
+        'verifiedUsers': newGroup.verifiedUsers
       })
     })
     .then(newGroup => {
       return newGroup.save()
     })
     .then(returnedGroup => {
-      res.status(201).send(returnedGroup)
+      returnedGroup.verifiedUsers = undefined
+      res.status(201).send({ group: returnedGroup })
     })
     .catch(err => {
       next({message: err.message, err, root: 'AddGroup'})

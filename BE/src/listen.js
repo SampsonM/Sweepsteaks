@@ -4,12 +4,13 @@ import https from 'https'
 import path from 'path'
 import fs from 'fs'
 import dotenv from 'dotenv'
+import config from '../config/environment'
 
 const currentEnv = process.env.NODE_ENV
 
 dotenv.config({ path: path.join(__dirname, `../.env.${currentEnv}`)})
 
-const PORT = process.env.PORT || require('../config/environment').PORT
+const PORT = process.env.PORT || config.PORT
 
 if (currentEnv === 'production') {
   http.createServer(app).listen(PORT, () => {
@@ -19,7 +20,7 @@ if (currentEnv === 'production') {
 
 // Keep HTTPS to run localhost on chrome
 // due to chrome updating the scheme from HTTP to HTTPS
-// Heroku does not reauire this however so we keep HTTP
+// Heroku does not require this however so we keep HTTP
 if (currentEnv === 'development') {
   const options = {
     key: fs.readFileSync(path.resolve(__dirname, '../config/certs/rootCA.key'), 'utf8'),

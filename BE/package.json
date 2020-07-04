@@ -14,7 +14,7 @@
   "author": "Mark Sampson",
   "license": "ISC",
   "engines": {
-    "node": "10.16.3"
+    "node": "12.16.3"
   },
   "pre-commit": [
     "test"

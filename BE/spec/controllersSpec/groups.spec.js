@@ -31,16 +31,7 @@ describe('/groups', () => {
   })
 
   describe('when user NOT logged in', () => {
-    describe('GET /', () => {
-      it('/ Returns all groups', () => {
-        return request
-          .get('/api/groups')
-          .set('cookie',`ssTok=INVALIDuserToken`)
-          .expect(res => {
-            if (res.body.status !== 401) throw new Error(`Expected 401 recieved: ${res.error}`)
-          })
-      })
-    
+    describe('GET /', () => {    
       it(':group_id returns group by id', () => {
         return request
           .get(`/api/groups/${groupDocs[0]._id}`)
@@ -61,7 +52,7 @@ describe('/groups', () => {
     })
 
     describe('POST /', () => {
-      it('/ ADDS a group', () => {
+      it('ADDS a group', () => {
         const data = {
           newGroup: {
             name: 'ME JULIES NEW GROUP',
@@ -115,16 +106,6 @@ describe('/groups', () => {
     })
 
     describe('GET /', () => {
-      it('/ Returns all groups', () => {
-        return request
-          .get('/api/groups')
-          .set('cookie',`ssTok=${userToken}`)
-          .expect(200)
-          .then(groups => {
-            expect(groups.body.length).to.equal(groupDocs.length)
-          })
-      })
-    
       describe(':group_id', () => {
         beforeEach(async () => {
           group = await request
@@ -137,7 +118,7 @@ describe('/groups', () => {
           expect(group.body._id).to.equal(groupDocs[0]._id.toString())
         })
 
-        it('Returns group with createdBy populated with username and avatarUrl only', () => {
+        it('Returns group with createdBy populated with username and avatarUrl', () => {
           const createdByKeys = Object.keys(group.body.createdBy)
 
           expect(createdByKeys.includes('_id')).to.equal(false)
@@ -151,7 +132,7 @@ describe('/groups', () => {
           expect(createdByKeys.includes('username')).to.equal(true)
         })
   
-        it('Returns group with users populated with username and avatarUrl only', () => {
+        it('Returns group with users populated with username and avatarUrl', () => {
           const userKeys = Object.keys(group.body.users[0])
 
           expect(userKeys.includes('_id')).to.equal(false)
@@ -225,7 +206,7 @@ describe('/groups', () => {
           .send(JSON.stringify(data))
           .expect(201)
           .then(group => {
-            expect(group.body).to.have.all.keys(
+            expect(group.body.group).to.have.all.keys(
               '__v',
               '_id',
               'createdBy',
