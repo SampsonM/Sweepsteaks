@@ -55,8 +55,6 @@ export default {
         const reg = new RegExp(/[±!@£$%^&*_+§¡€#¢§¶•ªº«\\/<>?:;|=.,]+/)
         const includesSymbol = reg.test(username)
 
-        console.log(digitMatches, includesSymbol)
-
         if (digitMatches && digitMatches.length >= 2 && !includesSymbol) {
           return true
         } else {

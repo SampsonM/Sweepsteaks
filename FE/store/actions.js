@@ -17,7 +17,7 @@ export default {
         serverErrs.push(errors[key].message)
       }
 
-      commit('UPDATE_SERVER_ERR', serverErrs)
+      // commit('UPDATE_SERVER_ERR', serverErrs)
     }
   },
   async logUserIn({ commit }, payload) {
