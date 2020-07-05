@@ -511,7 +511,7 @@ describe('/users', () => {
           .send(JSON.stringify({ firstName: 'markus' }))
           .expect(400)
           .expect(response => {
-            if (response.error.text !== 'No userdata found') throw new Error('Expected error text to say No userdata found')
+            if (response.error.text !== 'No user data found') throw new Error('Expected error text to say No user data found')
           })
       })
 
@@ -521,7 +521,7 @@ describe('/users', () => {
           .set('cookie',`ssTok=${userToken}`)
           .expect(400)
           .expect(response => {
-            if (response.error.text !== 'No userdata found') throw new Error('Expected error text to say No userdata found')
+            if (response.error.text !== 'No user data found') throw new Error('Expected error text to say No user data found')
           })
       })
 
@@ -558,7 +558,7 @@ describe('/users', () => {
           .expect(200)
           .expect(response => {
             if (response.body.lastName === userZeroLastName) throw new Error(`Expected last name to update to chariot but received: ${response.body.lastName}`)
-            if (response.body.firststName === userZeroFirstName) throw new Error(`Expected first name to update to markus but received: ${response.body.firstName}`)
+            if (response.body.firstName === userZeroFirstName) throw new Error(`Expected first name to update to markus but received: ${response.body.firstName}`)
           })
       })
     })

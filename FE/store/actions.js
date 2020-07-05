@@ -20,6 +20,7 @@ export default {
       // commit('UPDATE_SERVER_ERR', serverErrs)
     }
   },
+
   async logUserIn({ commit }, payload) {
     try {
       const res = await this.$UserApi.logUserIn(payload)
@@ -28,14 +29,20 @@ export default {
       commit('UPDATE_LOGIN_ERROR', null)
       commit('UPDATE_ALLWD', user.authenticated)
 
+      this.$cookie.remove('ssTok')
+      this.$cookie.remove('uid')
       this.$cookie.set('ssTok', user.token, 60 * 60 * 12)
       this.$cookie.set('uid', user._id, 60 * 60 * 12)
+
+      console.log('stored cookie - ',this.$cookie.get('ssTok'))
+      console.log('stored cookie - ',user.token)
 
       window.$nuxt.$router.push('/dashboard')
     } catch (err) {
       commit('UPDATE_LOGIN_ERROR', err.response.data)
     }
   },
+
   async logout({ commit }) {
     try {
       await this.$UserApi.logUserOut()
@@ -49,6 +56,7 @@ export default {
 
     window.$nuxt.$router.push('/')
   },
+
   updateCurrentGroups({ commit }, group) {
     commit('UPDATE_CURRENT_GROUPS', group)
   }

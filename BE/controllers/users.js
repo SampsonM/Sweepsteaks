@@ -53,6 +53,8 @@ function isUserNameUnique(req, res, next) {
 
 // GET checks if user is currently logged in
 function getUserLoginState(req, res, next) {
+  console.log(req.user)
+
   if (req.user.id) {
     return User.findById(req.user.id)
       .then((user) => {
@@ -136,7 +138,7 @@ function updateUser(req, res, next) {
         .catch(err => {
           return res.status(404).send(err)
         })
-    : res.status(400).send('No userdata found')
+    : res.status(400).send('No user data found')
 }
 
 // delete user
