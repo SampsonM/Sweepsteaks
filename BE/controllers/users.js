@@ -77,15 +77,13 @@ function logUserOut(req, res, next) {
 
 // POST new user 
 function createUser(req, res, next) {
-  const userData = req.body
-
   if (req.user) {
-    console.log(req.user)
     return res.status(409).send('Please sign out to continue creating account.')
   }
 
-  if (userData && Object.keys(userData).length > 0 && userData.constructor === Object) {
-    
+  let userData = req.body.userData && JSON.parse(req.body.userData)
+
+  if (userData && Object.keys(userData).length > 0) {
     const validationErr = userDataValid(userData)
     if (validationErr) return res.status(400).send(validationErr)
 

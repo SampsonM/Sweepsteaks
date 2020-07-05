@@ -27,7 +27,7 @@ export default function(api, $cookie, store) {
 
     createUser(userData) {
       const jsonData = JSON.stringify(userData)
-      return api.post(`${usersBase}/`, jsonData)
+      return api.post(`${usersBase}/`, { userData: jsonData })
     },
 
     logUserIn(loginData) {

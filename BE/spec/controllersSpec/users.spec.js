@@ -16,22 +16,18 @@ describe('/users', () => {
   const userZeroLastName = userData[0].lastName
   const userZeroEmail = userData[0].email
   const userZeroAvatar = userData[0].avatarUrl
-  const userOnePass = userData[1].password
   const userOneUsername = userData[1].username
-  const userOneFirstName = userData[1].firstName
-  const userOneLastName = userData[1].lastName
-  const userOneEmail = userData[1].email
   const userOneAvatar = userData[1].avatarUrl
 
-  beforeEach(() => {
-    return mongooseConnect()
-      .then(() => {
-        return seedDB()
-      })
-      .then(data => {
-        userDocs = data.userDocs
-      })
-      .catch(console.log)
+  beforeEach(async () => {
+    try {
+      await mongooseConnect()
+      const data = await seedDB()
+      userDocs = data.userDocs
+
+    } catch (err) {
+      console.log(err)
+    }
   })
 
   afterEach(() => {
@@ -130,7 +126,7 @@ describe('/users', () => {
         return request
           .post('/api/users/')
           .set({'Content-Type':'application/json'})
-          .send(JSON.stringify(userData))
+          .send({ userData: JSON.stringify(userData) })
           .expect(response => {
             if (response.error.text !== 'First name must be at least 2 characters and be alphabetical characters only') throw new Error(
               `Incorrect error msg returned. - Expected: First name must be at least 2 characters and be alphabetical characters only - Received: ${response.error.text}`
@@ -145,7 +141,7 @@ describe('/users', () => {
         return request
           .post('/api/users/')
           .set({'Content-Type':'application/json'})
-          .send(JSON.stringify(userData))
+          .send({ userData: JSON.stringify(userData) })
           .expect(response => {
             if (response.error.text !== 'First name must be at least 2 characters and be alphabetical characters only') throw new Error(`Incorrect error msg returned, received: ${response.error.text}`)
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
@@ -158,7 +154,7 @@ describe('/users', () => {
         return request
           .post('/api/users/')
           .set({'Content-Type':'application/json'})
-          .send(JSON.stringify(userData))
+          .send({ userData: JSON.stringify(userData) })
           .expect(response => {
             if (response.error.text !== 'First name must be at least 2 characters and be alphabetical characters only') throw new Error(`Incorrect error msg returned, received: ${response.error.text}`)
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
@@ -171,7 +167,7 @@ describe('/users', () => {
         return request
           .post('/api/users/')
           .set({'Content-Type':'application/json'})
-          .send(JSON.stringify(userData))
+          .send({ userData: JSON.stringify(userData) })
           .expect(response => {
             if (response.error.text !== 'Last name must be at least 2 characters and be alphabetical characters only') throw new Error(`Incorrect error msg returned, received: ${response.error.text}`)
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
@@ -184,7 +180,7 @@ describe('/users', () => {
         return request
           .post('/api/users/')
           .set({'Content-Type':'application/json'})
-          .send(JSON.stringify(userData))
+          .send({ userData: JSON.stringify(userData) })
           .expect(response => {
             if (response.error.text !== 'Username must be between 3 and 12 characters') throw new Error(`Incorrect error msg returned, received: ${response.body}`)
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
@@ -197,7 +193,7 @@ describe('/users', () => {
         return request
           .post('/api/users/')
           .set({'Content-Type':'application/json'})
-          .send(JSON.stringify(userData))
+          .send({ userData: JSON.stringify(userData) })
           .expect(response => {
             if (response.error.text !== 'Email must be a valid format') throw new Error(`Incorrect error msg returned, received: ${response.error.text}`)
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
@@ -210,7 +206,7 @@ describe('/users', () => {
         return request
           .post('/api/users/')
           .set({'Content-Type':'application/json'})
-          .send(JSON.stringify(userData))
+          .send({ userData: JSON.stringify(userData) })
           .expect(response => {
             if (response.error.text !== 'Password must contain at least 1 lower & uppercase letter, 1 number and be at least 8 characters') throw new Error(`Incorrect error msg returned, received: ${response.error.text}`)
             if (response.statusCode !== 400) throw new Error(`Incorrect status code returned, expected 400 received: ${response.statusCode}`)
@@ -218,7 +214,7 @@ describe('/users', () => {
       })
 
       it('creates user with valid credentials', () => {
-        const data = {
+        const userData = {
           firstName: 'Gina',
           lastName: 'winas',
           username: 'ginwin2',
@@ -229,7 +225,7 @@ describe('/users', () => {
         return request
           .post('/api/users/')
           .set({'Content-Type':'application/json'})
-          .send(JSON.stringify(data))
+          .send({ userData: JSON.stringify(userData) })
           .expect(201)
           .expect(res => {
             if (!res.body.user._id) throw new Error(`Expected createUser to return new user with id, but received: ${res.body.user}`)
@@ -493,18 +489,18 @@ describe('/users', () => {
     })
 
     describe('POST /', () => {
-      // it('rejects request and tells user to sign in', () => {
-      //   return request
-      //     .post(`/api/users/`)
-      //     .set('cookie',`ssTok=${userToken}`)
-      //     .expect(409)
-      //     .expect(response => {
-      //       if (response.error.text !== `Please sign out to continue creating account.`) throw new Error(`Expected error message telling user to sign out: received: ${response.error.text}`)
-      //     })
-      // })
+      it('rejects request and tells user to sign in', () => {
+        return request
+          .post(`/api/users/`)
+          .set('cookie',`ssTok=${userToken}`)
+          .expect(409)
+          .expect(response => {
+            if (response.error.text !== `Please sign out to continue creating account.`) throw new Error(`Expected error message telling user to sign out: received: ${response.error.text}`)
+          })
+      })
 
       describe('/status/login', () => {
-        it('returns 200 and reauthenticates user', () => {
+        it('returns 200 and re authenticates user', () => {
           return request
             .post('/api/users/status/login')
             .send({ username: userZeroUsername, password: userZeroPass })
