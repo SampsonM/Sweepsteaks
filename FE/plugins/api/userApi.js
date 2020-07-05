@@ -26,13 +26,11 @@ export default function(api, $cookie, store) {
     },
 
     createUser(userData) {
-      const jsonData = JSON.stringify(userData)
-      return api.post(`${usersBase}/`, { userData: jsonData })
+      return api.post(`${usersBase}/`, { userData: JSON.stringify(userData) })
     },
 
     logUserIn(loginData) {
-      const jsonData = JSON.stringify(loginData)
-      return api.post(`${usersBase}/status/login`, jsonData)
+      return api.post(`${usersBase}/status/login`, loginData)
     },
 
     logUserOut() {

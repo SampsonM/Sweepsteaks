@@ -12,6 +12,7 @@
 				:err-message="fieldErr('username')"
 				v-model="username"
 			/>
+
 			<MyInput
 				label="Password"
 				name="password"
