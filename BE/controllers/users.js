@@ -77,10 +77,6 @@ function logUserOut(req, res, next) {
 
 // POST new user 
 function createUser(req, res, next) {
-  if (req.user) {
-    return res.status(409).send('Please sign out to continue creating account.')
-  }
-
   let userData = req.body.userData && JSON.parse(req.body.userData)
 
   if (userData && Object.keys(userData).length > 0) {
