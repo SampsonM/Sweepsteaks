@@ -25,17 +25,19 @@ export default {
     try {
       const res = await this.$UserApi.logUserIn(payload)
       const user = res.data.user
-
+      
       commit('UPDATE_LOGIN_ERROR', null)
       commit('UPDATE_ALLWD', user.authenticated)
-
+      
       this.$cookie.remove('ssTok')
       this.$cookie.remove('uid')
       this.$cookie.set('ssTok', user.token, 60 * 60 * 12)
       this.$cookie.set('uid', user._id, 60 * 60 * 12)
-
-      console.log('stored cookie - ',this.$cookie.get('ssTok'))
-      console.log('stored cookie - ',user.token)
+   
+      console.log('stored cookie - ')
+      console.log('stored cookie - ', this)
+      console.log('stored cookie - ', this.$cookie.get('ssTok'))
+      console.log('stored cookie - ', user.token)
 
       window.$nuxt.$router.push('/dashboard')
     } catch (err) {
