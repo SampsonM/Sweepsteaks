@@ -15,7 +15,7 @@ export default function(api, $cookie, store) {
         try {
           const { data } = await api.get(`${usersBase}/status/`)
           store.commit('UPDATE_ALLWD', data.user.authenticated)
-          $cookie.set('ssTok', data.user.token, 60 * 60 * 12)
+          $cookie.set('ssTok', data.user.token)
           return data.user.authenticated
         } catch (err) {
           return false
@@ -29,11 +29,11 @@ export default function(api, $cookie, store) {
       return api.post(`${usersBase}/`, { userData: JSON.stringify(userData) })
     },
 
-    logUserIn(loginData) {
+    logIn(loginData) {
       return api.post(`${usersBase}/status/login`, loginData)
     },
 
-    logUserOut() {
+    logOut() {
       return api.patch(`${usersBase}/status/logout`, null, {
         headers: {
           authorisation: $cookie.get('ssTok')

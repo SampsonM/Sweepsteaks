@@ -2,6 +2,14 @@ module.exports = {
   mode: 'spa',
   target: 'static',
   debug: true,
+  /**
+   * https://nuxtjs.org/api/configuration-env/
+   */
+  env: {
+    cookieDomain: process.env.NODE_ENV === 'development' 
+      ? 'sweepsteaks.co.uk'
+      : 'localhost'
+  },
   /*
    ** Headers of the page
    */

@@ -16,7 +16,7 @@ export default {
 		Header
 	},
 	mounted() {
-		console.log(this.$route.name)
+		this.$cookie.config( 60 * 60 * 12, null, process.env.cookieDomain, false)
 	},
 	head() {
 		return {
