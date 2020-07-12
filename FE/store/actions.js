@@ -33,7 +33,7 @@ export default {
       this.$cookie.remove('uid')
       this.$cookie.set('ssTok', user.token, 60 * 60 * 12)
       this.$cookie.set('uid', user._id, 60 * 60 * 12)
-   
+
       console.log('stored cookie - ')
       console.log('stored cookie - ', this)
       console.log('stored cookie - ', this.$cookie.get('ssTok'))

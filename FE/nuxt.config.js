@@ -87,7 +87,7 @@ module.exports = {
   axios: {
     baseURL:
       process.env.NODE_ENV === 'production'
-        ? 'https://sweep-steaks.herokuapp.com/api'
+        ? 'https://api.sweepsteaks.co.uk/api'
         : 'https://localhost:3000/api',
     headers: {
       common: {
@@ -102,7 +102,6 @@ module.exports = {
   build: {
     // https://nuxtjs.org/api/configuration-build#transpile
     // transpile: [
-      // '@nuxt/telemetry'
     // ],
     /*
      ** You can extend webpack config here
@@ -116,7 +115,7 @@ module.exports = {
   pwa: {
     manifest: {
       name: 'Sweepsteaks',
-      short_name: 'Sweepsteak',
+      short_name: 'Sweepsteaks',
       icons: [
         {
           src: './img/icons/favicon-16x16.png',
