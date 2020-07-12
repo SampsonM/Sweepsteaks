@@ -6,7 +6,7 @@ module.exports = {
    * https://nuxtjs.org/api/configuration-env/
    */
   env: {
-    cookieDomain: process.env.NODE_ENV === 'development' 
+    cookieDomain: process.env.NODE_ENV === 'production' 
       ? 'sweepsteaks.co.uk'
       : 'localhost'
   },

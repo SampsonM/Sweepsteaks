@@ -16,6 +16,7 @@ export default {
 		Header
 	},
 	mounted() {
+		console.log(process.env.cookieDomain)
 		this.$cookie.config( 60 * 60 * 12, null, process.env.cookieDomain, false)
 	},
 	head() {
