@@ -1,5 +1,5 @@
 'use strict'
-import { Group } from '../models/index'
+import { Group, User } from '../models/index'
 
 function getGroups(req, res, next) {
   if (req.query.name) {
@@ -50,29 +50,34 @@ function getGroupByName(req, res, next) {
     })
 }
 
-function addGroup(req, res, next) {
+async function addGroup(req, res, next) {
   // Validate this data
-  const { newGroup } = req.body
+  let { newGroup } = req.body
 
-  return Group.find()
-    .then(() => {
-      return new Group({
-        'name': newGroup.name,
-        'createdBy': newGroup.createdBy,
-        'wager': newGroup.wager,
-        'verifiedUsers': newGroup.verifiedUsers
-      })
+  try {
+    newGroup = new Group({
+      'name': newGroup.name,
+      'createdBy': newGroup.createdBy,
+      'wager': newGroup.wager,
+      'verifiedUsers': newGroup.verifiedUsers
     })
-    .then(newGroup => {
-      return newGroup.save()
-    })
-    .then(returnedGroup => {
-      returnedGroup.verifiedUsers = undefined
-      res.status(201).send({ group: returnedGroup })
-    })
-    .catch(err => {
-      next({message: err.message, err, root: 'AddGroup'})
-    })
+  
+    newGroup = await newGroup.save()
+    let groupOwner = await User.findById(newGroup.createdBy).lean()
+
+    let returnedGroup = {
+      createdBy: groupOwner.username,
+      name: newGroup.name,
+      users: newGroup.users,
+      wager: newGroup.wager,
+      _id: newGroup.id
+    }
+  
+    return res.status(201).send({ group: returnedGroup })
+
+  } catch (err) {
+    return next({message: err.message, err, root: 'AddGroup'})
+  }
 }
 
 function editGroupData(req, res, next) { 
