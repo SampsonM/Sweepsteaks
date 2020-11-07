@@ -63,9 +63,6 @@ module.exports = {
     },
     {
       src: '~/plugins/vuelidate'
-    },
-    {
-      src: '@/plugins/compositionApi.js'
     }
   ],
   /*
@@ -73,7 +70,8 @@ module.exports = {
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/stylelint-module
-    '@nuxtjs/stylelint-module'
+    '@nuxtjs/stylelint-module',
+    '@nuxtjs/composition-api'
   ],
   /*
    ** Nuxt.js modules

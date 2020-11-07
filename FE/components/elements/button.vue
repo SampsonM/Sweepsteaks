@@ -27,6 +27,7 @@ export default {
 
 <style lang="scss">
 .my-button {
+	display: inline-block;
 	position: relative;
 	border-radius: 5px;
 	padding: 0 15px;

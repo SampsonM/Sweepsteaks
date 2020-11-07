@@ -25,32 +25,25 @@
 		</nuxt-link>
 
 		<div class="header__ctas">
-			<nuxt-link to="/login">
-				<MyButton
-					v-if="!allwd && $route.name !== 'login'"
-					type="button"
-					btn-style="cta-1"
-					@click="() => ({})">
-					Login
-				</MyButton>
+			<nuxt-link 
+				v-if="!allwd && $route.name !== 'login'"
+				class="my-button my-button--cta-1"
+				to="/login">
+				Login
 			</nuxt-link>
 
-			<nuxt-link to="/dashboard">
-				<MyButton
-					v-if="allwd && $route.name == 'index'"
-					btn-style="cta-1"
-					@click="() => ({})">
-					Dashboard
-				</MyButton>
+			<nuxt-link
+				v-if="allwd && $route.name == 'index'"
+				class="my-button my-button--cta-1"
+				to="/dashboard">
+				Dashboard
 			</nuxt-link>
 
-			<nuxt-link to="/settings">
-				<MyButton
-					v-if="allwd && $route.name == 'dashboard'"
-					btn-style="cta-1"
-					@click="() => ({})">
-					Settings
-				</MyButton>
+			<nuxt-link 
+				v-if="allwd && $route.name == 'dashboard'"
+				class="my-button my-button--cta-1"
+				to="/settings">
+				Settings
 			</nuxt-link>
 		</div>
 	</header>

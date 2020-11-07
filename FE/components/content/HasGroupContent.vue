@@ -1,8 +1,6 @@
 <template>
 	<div class="dash-with-group">
 		<GroupsBlock />
-		<CompetitionsBlock />
-		<LeaderBoardBlock />
 	</div>
 </template>
 

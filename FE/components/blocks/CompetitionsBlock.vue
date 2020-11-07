@@ -1,18 +1,18 @@
 <template>
-	<Block
+	<block
 		class="competitions-block"
 		header="Your Competitions:">
-	</Block>
+	</block>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import { Block } from '@/components'
+import block from '@/components/elements/block.vue'
 
 export default {
 	name: 'competitionsBlock',
 	components: {
-		Block
+		block
 	},
 	mounted() {
 		console.log(this.$route)

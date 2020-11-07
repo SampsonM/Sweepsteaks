@@ -1,17 +1,17 @@
 <template>
-	<Block
+	<block
 		class="leaderboards-block"
 		header="Your Leaderboards:">
-	</Block>
+	</block>
 </template>
 
 <script>
-import { Block } from '@/components'
+import block from '@/components/elements/block.vue'
 
 export default {
 	name: 'LeaderBoardBlock',
 	components: {
-		Block
+		block
 	},
 	mounted() {
 		console.log(this.$route)

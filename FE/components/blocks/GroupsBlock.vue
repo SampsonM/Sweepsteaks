@@ -1,5 +1,5 @@
 <template>
-	<Block
+	<block
 		class="groups-block"
 		header="Your Groups:">
 		<div
@@ -22,21 +22,24 @@
 				<p class="group__cretaed-by"></p>				
 			</div>
 		</div>
-	</Block>
+	</block>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import { Block } from '@/components'
+import block from '@/components/elements/block.vue'
 
 export default {
 	name: 'groupsBlock',
 	components: {
-		Block
+		block
 	},
 	computed: {
 		...mapState(['currentGroups'])
-	}
+	},
+	mounted() {
+		console.log(block)
+	},
 }
 </script>
 
