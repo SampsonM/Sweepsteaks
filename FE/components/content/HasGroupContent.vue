@@ -1,17 +1,19 @@
 <template>
 	<div class="dash-with-group">
 		<GroupsBlock />
-		<div>Competitions</div>
-		<div>Leaderboards</div>
+		<CompetitionsBlock />
+		<LeaderBoardBlock />
 	</div>
 </template>
 
 <script>
-import { GroupsBlock } from '@/components'
+import { GroupsBlock, LeaderBoardBlock, CompetitionsBlock } from '@/components'
 
 export default {
 	name: 'DashHasGroup',
 	components: {
+		CompetitionsBlock,
+		LeaderBoardBlock,
 		GroupsBlock
 	}
 }

@@ -1,12 +1,13 @@
 <template>
-	<Block class="competitions-block">
-		<h4>Your competitions</h4>
+	<Block
+		class="competitions-block"
+		header="Your Competitions:">
 	</Block>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import Block from './block'
+import { Block } from '@/components'
 
 export default {
 	name: 'competitionsBlock',
@@ -18,6 +19,7 @@ export default {
 	}
 }
 </script>
+
 <style lang="scss">
 	
 </style>

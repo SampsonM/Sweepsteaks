@@ -130,7 +130,7 @@
 <script>
 import { MyButton, MyInput } from '@/components'
 import { mapActions } from 'vuex'
-import validationHelpers from '../helpers/validations'
+import validationHelpers from '@/helpers/validations'
 
 export default {
 	components: {

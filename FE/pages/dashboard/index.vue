@@ -1,6 +1,6 @@
 <template>
 	<div class="dashboard" v-if="sweepAdminAccess">
-		<Header />
+		<HeaderBlock />
 		<DashHasGroupContent v-if="groupsAvailable" />
 		<DashNoGroupContent v-else />
 	</div>
@@ -23,13 +23,12 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
-import Header from '@/components/header.vue'
-import { DashHasGroupContent, DashNoGroupContent } from '@/components'
+import { DashHasGroupContent, DashNoGroupContent, HeaderBlock } from '@/components'
 
 export default {
 	middleware: 'auth',
 	components: {
-		Header,
+		HeaderBlock,
 		DashNoGroupContent,
 		DashHasGroupContent
 	},

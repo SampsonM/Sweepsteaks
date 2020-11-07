@@ -44,7 +44,7 @@
 <script>
 import { defineComponent, ref, Ref, watch } from '@vue/composition-api'
 import { CreateGroupForm, MyButton } from '@/components'
-import { toggleModal } from '../helpers'
+import { toggleModal } from '@/helpers'
 
 export default {
 	components: {

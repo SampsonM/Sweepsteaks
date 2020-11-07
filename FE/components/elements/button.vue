@@ -10,6 +10,7 @@
 
 <script>
 export default {
+	name: 'MyButton',
 	props: {
 		btnStyle: {
 			type: String,

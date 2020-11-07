@@ -11,5 +11,4 @@ export default {
 </script>
 
 <style lang="scss">
-.dashboard-block {}
 </style>

@@ -1,7 +1,7 @@
 <template>
   <main class="landing-content">
     <transition name="slide-in">
-      <SignupForm v-if="signUpOpen" @closeSignUp="closeSignUp" />
+      <SignUpForm v-if="signUpOpen" @closeSignUp="closeSignUp" />
     </transition>
 
     <section class="main-content">
@@ -37,7 +37,7 @@ import { SignUpForm, MyButton } from '@/components'
 
 export default {
   components: {
-    SignupForm,
+    SignUpForm,
 		MyButton
   },
   data() {

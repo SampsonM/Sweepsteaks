@@ -8,43 +8,47 @@
 				itemprop="logo"
 				class="header__logo-brush"
 				alt="Sweepsteaks"
-				src="../assets/icons/broom.svg"
+				src="../../assets/icons/broom.svg"
 			/>
 			<img
 				itemprop="logo"
 				class="header__logo-steak"
 				alt="Sweepsteaks"
-				src="../assets/icons/meat.svg"
+				src="../../assets/icons/meat.svg"
 			/>
 			<img
 				itemprop="logo"
 				class="header__logo-steak"
 				alt="Sweepsteaks"
-				src="../assets/icons/meat.svg"
+				src="../../assets/icons/meat.svg"
 			/>
 		</nuxt-link>
 
 		<div class="header__ctas">
-			<nuxt-link
-				v-if="!allwd && $route.name !== 'login'"
-				to="/login">
-				<MyButton btn-style="cta-1">
+			<nuxt-link to="/login">
+				<MyButton
+					v-if="!allwd && $route.name !== 'login'"
+					type="button"
+					btn-style="cta-1"
+					@click="() => ({})">
 					Login
 				</MyButton>
 			</nuxt-link>
 
-			<nuxt-link
-				v-if="allwd && $route.name == 'index'"
-				to="/dashboard">
-				<MyButton btn-style="cta-1">
+			<nuxt-link to="/dashboard">
+				<MyButton
+					v-if="allwd && $route.name == 'index'"
+					btn-style="cta-1"
+					@click="() => ({})">
 					Dashboard
 				</MyButton>
 			</nuxt-link>
 
-			<nuxt-link
-				v-if="allwd && $route.name == 'dashboard'"
-				to="/settings">
-				<MyButton btn-style="cta-1">
+			<nuxt-link to="/settings">
+				<MyButton
+					v-if="allwd && $route.name == 'dashboard'"
+					btn-style="cta-1"
+					@click="() => ({})">
 					Settings
 				</MyButton>
 			</nuxt-link>
@@ -57,6 +61,7 @@ import { mapState } from 'vuex'
 import { MyButton } from '@/components'
 
 export default {
+	name: 'HeaderBlock',
 	components: {
 		MyButton
 	},

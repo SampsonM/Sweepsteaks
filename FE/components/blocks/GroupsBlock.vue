@@ -1,24 +1,25 @@
 <template>
-	<Block class="groups-block">
-		<h4 class="groups-block__header">Your Groups</h4>
+	<Block
+		class="groups-block"
+		header="Your Groups:">
 		<div
 			v-for="group in currentGroups"
 			:key="group.id"
 			class="group">
 
 			<div>
-				<p class="group__name-label">Group - </p>
-				<p class="group__name">{{ group.name }}</p>
+				<p class="group__name-label">Group - {{ group.name }}</p>
+				<p class="group__name"></p>
 			</div>
 
 			<div>
-				<p class="group__created-by-label">Created By - </p>
-				<p class="group__cretaed-by">{{ group.createdBy }}</p>				
+				<p class="group__created-by-label">Created By - {{ group.createdBy }}</p>
+				<p class="group__cretaed-by"></p>				
 			</div>
 
 			<div>
-				<p class="group__created-by-label">Wager - </p>
-				<p class="group__cretaed-by">{{ group.wager }}</p>				
+				<p class="group__created-by-label">Wager - {{ group.wager }}</p>
+				<p class="group__cretaed-by"></p>				
 			</div>
 		</div>
 	</Block>
@@ -26,7 +27,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import Block from './block'
+import { Block } from '@/components'
 
 export default {
 	name: 'groupsBlock',
@@ -35,11 +36,10 @@ export default {
 	},
 	computed: {
 		...mapState(['currentGroups'])
-	},
-	mounted() {
 	}
 }
 </script>
+
 <style lang="scss">
 .groups-block {
 	&__header {

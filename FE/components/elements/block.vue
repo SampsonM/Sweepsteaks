@@ -1,12 +1,19 @@
 <template>
 	<div class="block">
+		<h4 class="block__header">{{ header }}</h4>
 		<slot/>
 	</div>
 </template>
 
 <script>
 export default {
-	name: 'block'
+	name: 'block',
+	props: {
+		header: {
+			type: String,
+			required: true
+		}
+	}
 }
 </script>
 
