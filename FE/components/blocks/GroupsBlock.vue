@@ -1,7 +1,6 @@
 <template>
 	<Block class="groups-block">
 		<h4 class="groups-block__header">Your Groups</h4>
-		{{currentGroups}}
 		<div
 			v-for="group in currentGroups"
 			:key="group.id"
@@ -15,6 +14,11 @@
 			<div>
 				<p class="group__created-by-label">Created By - </p>
 				<p class="group__cretaed-by">{{ group.createdBy }}</p>				
+			</div>
+
+			<div>
+				<p class="group__created-by-label">Wager - </p>
+				<p class="group__cretaed-by">{{ group.wager }}</p>				
 			</div>
 		</div>
 	</Block>

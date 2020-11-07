@@ -24,10 +24,10 @@
 		</span>
 
 		<transition name="slide-in">
-			<FormCreateGroup
+			<CreateGroupForm
 				:formOpen="createGroupModalOpen"
 				@close-create-group="closeCreateGroup">
-			</FormCreateGroup>
+			</CreateGroupForm>
 		</transition>
 
 		<transition name="slide-in">
@@ -43,14 +43,13 @@
 
 <script>
 import { defineComponent, ref, Ref, watch } from '@vue/composition-api'
-import MyButton from './button.vue'
-import FormCreateGroup from './FormCreateGroup.vue'
+import { CreateGroupForm, MyButton } from '@/components'
 import { toggleModal } from '../helpers'
 
 export default {
 	components: {
 		MyButton,
-		FormCreateGroup
+		CreateGroupForm
 	},
 	setup() {
 		const {

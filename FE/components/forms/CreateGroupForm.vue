@@ -128,8 +128,7 @@
 </template>
 
 <script>
-import MyButton from './button.vue'
-import MyInput from './input.vue'
+import { MyButton, MyInput } from '@/components'
 import { mapActions } from 'vuex'
 import validationHelpers from '../helpers/validations'
 

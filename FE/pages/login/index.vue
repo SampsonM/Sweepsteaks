@@ -1,6 +1,6 @@
 <template>
 	<div class="login">
-		<Header />
+		<HeaderBlock />
 
 		<form :class="['login__form', { 'error': loginError || $v.$error }]">
 			<MyInput
@@ -46,13 +46,12 @@
 <script>
 import { mapState } from 'vuex'
 import Header from '@/components/header.vue'
-import MyButton from '@/components/button'
-import MyInput from '@/components/input'
+import { MyButton, MyInput, HeaderBlock } from '@/components'
 import validationHelpers from '@/helpers/validations'
 
 export default {
 	components: {
-		Header,
+		HeaderBlock,
 		MyButton,
 		MyInput
 	},

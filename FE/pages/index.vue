@@ -1,19 +1,18 @@
 <template>
 	<div class="landing-page" itemscope itemtype="http://schema.org/Brand">
-		<Header />
+		<HeaderBlock />
 		<LandingPageContent />
 	</div>
 </template>
 
 <script>
-import LandingPageContent from '@/components/LandingPageContent.vue'
-import Header from '@/components/header.vue'
+import { HeaderBlock, LandingPageContent } from '@/components'
 
 export default {
 	name: 'Home',
 	components: {
 		LandingPageContent,
-		Header
+		HeaderBlock
 	},
 	mounted() {
 		console.log(process.env.cookieDomain)

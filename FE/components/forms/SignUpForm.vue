@@ -70,7 +70,10 @@
 				:err-message="fieldErr('password')"
 			/>
 
-			<MyButton btn-style="cta-1" @click.prevent="handleSignup">
+			<MyButton
+				btn-style="cta-1"
+				type="submit"
+				@click.prevent="handleSignup">
 				Sign-up
 			</MyButton>
 		</form>
@@ -79,8 +82,7 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
-import MyButton from './button.vue'
-import MyInput from '@/components/input.vue'
+import { MyButton, MyInput } from '@/components'
 import validationHelpers from '@/helpers/validations'
 
 export default {

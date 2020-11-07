@@ -1,8 +1,8 @@
 <template>
 	<div class="dashboard" v-if="sweepAdminAccess">
 		<Header />
-		<DashHasGroup v-if="groupsAvailable"></DashHasGroup>
-		<DashNoGroup v-else></DashNoGroup>
+		<DashHasGroupContent v-if="groupsAvailable" />
+		<DashNoGroupContent v-else />
 	</div>
 
 	<div v-else>
@@ -24,15 +24,14 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 import Header from '@/components/header.vue'
-import DashNoGroup from '@/components/DashNoGroup.vue'
-import DashHasGroup from '@/components/DashHasGroup.vue'
+import { DashHasGroupContent, DashNoGroupContent } from '@/components'
 
 export default {
 	middleware: 'auth',
 	components: {
 		Header,
-		DashNoGroup,
-		DashHasGroup
+		DashNoGroupContent,
+		DashHasGroupContent
 	},
 	methods: {
 		...mapActions(['logout'])

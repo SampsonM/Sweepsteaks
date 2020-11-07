@@ -33,8 +33,7 @@
 </template>
 
 <script>
-import SignupForm from './FormSignup.vue'
-import MyButton from './button.vue'
+import { SignUpForm, MyButton } from '@/components'
 
 export default {
   components: {

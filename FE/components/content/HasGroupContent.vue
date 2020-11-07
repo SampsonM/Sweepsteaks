@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import GroupsBlock from './groupsBlock'
+import { GroupsBlock } from '@/components'
 
 export default {
 	name: 'DashHasGroup',

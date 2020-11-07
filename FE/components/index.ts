@@ -1,19 +1,20 @@
-import MyButton from './button.vue'
-import MyInput from './input.vue'
-import Header from './header.vue'
-import LandingPageContent from './LandingPageContent.vue'
-import FormCreateGroup from './FormCreateGroup.vue'
-import FormSignUp from './FormSignup.vue'
-import DashHasGroup from './DashHasGroup.vue'
-import DashNoGroup from './DashNoGroup.vue'
+import GroupsBlock from './blocks/GroupsBlock.vue'
+import HeaderBlock from './blocks/HeaderBlock.vue'
+import MyButton from './elements/button.vue'
+import MyInput from './elements/input.vue'
+import CreateGroupForm from './forms/CreateGroupForm.vue'
+import SignUpForm from './forms/SignUpForm.vue'
+import LandingPageContent from './content/LandingPageContent.vue'
+import DashNoGroupContent from './content/NoGroupContent.vue'
+import DashHasGroupContent from './content/HasGroupContent.vue'
 
 export {
 	MyButton,
 	MyInput,
-	Header,
+	CreateGroupForm,
+	SignUpForm,
+	HeaderBlock,
 	LandingPageContent,
-	FormCreateGroup,
-	FormSignUp,
-	DashHasGroup,
-	DashNoGroup
+	DashHasGroupContent,
+	DashNoGroupContent
 }
