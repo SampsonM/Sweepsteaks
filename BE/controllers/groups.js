@@ -51,7 +51,10 @@ function getGroupByName(req, res, next) {
 }
 
 async function addGroup(req, res, next) {
+  // TODO:
   // Validate this data
+  // Check creator has less than 5 groups created
+
   let { newGroup } = req.body
 
   try {
@@ -80,22 +83,30 @@ async function addGroup(req, res, next) {
   }
 }
 
-function editGroupData(req, res, next) { 
-  // ADD SECURITY TO SOMEHOW ONLY ALLOW GROUP OWNER TO EDIT
+async function editGroupData(req, res, next) {
+  // TODO:
+  // Only allow creator to edit data
   // Validate this data here
+
   const { updatedGroupData } = req.body
+  const groupId = req.params.group_id
 
-  const groupName = req.params.group_name
+  try {
+    let group = await Group
+      .findOneAndUpdate({_id: groupId}, {$set: updatedGroupData}, {new:true})
+      .populate('users', 'username')
+      .populate('createdBy', 'username')
 
-  return Group.findOneAndUpdate({name: groupName}, {$set: updatedGroupData}, {new:true})
-    .populate('users', 'username')
-    .populate('createdBy', 'username')
-    .then(group => {
-      return res.status(200).send(group)
-    })
-    .catch(err => {
-      next({message: err.message, err, root: 'editGroupData'})
-    })
+    return res.status(200).send(group)
+
+  } catch (err) {
+    return next({message: err.message, err, root: 'editGroupData'})
+  }
+}
+
+async function addUserToGroup(req, res, next) {
+  // TODO:
+  // Add logic to add singe user to group if they are verified
 }
 
 module.exports = {
