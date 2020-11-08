@@ -207,7 +207,6 @@ describe('/groups', () => {
           .expect(201)
           .then(group => {
             expect(group.body.group).to.have.all.keys(
-              '__v',
               '_id',
               'createdBy',
               'users',
@@ -222,7 +221,7 @@ describe('/groups', () => {
           })
       })
     
-      it('name/:group_name EDITS group by name', () => {
+      it('name/:group_id EDITS group by id', () => {
         const data = {
           updatedGroupData: {
             name: 'daves pals'
@@ -231,7 +230,7 @@ describe('/groups', () => {
         }
     
         return request
-          .post(`/api/groups/${groupDocs[0].name}`)
+          .post(`/api/groups/${groupDocs[0]._id}`)
           .set('cookie',`ssTok=${userToken}`)
           .set({'Content-Type':'application/json'})
           .send(JSON.stringify(data))
