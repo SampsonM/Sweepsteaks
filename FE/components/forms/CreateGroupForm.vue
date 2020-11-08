@@ -105,17 +105,20 @@
 			v-if="newGroup"
 			class="created-group">
 			<h3 class="created-group__header">
-				You have successfully created a new group!
+				Success!
 				<br><br>
-				To allow people to join your group share the following code, remember you must add them to the verified users before they can join!
-				<br>
-				<span class="created-group__header-code">
+				Share your group code with the people you want to join.
+				<br><br>
+				Remember you must add them to the verified users before they can join!
+				<br><br>
+				<span class="created-group__code">
 					{{ newGroup._id }}
 				</span>
 			</h3>
 			
 			<p class="created-group__text">
-				When you are happy to proceed click done to be redirected to the dashboard, you can find this code in your settings menu later.
+				When you are happy to proceed click done to be redirected to your dashboard.
+				You can find check back to see this code in your settings menu anytime.
 			</p>
 
 			<MyButton
@@ -280,7 +283,7 @@ export default {
 		margin-bottom: 30px;
 	}
 
-	&__header-code {
+	&__code {
 		color: $red;
 		margin-top: 20px;
 	}

@@ -19,8 +19,8 @@ export default {
 
 <style lang="scss">
 .dash-with-group {
-	display: flex;
-	flex-direction: column;
+	display: block;
+	flex: 1;
 	padding: 10px;
 }
 </style>

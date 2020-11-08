@@ -69,4 +69,10 @@ export default {
 		margin-top: 20px;
 	}
 }
+
+.dashboard {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
 </style>
