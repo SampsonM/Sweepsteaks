@@ -10,7 +10,7 @@ groupsRouter.get('/', auth.required, groupCtrl.getGroups)
 groupsRouter.get('/:group_id', auth.required, groupCtrl.getGroupById)
 
 // POST Edit a group by ID (required, only authenticated users have access)
-groupsRouter.post('/:group_name', auth.required, groupCtrl.editGroupData)
+groupsRouter.post('/:group_id', auth.required, groupCtrl.editGroupData)
 
 // POST Add a new group (required, only authenticated users have access)
 groupsRouter.post('/', auth.required, groupCtrl.addGroup)
