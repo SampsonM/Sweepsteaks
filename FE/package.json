@@ -8,6 +8,7 @@
     "build": "nuxt build",
     "dev": "nuxt --port=8080",
     "export": "nuxt export",
+    "generate": "nuxt generate",
     "start": "nuxt start --port=8080",
     "serve": "nuxt serve --port=8080",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
