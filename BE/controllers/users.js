@@ -1,10 +1,10 @@
 'use strict'
-import { User } from '../models/index'
+import { Group, User } from '../models/index'
 import passport from 'passport'
 import { userNameQuery, userDeleteQuery } from '../config/mongoQueries'
 
 // GET user
-async function getUserByUsername(req, res, next) {
+async function getUserData(req, res, next) {
   const username = req.params.user_name
   const userId = req.user.id
 
@@ -12,24 +12,30 @@ async function getUserByUsername(req, res, next) {
     return next()
   }
 
-  // console.log(req.user.id)
-  // Use this ID on authorized routes to confirm if a user is allowed to access 
-  // group info or see other user info!!!
-
   try {
-    const user = await User.findOne({ username: username }, userNameQuery)
-      .populate('groups', 'name')
-      .lean()
+    const user = await User.findOne({ _id: req.user.id }, userNameQuery)
+      .populate('name')
   
     if (`${userId}` !== `${user._id}`) {
-      user.firstName = undefined
-      user.lastName = undefined
-      user.email = undefined
-    }
-  
-    user._id = undefined
+      return res.status(404).json({err:'Not your account'})
     
-    return res.status(200).send(user)
+    } else {
+      const groups = await populateUsersGroups(user)
+
+      const userData = {
+        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        avatarUrl: user.avatarUrl,
+        sweepsWon: user.sweepsWon,
+        name: user.name,
+        groups
+      }
+      
+      return res.status(200).send({ user: userData })
+    }
+
 
   } catch (err) {
     return res.status(404).json({err:'Invalid username.'})
@@ -52,26 +58,38 @@ function isUserNameUnique(req, res, next) {
 }
 
 // GET checks if user is currently logged in
-function getUserLoginState(req, res, next) {
-  console.log(req.user)
-
+async function getUserLoginState(req, res, next) {
   if (req.user.id) {
-    return User.findById(req.user.id)
-      .then((user) => {
-        return res.status(200).send({ user: user.toAuthJSON() })
-      })
+    try {
+      const user = await User.findById(req.user.id)
+      const groups = await populateUsersGroups(user)
+
+      const userData = {
+        ...user.toAuthJSON(),
+        groups
+      }
+      
+      return res.status(200).send({ user: userData })
+
+    } catch(err) {
+      return res.status(500).send({ err: 'error getting user in get user login state' })
+    }
+      
   } else {
     return res.status(409).send({err: 'User not signed in.'})
   }
 }
 
 // GET Log user out
-function logUserOut(req, res, next) {
+async function logUserOut(req, res, next) {
   if (req.user.id) {
-    return User.findById(req.user.id)
-      .then((user) => {
-        return res.status(200).send({ user: user.unauthUser() })
-      })
+    try {
+      const user = await User.findById(req.user.id)
+  
+      return res.status(200).send({ user: user.unauthUser() })
+    } catch (err) {
+      return res.status(404).send('User not found')
+    }
   } else {
     return res.status(409).send('User not signed in.')
   }
@@ -109,8 +127,8 @@ function createUser(req, res, next) {
 }
 
 // POST existing user login
-function logUserIn(req, res, next) {
-  passport.authenticate('local', (err, user) => {
+async function logUserIn(req, res, next) {
+  passport.authenticate('local', async (err, user) => {
     if (err) {
       return res.status(404).send(err)
     }
@@ -119,26 +137,36 @@ function logUserIn(req, res, next) {
 	  	return res.status(401).send('User does not exist')
     }
 
-    return res.status(200).send({ user: user.toAuthJSON() })
+    const groups = await populateUsersGroups(user)
+
+    const userData ={
+      ...user.toAuthJSON(),
+      groups
+    }
+
+    return res.status(200).send({ user: userData })
 	})(req, res, next)
 }
 
 // update user
-function updateUser(req, res, next) {
+async function updateUser(req, res, next) {
   const id = req.params.user_id
   const userData = req.body
 
-  return (id && Object.keys(userData).length > 0)
-    ? User.findByIdAndUpdate(id, {$set: userData}, {new: true})
-        .then(user => {
-          user.hash = undefined
-          user.salt = undefined
-          return res.status(200).send(user)
-        })
-        .catch(err => {
-          return res.status(404).send(err)
-        })
-    : res.status(400).send('No user data found')
+  if (id && Object.keys(userData).length > 0) {
+    try {
+      const user = await User.findByIdAndUpdate(id, {$set: userData}, {new: true})
+      user.hash = undefined
+      user.salt = undefined
+
+      return res.status(200).send(user)
+
+    } catch(err) {
+      return res.status(404).send(err)
+    }
+  } else {
+    res.status(400).send('No user data found')
+  }
 }
 
 // delete user
@@ -190,8 +218,25 @@ function userDataValid(userData) {
   }
 }
 
+async function populateUsersGroups(user) {
+  const groups = []
+  
+  for (let i = 0; i < user.groups.length; i++) {
+    const group = await Group.findById(user.groups[i]).populate('users').populate('createdBy')
+    const users = group.users.map(u => u.username)
+
+    groups.push({
+      createdBy: group.createdBy.username,
+      name: group.name,
+      users
+    })
+  }
+
+  return groups
+}
+
 module.exports = {
-  getUserByUsername,
+  getUserData,
   isUserNameUnique,
   logUserOut,
   createUser,

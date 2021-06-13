@@ -24,11 +24,12 @@ const GroupSchema = new Schema({
     required: false,
     unique: false
   },
-  wager: {
-    type: Number,
-    required: true,
-    min: 1
-  }
+  sweepstakes: [{
+    type: Schema.Types.ObjectId,
+    ref: 'sweepstakes',
+    required: false,
+    default: []
+  }]
 })
 
 module.exports = mongoose.model('groups', GroupSchema)

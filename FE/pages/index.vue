@@ -6,7 +6,8 @@
 </template>
 
 <script>
-import { HeaderBlock, LandingPageContent } from '@/components'
+import LandingPageContent from '@/components/content/LandingPageContent.vue'
+import HeaderBlock from '@/components/blocks/HeaderBlock.vue'
 
 export default {
 	name: 'Home',
@@ -15,7 +16,6 @@ export default {
 		HeaderBlock
 	},
 	mounted() {
-		console.log(process.env.cookieDomain)
 		this.$cookie.config( 60 * 60 * 12, null, process.env.cookieDomain, false)
 	},
 	head() {
@@ -37,7 +37,6 @@ export default {
 
 <style lang="scss">
 .landing-page {
-	height: 100%;
 	display: flex;
 	flex-direction: column;
 

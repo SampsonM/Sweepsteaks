@@ -12,6 +12,9 @@ groupsRouter.get('/:group_id', auth.required, groupCtrl.getGroupById)
 // POST Edit a group by ID (required, only authenticated users have access)
 groupsRouter.post('/:group_id', auth.required, groupCtrl.editGroupData)
 
+// PUT Join a group by ID (required, only authenticated users have access)
+groupsRouter.put('/join/:group_id', auth.required, groupCtrl.addUserToGroup)
+
 // POST Add a new group (required, only authenticated users have access)
 groupsRouter.post('/', auth.required, groupCtrl.addGroup)
 

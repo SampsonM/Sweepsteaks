@@ -4,9 +4,7 @@ import path from 'path'
 
 const KEY = process.env.KEY || fs.readFileSync(path.resolve(__dirname, '../config/certs/rootCA.key'))
 
-const authHeader = (req) => {
-  return req.cookies.ssTok
-}
+const authHeader = (req) => req.cookies.ssTok
 
 const auth = {
   required: exJwt({

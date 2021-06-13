@@ -58,7 +58,7 @@
 				</li>
 			</ul>
 
-			<MyInput
+			<!-- <MyInput
 				v-model.trim.lazy="wager"
 				label="Select a wager"
 				name="wager"
@@ -72,7 +72,7 @@
 				aria-placeholder="£10"
 				:has-error="$v.wager.$error"
 				:err-message="fieldErr('wager')"
-			/>
+			/> -->
 
 			<p 
 				v-if="submissionErr"
@@ -131,7 +131,8 @@
 </template>
 
 <script>
-import { MyButton, MyInput } from '@/components'
+import MyInput from '@/components/elements/input.vue'
+import MyButton from '@/components/elements/button.vue'
 import { mapActions } from 'vuex'
 import validationHelpers from '@/helpers/validations'
 
@@ -158,7 +159,9 @@ export default {
 			createdBy: '',
 			submitting: false,
 			submissionErr: false,
-			newGroup: null
+			newGroup: null,
+			selectedCompetition: '',
+			competitions: []
 		}
 	},
 	mounted() {
@@ -176,7 +179,8 @@ export default {
 					name: this.groupName,
 					createdBy: this.createdBy,
 					wager: this.wager,
-					verifiedUsers: this.verifiedUsers
+					verifiedUsers: this.verifiedUsers,
+					competition: this.selectedCompetition
 				}
 
 				if (!this.$v.$error) {
@@ -223,7 +227,7 @@ export default {
 			return validationHelpers.createErrorMessages(this.$v[field])[0]
 		},
 		finishedCreatingGroup() {
-			this.updateCurrentGroups(this.newGroup)
+			this.updateCurrentGroups([this.newGroup])
 		},
 		showVerifiedUserErr() {
 			return this.$v.verifiedUser.$error || this.$v.verifiedUsers.$error

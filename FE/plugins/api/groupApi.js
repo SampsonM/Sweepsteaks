@@ -16,6 +16,10 @@ export default function(api, $cookie, store) {
 
     updateGroup(groupId, GroupData) {
       return api.post(`${groupBase}/${groupId}`, GroupData)
+    },
+
+    joinGroup(groupId) {
+      return api.put(`${groupBase}/join/${groupId}`)
     }
   }
 }

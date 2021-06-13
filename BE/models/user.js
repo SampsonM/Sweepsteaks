@@ -12,16 +12,16 @@ const KEY = process.env.KEY || fs.readFileSync(path.resolve(__dirname, '../confi
 const UserSchema = new Schema({
   firstName: {
     type: String,
-    required: true
+    required: false
   },
   lastName: {
     type: String,
-    required: true
+    required: false
   },
   username: {
     type: String,
     unique: true,
-    required: true
+    required: false
   },
   email: {
     type: String,

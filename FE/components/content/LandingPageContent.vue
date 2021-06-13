@@ -22,18 +22,45 @@
     </section>
 
     <MyButton
-      v-if="!signUpOpen"
+      v-if="!signUpOpen && !allwd"
       type="button"
       btn-style="cta-1"
+      size="large"
       @click="openSignUp"
     >
       Sign up
     </MyButton>
+
+    <section class="how-to-content">
+      <h2>How to start sweeping steaks!!</h2>
+      <div class="how-to-content__step">
+        <div class="how-to-content__sign-up-step">
+
+          <h3 class="how-to-content__sign-up-step-header">1. Create an account</h3>
+        </div>
+        <img src="@/assets/img/sign-up-form.png" alt="sign up form">
+      </div>
+      <div class="how-to-content__step">
+        <h3>2. Create or join as many groups for different friend groups as you like!</h3>
+        <img src="@/assets/img/join-or-create-group.png" alt="join or create group">
+      </div>
+      <div class="how-to-content__step">
+        <h3>3. Convince your friends to sign up and join your groups...</h3>
+        <img src="@/assets/img/insecurity.gif" alt="insecure friends">
+      </div>
+      <div class="how-to-content__step">
+        <h3>4. Choose a competition to start a <strike>sweepstake</strike> sweepsteak!</h3>
+        <p>You can create as many sweepstakes for different competitions as you like with your group.</p>
+      </div>
+      </div>
+    </section>
   </main>
 </template>
 
 <script>
-import { SignUpForm, MyButton } from '@/components'
+import SignUpForm from '@/components/forms/SignUpForm.vue'
+import MyButton from '@/components/elements/button.vue'
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -53,6 +80,9 @@ export default {
       e.preventDefault()
       this.signUpOpen = false
     }
+  },
+  computed: {
+    ...mapState(['allwd']),
   }
 }
 </script>
@@ -60,6 +90,7 @@ export default {
 <style lang="scss">
 .landing-content {
   width: 95%;
+  max-width: 1450px;
   height: 80%;
   display: flex;
   justify-content: space-between;
@@ -102,6 +133,44 @@ export default {
   }
 
   &__sub-title-sub-text {
+    color: $blue;
+  }
+}
+
+.how-to-content {
+  text-align: left;
+  margin-bottom: 100px;
+  margin-top: 50px;
+  padding: 35px;
+  background: rgba($dark-yellow, 0.6);
+	backdrop-filter: blur(4px);
+  border-radius: 6px;
+  max-width: 100%;
+  
+  &__step {
+    margin-bottom: 25px;
+  }
+
+  &__sign-up-step {
+    display: flex;
+  }
+
+  &__sign-up-step-header {
+    width: auto;
+  }
+
+  img {
+    border-radius: 6px;
+    width: 90%;
+    margin: 0 auto;
+
+    @include breakpoint(tablet) {
+      width: auto;
+      height: 350px;
+    }
+  }
+
+  h3, h2 {
     color: $blue;
   }
 }

@@ -107,6 +107,13 @@ export default {
 		}
 	}
 
+	&--large {
+		height: 70px;
+		width: 48%;
+		max-width: 180px;
+		font-size: 20px;
+	}
+
 	&--jumbo {
 		height: 170px;
 		width: 170px;

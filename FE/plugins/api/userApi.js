@@ -2,8 +2,8 @@ const usersBase = '/users'
 
 export default function(api, $cookie, store) {
   return {
-    getUserByUserName(username) {
-      return api.get(`${usersBase}/${username}`)
+    getUserData() {
+      return api.get(`${usersBase}/`)
     },
 
     isUserNameUnique(username) {
@@ -15,8 +15,8 @@ export default function(api, $cookie, store) {
         try {
           const { data } = await api.get(`${usersBase}/status/`)
           store.commit('UPDATE_ALLWD', data.user.authenticated)
-          $cookie.set('ssTok', data.user.token)
-          return data.user.authenticated
+          $cookie.set('ssTok', data.user.token, '1d', '/', 'localhost', true, 'None')
+          return data.user
         } catch (err) {
           return false
         }
@@ -42,7 +42,7 @@ export default function(api, $cookie, store) {
     },
 
     updateUser(userId, userData) {
-      return api.post(`${usersBase}/${userId}`, userData)
+      return api.put(`${usersBase}/${userId}`, userData)
     },
 
     deleteUser(userId) {

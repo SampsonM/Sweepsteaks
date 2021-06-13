@@ -5,13 +5,11 @@
 </template>
 
 <script>
-import { GroupsBlock, LeaderBoardBlock, CompetitionsBlock } from '@/components'
+import GroupsBlock from '@/components/blocks/GroupsBlock.vue'
 
 export default {
 	name: 'DashHasGroup',
 	components: {
-		CompetitionsBlock,
-		LeaderBoardBlock,
 		GroupsBlock
 	}
 }

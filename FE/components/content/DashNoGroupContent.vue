@@ -1,14 +1,14 @@
 <template>
 	<div class="dash-no-group">
-		<div class="dash-no-group__header-wrapper">
+		<div class="dash-no-group__header-wrapper" v-if="showHeader">
 			<h2>You are not currently part of a group</h2>
 			<h3>Create or join a group below and get started with your next sweepstake!</h3>
 		</div>
 
-		<span v-if="!createGroupModalOpen && !joinGroupModalOpen">
+		<span v-if="!createGroupModalOpen && !joinGroupModalOpen" class="dah-no-group__cta-wrapper">
 			<MyButton
 				btn-style="cta-1"
-				size="jumbo"
+				size="large"
 				class="dash-no-group__create-btn"
 				@click="openCreateGroup">
 				Create Group
@@ -16,40 +16,49 @@
 
 			<MyButton
 				btn-style="cta-1"
-				size="jumbo"
+				size="large"
 				class="dash-no-group__join-btn"
 				@click="openJoinGroup">
 				Join Group
 			</MyButton>
 		</span>
 
-		<transition name="slide-in">
+		<transition :name="slideInTransition ? 'slide-in': ''">
 			<CreateGroupForm
 				:formOpen="createGroupModalOpen"
 				@close-create-group="closeCreateGroup">
 			</CreateGroupForm>
 		</transition>
 
-		<transition name="slide-in">
-			<div
-				class="join-group-modal"
-				v-if="joinGroupModalOpen">
-				Join group form!!!!!!!
-				<MyButton @click="closeJoinGroup">Close JOIN</MyButton>
-			</div>
+		<transition :name="slideInTransition ? 'slide-in': ''">
+			<JoinGroupForm
+				:formOpen="joinGroupModalOpen"
+				@close-join-group="closeJoinGroup">
+			</JoinGroupForm>
 		</transition>
 	</div>
 </template>
 
 <script>
-import { defineComponent, ref, Ref, watch } from '@vue/composition-api'
-import { CreateGroupForm, MyButton } from '@/components'
+import MyButton from '@/components/elements/button.vue'
+import CreateGroupForm from '@/components/forms/CreateGroupForm.vue'
+import JoinGroupForm from '@/components/forms/JoinGroupForm.vue'
 import { toggleModal } from '@/helpers'
 
 export default {
+	name: 'DashNoGroupContent',
 	components: {
 		MyButton,
-		CreateGroupForm
+		CreateGroupForm,
+		JoinGroupForm
+	},
+	props: {
+		showHeader: {
+			default: true
+		},
+		slideInTransition: {
+			default: true
+		}
 	},
 	setup() {
 		const {
@@ -90,10 +99,12 @@ export default {
 		}
 	}
 
+	&__cta-wrapper {
+		display: flex;
+	}
+
 	&__create-btn {
-		@include breakpoint(tablet) {
-			margin-right: 10px;
-		}
+		margin-right: 10px;
 
 		@include breakpoint(desktop) {
 			margin-right: 20px;

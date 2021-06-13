@@ -30,6 +30,21 @@ export function signUpValidations() {
   }
 }
 
+export function updateUserSettingsValidations() {
+  return {
+    firstName: {
+      required: validationHelpers.required('First name'),
+      minLength: validationHelpers.minLength('First name', 2),
+      format: validationHelpers.nameFormat('First name')
+    },
+    lastName: {
+      required: validationHelpers.required('Last name'),
+      minLength: validationHelpers.minLength('Last name', 2),
+      format: validationHelpers.nameFormat('Last name')
+    }
+  }
+}
+
 export function loginValidations() {
   return {
     username: {
@@ -58,11 +73,31 @@ export function createGroupValidations() {
     },
     verifiedUsers: {
       userCount: validationHelpers.userCount(),
+    }
+  }
+}
+
+export function updateGroupSettingsValidations() {
+  return {
+    groupName: {
+      required: validationHelpers.required('Group name'),
+      minLength: validationHelpers.minLength('Group name', 6),
+      format: validationHelpers.groupNameFormat()
     },
-    wager: {
-      required: validationHelpers.required('Wager'),
-      minValue: validationHelpers.minValue('wager', 2),
-      maxValue: validationHelpers.maxValue('wager', 50)
+    verifiedUser: {
+      format: validationHelpers.emailFormat(),
+      exists: validationHelpers.userExists()
+    },
+    verifiedUsers: {
+      userCount: validationHelpers.userCount(),
+    }
+  }
+}
+
+export function joinGroupValidations() {
+  return {
+    groupId: {
+      required: validationHelpers.required('Group ID')
     }
   }
 }

@@ -8,7 +8,10 @@ export default {
     state.loginError = payload
   },
   UPDATE_CURRENT_GROUPS(state, payload) {
-    state.currentGroups.push(payload)
+    state.currentGroups = payload
+  },
+  UPDATE_USER(state, payload) {
+    state.user = { ...state.user, ...payload}
   },
   updateField
 }

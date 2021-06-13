@@ -45,10 +45,13 @@
 
 <script>
 import { mapState } from 'vuex'
-import { MyButton, MyInput, HeaderBlock } from '@/components'
+import HeaderBlock from '@/components/blocks/HeaderBlock.vue'
+import MyInput from '@/components/elements/input.vue'
+import MyButton from '@/components/elements/button.vue'
 import validationHelpers from '@/helpers/validations'
 
 export default {
+	middleware: 'auth',
 	components: {
 		HeaderBlock,
 		MyButton,
@@ -62,7 +65,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState(['loginError'])
+		...mapState(['loginError', 'allwd'])
 	},
 	validations() {
 		return this.$LoginValidations

@@ -1,87 +1,89 @@
 <template>
 	<header class="header">
-		<nuxt-link
-			to="/"
-			:event="allwd ? '' : 'click'"
-			:class="['header__logo', { 'header__logo--no-click': allwd }]">
-			<img
-				itemprop="logo"
-				class="header__logo-brush"
-				alt="Sweepsteaks"
-				src="../../assets/icons/broom.svg"
-			/>
-			<img
-				itemprop="logo"
-				class="header__logo-steak"
-				alt="Sweepsteaks"
-				src="../../assets/icons/meat.svg"
-			/>
-			<img
-				itemprop="logo"
-				class="header__logo-steak"
-				alt="Sweepsteaks"
-				src="../../assets/icons/meat.svg"
-			/>
-		</nuxt-link>
-
-		<div class="header__ctas">
-			<nuxt-link 
-				v-if="!allwd && $route.name !== 'login'"
-				class="my-button my-button--cta-1"
-				to="/login">
-				Login
-			</nuxt-link>
-
+		<div class="header__container">
 			<nuxt-link
-				v-if="allwd && $route.name == 'index'"
-				class="my-button my-button--cta-1"
-				to="/dashboard">
-				Dashboard
+				to="/"
+				:event="allwd ? '' : 'click'"
+				:class="['header__logo', { 'header__logo--no-click': allwd }]">
+				<img
+					itemprop="logo"
+					class="header__logo-brush"
+					alt="Sweepsteaks"
+					src="../../assets/icons/broom.svg"
+				/>
+				<img
+					itemprop="logo"
+					class="header__logo-steak"
+					alt="Sweepsteaks"
+					src="../../assets/icons/meat.svg"
+				/>
+				<img
+					itemprop="logo"
+					class="header__logo-steak"
+					alt="Sweepsteaks"
+					src="../../assets/icons/meat.svg"
+				/>
 			</nuxt-link>
 
-			<nuxt-link 
-				v-if="allwd && $route.name == 'dashboard'"
-				class="my-button my-button--cta-1"
-				to="/settings">
-				Settings
-			</nuxt-link>
+			<div class="header__ctas">
+				<nuxt-link 
+					v-if="!allwd && $route.name !== 'login'"
+					class="my-button my-button--cta-1"
+					to="/login">
+					Login
+				</nuxt-link>
+
+				<nuxt-link
+					v-if="allwd && ($route.name == 'index' || $route.name === 'settings')"
+					class="my-button my-button--cta-1"
+					to="/dashboard">
+					Dashboard
+				</nuxt-link>
+
+				<nuxt-link 
+					v-if="allwd && $route.name == 'dashboard'"
+					class="my-button my-button--cta-1"
+					to="/settings">
+					Settings
+				</nuxt-link>
+			</div>
 		</div>
 	</header>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import { MyButton } from '@/components'
+import { mapState, mapActions } from 'vuex'
 
 export default {
 	name: 'HeaderBlock',
-	components: {
-		MyButton
-	},
 	computed: {
 		...mapState(['allwd'])
+	},
+	methods: {
+		...mapActions(['logout'])
 	}
 }
 </script>
 
 <style lang="scss">
 .header {
-	position: relative;
-	display: flex;
 	background: rgba($yellow, 0.6);
 	backdrop-filter: blur(4px);
-	align-items: center;
-	justify-content: space-between;
-	padding: 0 20px;
 	min-height: 80px;
+	display: flex;
 
 	@include breakpoint(tablet) {
 		min-height: 100px;
-		padding: 0 60px;
 	}
 
-	@include breakpoint(desktop) {
-		padding: 0 110px;
+	&__container {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 80%;
+		max-width: 1450px;
+		margin: 0 auto;
 	}
 
 	&__logo {

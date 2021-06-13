@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { MyButton } from '@/components'
+import MyButton from '@/components/elements/button.vue'
 
 export default {
 	components: {
@@ -113,7 +113,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .input {
 	width: 100%;
 	margin: auto auto 20px auto;
@@ -156,7 +156,7 @@ export default {
 		color: $red;
 	}
 
-	input {
+	input, select {
 		width: 100%;
 		height: 45px;
 		border-radius: 4px;

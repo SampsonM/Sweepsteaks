@@ -24,7 +24,7 @@ export default {
   minLength(field, length) {
     return helpers.withParams(
       { errMsg: `${field} must be at least ${length} characters` },
-      data => data.length >= length
+      data => data && data.length >= length
     )
   },
   nameFormat(field) {

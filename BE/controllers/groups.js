@@ -61,21 +61,28 @@ async function addGroup(req, res, next) {
     newGroup = new Group({
       'name': newGroup.name,
       'createdBy': newGroup.createdBy,
-      'wager': newGroup.wager,
+      'users': [newGroup.createdBy],
       'verifiedUsers': newGroup.verifiedUsers
     })
   
     newGroup = await newGroup.save()
-    let groupOwner = await User.findById(newGroup.createdBy).lean()
+    
+    // update users groups
+    const newUser = await User.findById(req.user.id)
+    newUser.groups = [...newUser.groups, newGroup]
+    await newUser.save()
+
+    newGroup = await Group.populate(newGroup, 'users')
+    const users = newGroup.users.map(u => u.username)
 
     let returnedGroup = {
-      createdBy: groupOwner.username,
+      createdBy: newGroup.createdBy.username,
       name: newGroup.name,
-      users: newGroup.users,
+      users,
       wager: newGroup.wager,
       _id: newGroup.id
     }
-  
+
     return res.status(201).send({ group: returnedGroup })
 
   } catch (err) {
@@ -105,8 +112,54 @@ async function editGroupData(req, res, next) {
 }
 
 async function addUserToGroup(req, res, next) {
-  // TODO:
-  // Add logic to add singe user to group if they are verified
+  try {
+    const groupId = req.params.group_id
+    let group = await Group.findById(groupId)
+
+    // Check if user is already in group?
+    if (group.users.indexOf(req.user.id) !== -1) { 
+      group = await Group.populate(group, 'users')
+      group = await Group.populate(group, 'createdBy')
+      const users = group.users.map(u => u.username)
+
+      const groupData = {
+        createdBy: group.createdBy.username,
+        name: group.name,
+        users,
+        _id: group.id
+      }
+      
+      return res.status(200).send({group: groupData})
+    }
+    
+    // check if user is verified by owner
+    if (group.verifiedUsers.indexOf(req.user.email) !== -1) {
+      // update users groups
+      const newUser = await User.findById(req.user.id)
+      newUser.groups = [...newUser.groups, group]
+      await newUser.save()
+
+      // update groups user list
+      const groupsUsers = [...group.users, newUser]
+      group = await Group.findOneAndUpdate({_id: groupId}, { users: groupsUsers }, { new: true }).populate('users').populate('createdBy')
+      
+      const users = group.users.map(u => u.username)
+
+      const groupData = {
+        createdBy: group.createdBy.username,
+        name: group.name,
+        users,
+        _id: group.id
+      }
+
+      return res.status(200).send({ group: groupData })
+    } else {
+      return res.status(500).send('User not verified by group owner')
+    }
+
+  } catch (err) {
+    return next({message: err.message, err, root: 'editGroupData'})
+  }
 }
 
 module.exports = {
@@ -114,5 +167,6 @@ module.exports = {
   getGroupById,
   getGroupByName,
   addGroup,
-  editGroupData
+  editGroupData,
+  addUserToGroup
 }

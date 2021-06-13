@@ -35,9 +35,8 @@ describe('/users', () => {
   })
 
   describe('when user is not logged in', () => {
-
     describe('GET /', () => {
-      describe('/:user_name', () => {
+      describe('/', () => {
         it('returns user by name', () => {
           return request
             .get(`/api/users/${userDocs[0].username}`)

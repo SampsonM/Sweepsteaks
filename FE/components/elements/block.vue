@@ -7,7 +7,7 @@
 
 <script>
 export default {
-	name: 'block',
+	name: 'Block',
 	props: {
 		header: {
 			type: String,

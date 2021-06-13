@@ -52,7 +52,7 @@ app.use("/*", (req, res, next) => {
 })
 
 app.use((err, req, res, next) => {
-  if (err.status === 404) return res.status(404).send({ errooorrrrr: err })
+  if (err.status === 404) return res.status(404).send({ error: err })
   next(err)
 })
 

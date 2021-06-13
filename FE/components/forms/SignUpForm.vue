@@ -82,7 +82,8 @@
 
 <script>
 import { mapActions, mapState } from 'vuex'
-import { MyButton, MyInput } from '@/components'
+import MyInput from '@/components/elements/input.vue'
+import MyButton from '@/components/elements/button.vue'
 import validationHelpers from '@/helpers/validations'
 
 export default {
@@ -146,6 +147,7 @@ export default {
 	height: auto;
 	width: 100%;
 	padding-top: 20px;
+	margin-top: 100px;
 
 	@include breakpoint(tablet) {
 		min-height: 87%;

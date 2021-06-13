@@ -1,44 +1,49 @@
 <template>
-	<block
-		class="groups-block"
-		header="Your Groups:">
+	<div class="groups-block">
+		<h2>Your Groups:</h2>
+		
 		<div
-			v-for="group in currentGroups"
-			:key="group.id"
+			v-for="(group, i) in currentGroups"
+			:key="i"
 			class="group">
 
 			<div>
-				<p class="group__name-label">Group - {{ group.name }}</p>
+				<p class="group__name-label">Group name - {{ group.name }}</p>
 				<p class="group__name"></p>
 			</div>
 
 			<div>
-				<p class="group__created-by-label">Created By - {{ group.createdBy }}</p>
+				<p class="group__created-by-label">Owner - {{ group.createdBy }}</p>
 				<p class="group__cretaed-by"></p>				
 			</div>
 
 			<div>
-				<p class="group__created-by-label">Wager - {{ group.wager }}</p>
-				<p class="group__cretaed-by"></p>				
+				<div><h4 class="group__created-by-label">members</h4></div>
+				<p class="group__cretaed-by" v-for="user in group.users">{{ user }}</p>	
 			</div>
 		</div>
-	</block>
+
+		<DashNoGroupContent :showHeader="false" :slideInTransition="false"></DashNoGroupContent>
+	</div>
+
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import block from '@/components/elements/block.vue'
+import Block from '@/components/elements/block.vue'
+import DashNoGroupContent from '@/components/content/DashNoGroupContent.vue'
 
 export default {
 	name: 'groupsBlock',
 	components: {
-		block
+		Block,
+		DashNoGroupContent
 	},
 	computed: {
 		...mapState(['currentGroups'])
 	},
 	mounted() {
-		console.log(block)
+		// console.log(this.currentGroups)
 	},
 }
 </script>

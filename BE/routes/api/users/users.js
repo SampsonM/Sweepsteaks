@@ -8,7 +8,7 @@ import * as usersCtrl from '../../../controllers/users'
 usersRouter.use('/status', userStatusRouter)
 
 // GET User by name (required, only authenticated users have access)
-usersRouter.get('/:user_name', auth.required, usersCtrl.getUserByUsername)
+usersRouter.get('/', auth.required, usersCtrl.getUserData)
 
 // GET Username unique (publicly accessible)
 usersRouter.get('/unique/:user_name', usersCtrl.isUserNameUnique)
