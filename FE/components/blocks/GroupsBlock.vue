@@ -1,7 +1,6 @@
 <template>
 
 	<!-- TODO - Validate the user can edit group by checking user name against owner -->
-	<!-- TODO - Update group using ID, get ID from api -->
 
 	<div class="groups-block">
 		<h2>Your Groups:</h2>

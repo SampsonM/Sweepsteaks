@@ -226,9 +226,6 @@ async function populateUsersGroups(user) {
     const users = group.users.map(u => u.username)
     const verifiedUsers = user.username === group.createdBy.username ? group.verifiedUsers : null
 
-    console.log('USER',user)
-    console.log('GROUP',group)
-
     groups.push({
       createdBy: group.createdBy.username,
       name: group.name,
