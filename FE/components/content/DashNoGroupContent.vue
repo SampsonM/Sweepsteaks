@@ -41,7 +41,7 @@
 
 <script>
 import MyButton from '@/components/elements/button.vue'
-import CreateGroupForm from '@/components/forms/CreateGroupForm.vue'
+import CreateGroupForm from '@/components/forms/CreateGroupForm/CreateGroupForm.vue'
 import JoinGroupForm from '@/components/forms/JoinGroupForm.vue'
 import { toggleModal } from '@/helpers'
 

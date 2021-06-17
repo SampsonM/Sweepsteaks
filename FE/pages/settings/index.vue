@@ -1,11 +1,8 @@
 <template>
 	<div class="settings-page">
-		<HeaderBlock />
-
 		<h2>Settings</h2>
 
 		<UpdateUserSettingsForm />
-		<UpdateGroupSettingsForm />
 
 		<nuxt-link
 			v-if="allwd && $route.name == 'settings'"
@@ -22,14 +19,12 @@
 import UpdateGroupSettingsForm from '@/components/forms/UpdateGroupSettingsForm.vue'
 import UpdateUserSettingsForm from '@/components/forms/UpdateUserSettingsForm.vue'
 import MyButton from '@/components/elements/button.vue'
-import HeaderBlock from '@/components/blocks/HeaderBlock.vue'
 import { mapState, mapActions } from 'vuex'
 
 export default {
 	middleware: 'auth',
 	name: 'settings',
 	components: {
-		HeaderBlock,
 		MyButton,
 		UpdateUserSettingsForm,
 		UpdateGroupSettingsForm

@@ -1,8 +1,19 @@
 <template>
 	<div class="sweep-steaks">
+    <HeaderBlock />
 		<nuxt />
 	</div>
 </template>
+
+<script>
+import HeaderBlock from '@/components/blocks/HeaderBlock.vue'
+
+export default {
+  components: {
+    HeaderBlock
+  }
+}
+</script>
 
 <style lang="scss">
 @import "@/assets/styles/_global.scss";

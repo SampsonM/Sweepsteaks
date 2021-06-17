@@ -103,7 +103,7 @@ export default {
     return helpers.withParams(
       { errMsg: 'You can only add a maximum of 9 people to your group' },
       (users, vm) => {
-        if (vm.verifiedUser.length > 0) {
+        if (vm.verifiedUser?.length > 0) {
           return users.length !== 9
         } else {
           return true

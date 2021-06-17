@@ -1,6 +1,5 @@
 <template>
 	<div class="dashboard">
-		<HeaderBlock />
 		<DashHasGroupContent v-if="groupsAvailable" />
 		<DashNoGroupContent v-if="!groupsAvailable" />
 	</div>
@@ -10,12 +9,10 @@
 import { mapActions, mapState } from 'vuex'
 import DashHasGroupContent from '@/components/content/DashHasGroupContent.vue'
 import DashNoGroupContent from '@/components/content/DashNoGroupContent.vue'
-import HeaderBlock from '@/components/blocks/HeaderBlock.vue'
 
 export default {
 	middleware: 'auth',
 	components: {
-		HeaderBlock,
 		DashNoGroupContent,
 		DashHasGroupContent
 	},

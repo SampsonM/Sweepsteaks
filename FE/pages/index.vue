@@ -1,19 +1,16 @@
 <template>
 	<div class="landing-page" itemscope itemtype="http://schema.org/Brand">
-		<HeaderBlock />
 		<LandingPageContent />
 	</div>
 </template>
 
 <script>
 import LandingPageContent from '@/components/content/LandingPageContent.vue'
-import HeaderBlock from '@/components/blocks/HeaderBlock.vue'
 
 export default {
 	name: 'Home',
 	components: {
-		LandingPageContent,
-		HeaderBlock
+		LandingPageContent
 	},
 	mounted() {
 		this.$cookie.config( 60 * 60 * 12, null, process.env.cookieDomain, false)

@@ -19,44 +19,9 @@
 				:err-message="fieldErr('groupName')"
 			/>
 
-			<div class="create-group-form__add-user">
-				<MyInput
-					v-model.trim.lazy="verifiedUser"
-					@keypress-enter="addUser"
-					label="Enter your friends emails you want to join"
-					name="verifiedUser"
-					type="text"
-					class="verified-users-input"
-					hint="You can remove or add friends to your group later in the group settings menu. You can have a maximum of 10 people per group."
-					placeholder="your_friends_email@gmail.com"
-					aria-placeholder="your_friends_email@gmail.com"
-					:has-error="$v.verifiedUser.$error || $v.verifiedUsers.$error"
-					:err-message="fieldErr('verifiedUser') || fieldErr('verifiedUsers')"
-				/>
-				<MyButton
-					btn-style="cta-1"
-					class="create-group-form__add-user-btn"
-					@click="addUser"
-					type="button">
-					+
-				</MyButton>
-			</div>
-
-			<ul v-if="verifiedUsers.length > 0" class="create-group-form__verified-users">
-				<li
-					v-for="(user, index) in verifiedUsers"
-					:key="index"
-					class="create-group-form__user-email">
-					{{ user }}
-
-					<MyButton
-						btn-style="icon"
-						type="button"
-						@click="deleteUser(index)">
-						Delete
-					</MyButton>
-				</li>
-			</ul>
+			<AddUser
+				@users-updated="usersUpdated"
+			/>
 
 			<!-- <MyInput
 				v-model.trim.lazy="wager"
@@ -80,25 +45,10 @@
 				Sorry there was an error creating your group, please try again later!
 			</p>
 
-			<div class="create-group-form__cta-wrapper">
-				<MyButton
-					btn-style="cta-1"
-					type="submit">
-					Submit
-					<font-awesome-icon
-						v-if="submitting"
-						class="login__submit-loader"
-						:icon="['fas', 'circle-notch']"
-					/>
-				</MyButton>
-
-				<MyButton
-					btn-style="cta-2"
-					@click="handleCancel"
-					type="button">
-					Cancel
-				</MyButton>
-			</div>
+			<SubmitOrCancelCreateGroup
+				:submitting="submitting" 
+				@cancel-create-group="handleCancel"
+			/>
 		</div>
 
 		<div
@@ -133,13 +83,17 @@
 <script>
 import MyInput from '@/components/elements/input.vue'
 import MyButton from '@/components/elements/button.vue'
-import { mapActions } from 'vuex'
+import AddUser from '@/components/forms/CreateGroupForm/addUser.vue'
+import SubmitOrCancelCreateGroup from '@/components/forms/CreateGroupForm/submitOrCancelCreateGroup.vue'
+import { mapActions, mapState } from 'vuex'
 import validationHelpers from '@/helpers/validations'
 
 export default {
 	components: {
 		MyButton,
-		MyInput
+		MyInput,
+		AddUser,
+		SubmitOrCancelCreateGroup
 	},
 	props: {
 		formOpen: {
@@ -149,6 +103,9 @@ export default {
 	},
 	validations() {
 		return this.$CreateGroupValidations
+	},
+	computed: {
+		...mapState(['currentGroups'])
 	},
 	data() {
 		return {
@@ -195,15 +152,8 @@ export default {
 				this.submitting = false
 			}
 		},
-		addUser(e) {
-			this.$v.verifiedUser.$touch()
-			this.$v.verifiedUsers.$touch()
-
-			if (this.verifiedUser.length > 0 && !this.$v.verifiedUser.$error && !this.$v.verifiedUsers.$error) {
-				e.preventDefault()
-				this.verifiedUsers.push(this.verifiedUser)
-				this.verifiedUser = ''
-			}
+		usersUpdated(users) {
+			this.verifiedUsers = users
 		},
 		deleteUser(index) {
 			this.verifiedUsers.splice(index, 1)
@@ -227,11 +177,10 @@ export default {
 			return validationHelpers.createErrorMessages(this.$v[field])[0]
 		},
 		finishedCreatingGroup() {
-			this.updateCurrentGroups([this.newGroup])
+			this.updateCurrentGroups([...this.currentGroups, this.newGroup])
+			this.newGroup = null
+			this.$emit('close-create-group')
 		},
-		showVerifiedUserErr() {
-			return this.$v.verifiedUser.$error || this.$v.verifiedUsers.$error
-		}
 	}
 }
 </script>

@@ -94,6 +94,7 @@ async function editGroupData(req, res, next) {
   // TODO:
   // Only allow creator to edit data
   // Validate this data here
+  // 
 
   const { updatedGroupData } = req.body
   const groupId = req.params.group_id

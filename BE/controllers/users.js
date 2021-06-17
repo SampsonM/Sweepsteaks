@@ -224,11 +224,17 @@ async function populateUsersGroups(user) {
   for (let i = 0; i < user.groups.length; i++) {
     const group = await Group.findById(user.groups[i]).populate('users').populate('createdBy')
     const users = group.users.map(u => u.username)
+    const verifiedUsers = user.username === group.createdBy.username ? group.verifiedUsers : null
+
+    console.log('USER',user)
+    console.log('GROUP',group)
 
     groups.push({
       createdBy: group.createdBy.username,
       name: group.name,
-      users
+      users,
+      id: group.id,
+      verifiedUsers
     })
   }
 

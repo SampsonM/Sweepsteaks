@@ -167,7 +167,7 @@ export default {
 		&:focus {
 			outline: none;
 			transition: 0.3s;
-			border: 3px solid $blue;
+			border: 3px solid $light-blue;
 		}
 
 		&.error {

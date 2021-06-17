@@ -84,10 +84,6 @@ export function updateGroupSettingsValidations() {
       minLength: validationHelpers.minLength('Group name', 6),
       format: validationHelpers.groupNameFormat()
     },
-    verifiedUser: {
-      format: validationHelpers.emailFormat(),
-      exists: validationHelpers.userExists()
-    },
     verifiedUsers: {
       userCount: validationHelpers.userCount(),
     }

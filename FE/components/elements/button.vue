@@ -31,7 +31,6 @@ export default {
 	position: relative;
 	border-radius: 5px;
 	padding: 0 15px;
-	margin-bottom: 10px;
 	transition-duration: 200ms;
 	font-family: $font;
 	font-size: 16px;
@@ -53,9 +52,9 @@ export default {
 	}
 
 	&--cta-1 {
-		background-color: #e16666;
+		background-color: $faded-red;
 		color: $light-gold;
-		border: 2px solid #e16666;
+		border: 2px solid $faded-red;
 		height: 42px;
 		min-width: 90px;
 		line-height: 38px;
@@ -69,19 +68,18 @@ export default {
 		&:hover,
 		&:active,
 		&:focus {
-			color: #1c3359;
-			border: 2px solid darken(#e16666, 10%);
-			background-color: lighten(#e16666, 5%);
+			border: 2px solid $dark-red;
+			background-color: $light-red;
 		}
 
 		&:hover,
 		&:active {
-			background-color: #f8a0a0;
+			background-color: $light-red;
 		}
 	}
 
 	&--cta-2 {
-		border: 2px solid $blue;
+		border: 2px solid $light-blue;
 		color: $dark-blue;
 		background-color: $light-blue;
 		height: 42px;
@@ -97,7 +95,6 @@ export default {
 		&:hover,
 		&:active,
 		&:focus {
-			color: $yellow;
 			border: 2px solid $dark-blue;
 		}
 
@@ -140,7 +137,7 @@ export default {
 
 		&:focus {
 			border-radius: 5px;
-			border-color: $blue;
+			border-color: $light-blue;
 		}
 	}
 }

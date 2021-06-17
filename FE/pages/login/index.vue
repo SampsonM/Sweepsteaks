@@ -1,7 +1,5 @@
 <template>
 	<div class="login">
-		<HeaderBlock />
-
 		<form :class="['login__form', { 'error': loginError || $v.$error }]">
 			<MyInput
 				label="Username"
@@ -45,7 +43,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import HeaderBlock from '@/components/blocks/HeaderBlock.vue'
 import MyInput from '@/components/elements/input.vue'
 import MyButton from '@/components/elements/button.vue'
 import validationHelpers from '@/helpers/validations'
@@ -53,7 +50,6 @@ import validationHelpers from '@/helpers/validations'
 export default {
 	middleware: 'auth',
 	components: {
-		HeaderBlock,
 		MyButton,
 		MyInput
 	},
